@@ -1,0 +1,427 @@
+:root {
+  --N10: #fbfbfd;
+  --N20: #eeeff2;
+  --N30: #e5e7eb;
+  --N40: #e1e4ea;
+  --N50: #e1e4ea;
+  --N60: #abb4bc;
+  --N70: #abb4bc;
+  --N80: #72808e;
+  --N90: #72808e;
+  --N100: #394e60;
+  --N200: #394e60;
+  --N300: #001a33;
+  --NG10: #f4f5f7;
+  --NG20: #e8eaef;
+  --NG30: #e1e4ea;
+  --NG40: #abb4bc;
+  --NG50: #72808e;
+  --NG60: #394e60;
+  --NG70: #394e60;
+  --NG80: #394e60;
+  --NG90: #081020;
+  --NG100: #050a19;
+  --B10: #e5efff;
+  --B20: #c8deff;
+  --B30: #abcdff;
+  --B40: #72abff;
+  --B50: #3989ff;
+  --B60: #0068ff;
+  --B70: #0068ff;
+  --B80: #004bb9;
+  --B90: #004bb9;
+  --B100: #004bb9;
+  --STB10: #f0f4fa;
+  --STB20: #e2eaf4;
+  --STB30: #cddaea;
+  --STB40: #b3c6db;
+  --STB50: #8da6c4;
+  --STB60: #58789d;
+  --STB70: #415a77;
+  --STB80: #31465e;
+  --STB90: #25374b;
+  --STB100: #192838;
+  --SKB10: #ecf8fe;
+  --SKB20: #d8f1fd;
+  --SKB30: #bbe8fb;
+  --SKB40: #94ddf9;
+  --SKB50: #5fcbf2;
+  --SKB60: #12aee2;
+  --SKB70: #0e83aa;
+  --SKB80: #0b6684;
+  --SKB90: #085068;
+  --SKB100: #063a4b;
+  --R10: #fbebe9;
+  --R20: #fbebe9;
+  --R30: #f3bcbb;
+  --R40: #eb8e8b;
+  --R50: #e2615d;
+  --R60: #db342e;
+  --R70: #db342e;
+  --R80: #db342e;
+  --R90: #db342e;
+  --R100: #db342e;
+  --O10: #fdf3e9;
+  --O20: #fbd6bb;
+  --O30: #fbd6bb;
+  --O40: #f9ba8c;
+  --O50: #f79e5d;
+  --O60: #f5832f;
+  --O70: #f5832f;
+  --O80: #f5832f;
+  --O90: #f5832f;
+  --O100: #f5832f;
+  --Y10: #fff9e5;
+  --Y20: #ffefab;
+  --Y30: #ffe472;
+  --Y40: #ffda39;
+  --Y50: #ffd000;
+  --Y60: #ffd20a;
+  --Y70: #f5c801;
+  --Y80: #f5c801;
+  --Y90: #f5c801;
+  --Y100: #f5c801;
+  --GR10: #e7f5ef;
+  --GR20: #b2e2cb;
+  --GR30: #7ecea7;
+  --GR40: #49bb82;
+  --GR50: #15a85f;
+  --GR60: #15a85f;
+  --GR70: #15a85f;
+  --GR80: #15a85f;
+  --GR90: #15a85f;
+  --GR100: #15a85f;
+  --TL10: #e5f7f9;
+  --TL20: #abe8e9;
+  --TL30: #72d8db;
+  --TL40: #39cace;
+  --TL50: #00bac0;
+  --TL60: #00bac0;
+  --TL70: #00bac0;
+  --TL80: #00bac0;
+  --TL90: #00bac0;
+  --TL100: #00bac0;
+  --PU10: #f1effb;
+  --PU20: #d1ccf2;
+  --PU30: #b3a8e9;
+  --PU40: #9485e0;
+  --PU50: #7562d8;
+  --PU60: #7562d8;
+  --PU70: #7562d8;
+  --PU80: #7562d8;
+  --PU90: #7562d8;
+  --PU100: #7562d8;
+  --PI10: #fdf3ff;
+  --PI20: #f7d8ff;
+  --PI30: #f2bdff;
+  --PI40: #efa1ff;
+  --PI50: #ea87ff;
+  --PI60: #ea87ff;
+  --PI70: #ea87ff;
+  --PI80: #ea87ff;
+  --PI90: #ea87ff;
+  --PI100: #ea87ff;
+  --WA0: hsla(0, 0%, 100%, 0);
+  --WA10: hsla(0, 0%, 100%, 0.1);
+  --WA20: hsla(0, 0%, 100%, 0.2);
+  --WA30: hsla(0, 0%, 100%, 0.3);
+  --WA40: hsla(0, 0%, 100%, 0.4);
+  --WA50: hsla(0, 0%, 100%, 0.5);
+  --WA60: hsla(0, 0%, 100%, 0.6);
+  --WA70: hsla(0, 0%, 100%, 0.7);
+  --WA80: hsla(0, 0%, 100%, 0.8);
+  --WA90: hsla(0, 0%, 100%, 0.9);
+  --WA100: #fff;
+  --BA0: transparent;
+  --BA10: rgba(0, 0, 0, 0.1);
+  --BA20: rgba(0, 0, 0, 0.2);
+  --BA30: rgba(0, 0, 0, 0.3);
+  --BA40: rgba(0, 0, 0, 0.4);
+  --BA50: rgba(0, 0, 0, 0.5);
+  --BA60: rgba(0, 0, 0, 0.6);
+  --BA70: rgba(0, 0, 0, 0.7);
+  --BA80: rgba(0, 0, 0, 0.8);
+  --BA90: rgba(0, 0, 0, 0.9);
+  --BA100: #000;
+  --V_Gradient_B60B50: linear-gradient(360deg, #006af5, #52a0ff);
+  --V_Gradient_B60B40: linear-gradient(360deg, #006af5, #8fc1ff);
+  --V_Gradient_B60SKB50: linear-gradient(360deg, #006af5, #5fcbf2);
+  --V_Gradient_SKB60GR50: linear-gradient(360deg, #12aee2, #66d68f);
+  --V_Gradient_SKB60GR50_2: linear-gradient(360deg, #34b764, #99e5b5);
+  --V_Gradient_GR60Y50: linear-gradient(360deg, #34b764, #fdd949);
+  --V_Gradient_OR60Y60: linear-gradient(360deg, #de640d, #e8ba02);
+  --V_Gradient_R60O50: linear-gradient(360deg, #dc1f18, #f8954f);
+  --V_Gradient_PU60B50: linear-gradient(360deg, #6a40bf, #52a0ff);
+  --V_Gradient_PU70PU40: linear-gradient(360deg, #513091, #b69de7);
+  --V_Gradient_PU60PK30: linear-gradient(
+    360deg,
+    #6a40bf,
+    #5e47d1 0.01%,
+    #f8bfec
+  );
+  --V_Gradient_PK60PK30: linear-gradient(360deg, #df16b7, #f8bfec);
+  --V_Gradient_R50PK40: linear-gradient(360deg, #f1645f, #f49ae2);
+  --V_Gradient_BLK_A0A50: linear-gradient(
+    360deg,
+    transparent,
+    rgba(0, 0, 0, 0.5)
+  );
+  --V_Gradient_BLK_A50A0: linear-gradient(
+    360deg,
+    rgba(0, 0, 0, 0.5),
+    transparent
+  );
+  --H_Gradient_B60B50: linear-gradient(90deg, #006af5, #52a0ff);
+  --H_Gradient_B60B40: linear-gradient(90deg, #006af5, #8fc1ff);
+  --H_Gradient_B60SKB50: linear-gradient(90deg, #006af5, #5fcbf2);
+  --H_Gradient_SKB60GR50: linear-gradient(90deg, #12aee2, #66d68f);
+  --H_Gradient_SKB60GR50_2: linear-gradient(90deg, #34b764, #99e5b5);
+  --H_Gradient_GR60Y50: linear-gradient(90deg, #34b764, #fdd949);
+  --H_Gradient_OR60Y60: linear-gradient(90deg, #de640d, #e8ba02);
+  --H_Gradient_R60O50: linear-gradient(90deg, #dc1f18, #f8954f);
+  --H_Gradient_PU60B50: linear-gradient(90deg, #6a40bf, #52a0ff);
+  --H_Gradient_PU70PU40: linear-gradient(90deg, #513091, #b69de7);
+  --H_Gradient_PU60PK30: linear-gradient(
+    90deg,
+    #6a40bf,
+    #5e47d1 0.01%,
+    #f8bfec
+  );
+  --H_Gradient_PK60PK30: linear-gradient(90deg, #df16b7, #f8bfec);
+  --H_Gradient_R50PK40: linear-gradient(90deg, #f1645f, #f49ae2);
+  --H_Gradient_BLK_A0A50: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.5)
+  );
+  --H_Gradient_BLK_A50A0: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.5),
+    transparent
+  );
+  --D_Gradient_B60B50: linear-gradient(45deg, #006af5, #52a0ff);
+  --D_Gradient_B60B40: linear-gradient(45deg, #006af5, #8fc1ff);
+  --D_Gradient_B60SKB50: linear-gradient(45deg, #006af5, #5fcbf2);
+  --D_Gradient_SKB60GR50: linear-gradient(45deg, #12aee2, #66d68f);
+  --D_Gradient_SKB60GR50_2: linear-gradient(45deg, #34b764, #99e5b5);
+  --D_Gradient_GR60Y50: linear-gradient(45deg, #34b764, #fdd949);
+  --D_Gradient_OR60Y60: linear-gradient(45deg, #de640d, #e8ba02);
+  --D_Gradient_R60O50: linear-gradient(45deg, #dc1f18, #f8954f);
+  --D_Gradient_PU60B50: linear-gradient(45deg, #6a40bf, #52a0ff);
+  --D_Gradient_PU70PU40: linear-gradient(45deg, #513091, #b69de7);
+  --D_Gradient_PU60PK30: linear-gradient(
+    45deg,
+    #6a40bf,
+    #5e47d1 0.01%,
+    #f8bfec
+  );
+  --D_Gradient_PK60PK30: linear-gradient(45deg, #df16b7, #f8bfec);
+  --D_Gradient_R50PK40: linear-gradient(45deg, #f1645f, #f49ae2);
+  --D_Gradient_BLK_A0A50: linear-gradient(
+    45deg,
+    transparent,
+    rgba(0, 0, 0, 0.5)
+  );
+  --D_Gradient_BLK_A50A0: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.5),
+    transparent
+  );
+  --HL_photo-bg: #545454;
+  --HL_input: rgba(0, 133, 255, 0.25);
+  --HL_sidebar: #0091ff;
+  --HL_sidebar-active: #006edc;
+  --primary-text: #001a33;
+  --secondary-text: #72808e;
+  --link: #0068ff;
+  --error: #db342e;
+  --success: #15a85f;
+  --disable-text: #abb4bc;
+  --primary-icon: #394e60;
+  --secondary-icon: #abb4bc;
+  --icon-hover-bg: #eeeff2;
+  --disable-icon: #abb4bc;
+  --input-white: #fff;
+  --input-placeholder-wh: #72808e;
+  --input-icon-wh: #394e60;
+  --input-grey: #eeeff2;
+  --input-placeholder-gr: #394e60;
+  --input-icon-gr: #394e60;
+  --self-bubble-chat: #e5efff;
+  --self-bubble-chat-shadow: #c8deff;
+  --other-bubble-chat: #fff;
+  --self-quote: #c8deff;
+  --other-quote: #eeeff2;
+  --text-quote: #72808e;
+  --selected-bubble-chat: #c8deff;
+  --bg-default-csc: #f4f5f7;
+  --bg-divide-bb-blue: #abb4bc;
+  --grey-dot: #abb4bc;
+  --red-dot: #db342e;
+  --border: #e5e7eb;
+  --lst-item: #fff;
+  --lst-item-hover: #eeeff2;
+  --lst-item-select: #e5efff;
+  --item-wa-hover: #eeeff2;
+  --item-wa-select: #e5efff;
+  --bg-default: #fff;
+  --title-bar: #eeeff2;
+  --tab-txt: #72808e;
+  --tip-bg: #004bb9;
+  --href: #004bb9;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+li {
+  list-style: none;
+}
+
+#wrapper .box-nav-1 {
+  width: 64px;
+  background-color: var(--HL_sidebar);
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#wrapper .box-nav-1 ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--WA100);
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+
+#wrapper .box-nav-1 ul li:hover {
+  background-color: var(--BA10);
+}
+
+#wrapper .box-nav-1 ul li:active {
+  background-color: var(--HL_sidebar-active);
+}
+
+#wrapper .box-nav-1 ul li .anticon svg {
+  width: 24px;
+  height: 24px;
+}
+
+#wrapper .box-nav-2 {
+  width: 344px;
+  background-color: var(--WA100);
+}
+
+#wrapper .box-nav-2 {
+  width: 344px;
+  background-color: var(--WA100);
+}
+
+#wrapper .box-nav-2 .search-add {
+  padding: 0px 16px;
+  height: 64px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#wrapper .box-nav-2 .search-add .icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#wrapper .box-nav-2 .search-add .icon:hover {
+  background-color: var(--item-wa-hover);
+}
+
+#wrapper .box-nav-2 .search-add .icon .anticon svg {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  color: var(--primary-icon);
+}
+
+#wrapper .box-nav-2 .title-nav-2 {
+  height: 32px;
+  padding: 0px 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#wrapper .box-nav-2 .title-nav-2 .title {
+  border-bottom: 2px solid transparent;
+  color: var(--tab-txt);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: -1px;
+  transition: border-color 0.2s;
+  line-height: normal;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#wrapper .box-nav-2 .title-nav-2 .all:hover,
+#wrapper .box-nav-2 .title-nav-2 .not-read:hover {
+  color: var(--B60);
+}
+
+#wrapper .box-nav-2 .title-nav-2 .not-read {
+  margin-left: 12px;
+}
+
+#wrapper .box-nav-2 .title-nav-2 .classify {
+  line-height: normal;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: normal;
+  color: var(--primary-text);
+  border-radius: 12px;
+  padding: 0 4px 0 8px;
+}
+
+#wrapper .box-nav-2 .title-nav-2 .classify:hover {
+  background: var(--item-wa-hover);
+}
+
+#wrapper .box-nav-2 .title-nav-2 .dots .anticon svg {
+  line-height: normal;
+  width: 16px;
+  height: 16px;
+  letter-spacing: normal;
+  color: var(--primary-text);
+}
+
+#wrapper .box-nav-2 .title-nav-2 .dots {
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+#wrapper .box-nav-2 .title-nav-2 .dots:hover {
+  background: var(--item-wa-hover);
+  border-radius: 50%;
+}
+
+#wrapper .box-nav-3 {
+  flex: 1;
+  background-color: var(--Y40);
+}
