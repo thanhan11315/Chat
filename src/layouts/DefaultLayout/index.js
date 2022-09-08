@@ -10,12 +10,63 @@ import {
   UsergroupAddOutlined,
   DownOutlined,
   EllipsisOutlined,
+  BellOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 import InPutSearch from "../../components/InPutSearch";
 function DefaultLayout({ children }) {
+  const data = [];
+
+  for (let i = 0; i < 50; i++) {
+    data.push(
+      <Row className="box-choose-chatbox">
+        <Row className="box1">
+          <Col className="image">
+            <img
+              src={SuperShipLogo}
+              alt="not load img"
+              style={{
+                border: "0.5px solid #fff",
+                borderRadius: "50%",
+                objectFit: "cover",
+                with: "48px",
+                height: "48px",
+                cursor: "pointer",
+              }}
+            />
+          </Col>
+          <Col className="choose-chatbox">
+            <div className="title">
+              {" "}
+              Đấy là lễ khai giảng tại điểm trường thôn 5 Tu Nấc, Quảng Nam -
+              nơi chưa hề có điện và nước sạch. 54 học sinh đồng bào Xơ Đăng
+              không quản ngại thiếu thốn vẫn hân hoan chào năm học mới cùng thầy
+              cô dù cái ăn còn chưa no bụng.
+            </div>
+            <div className="content">
+              Bạn: Đấy là lễ khai giảng tại điểm trường thôn 5 Tu Nấc, Quảng Nam
+              - nơi chưa hề có điện và nước sạch. 54 học sinh đồng bào Xơ Đăng
+              không quản ngại thiếu thốn vẫn hân hoan chào năm học mới cùng thầy
+              cô dù cái ăn còn chưa no bụng.
+            </div>
+          </Col>
+        </Row>
+        <Col className="box2">
+          <div className="time-before">
+            <BellOutlined />
+            14 phút
+          </div>
+          <div className="icon">
+            <EllipsisOutlined />
+          </div>
+        </Col>
+      </Row>
+    );
+    console.log(data);
+  }
+
   return (
     <>
       <Row id="wrapper">
@@ -104,21 +155,29 @@ function DefaultLayout({ children }) {
               </Col>
             </Row>
           </Row>
-          <div className="box-choose-chatbox">
-            <div className="box1">
-              <div className="image">image</div>
-              <div className="choose-chatbox">
-                <div className="title"> Cloud của tôi</div>
-                <div className="content">Bạn: icon Hinh Ảnh</div>
-              </div>
-            </div>
-            <div className="box2">icon</div>
+          <div className="overflow">
+            {data.map((value) => {
+              return value;
+            })}
           </div>
         </Col>
         <Col className="box-nav-3">
           <div className="box-nav-chat">
             <div className="box-1">
-              <div className="image">image</div>
+              <div className="image">
+                <img
+                  src={SuperShipLogo}
+                  alt="not load img"
+                  style={{
+                    border: "0.5px solid #fff",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    with: "48px",
+                    height: "48px",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
               <div className="box-1-1">
                 <div className="title">Tên Chat</div>
                 <div className="Status">

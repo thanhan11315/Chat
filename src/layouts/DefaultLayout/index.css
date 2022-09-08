@@ -26,7 +26,7 @@
   --B30: #abcdff;
   --B40: #72abff;
   --B50: #3989ff;
-  --B60: #0068ff;
+  --B60: #a73a3a;
   --B70: #0068ff;
   --B80: #004bb9;
   --B90: #004bb9;
@@ -229,8 +229,8 @@
   );
   --HL_photo-bg: #545454;
   --HL_input: rgba(0, 133, 255, 0.25);
-  --HL_sidebar: #0091ff;
-  --HL_sidebar-active: #006edc;
+  --HL_sidebar: #a73a3a;
+  --HL_sidebar-active: #730e0e;
   --primary-text: #001a33;
   --secondary-text: #72808e;
   --link: #0068ff;
@@ -315,11 +315,13 @@ li {
 #wrapper .box-nav-2 {
   width: 344px;
   background-color: var(--WA100);
+  height: 100vh;
+  overflow: hidden;
 }
 
-#wrapper .box-nav-2 {
-  width: 344px;
-  background-color: var(--WA100);
+#wrapper .box-nav-2 .overflow {
+  overflow-y: scroll;
+  height: calc(100vh - 96px);
 }
 
 #wrapper .box-nav-2 .search-add {
@@ -359,6 +361,7 @@ li {
   padding: 0px 16px;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--border);
 }
 
 #wrapper .box-nav-2 .title-nav-2 .title {
@@ -421,7 +424,76 @@ li {
   border-radius: 50%;
 }
 
+#wrapper .box-choose-chatbox {
+  height: 72px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 16px;
+  cursor: pointer;
+}
+
+#wrapper .box-choose-chatbox:hover {
+  background-color: var(--item-wa-hover);
+}
+#wrapper .box1 {
+  flex: 1;
+  height: 100%;
+}
+
+#wrapper .box-choose-chatbox .image {
+  width: 58px;
+  align-self: center;
+}
+
+#wrapper .choose-chatbox {
+  max-width: 170px;
+  align-self: center;
+}
+
+#wrapper .choose-chatbox .title,
+#wrapper .choose-chatbox .content {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#wrapper .choose-chatbox .title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--primary-text);
+  margin-bottom: 5px;
+}
+
+#wrapper .choose-chatbox .content {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: normal;
+  line-height: 18px;
+  color: var(--secondary-text);
+}
+
+#wrapper .box2 {
+  width: 58px;
+}
+
+#wrapper .box2 .time-before {
+  line-height: 21px;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--N80);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 #wrapper .box-nav-3 {
   flex: 1;
   background-color: var(--Y40);
+  max-height: 100vh;
+  overflow: hidden;
 }
