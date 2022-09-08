@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Input, Row } from "antd";
 import {
   MessageOutlined,
   ContainerOutlined,
@@ -11,12 +11,36 @@ import {
   DownOutlined,
   EllipsisOutlined,
   BellOutlined,
+  SearchOutlined,
+  VideoCameraOutlined,
+  MenuUnfoldOutlined,
+  TagOutlined,
+  UserOutlined,
+  SmileOutlined,
+  FileImageOutlined,
+  RadiusUpleftOutlined,
+  ContactsOutlined,
+  PaperClipOutlined,
+  ClockCircleOutlined,
+  ScheduleOutlined,
+  FontColorsOutlined,
+  ExclamationOutlined,
+  DingtalkOutlined,
+  CommentOutlined,
+  LikeOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
-import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
+// import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
+import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import InPutSearch from "../../components/InPutSearch";
+import { useState } from "react";
+
+const { TextArea } = Input;
+
 function DefaultLayout({ children }) {
+  const [focusInput, SetFocusInput] = useState("");
+
   const data = [];
 
   for (let i = 0; i < 50; i++) {
@@ -25,14 +49,14 @@ function DefaultLayout({ children }) {
         <Row className="box1">
           <Col className="image">
             <img
-              src={SuperShipLogo}
+              src={AvatarAn}
               alt="not load img"
               style={{
                 border: "0.5px solid #fff",
                 borderRadius: "50%",
                 objectFit: "cover",
-                with: "48px",
                 height: "48px",
+                width: "48px",
                 cursor: "pointer",
               }}
             />
@@ -64,7 +88,6 @@ function DefaultLayout({ children }) {
         </Col>
       </Row>
     );
-    console.log(data);
   }
 
   return (
@@ -90,13 +113,13 @@ function DefaultLayout({ children }) {
               }}
             >
               <img
-                src={SuperShipLogo}
+                src={AvatarAn}
                 alt="img not load"
                 style={{
                   border: "0.5px solid #fff",
                   borderRadius: "50%",
                   objectFit: "cover",
-                  with: "48px",
+                  width: "48px",
                   height: "48px",
                   cursor: "pointer",
                 }}
@@ -162,78 +185,155 @@ function DefaultLayout({ children }) {
           </div>
         </Col>
         <Col className="box-nav-3">
-          <div className="box-nav-chat">
-            <div className="box-1">
+          <Row className="box-nav-chat">
+            <Row className="box-1">
               <div className="image">
                 <img
-                  src={SuperShipLogo}
+                  src={AvatarAn}
                   alt="not load img"
                   style={{
                     border: "0.5px solid #fff",
                     borderRadius: "50%",
                     objectFit: "cover",
-                    with: "48px",
+                    width: "48px",
                     height: "48px",
                     cursor: "pointer",
                   }}
                 />
               </div>
               <div className="box-1-1">
-                <div className="title">Tên Chat</div>
-                <div className="Status">
-                  <div className="Stautus1">19 Thành Viên Icon</div>
-                  <div className="div">Gạch</div>
-                  <div className="icon">icon</div>
+                <div className="title">
+                  Đấy là lễ khai giảng tại điểm trường thôn 5 Tu Nấc, Quảng Nam
+                  - nơi chưa hề có điện và nước sạch. 54 học sinh đồng bào Xơ
+                  Đăng không quản ngại thiếu thốn vẫn hân hoan chào năm học mới
+                  cùng thầy cô dù cái ăn còn chưa no bụng.
                 </div>
+                <Row className="status">
+                  <div className="status-1">
+                    <UserOutlined
+                      style={{
+                        marginRight: "5px",
+                      }}
+                    />
+                  </div>
+                  <div className="status-2">19 Thành Viên </div>
+                  <div className="brick"></div>
+                  <div className="icon">
+                    <TagOutlined />
+                  </div>
+                </Row>
               </div>
-            </div>
+            </Row>
             <div className="box-2">
-              <div className="icon-title">
-                <ul className="list-icon">
-                  <li>icon 1</li>
-                  <li>icon 2</li>
-                  <li>icon 3</li>
-                  <li>icon 4</li>
-                </ul>
-              </div>
+              <Row className="icon-title">
+                <div>
+                  <UsergroupAddOutlined />
+                </div>
+                <div>
+                  <SearchOutlined />
+                </div>
+                <div>
+                  <VideoCameraOutlined />
+                </div>
+                <div>
+                  <MenuUnfoldOutlined />
+                </div>
+              </Row>
             </div>
-          </div>
-          <div className="box-Ghim">
-            <div className="box-1">
-              <div className="image">image</div>
+          </Row>
+          <Row className="box-ghim">
+            <Row className="box-1">
+              <div className="image">
+                <MessageOutlined />
+              </div>
               <div className="box-1-1">
-                <div className="title">tin nhắn</div>\
+                <div className="title">Tin nhắn</div>
                 <div className="status">
-                  <div className="name">Lê Thanh Ân:</div>
-                  <div className="content">link</div>
+                  <div className="content">
+                    Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5 Tu
+                    Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54 học
+                    sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn hân
+                    hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa no
+                    bụng. s
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="box2">2 ghim khác</div>
-          </div>
-          <div className="box-chat">{children}</div>
-          <div className="nav-input-chat">
-            <div className="nav-input">
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-              <div>icon</div>
-            </div>
-            <div className="nav-chat">
-              <div className="input-chat">input</div>
-              <div className="icon-input">
-                <div>icon</div>
-                <div>icon</div>
-                <div>icon</div>
-                <div>icon</div>
+            </Row>
+            <div className="box-2">
+              <div className="ghim">
+                2 ghim khác <DownOutlined />{" "}
               </div>
             </div>
+          </Row>
+          <div className="box-chat">
+            {children}
+            <div className="me"></div>
+            <div className="other-people"></div>
+          </div>
+          <div className="nav-input-chat">
+            <Row className="nav-input">
+              <div>
+                <SmileOutlined />
+              </div>
+              <div>
+                <FileImageOutlined />
+              </div>
+              <div>
+                <PaperClipOutlined />
+              </div>
+              <div>
+                <RadiusUpleftOutlined />
+              </div>
+              <div>
+                <ContactsOutlined />
+              </div>
+              <div>
+                <ClockCircleOutlined />
+              </div>
+              <div>
+                <ScheduleOutlined />
+              </div>
+              <div>
+                <FontColorsOutlined />
+              </div>
+              <div>
+                <ExclamationOutlined />
+              </div>
+              <div>
+                <EllipsisOutlined />
+              </div>
+            </Row>
+            <Row className={`nav-chat ${focusInput}`}>
+              <div className="input-chat">
+                <TextArea
+                  placeholder=""
+                  autoSize={{
+                    minRows: 1,
+                    maxRows: 6,
+                  }}
+                  onBlur={() => {
+                    SetFocusInput("");
+                  }}
+                  onFocus={() => {
+                    SetFocusInput("focus-input");
+                  }}
+                />
+              </div>
+              <Row className="icon-input">
+                <div>
+                  <CommentOutlined />
+                </div>
+                <div>
+                  <SmileOutlined />
+                </div>
+                <div>
+                  <DingtalkOutlined />
+                </div>
+                <div>
+                  <LikeOutlined />
+                </div>
+              </Row>
+            </Row>
           </div>
         </Col>
       </Row>
