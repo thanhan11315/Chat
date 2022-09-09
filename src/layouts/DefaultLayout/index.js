@@ -28,6 +28,7 @@ import {
   DingtalkOutlined,
   CommentOutlined,
   LikeOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -40,9 +41,33 @@ const { TextArea } = Input;
 
 function DefaultLayout({ children }) {
   const [focusInput, SetFocusInput] = useState("");
+  const [hiddenRightNav, setHiddenRightNav] = useState("hiddenRightNav");
+
+  const navRight = () => {
+    if (hiddenRightNav) {
+      setHiddenRightNav("");
+    } else {
+      setHiddenRightNav("hiddenRightNav");
+    }
+  };
+
+  // demochatlocal
+
+  const [valueChats, setValueChats] = useState([]);
+  const [valuechat, setValueChat] = useState("");
+
+  const onChangeChat = (e) => {
+    setValueChat(e.target.value);
+  };
+
+  const enterChat = (e) => {
+    setValueChats([...valueChats, e.target.value]);
+    setValueChat("");
+  };
+
+  // demo
 
   const data = [];
-
   for (let i = 0; i < 50; i++) {
     data.push(
       <Row className="box-choose-chatbox">
@@ -235,8 +260,12 @@ function DefaultLayout({ children }) {
                 <div>
                   <VideoCameraOutlined />
                 </div>
-                <div>
-                  <MenuUnfoldOutlined />
+                <div onClick={navRight}>
+                  {hiddenRightNav ? (
+                    <MenuFoldOutlined />
+                  ) : (
+                    <MenuUnfoldOutlined />
+                  )}
                 </div>
               </Row>
             </div>
@@ -266,9 +295,94 @@ function DefaultLayout({ children }) {
             </div>
           </Row>
           <div className="box-chat">
-            {children}
-            <div className="me"></div>
-            <div className="other-people"></div>
+            <div className="chat">
+              {children}
+              <div className="box-other-people">
+                <div className="other-people">
+                  <div className="img-chat">
+                    <img
+                      src={AvatarAn}
+                      alt="img not load"
+                      style={{
+                        border: "0.5px solid #fff",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        width: "40px",
+                        height: "40px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                  <div className="content-chat">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged. It was popularised in the 1960s with
+                    the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum
+                  </div>
+                </div>
+              </div>
+              <div className="box-me">
+                <div className="me">
+                  <div className="img-chat">
+                    <img
+                      src={AvatarAn}
+                      alt="img not load"
+                      style={{
+                        border: "0.5px solid #fff",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        width: "40px",
+                        height: "40px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </div>
+                  <div className="content-chat">
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book. It has survived not only five centuries,
+                    but also the leap into electronic typesetting, remaining
+                    essentially unchanged. It was popularised in the 1960s with
+                    the release of Letraset sheets containing Lorem Ipsum
+                    passages, and more recently with desktop publishing software
+                    like Aldus PageMaker including versions of Lorem Ipsum
+                  </div>
+                </div>
+              </div>
+              {valueChats.map((value, key) => {
+                return (
+                  <div className="box-me">
+                    <div className="me">
+                      <div className="img-chat">
+                        <img
+                          src={AvatarAn}
+                          alt="img not load"
+                          style={{
+                            border: "0.5px solid #fff",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            width: "40px",
+                            height: "40px",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </div>
+                      <div className="content-chat" key={key}>
+                        {value}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="nav-input-chat">
             <Row className="nav-input">
@@ -306,11 +420,14 @@ function DefaultLayout({ children }) {
             <Row className={`nav-chat ${focusInput}`}>
               <div className="input-chat">
                 <TextArea
-                  placeholder=""
+                  onChange={onChangeChat}
+                  value={valuechat}
+                  placeholder="Nhập tin nhắn"
                   autoSize={{
                     minRows: 1,
                     maxRows: 6,
                   }}
+                  onPressEnter={enterChat}
                   onBlur={() => {
                     SetFocusInput("");
                   }}
@@ -334,6 +451,106 @@ function DefaultLayout({ children }) {
                 </div>
               </Row>
             </Row>
+          </div>
+        </Col>
+        <Col className={`box-nav-4 ${hiddenRightNav}`}>
+          <div className="title-nav">Thông tin hội thoại</div>
+          <div className="box-wrapper">
+            <div className="box-information">
+              <div className="image">
+                <img
+                  src={AvatarAn}
+                  alt="img not load"
+                  style={{
+                    border: "0.5px solid #fff",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    width: "56px",
+                    height: "56px",
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
+              <div className="header-info-name">
+                <div className="header">Lê Thanh Ân </div>
+                <div className="icon">
+                  <LikeOutlined />
+                </div>
+              </div>
+              <Row className="box-icon-content">
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div className="icon">
+                      <LikeOutlined />
+                    </div>
+                  </div>
+                  <div className="content">Bật Thông báo</div>
+                </div>
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div className="icon">
+                      <LikeOutlined />
+                    </div>
+                  </div>
+                  <div className="content">Bật Thông báo</div>
+                </div>
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div className="icon">
+                      <LikeOutlined />
+                    </div>
+                  </div>
+                  <div className="content">Bật Thông báo</div>
+                </div>
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div className="icon">
+                      <LikeOutlined />
+                    </div>
+                  </div>
+                  <div className="content">Bật Thông báo</div>
+                </div>
+              </Row>
+            </div>
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
+            <div className="test" />
           </div>
         </Col>
       </Row>
