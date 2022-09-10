@@ -54,14 +54,23 @@ function DefaultLayout({ children }) {
   // demochatlocal
 
   const [valueChats, setValueChats] = useState([]);
-  const [valuechat, setValueChat] = useState("");
+  const [valueChat, setValueChat] = useState("");
 
   const onChangeChat = (e) => {
     setValueChat(e.target.value);
   };
 
-  const enterChat = (e) => {
-    setValueChats([...valueChats, e.target.value]);
+  const enterChat = () => {
+    setValueChat(valueChat);
+
+    if (valueChat.trim() !== "" && valueChat !== null) {
+      render(valueChat);
+    }
+  };
+
+  const render = (valueChatReplace) => {
+    setValueChats([valueChatReplace, ...valueChats]);
+    console.log([valueChatReplace, ...valueChats]);
     setValueChat("");
   };
 
@@ -295,93 +304,91 @@ function DefaultLayout({ children }) {
             </div>
           </Row>
           <div className="box-chat">
-            <div className="chat">
-              {children}
-              <div className="box-other-people">
-                <div className="other-people">
-                  <div className="img-chat">
-                    <img
-                      src={AvatarAn}
-                      alt="img not load"
-                      style={{
-                        border: "0.5px solid #fff",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        width: "40px",
-                        height: "40px",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </div>
-                  <div className="content-chat">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum
-                  </div>
-                </div>
-              </div>
-              <div className="box-me">
-                <div className="me">
-                  <div className="img-chat">
-                    <img
-                      src={AvatarAn}
-                      alt="img not load"
-                      style={{
-                        border: "0.5px solid #fff",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        width: "40px",
-                        height: "40px",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </div>
-                  <div className="content-chat">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum
-                  </div>
-                </div>
-              </div>
-              {valueChats.map((value, key) => {
-                return (
-                  <div className="box-me">
-                    <div className="me">
-                      <div className="img-chat">
-                        <img
-                          src={AvatarAn}
-                          alt="img not load"
-                          style={{
-                            border: "0.5px solid #fff",
-                            borderRadius: "50%",
-                            objectFit: "cover",
-                            width: "40px",
-                            height: "40px",
-                            cursor: "pointer",
-                          }}
-                        />
-                      </div>
-                      <div className="content-chat" key={key}>
-                        {value}
-                      </div>
+            {children}
+            {valueChats.map((value, key) => {
+              return (
+                <div className="box-me">
+                  <div className="me">
+                    <div className="img-chat">
+                      <img
+                        src={AvatarAn}
+                        alt="img not load"
+                        style={{
+                          border: "0.5px solid #fff",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          width: "40px",
+                          height: "40px",
+                          cursor: "pointer",
+                        }}
+                      />
                     </div>
+                    <pre className="content-chat" key={key}>
+                      {value}
+                    </pre>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
+            <div className="box-other-people">
+              <div className="other-people">
+                <div className="img-chat">
+                  <img
+                    src={AvatarAn}
+                    alt="img not load"
+                    style={{
+                      border: "0.5px solid #fff",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      width: "40px",
+                      height: "40px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </div>
+                <div className="content-chat">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum
+                </div>
+              </div>
+            </div>
+            <div className="box-me">
+              <div className="me">
+                <div className="img-chat">
+                  <img
+                    src={AvatarAn}
+                    alt="img not load"
+                    style={{
+                      border: "0.5px solid #fff",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      width: "40px",
+                      height: "40px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </div>
+                <div className="content-chat">
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing Lorem Ipsum
+                  passages, and more recently with desktop publishing software
+                  like Aldus PageMaker including versions of Lorem Ipsum
+                </div>
+              </div>
             </div>
           </div>
           <div className="nav-input-chat">
@@ -421,18 +428,23 @@ function DefaultLayout({ children }) {
               <div className="input-chat">
                 <TextArea
                   onChange={onChangeChat}
-                  value={valuechat}
+                  value={valueChat}
                   placeholder="Nhập tin nhắn"
                   autoSize={{
                     minRows: 1,
                     maxRows: 6,
                   }}
-                  onPressEnter={enterChat}
                   onBlur={() => {
                     SetFocusInput("");
                   }}
                   onFocus={() => {
                     SetFocusInput("focus-input");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.code === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      enterChat();
+                    }
                   }}
                 />
               </div>
@@ -447,7 +459,16 @@ function DefaultLayout({ children }) {
                   <DingtalkOutlined />
                 </div>
                 <div>
-                  <LikeOutlined />
+                  {valueChat.trim() !== "" && valueChat !== null ? (
+                    <span
+                      className="button-sent"
+                      onClick={() => render(valueChat)}
+                    >
+                      GỬi
+                    </span>
+                  ) : (
+                    <LikeOutlined />
+                  )}
                 </div>
               </Row>
             </Row>

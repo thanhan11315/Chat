@@ -680,6 +680,8 @@ li {
   height: 100%;
   overflow-y: scroll;
   background-color: var(--N30);
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 #wrapper .box-nav-3 .box-chat .other-people {
@@ -782,6 +784,14 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+#wrapper .box-nav-3 .nav-chat .icon-input .button-sent {
+  color: var(--B60);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 38px;
 }
 
 #wrapper .box-nav-3 .nav-chat .input-chat {
