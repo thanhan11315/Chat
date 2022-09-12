@@ -21,7 +21,7 @@
   --NG80: #394e60;
   --NG90: #081020;
   --NG100: #050a19;
-  --B10: #e5efff;
+  --B10: #f4dada;
   --B20: #c8deff;
   --B30: #abcdff;
   --B40: #72abff;
@@ -741,7 +741,7 @@ li {
   align-items: center;
 }
 
-#wrapper .box-nav-3 .nav-input-chat .nav-input div {
+#wrapper .box-nav-3 .nav-input-chat .nav-input > div {
   width: 40px;
   height: 40px;
   margin-right: 8px;
@@ -749,6 +749,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 #wrapper .box-nav-3 .nav-chat {
@@ -951,4 +952,38 @@ li {
   position: absolute;
   right: -343px;
   display: none;
+}
+
+.chooseFile,
+.chooseFolder {
+  height: 32px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  line-height: normal;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: normal;
+  color: var(--primary-text);
+  position: relative;
+  margin: 0 -8px;
+}
+.chooseFile:hover,
+.chooseFolder:hover {
+  background-color: var(--lst-item-hover);
+}
+
+.chooseFile .anticon svg,
+.chooseFolder .anticon svg {
+  width: 18px;
+  height: 18px;
+}
+
+#wrapper .box-nav-3 .nav-input-chat .nav-input .ant-popover-open {
+  background-color: var(--B10);
+}
+
+#wrapper .box-nav-3 .nav-input-chat .nav-input .ant-popover-open .anticon svg {
+  color: var(--B60);
 }

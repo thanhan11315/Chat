@@ -1,4 +1,4 @@
-import { Col, Input, Row } from "antd";
+import { Col, Input, Row, Tooltip, Popover } from "antd";
 import {
   MessageOutlined,
   ContainerOutlined,
@@ -17,7 +17,6 @@ import {
   TagOutlined,
   UserOutlined,
   SmileOutlined,
-  FileImageOutlined,
   RadiusUpleftOutlined,
   ContactsOutlined,
   PaperClipOutlined,
@@ -29,6 +28,9 @@ import {
   CommentOutlined,
   LikeOutlined,
   MenuFoldOutlined,
+  FileImageOutlined,
+  FileOutlined,
+  FolderOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -36,7 +38,6 @@ import "./index.css";
 import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import InPutSearch from "../../components/InPutSearch";
 import { useState } from "react";
-
 const { TextArea } = Input;
 
 function DefaultLayout({ children }) {
@@ -73,6 +74,59 @@ function DefaultLayout({ children }) {
     console.log([valueChatReplace, ...valueChats]);
     setValueChat("");
   };
+
+  const onChangeImage = (e) => {
+    setValueChats([
+      { url: URL.createObjectURL(e.target.files[0]) },
+      ...valueChats,
+    ]);
+    console.log([
+      { url: URL.createObjectURL(e.target.files[0]) },
+      ...valueChats,
+    ]);
+  };
+
+  const onChangeFile = (e) => {
+    setValueChats([{ file: e.target.files[0] }, ...valueChats]);
+  };
+
+  const content = (
+    <div
+      style={{
+        position: "absolute",
+        borderRadius: "4px",
+        width: "210px",
+        height: "82px",
+        padding: "8px",
+        backgroundColor: "var(--WA100)",
+        left: "0px",
+        top: "-225%",
+      }}
+    >
+      <div
+        className="chooseFile"
+        onClick={() => {
+          const uploadFile = document.querySelector(".uploadFile");
+          uploadFile.click();
+        }}
+      >
+        <FileOutlined style={{ marginRight: "5px" }} />
+        Chọn File
+        <input
+          className="uploadFile"
+          type="file"
+          onChange={(e) => onChangeFile(e)}
+          style={{
+            display: "none",
+          }}
+        />
+      </div>
+      <div className="chooseFolder">
+        {/* <input type="file" webkitdirectory mozdirectory directory /> */}
+        <FolderOutlined style={{ marginRight: "5px" }} /> Chọn thư mục
+      </div>
+    </div>
+  );
 
   // demo
 
@@ -323,9 +377,25 @@ function DefaultLayout({ children }) {
                         }}
                       />
                     </div>
-                    <pre className="content-chat" key={key}>
-                      {value}
-                    </pre>
+                    {value.url ? (
+                      <img
+                        src={value.url}
+                        alt="img not load"
+                        style={{
+                          objectFit: "cover",
+                          maxHeight: "390px",
+                          cursor: "pointer",
+                          marginBottom: "8px",
+                          borderRadius: "10px",
+                        }}
+                      />
+                    ) : value.file ? (
+                      <div>{value.file.name}</div>
+                    ) : (
+                      <pre className="content-chat" key={key}>
+                        {value}
+                      </pre>
+                    )}
                   </div>
                 </div>
               );
@@ -376,18 +446,17 @@ function DefaultLayout({ children }) {
                     }}
                   />
                 </div>
-                <div className="content-chat">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum
-                </div>
+                <img
+                  src={AvatarAn}
+                  alt="img not load"
+                  style={{
+                    objectFit: "cover",
+                    maxHeight: "390px",
+                    cursor: "pointer",
+                    marginBottom: "8px",
+                    borderRadius: "10px",
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -396,12 +465,33 @@ function DefaultLayout({ children }) {
               <div>
                 <SmileOutlined />
               </div>
-              <div>
-                <FileImageOutlined />
-              </div>
-              <div>
-                <PaperClipOutlined />
-              </div>
+              <Tooltip placement="leftBottom" title="Gửi hình ảnh">
+                <div
+                  onClick={() => {
+                    const uploadImage = document.querySelector(".uploadImage");
+                    uploadImage.click();
+                  }}
+                >
+                  <FileImageOutlined />
+                  <input
+                    className="uploadImage"
+                    type="file"
+                    onChange={(e) => {
+                      onChangeImage(e);
+                    }}
+                    style={{
+                      display: "none",
+                    }}
+                  />
+                </div>
+              </Tooltip>
+              <Popover content={content} trigger="click">
+                <Tooltip placement="leftBottom" title="Đính kèm File">
+                  <div>
+                    <PaperClipOutlined />
+                  </div>
+                </Tooltip>
+              </Popover>
               <div>
                 <RadiusUpleftOutlined />
               </div>
