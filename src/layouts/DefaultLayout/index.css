@@ -550,6 +550,17 @@ li {
   border-bottom: 1px solid var(--border);
 }
 
+#wrapper .box-nav-3 .box-nav-chat .button-phone {
+  margin-right: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+#wrapper .box-nav-3 .box-nav-chat .button-phone .anticon svg {
+  width: 20px;
+  height: 20px;
+}
+
 #wrapper .box-nav-3 .box-nav-chat .image {
   width: 58px;
   padding-right: 10px;
@@ -620,6 +631,7 @@ li {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border);
+  cursor: pointer;
 }
 
 #wrapper .box-nav-3 .box-ghim .box-1 .image {
@@ -674,6 +686,41 @@ li {
   line-height: 22px;
   border: 1px solid var(--B60);
   border-radius: 6px;
+  cursor: pointer;
+}
+
+#wrapper .box-nav-3 .box-ghim .box-2 .ghim:hover {
+  background-color: var(--B10);
+}
+
+#wrapper .box-nav-3 .box-ghim-2 .box-ghim:hover {
+  background-color: var(--lst-item-hover);
+}
+
+#wrapper .box-nav-3 .box-ghim-2 .list-ghim {
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--NG20);
+  box-shadow: 0 1px var(--border);
+  min-height: 24px;
+}
+
+#wrapper .box-nav-3 .box-ghim-2 .list-ghim .list {
+  line-height: normal;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: normal;
+  padding-left: 12px;
+  color: var(--NG60);
+}
+#wrapper .box-nav-3 .collapse {
+  color: var(--primary-text) !important;
+  line-height: normal;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: normal;
+  padding: 0px 8px;
+  cursor: pointer;
 }
 
 #wrapper .box-nav-3 .box-chat {
@@ -713,6 +760,7 @@ li {
   position: relative;
   display: block;
   padding: 12px;
+  padding-bottom: 8px;
   border-radius: 8px;
   background: var(--R40);
   color: var(--primary-text);
@@ -986,4 +1034,66 @@ li {
 
 #wrapper .box-nav-3 .nav-input-chat .nav-input .ant-popover-open .anticon svg {
   color: var(--B60);
+}
+
+#wrapper .date {
+  margin-right: 5px;
+  line-height: normal;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: normal;
+  color: var(--BA50);
+  text-align: left;
+  user-select: none;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+#wrapper .box-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 60px 10px;
+}
+
+#wrapper .line {
+  border-top: 1px solid var(--BA20);
+  width: 100%;
+}
+
+#wrapper .overdate {
+  background: var(--BA20);
+  border-radius: 10px;
+  padding: 2px 10px 3px;
+  z-index: 2;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--WA100);
+  width: 280px;
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  #wrapper .box-nav-3 .box-nav-chat .button-phone {
+    display: block;
+  }
+  #wrapper .box-nav-4 {
+    position: absolute;
+    right: 0px;
+    background-color: #fff;
+  }
+  /* #wrapper .box-nav-3 {
+    display: none;
+  } */
+  #wrapper .box-nav-2 {
+    width: 100%;
+  }
+  #wrapper .hiddenBoxNav2 {
+    width: 0%;
+  }
+  #wrapper .search {
+    width: calc(100% - 80px);
+  }
+  #wrapper #InPutSearch .ant-input-affix-wrapper {
+    width: 100%;
+  }
 }

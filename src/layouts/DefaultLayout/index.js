@@ -31,6 +31,8 @@ import {
   FileImageOutlined,
   FileOutlined,
   FolderOutlined,
+  LeftOutlined,
+  CaretUpOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -69,25 +71,51 @@ function DefaultLayout({ children }) {
     }
   };
 
+  const d = new Date();
+  const date = {
+    year: d.getFullYear(),
+    month: d.getMonth(),
+    date: d.getDate(),
+    hours: d.getHours(),
+    minutes: d.getMinutes(),
+  };
+
   const render = (valueChatReplace) => {
-    setValueChats([valueChatReplace, ...valueChats]);
-    console.log([valueChatReplace, ...valueChats]);
+    setValueChats([
+      {
+        content: valueChatReplace,
+        year: d.getFullYear(),
+        month: d.getMonth(),
+        date: d.getDate(),
+        hours: d.getHours(),
+        minutes: d.getMinutes(),
+      },
+      ...valueChats,
+    ]);
+    console.log([
+      {
+        content: valueChatReplace,
+        ...date,
+      },
+      ...valueChats,
+    ]);
     setValueChat("");
   };
 
   const onChangeImage = (e) => {
     setValueChats([
-      { url: URL.createObjectURL(e.target.files[0]) },
+      { url: URL.createObjectURL(e.target.files[0]), ...date },
       ...valueChats,
     ]);
     console.log([
-      { url: URL.createObjectURL(e.target.files[0]) },
+      { url: URL.createObjectURL(e.target.files[0]), ...date },
       ...valueChats,
     ]);
   };
 
   const onChangeFile = (e) => {
-    setValueChats([{ file: e.target.files[0] }, ...valueChats]);
+    setValueChats([{ file: e.target.files[0], ...date }, ...valueChats]);
+    console.log([{ file: e.target.files[0], ...date }, ...valueChats]);
   };
 
   const content = (
@@ -133,7 +161,13 @@ function DefaultLayout({ children }) {
   const data = [];
   for (let i = 0; i < 50; i++) {
     data.push(
-      <Row className="box-choose-chatbox">
+      <Row
+        className="box-choose-chatbox"
+        onClick={() => {
+          const hiddenBoxNav2 = document.querySelector(".box-nav-2");
+          hiddenBoxNav2.classList.add("hiddenBoxNav2");
+        }}
+      >
         <Row className="box1">
           <Col className="image">
             <img
@@ -166,7 +200,7 @@ function DefaultLayout({ children }) {
           </Col>
         </Row>
         <Col className="box2">
-          <div className="time-before">
+          <div className="time-before" onClick={() => {}}>
             <BellOutlined />
             14 phút
           </div>
@@ -213,7 +247,12 @@ function DefaultLayout({ children }) {
                 }}
               />
             </div>
-            <li>
+            <li
+              onClick={() => {
+                const hiddenBoxNav2 = document.querySelector(".box-nav-2");
+                hiddenBoxNav2.classList.remove("hiddenBoxNav2");
+              }}
+            >
               <MessageOutlined />
             </li>
             <li>
@@ -235,7 +274,7 @@ function DefaultLayout({ children }) {
             </li>
           </ul>
         </Col>
-        <Col className="box-nav-2">
+        <Col className="box-nav-2 box-nav-2-mobile">
           <Row className="search-add">
             <Col className="search">
               <InPutSearch />
@@ -274,6 +313,15 @@ function DefaultLayout({ children }) {
         </Col>
         <Col className="box-nav-3">
           <Row className="box-nav-chat">
+            <div
+              className="button-phone"
+              onClick={() => {
+                const hiddenBoxNav2 = document.querySelector(".box-nav-2");
+                hiddenBoxNav2.classList.remove("hiddenBoxNav2");
+              }}
+            >
+              <LeftOutlined />
+            </div>
             <Row className="box-1">
               <div className="image">
                 <img
@@ -333,30 +381,93 @@ function DefaultLayout({ children }) {
               </Row>
             </div>
           </Row>
-          <Row className="box-ghim">
-            <Row className="box-1">
-              <div className="image">
-                <MessageOutlined />
-              </div>
-              <div className="box-1-1">
-                <div className="title">Tin nhắn</div>
-                <div className="status">
-                  <div className="content">
-                    Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5 Tu
-                    Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54 học
-                    sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn hân
-                    hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa no
-                    bụng. s
+          <div className="box-ghim-1">
+            <Row className="box-ghim">
+              <Row className="box-1">
+                <div className="image">
+                  <MessageOutlined />
+                </div>
+                <div className="box-1-1">
+                  <div className="title">Tin nhắn</div>
+                  <div className="status">
+                    <div className="content">
+                      Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5
+                      Tu Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54
+                      học sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn
+                      hân hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa
+                      no bụng. sewqewqewqewqewqewqewqeeeeeeeeeeeeeeêwweqewewqêwq
+                    </div>
                   </div>
+                </div>
+              </Row>
+              <div className="box-2">
+                <div
+                  className="ghim"
+                  onClick={() => {
+                    document.querySelector(".box-ghim-1").style.display =
+                      "none";
+                    document.querySelector(".box-ghim-2").style.display =
+                      "block";
+                  }}
+                >
+                  1 ghim khác <DownOutlined />{" "}
                 </div>
               </div>
             </Row>
-            <div className="box-2">
-              <div className="ghim">
-                2 ghim khác <DownOutlined />{" "}
+          </div>
+
+          <div className="box-ghim-2">
+            <Row className="list-ghim">
+              <div className="list">Danh sách ghim (2)</div>
+              <div
+                className="collapse"
+                onClick={() => {
+                  document.querySelector(".box-ghim-1").style.display = "block";
+                  document.querySelector(".box-ghim-2").style.display = "none";
+                }}
+              >
+                Thu Gọn <CaretUpOutlined />
               </div>
-            </div>
-          </Row>
+            </Row>
+            <Row className="box-ghim">
+              <Row className="box-1">
+                <div className="image">
+                  <MessageOutlined />
+                </div>
+                <div className="box-1-1">
+                  <div className="title">Tin nhắn</div>
+                  <div className="status">
+                    <div className="content">
+                      Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5
+                      Tu Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54
+                      học sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn
+                      hân hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa
+                      no bụng. s
+                    </div>
+                  </div>
+                </div>
+              </Row>
+            </Row>{" "}
+            <Row className="box-ghim">
+              <Row className="box-1">
+                <div className="image">
+                  <MessageOutlined />
+                </div>
+                <div className="box-1-1">
+                  <div className="title">Tin nhắn</div>
+                  <div className="status">
+                    <div className="content">
+                      Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5
+                      Tu Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54
+                      học sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn
+                      hân hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa
+                      no bụng. sewqeqewqeqưeqưewqewqewqêwqewqeqewqeqưewqewq
+                    </div>
+                  </div>
+                </div>
+              </Row>
+            </Row>
+          </div>
           <div className="box-chat">
             {children}
             {valueChats.map((value, key) => {
@@ -378,28 +489,53 @@ function DefaultLayout({ children }) {
                       />
                     </div>
                     {value.url ? (
-                      <img
-                        src={value.url}
-                        alt="img not load"
-                        style={{
-                          objectFit: "cover",
-                          maxHeight: "390px",
-                          cursor: "pointer",
-                          marginBottom: "8px",
-                          borderRadius: "10px",
-                        }}
-                      />
+                      <div>
+                        <img
+                          src={value.url}
+                          alt="img not load"
+                          style={{
+                            objectFit: "cover",
+                            maxHeight: "390px",
+                            cursor: "pointer",
+                            marginBottom: "8px",
+                            borderRadius: "10px",
+                          }}
+                        />
+                        <div className="date">
+                          {value.date}-{value.month + 1}-{value.year}{" "}
+                          {value.hours}:{value.minutes}
+                        </div>
+                      </div>
                     ) : value.file ? (
-                      <div>{value.file.name}</div>
+                      <div className="date">
+                        {value.file.name}
+                        <div>
+                          {value.date}-{value.month + 1}-{value.year}{" "}
+                          {value.hours}:{value.minutes}
+                        </div>
+                      </div>
                     ) : (
                       <pre className="content-chat" key={key}>
-                        {value}
+                        {value.content}
+                        <div className="date">
+                          {value.date}-{value.month + 1}-{value.year}{" "}
+                          {value.hours}:{value.minutes}
+                        </div>
                       </pre>
                     )}
                   </div>
                 </div>
               );
             })}
+            <div className="box-date">
+              <div className="line" />
+              <span className="overdate">
+                {" "}
+                {date.date}-{date.month + 1}-{date.year} {date.hours}:
+                {date.minutes}
+              </span>
+              <div className="line" />
+            </div>
             <div className="box-other-people">
               <div className="other-people">
                 <div className="img-chat">
@@ -565,7 +701,12 @@ function DefaultLayout({ children }) {
           </div>
         </Col>
         <Col className={`box-nav-4 ${hiddenRightNav}`}>
-          <div className="title-nav">Thông tin hội thoại</div>
+          <div className="title-nav">
+            <div onClick={navRight}>
+              {hiddenRightNav ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+            </div>
+            Thông tin hội thoại
+          </div>
           <div className="box-wrapper">
             <div className="box-information">
               <div className="image">
