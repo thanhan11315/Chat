@@ -693,6 +693,10 @@ li {
   background-color: var(--B10);
 }
 
+#wrapper .box-nav-3 .box-ghim-2 {
+  display: none;
+}
+
 #wrapper .box-nav-3 .box-ghim-2 .box-ghim:hover {
   background-color: var(--lst-item-hover);
 }
