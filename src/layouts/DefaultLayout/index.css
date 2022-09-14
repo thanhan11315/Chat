@@ -754,11 +754,6 @@ li {
   justify-content: flex-end;
 }
 
-#wrapper .box-nav-3 .box-chat .box-me .content-chat .anticon svg {
-  width: 40px;
-  height: 40px;
-}
-
 #wrapper .box-nav-3 .box-chat .me {
   max-width: calc(100% - 116px);
   display: flex;
@@ -859,6 +854,7 @@ li {
 #wrapper .box-nav-3 .nav-chat .input-chat .ant-input {
   padding: 5px 0px 0px 0px;
   border: none;
+  font-size: 15px;
 }
 
 #wrapper .box-nav-3 .nav-chat .input-chat .ant-input:focus {

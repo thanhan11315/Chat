@@ -33,10 +33,6 @@ import {
   FolderOutlined,
   LeftOutlined,
   CaretUpOutlined,
-  FrownOutlined,
-  SmileTwoTone,
-  DislikeTwoTone,
-  LikeTwoTone,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -155,35 +151,83 @@ function DefaultLayout({ children }) {
   );
 
   const onClickIcon = (e) => {
-    setValueChats([{ content: e, ...date }, ...valueChats]);
-    console.log([{ content: e, ...date }, ...valueChats]);
+    setValueChat(`${valueChat} ${e}`);
+    document.querySelector(".input-chat .ant-input").focus();
   };
 
   const iconRender = [
-    <span style={{ fontSize: "24px" }}>😘</span>,
-    <SmileTwoTone />,
-    <DislikeTwoTone />,
-    <LikeTwoTone />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <SmileTwoTone />,
-    <DislikeTwoTone />,
-    <LikeTwoTone />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <SmileTwoTone />,
-    <DislikeTwoTone />,
-    <LikeTwoTone />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
-    <FrownOutlined />,
+    "😘",
+    "🙂",
+    "😀",
+    "😄",
+    "😆",
+    "😅",
+    "😂",
+    "🤣",
+    "😊",
+    "😌",
+    "😉",
+    "😏",
+    "😍",
+    "😘",
+    "😗",
+    "😙",
+    "😚",
+    "🤗",
+    "😳",
+    "🙃",
+    "😇",
+    "😈",
+    "😛",
+    "😝",
+    "😜",
+    "😋",
+    "🤤",
+    "🤓",
+    "😎",
+    "🤑",
+    "😒",
+    "🙁",
+    "😞",
+    "😔",
+    "😖",
+    "😓",
+    "😢",
+    "😢",
+    "😭",
+    "😟",
+    "😣",
+    "😩",
+    "😫",
+    "😕",
+    "🤔",
+    "🙄",
+    "😤",
+    "😠",
+    "😡",
+    "🤐",
+    "😯",
+    "😲",
+    "😧",
+    "😨",
+    "😱",
+    "😴",
+    "👍",
+    "👎",
+    "✌️",
+    "👌",
+    "👋",
+    "❤️",
+    "💛",
+    "💚",
+    "💙",
+    "💜",
+    "🖤",
+    "💖",
+    "💝",
+    "💔",
+    "❣️",
+    "💕",
   ];
 
   const contentIcon = (
@@ -193,6 +237,7 @@ function DefaultLayout({ children }) {
           <div
             className="choose-icon"
             key={key}
+            style={{ fontSize: "22px" }}
             onClick={() => onClickIcon(value)}
           >
             {value}
@@ -535,7 +580,7 @@ function DefaultLayout({ children }) {
                       />
                     </div>
                     {value.url ? (
-                      <div>
+                      <div className="hover-image-chat">
                         <img
                           src={value.url}
                           alt="img not load"
@@ -570,6 +615,7 @@ function DefaultLayout({ children }) {
                       </pre>
                     )}
                   </div>
+                  <Row></Row>
                 </div>
               );
             })}
