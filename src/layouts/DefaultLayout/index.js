@@ -33,6 +33,10 @@ import {
   FolderOutlined,
   LeftOutlined,
   CaretUpOutlined,
+  FrownOutlined,
+  SmileTwoTone,
+  DislikeTwoTone,
+  LikeTwoTone,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -65,7 +69,6 @@ function DefaultLayout({ children }) {
 
   const enterChat = () => {
     setValueChat(valueChat);
-
     if (valueChat.trim() !== "" && valueChat !== null) {
       render(valueChat);
     }
@@ -107,15 +110,10 @@ function DefaultLayout({ children }) {
       { url: URL.createObjectURL(e.target.files[0]), ...date },
       ...valueChats,
     ]);
-    console.log([
-      { url: URL.createObjectURL(e.target.files[0]), ...date },
-      ...valueChats,
-    ]);
   };
 
   const onChangeFile = (e) => {
     setValueChats([{ file: e.target.files[0], ...date }, ...valueChats]);
-    console.log([{ file: e.target.files[0], ...date }, ...valueChats]);
   };
 
   const content = (
@@ -153,6 +151,54 @@ function DefaultLayout({ children }) {
         {/* <input type="file" webkitdirectory mozdirectory directory /> */}
         <FolderOutlined style={{ marginRight: "5px" }} /> Chọn thư mục
       </div>
+    </div>
+  );
+
+  const onClickIcon = (e) => {
+    setValueChats([{ content: e, ...date }, ...valueChats]);
+    console.log([{ content: e, ...date }, ...valueChats]);
+  };
+
+  const iconRender = [
+    <span style={{ fontSize: "24px" }}>😘</span>,
+    <SmileTwoTone />,
+    <DislikeTwoTone />,
+    <LikeTwoTone />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <SmileTwoTone />,
+    <DislikeTwoTone />,
+    <LikeTwoTone />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <SmileTwoTone />,
+    <DislikeTwoTone />,
+    <LikeTwoTone />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+    <FrownOutlined />,
+  ];
+
+  const contentIcon = (
+    <div className="box-choose-icon">
+      {iconRender.map((value, key) => {
+        return (
+          <div
+            className="choose-icon"
+            key={key}
+            onClick={() => onClickIcon(value)}
+          >
+            {value}
+          </div>
+        );
+      })}
     </div>
   );
 
@@ -536,6 +582,48 @@ function DefaultLayout({ children }) {
               </span>
               <div className="line" />
             </div>
+            <Row className="box-message">
+              <Row className="event-message">
+                <Col className="image-message">
+                  <img
+                    src={AvatarAn}
+                    alt="img not load"
+                    style={{
+                      border: "0.5px solid #fff",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      width: "24px",
+                      height: "24px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Col>
+                <Col className="name-message">Lê Thanh Ân</Col>
+                <Col className="content-message">được</Col>
+                <Col className="name-message">Lê Thanh Ân</Col>
+                <Col className="content-message">thêm vào nhóm</Col>
+              </Row>
+            </Row>
+            <Row className="box-message">
+              <Row className="event-message">
+                <Col className="image-message">
+                  <img
+                    src={AvatarAn}
+                    alt="img not load"
+                    style={{
+                      border: "0.5px solid #fff",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      width: "24px",
+                      height: "24px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Col>
+                <Col className="name-message">Lê Thanh Ân</Col>
+                <Col className="content-message">đã rời khỏi nhóm</Col>
+              </Row>
+            </Row>
             <div className="box-other-people">
               <div className="other-people">
                 <div className="img-chat">
@@ -598,9 +686,17 @@ function DefaultLayout({ children }) {
           </div>
           <div className="nav-input-chat">
             <Row className="nav-input">
-              <div>
-                <SmileOutlined />
-              </div>
+              <Popover
+                placement="topLeft"
+                content={contentIcon}
+                trigger="click"
+              >
+                <Tooltip placement="leftBottom" title="Gửi Icon">
+                  <div>
+                    <SmileOutlined />
+                  </div>
+                </Tooltip>
+              </Popover>
               <Tooltip placement="leftBottom" title="Gửi hình ảnh">
                 <div
                   onClick={() => {
@@ -621,7 +717,7 @@ function DefaultLayout({ children }) {
                   />
                 </div>
               </Tooltip>
-              <Popover content={content} trigger="click">
+              <Popover placement="topLeft" content={content} trigger="click">
                 <Tooltip placement="leftBottom" title="Đính kèm File">
                   <div>
                     <PaperClipOutlined />
