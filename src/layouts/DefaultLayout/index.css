@@ -735,6 +735,27 @@ li {
   flex-direction: column-reverse;
 }
 
+.box-nav-3 .box-chat .share-response {
+  display: none;
+  align-items: center;
+  height: 24px;
+  border-radius: 6px;
+  background-color: var(--WA50);
+  margin-right: 20px;
+  margin-bottom: 8px;
+}
+
+.box-nav-3 .box-chat .share-response .anticon svg:hover {
+  color: var(--B60);
+  cursor: pointer;
+}
+
+.box-nav-3 .box-chat .share-response .anticon svg {
+  height: 35px;
+  width: 33px;
+  padding: 4px 7px 2px 10px;
+}
+
 #wrapper .box-nav-3 .box-chat .other-people {
   max-width: calc(100% - 116px);
   display: flex;
@@ -752,6 +773,7 @@ li {
 #wrapper .box-nav-3 .box-chat .box-me {
   display: flex;
   justify-content: flex-end;
+  align-items: flex-end;
 }
 
 #wrapper .box-nav-3 .box-chat .me {
@@ -1135,6 +1157,84 @@ li {
 .box-choose-icon .choose-icon .anticon svg {
   width: 26px;
   height: 26px;
+}
+
+.box-chat .box-file {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--WA100);
+  margin-bottom: 4px;
+  width: 390px;
+  cursor: pointer;
+}
+
+.box-chat .box-file .box-content-file {
+}
+
+.box-chat .box-file .box-content-file .img-file {
+}
+
+.box-chat .box-file .box-content-file .box-content-file-title {
+  width: 100%;
+}
+
+.box-chat .box-file .box-content-file-title .content-file-title {
+  margin-bottom: 5px;
+  overflow: hidden;
+  line-height: normal;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: normal;
+  display: flex;
+}
+
+.box-chat .box-file .box-content-file .box-content-file-title .box-information {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box-chat
+  .box-file
+  .box-content-file
+  .box-content-file-title
+  .box-information
+  .file-size {
+  display: flex;
+  align-items: center;
+  line-height: normal;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: normal;
+  color: var(--secondary-text);
+}
+
+.box-chat
+  .box-file
+  .box-content-file
+  .box-content-file-title
+  .box-information
+  .icon-download {
+  justify-content: center;
+  display: flex;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  background: var(--WA100);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  align-items: center;
+  color: var(--secondary-text);
+  padding: 12px;
+}
+
+.box-chat
+  .box-file
+  .box-content-file
+  .box-content-file-title
+  .box-information
+  .icon-download:hover {
+  background-color: var(--N50);
 }
 
 @media screen and (max-width: 992px) {

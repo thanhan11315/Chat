@@ -33,6 +33,9 @@ import {
   FolderOutlined,
   LeftOutlined,
   CaretUpOutlined,
+  ShareAltOutlined,
+  ExportOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -303,6 +306,13 @@ function DefaultLayout({ children }) {
     );
   }
 
+  const onMounseOverBox = (key) => {
+    document.querySelector(`.share-response-${key}`).style.display = "flex";
+  };
+
+  const onMouseOutBox = (key) => {
+    document.querySelector(`.share-response-${key}`).style.display = "none";
+  };
   return (
     <>
       <Row id="wrapper">
@@ -563,7 +573,19 @@ function DefaultLayout({ children }) {
             {children}
             {valueChats.map((value, key) => {
               return (
-                <div className="box-me">
+                <div
+                  className="box-me"
+                  onMouseOver={() => onMounseOverBox(key)}
+                  onMouseOut={() => onMouseOutBox(key)}
+                >
+                  <Row className={`share-response share-response-${key}`}>
+                    <div>
+                      <ExportOutlined />
+                    </div>
+                    <div>
+                      <ShareAltOutlined />
+                    </div>
+                  </Row>
                   <div className="me">
                     <div className="img-chat">
                       <img
@@ -581,41 +603,71 @@ function DefaultLayout({ children }) {
                     </div>
                     {value.url ? (
                       <div className="hover-image-chat">
-                        <img
-                          src={value.url}
-                          alt="img not load"
-                          style={{
-                            objectFit: "cover",
-                            maxHeight: "390px",
-                            cursor: "pointer",
-                            marginBottom: "8px",
-                            borderRadius: "10px",
-                          }}
-                        />
-                        <div className="date">
-                          {value.date}-{value.month + 1}-{value.year}{" "}
-                          {value.hours}:{value.minutes}
-                        </div>
+                        {value.type === "video" ? (
+                          <video src={value.url} alt="video not load" />
+                        ) : (
+                          <>
+                            <img
+                              src={value.url}
+                              alt="img not load"
+                              style={{
+                                objectFit: "cover",
+                                maxHeight: "390px",
+                                cursor: "pointer",
+                                marginBottom: "8px",
+                                borderRadius: "10px",
+                              }}
+                            />
+                            <div className="date">
+                              {value.date}-{value.month + 1}-{value.year}{" "}
+                              {value.hours}:{value.minutes}
+                            </div>
+                          </>
+                        )}
                       </div>
                     ) : value.file ? (
-                      <div className="date">
-                        {value.file.name}
-                        <div>
-                          {value.date}-{value.month + 1}-{value.year}{" "}
-                          {value.hours}:{value.minutes}
+                      <div className="box-file">
+                        <Row className="box-content-file">
+                          <div className="img-file">
+                            <img
+                              src={AvatarAn}
+                              alt="img not load"
+                              style={{
+                                marginRight: "10px",
+                                height: "56px",
+                                borderRadius: "3px",
+                              }}
+                            />
+                          </div>
+                          <div className="box-content-file-title">
+                            <div className="content-file-title">
+                              {value.file.name}
+                            </div>
+                            <Row className="box-information">
+                              <div className="file-size">{value.file.size}</div>
+                              <div className="icon-download">
+                                <DownloadOutlined />
+                              </div>
+                            </Row>
+                          </div>
+                        </Row>
+                        <div className="date">
+                          <div>
+                            {value.date}-{value.month + 1}-{value.year}{" "}
+                            {value.hours}:{value.minutes}
+                          </div>
                         </div>
                       </div>
                     ) : (
-                      <pre className="content-chat" key={key}>
+                      <div className="content-chat" key={key}>
                         {value.content}
                         <div className="date">
                           {value.date}-{value.month + 1}-{value.year}{" "}
                           {value.hours}:{value.minutes}
                         </div>
-                      </pre>
+                      </div>
                     )}
                   </div>
-                  <Row></Row>
                 </div>
               );
             })}
