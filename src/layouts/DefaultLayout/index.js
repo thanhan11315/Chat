@@ -1,4 +1,4 @@
-import { Col, Input, Row, Tooltip, Popover } from "antd";
+import { Col, Input, Row, Tooltip, Popover, Modal } from "antd";
 import {
   MessageOutlined,
   ContainerOutlined,
@@ -42,6 +42,10 @@ import "./index.css";
 // import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import InPutSearch from "../../components/InPutSearch";
+import MicrosoftWord from "../../assets/images/MicrosoftWord.png";
+import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
+import ImagePDF from "../../assets/images/ImagePDF.png";
+import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
 const { TextArea } = Input;
 
@@ -60,14 +64,13 @@ function DefaultLayout({ children }) {
   // demochatlocal
 
   const [valueChats, setValueChats] = useState([]);
-  const [valueChat, setValueChat] = useState("");
+  const [valueChat, setValueChat] = useState(``);
 
   const onChangeChat = (e) => {
     setValueChat(e.target.value);
   };
 
   const enterChat = () => {
-    setValueChat(valueChat);
     if (valueChat.trim() !== "" && valueChat !== null) {
       render(valueChat);
     }
@@ -106,7 +109,11 @@ function DefaultLayout({ children }) {
 
   const onChangeImage = (e) => {
     setValueChats([
-      { url: URL.createObjectURL(e.target.files[0]), ...date },
+      {
+        type: e.target.files[0].type.slice(0, 5),
+        url: URL.createObjectURL(e.target.files[0]),
+        ...date,
+      },
       ...valueChats,
     ]);
   };
@@ -147,7 +154,6 @@ function DefaultLayout({ children }) {
         />
       </div>
       <div className="chooseFolder">
-        {/* <input type="file" webkitdirectory mozdirectory directory /> */}
         <FolderOutlined style={{ marginRight: "5px" }} /> Chọn thư mục
       </div>
     </div>
@@ -298,6 +304,13 @@ function DefaultLayout({ children }) {
             <BellOutlined />
             14 phút
           </div>
+          <div className="number-unread">
+            <div>
+              <div>5+</div>
+            </div>
+          </div>
+        </Col>
+        <Col className="box3">
           <div className="icon">
             <EllipsisOutlined />
           </div>
@@ -313,8 +326,86 @@ function DefaultLayout({ children }) {
   const onMouseOutBox = (key) => {
     document.querySelector(`.share-response-${key}`).style.display = "none";
   };
+
+  const bytesToSize = (bytes) => {
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+    if (bytes === 0) return "n/a";
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
+    if (i === 0) return `${bytes} ${sizes[i]})`;
+    return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
+  };
+
+  const renderImageFile = (value) => {
+    switch (value.substr(-4)) {
+      case "xlsx":
+        return MicrosoftExcel;
+      case "docx":
+        return MicrosoftWord;
+      case ".pdf":
+        return ImagePDF;
+      case ".zip":
+        return ImageZIP;
+      default:
+        return AvatarAn;
+    }
+  };
+
+  const onClickAllTitle = () => {
+    document
+      .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
+      .classList.add("selected");
+    document
+      .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
+      .classList.remove("selected");
+    document.querySelector(
+      ".box-choose-chatbox .box2 .number-unread"
+    ).style.visibility = "hidden";
+    const arrayList = document.querySelectorAll(".number-unread");
+    if (arrayList) {
+      for (let x = 0; x < arrayList.length; x++) {
+        arrayList[x].style.visibility = "hidden";
+      }
+    }
+  };
+
+  const onClickNotReadTitle = () => {
+    document
+      .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
+      .classList.remove("selected");
+    document
+      .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
+      .classList.add("selected");
+    const arrayList = document.querySelectorAll(".number-unread");
+    if (arrayList) {
+      for (let x = 0; x < arrayList.length; x++) {
+        arrayList[x].style.visibility = "visible";
+      }
+    }
+  };
+
+  const [modalInformation, setModalInformation] = useState(false);
+  const handleCancelModalInformation = () => {
+    setModalInformation(false);
+  };
+  const handleClickImgChat = () => {
+    setModalInformation(true);
+    setTimeout(() => {
+      document.querySelector(".ant-modal").style.width = "352px";
+    }, 1);
+  };
+  // Modal
+
   return (
     <>
+      {/* Modal */}
+      <Modal
+        open={modalInformation}
+        title="Thông tin tài khoản"
+        onCancel={handleCancelModalInformation}
+        footer={[]}
+      ></Modal>
+
+      {/* Modal */}
       <Row id="wrapper">
         <Col
           // xxl={24}
@@ -353,6 +444,7 @@ function DefaultLayout({ children }) {
                 const hiddenBoxNav2 = document.querySelector(".box-nav-2");
                 hiddenBoxNav2.classList.remove("hiddenBoxNav2");
               }}
+              className="active"
             >
               <MessageOutlined />
             </li>
@@ -389,8 +481,12 @@ function DefaultLayout({ children }) {
           </Row>
           <Row className="title-nav-2">
             <Row className="box-title-nav2-1">
-              <Col className="all title">Tất cả</Col>
-              <Col className="not-read title">Chưa đọc</Col>
+              <Col className="all title selected" onClick={onClickAllTitle}>
+                Tất cả
+              </Col>
+              <Col className="not-read title" onClick={onClickNotReadTitle}>
+                Chưa đọc
+              </Col>
             </Row>
             <Row className="box-title-nav2-2">
               <Col className="title classify">
@@ -591,6 +687,7 @@ function DefaultLayout({ children }) {
                       <img
                         src={AvatarAn}
                         alt="img not load"
+                        onClick={handleClickImgChat}
                         style={{
                           border: "0.5px solid #fff",
                           borderRadius: "50%",
@@ -604,7 +701,18 @@ function DefaultLayout({ children }) {
                     {value.url ? (
                       <div className="hover-image-chat">
                         {value.type === "video" ? (
-                          <video src={value.url} alt="video not load" />
+                          <video
+                            controls
+                            src={value.url}
+                            alt="video not load"
+                            style={{
+                              objectFit: "cover",
+                              maxHeight: "390px",
+                              cursor: "pointer",
+                              marginBottom: "8px",
+                              borderRadius: "10px",
+                            }}
+                          />
                         ) : (
                           <>
                             <img
@@ -618,19 +726,19 @@ function DefaultLayout({ children }) {
                                 borderRadius: "10px",
                               }}
                             />
-                            <div className="date">
-                              {value.date}-{value.month + 1}-{value.year}{" "}
-                              {value.hours}:{value.minutes}
-                            </div>
                           </>
                         )}
+                        <div className="date">
+                          {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
+                          {value.hours}:{value.minutes}
+                        </div>
                       </div>
                     ) : value.file ? (
                       <div className="box-file">
                         <Row className="box-content-file">
                           <div className="img-file">
                             <img
-                              src={AvatarAn}
+                              src={renderImageFile(value.file?.name)}
                               alt="img not load"
                               style={{
                                 marginRight: "10px",
@@ -641,10 +749,12 @@ function DefaultLayout({ children }) {
                           </div>
                           <div className="box-content-file-title">
                             <div className="content-file-title">
-                              {value.file.name}
+                              {value.file?.name}
                             </div>
                             <Row className="box-information">
-                              <div className="file-size">{value.file.size}</div>
+                              <div className="file-size">
+                                {bytesToSize(value.file?.size)}
+                              </div>
                               <div className="icon-download">
                                 <DownloadOutlined />
                               </div>
@@ -653,7 +763,7 @@ function DefaultLayout({ children }) {
                         </Row>
                         <div className="date">
                           <div>
-                            {value.date}-{value.month + 1}-{value.year}{" "}
+                            {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
                             {value.hours}:{value.minutes}
                           </div>
                         </div>
@@ -662,7 +772,7 @@ function DefaultLayout({ children }) {
                       <div className="content-chat" key={key}>
                         {value.content}
                         <div className="date">
-                          {value.date}-{value.month + 1}-{value.year}{" "}
+                          {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
                           {value.hours}:{value.minutes}
                         </div>
                       </div>
@@ -795,7 +905,7 @@ function DefaultLayout({ children }) {
                   </div>
                 </Tooltip>
               </Popover>
-              <Tooltip placement="leftBottom" title="Gửi hình ảnh">
+              <Tooltip placement="leftBottom" title="Gửi hình ảnh/video">
                 <div
                   onClick={() => {
                     const uploadImage = document.querySelector(".uploadImage");
@@ -806,6 +916,7 @@ function DefaultLayout({ children }) {
                   <input
                     className="uploadImage"
                     type="file"
+                    accept="image/*, video/*"
                     onChange={(e) => {
                       onChangeImage(e);
                     }}
