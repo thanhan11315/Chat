@@ -39,9 +39,11 @@ import {
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
-// import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
-import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import InPutSearch from "../../components/InPutSearch";
+
+import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
+
+import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import MicrosoftWord from "../../assets/images/MicrosoftWord.png";
 import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
 import ImagePDF from "../../assets/images/ImagePDF.png";
@@ -258,66 +260,30 @@ function DefaultLayout({ children }) {
 
   // demo
 
-  const data = [];
-  for (let i = 0; i < 50; i++) {
-    data.push(
-      <Row
-        className="box-choose-chatbox"
-        onClick={() => {
-          const hiddenBoxNav2 = document.querySelector(".box-nav-2");
-          hiddenBoxNav2.classList.add("hiddenBoxNav2");
-        }}
-      >
-        <Row className="box1">
-          <Col className="image">
-            <img
-              src={AvatarAn}
-              alt="not load img"
-              style={{
-                border: "0.5px solid #fff",
-                borderRadius: "50%",
-                objectFit: "cover",
-                height: "48px",
-                width: "48px",
-                cursor: "pointer",
-              }}
-            />
-          </Col>
-          <Col className="choose-chatbox">
-            <div className="title">
-              {" "}
-              Đấy là lễ khai giảng tại điểm trường thôn 5 Tu Nấc, Quảng Nam -
-              nơi chưa hề có điện và nước sạch. 54 học sinh đồng bào Xơ Đăng
-              không quản ngại thiếu thốn vẫn hân hoan chào năm học mới cùng thầy
-              cô dù cái ăn còn chưa no bụng.
-            </div>
-            <div className="content">
-              Bạn: Đấy là lễ khai giảng tại điểm trường thôn 5 Tu Nấc, Quảng Nam
-              - nơi chưa hề có điện và nước sạch. 54 học sinh đồng bào Xơ Đăng
-              không quản ngại thiếu thốn vẫn hân hoan chào năm học mới cùng thầy
-              cô dù cái ăn còn chưa no bụng.
-            </div>
-          </Col>
-        </Row>
-        <Col className="box2">
-          <div className="time-before" onClick={() => {}}>
-            <BellOutlined />
-            14 phút
-          </div>
-          <div className="number-unread">
-            <div>
-              <div>5+</div>
-            </div>
-          </div>
-        </Col>
-        <Col className="box3">
-          <div className="icon">
-            <EllipsisOutlined />
-          </div>
-        </Col>
-      </Row>
-    );
-  }
+  //
+
+  const datachat = [
+    {
+      name: "Thanh Ân",
+      message: "Thanh Ân Thanh Ân Thanh Ân",
+      avatar: AvatarAn,
+    },
+    {
+      name: "SuperShip",
+      message: "SuperShip SuperShip SuperShip SuperShip",
+      avatar: SuperShipLogo,
+    },
+    {
+      name: "Nhóm Chat",
+      message: "Nhóm Chat Nhóm Chat Nhóm Chat",
+      avatar: MicrosoftExcel,
+    },
+    {
+      name: "Nhóm Chat",
+      message: "Nhóm Chat Nhóm Chat Nhóm Chat",
+      avatar: MicrosoftExcel,
+    },
+  ];
 
   const onMounseOverBox = (key) => {
     document.querySelector(`.share-response-${key}`).style.display = "flex";
@@ -383,6 +349,8 @@ function DefaultLayout({ children }) {
     }
   };
 
+  // Modal
+
   const [modalInformation, setModalInformation] = useState(false);
   const handleCancelModalInformation = () => {
     setModalInformation(false);
@@ -403,7 +371,44 @@ function DefaultLayout({ children }) {
         title="Thông tin tài khoản"
         onCancel={handleCancelModalInformation}
         footer={[]}
-      ></Modal>
+      >
+        <div className="wrapper-modal-information">
+          <div className="profilePhoto">
+            <div className="avatar-profile">
+              <img className="img-profile" alt="not load img" src={AvatarAn} />
+            </div>
+            <div className="user-profile-preview">
+              <div className="box-img-avatar">
+                <img className="img-avatar" alt="not load img" src={AvatarAn} />
+              </div>
+              <div className="preview-content">
+                <div className="name-content">Lê Thanh Ân</div>
+              </div>
+            </div>
+          </div>
+          <div className="box-btn-sentmgs">
+            <div className="btn-sentmgs">Nhắn tin</div>
+          </div>
+          <div className="box-profile-information">
+            <div className="header-profile-detail">Thông tin cá nhân</div>
+            <div className="box-user-profile-detail">
+              <div className="user-profile-detail">
+                <span className="title-profile-detail">Điện Thoại</span>
+                <span className="content-profile-detail"> 0898999907 </span>
+              </div>
+              <div className="user-profile-detail">
+                <span className="title-profile-detail">Giới Tính</span>
+                <span className="content-profile-detail"> Nam </span>
+              </div>
+              <div className="user-profile-detail">
+                <span className="title-profile-detail">Ngày Sinh</span>
+                <span className="content-profile-detail"> 22/02/2022 </span>
+              </div>
+            </div>
+          </div>
+          <div className="box-profile-action"></div>
+        </div>
+      </Modal>
 
       {/* Modal */}
       <Row id="wrapper">
@@ -503,8 +508,54 @@ function DefaultLayout({ children }) {
             </Row>
           </Row>
           <div className="overflow">
-            {data.map((value) => {
-              return value;
+            {datachat.map((value, key) => {
+              return (
+                <Row
+                  className="box-choose-chatbox"
+                  onClick={() => {
+                    const hiddenBoxNav2 = document.querySelector(".box-nav-2");
+                    hiddenBoxNav2.classList.add("hiddenBoxNav2");
+                  }}
+                  key={key}
+                >
+                  <Row className="box1">
+                    <Col className="image">
+                      <img
+                        src={value.avatar}
+                        alt="not load img"
+                        style={{
+                          border: "0.5px solid #fff",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          height: "48px",
+                          width: "48px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </Col>
+                    <Col className="choose-chatbox">
+                      <div className="title">{value.name}</div>
+                      <div className="content">{value.message}</div>
+                    </Col>
+                  </Row>
+                  <Col className="box2">
+                    <div className="time-before" onClick={() => {}}>
+                      <BellOutlined />
+                      14 phút
+                    </div>
+                    <div className="number-unread">
+                      <div>
+                        <div>5+</div>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col className="box3">
+                    <div className="icon">
+                      <EllipsisOutlined />
+                    </div>
+                  </Col>
+                </Row>
+              );
             })}
           </div>
         </Col>
