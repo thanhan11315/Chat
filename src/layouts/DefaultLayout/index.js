@@ -916,7 +916,7 @@ function DefaultLayout({ children }) {
                   <input
                     className="uploadImage"
                     type="file"
-                    accept="image/*, video/*"
+                    accept="image/*, video/mp4, video/*"
                     onChange={(e) => {
                       onChangeImage(e);
                     }}
