@@ -262,28 +262,137 @@ function DefaultLayout({ children }) {
 
   //
 
-  const datachat = [
+  const dataBoxChat = [
     {
+      id: "1",
       name: "Thanh Ân",
       message: "Thanh Ân Thanh Ân Thanh Ân",
       avatar: AvatarAn,
+      status: "Vừa truy cập",
+      ghim: [
+        {
+          name: "Lê Thanh Ân",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+        {
+          name: "Lê Thanh Ân",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+        {
+          name: "Lê Thanh Ân",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+        {
+          name: "Lê Thanh Ân",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+      ],
+      valueChatStore: [
+        {
+          me: {
+            type: "text",
+            message: "Node.js Email - W3Schools",
+          },
+        },
+        {
+          otherPeople: {
+            type: "text",
+            message: "Node.js Email - W3Schools",
+          },
+        },
+        {
+          me: {
+            type: "picture",
+            url: AvatarAn,
+          },
+        },
+        {
+          otherPeople: {
+            type: "picture",
+            url: AvatarAn,
+          },
+        },
+        {
+          me: {
+            type: "video",
+            url: AvatarAn,
+          },
+        },
+        {
+          otherPeople: {
+            type: "video",
+            url: AvatarAn,
+          },
+        },
+        {
+          me: {
+            type: "file",
+            url: AvatarAn,
+          },
+        },
+        {
+          otherPeople: {
+            type: "file",
+            url: AvatarAn,
+          },
+        },
+      ],
     },
     {
+      id: "2",
       name: "SuperShip",
       message: "SuperShip SuperShip SuperShip SuperShip",
       avatar: SuperShipLogo,
+      status: "Vừa truy cập",
+      ghim: [
+        {
+          name: "Nguyễn Văn Hóa",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+        {
+          name: "Nguyễn Văn Hóa",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+      ],
     },
     {
+      id: "3",
       name: "Nhóm Chat",
       message: "Nhóm Chat Nhóm Chat Nhóm Chat",
       avatar: MicrosoftExcel,
+      status: "16 thành viên",
+      ghim: [
+        {
+          name: "Nguyễn Văn Thành Viên",
+          content: "Lorem Ipsum is simply dummy text of the printing",
+        },
+      ],
     },
     {
+      id: "4",
       name: "Nhóm Chat",
       message: "Nhóm Chat Nhóm Chat Nhóm Chat",
       avatar: MicrosoftExcel,
+      status: "106 thành viên",
     },
   ];
+
+  const [headerBoxChat, setHeaderBoxChat] = useState(dataBoxChat[0]);
+
+  const onClickChooseBoxChat = (value) => {
+    const hiddenBoxNav2 = document.querySelector(".box-nav-2");
+    hiddenBoxNav2.classList.add("hiddenBoxNav2");
+    if (document.querySelector(".box-ghim-1")) {
+      document.querySelector(".box-ghim-1").style.display = "block";
+    }
+    if (document.querySelector(".box-ghim-2")) {
+      document.querySelector(".box-ghim-2").style.display = "none";
+    }
+    setHeaderBoxChat(value);
+    console.log(value);
+  };
+
+  const lengthghim = headerBoxChat?.ghim?.length;
 
   const onMounseOverBox = (key) => {
     document.querySelector(`.share-response-${key}`).style.display = "flex";
@@ -347,6 +456,21 @@ function DefaultLayout({ children }) {
         arrayList[x].style.visibility = "visible";
       }
     }
+  };
+
+  const onClickShareIcon = (value) => {
+    console.log(value);
+  };
+
+  const onClickRightMouse = (e, value, key) => {
+    e.preventDefault();
+    let targetEl = e.target;
+    console.log(targetEl);
+    const flyoutEl = document.querySelector(
+      `.right-mouse-share-responsive-${key}`
+    );
+    console.log(flyoutEl);
+    console.log(targetEl === flyoutEl);
   };
 
   // Modal
@@ -508,14 +632,11 @@ function DefaultLayout({ children }) {
             </Row>
           </Row>
           <div className="overflow">
-            {datachat.map((value, key) => {
+            {dataBoxChat.map((value, key) => {
               return (
                 <Row
                   className="box-choose-chatbox"
-                  onClick={() => {
-                    const hiddenBoxNav2 = document.querySelector(".box-nav-2");
-                    hiddenBoxNav2.classList.add("hiddenBoxNav2");
-                  }}
+                  onClick={() => onClickChooseBoxChat(value)}
                   key={key}
                 >
                   <Row className="box1">
@@ -573,7 +694,7 @@ function DefaultLayout({ children }) {
             <Row className="box-1">
               <div className="image">
                 <img
-                  src={AvatarAn}
+                  src={headerBoxChat.avatar}
                   alt="not load img"
                   style={{
                     border: "0.5px solid #fff",
@@ -586,12 +707,7 @@ function DefaultLayout({ children }) {
                 />
               </div>
               <div className="box-1-1">
-                <div className="title">
-                  Đấy là lễ khai giảng tại điểm trường thôn 5 Tu Nấc, Quảng Nam
-                  - nơi chưa hề có điện và nước sạch. 54 học sinh đồng bào Xơ
-                  Đăng không quản ngại thiếu thốn vẫn hân hoan chào năm học mới
-                  cùng thầy cô dù cái ăn còn chưa no bụng.
-                </div>
+                <div className="title">{headerBoxChat.name}</div>
                 <Row className="status">
                   <div className="status-1">
                     <UserOutlined
@@ -600,7 +716,7 @@ function DefaultLayout({ children }) {
                       }}
                     />
                   </div>
-                  <div className="status-2">19 Thành Viên </div>
+                  <div className="status-2">{headerBoxChat.status}</div>
                   <div className="brick"></div>
                   <div className="icon">
                     <TagOutlined />
@@ -629,93 +745,87 @@ function DefaultLayout({ children }) {
               </Row>
             </div>
           </Row>
-          <div className="box-ghim-1">
-            <Row className="box-ghim">
-              <Row className="box-1">
-                <div className="image">
-                  <MessageOutlined />
-                </div>
-                <div className="box-1-1">
-                  <div className="title">Tin nhắn</div>
-                  <div className="status">
-                    <div className="content">
-                      Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5
-                      Tu Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54
-                      học sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn
-                      hân hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa
-                      no bụng. sewqewqewqewqewqewqewqeeeeeeeeeeeeeeêwweqewewqêwq
+          {lengthghim ? (
+            <>
+              <div className="box-ghim-1">
+                <Row className="box-ghim">
+                  <Row className="box-1">
+                    <div className="image">
+                      <MessageOutlined />
                     </div>
-                  </div>
-                </div>
-              </Row>
-              <div className="box-2">
-                <div
-                  className="ghim"
-                  onClick={() => {
-                    document.querySelector(".box-ghim-1").style.display =
-                      "none";
-                    document.querySelector(".box-ghim-2").style.display =
-                      "block";
-                  }}
-                >
-                  1 ghim khác <DownOutlined />{" "}
-                </div>
+                    <div className="box-1-1">
+                      <div className="title">Tin nhắn</div>
+                      <div className="status">
+                        <div className="content">
+                          {`${headerBoxChat.ghim[lengthghim - 1].name}: ${
+                            headerBoxChat.ghim[lengthghim - 1].content
+                          }`}
+                        </div>
+                      </div>
+                    </div>
+                  </Row>
+                  {lengthghim > 1 ? (
+                    <div className="box-2">
+                      <div
+                        className="ghim"
+                        onClick={() => {
+                          document.querySelector(".box-ghim-1").style.display =
+                            "none";
+                          document.querySelector(".box-ghim-2").style.display =
+                            "block";
+                        }}
+                      >
+                        {lengthghim - 1} ghim khác <DownOutlined />{" "}
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </Row>
               </div>
-            </Row>
-          </div>
-
-          <div className="box-ghim-2">
-            <Row className="list-ghim">
-              <div className="list">Danh sách ghim (2)</div>
-              <div
-                className="collapse"
-                onClick={() => {
-                  document.querySelector(".box-ghim-1").style.display = "block";
-                  document.querySelector(".box-ghim-2").style.display = "none";
-                }}
-              >
-                Thu Gọn <CaretUpOutlined />
-              </div>
-            </Row>
-            <Row className="box-ghim">
-              <Row className="box-1">
-                <div className="image">
-                  <MessageOutlined />
-                </div>
-                <div className="box-1-1">
-                  <div className="title">Tin nhắn</div>
-                  <div className="status">
-                    <div className="content">
-                      Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5
-                      Tu Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54
-                      học sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn
-                      hân hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa
-                      no bụng. s
+              {lengthghim > 1 ? (
+                <div className="box-ghim-2">
+                  <Row className="list-ghim">
+                    <div className="list">Danh sách ghim ({lengthghim})</div>
+                    <div
+                      className="collapse"
+                      onClick={() => {
+                        document.querySelector(".box-ghim-1").style.display =
+                          "block";
+                        document.querySelector(".box-ghim-2").style.display =
+                          "none";
+                      }}
+                    >
+                      Thu Gọn <CaretUpOutlined />
                     </div>
-                  </div>
+                  </Row>
+                  {headerBoxChat.ghim.map((value, key) => {
+                    return (
+                      <Row className="box-ghim">
+                        <Row className="box-1">
+                          <div className="image">
+                            <MessageOutlined />
+                          </div>
+                          <div className="box-1-1">
+                            <div className="title">Tin nhắn</div>
+                            <div className="status">
+                              <div className="content">
+                                {`${value.name} : ${value.content}`}
+                              </div>
+                            </div>
+                          </div>
+                        </Row>
+                      </Row>
+                    );
+                  })}
                 </div>
-              </Row>
-            </Row>{" "}
-            <Row className="box-ghim">
-              <Row className="box-1">
-                <div className="image">
-                  <MessageOutlined />
-                </div>
-                <div className="box-1-1">
-                  <div className="title">Tin nhắn</div>
-                  <div className="status">
-                    <div className="content">
-                      Lê Thanh Ân: Đấy là lễ khai giảng tại điểm trường thôn 5
-                      Tu Nấc, Quảng Nam - nơi chưa hề có điện và nước sạch. 54
-                      học sinh đồng bào Xơ Đăng không quản ngại thiếu thốn vẫn
-                      hân hoan chào năm học mới cùng thầy cô dù cái ăn còn chưa
-                      no bụng. sewqeqewqeqưeqưewqewqewqêwqewqeqewqeqưewqewq
-                    </div>
-                  </div>
-                </div>
-              </Row>
-            </Row>
-          </div>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            ""
+          )}
           <div className="box-chat">
             {children}
             {valueChats.map((value, key) => {
@@ -727,7 +837,7 @@ function DefaultLayout({ children }) {
                 >
                   <Row className={`share-response share-response-${key}`}>
                     <div>
-                      <ExportOutlined />
+                      <ExportOutlined onClick={() => onClickShareIcon(value)} />
                     </div>
                     <div>
                       <ShareAltOutlined />
@@ -820,13 +930,27 @@ function DefaultLayout({ children }) {
                         </div>
                       </div>
                     ) : (
-                      <div className="content-chat" key={key}>
-                        {value.content}
-                        <div className="date">
-                          {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-                          {value.hours}:{value.minutes}
+                      <>
+                        <div
+                          className="content-chat"
+                          key={key}
+                          onContextMenu={(e) => {
+                            onClickRightMouse(e, value, key);
+                          }}
+                        >
+                          {value.content}
+                          <div className="date">
+                            {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
+                            {value.hours}:{value.minutes}
+                          </div>
+                          <div
+                            className={`right-mouse-share-responsive right-mouse-share-responsive-${key}`}
+                          >
+                            <div className="share-responsive"> Trả lời </div>
+                            <div className="share-responsive"> Chia sẻ </div>
+                          </div>
                         </div>
-                      </div>
+                      </>
                     )}
                   </div>
                 </div>
@@ -1067,7 +1191,7 @@ function DefaultLayout({ children }) {
             <div className="box-information">
               <div className="image">
                 <img
-                  src={AvatarAn}
+                  src={headerBoxChat.avatar}
                   alt="img not load"
                   style={{
                     border: "0.5px solid #fff",
@@ -1080,7 +1204,7 @@ function DefaultLayout({ children }) {
                 />
               </div>
               <div className="header-info-name">
-                <div className="header">Lê Thanh Ân </div>
+                <div className="header">{headerBoxChat.name}</div>
                 <div className="icon">
                   <LikeOutlined />
                 </div>
