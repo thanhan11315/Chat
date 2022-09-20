@@ -1,33 +1,47 @@
 import React from "react";
 import { Row } from "antd";
 import { ExportOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import "./AnswerInput.css";
 
-function AnswerInput() {
+function AnswerInput(props) {
   return (
     <Row className="answer-input-box">
       <div className="border-right" />
-      <div className="answer-image">
-        <img alt="img not load" src={AvatarAn} />
-      </div>
+      {props.answerInputValue.type === "image" ? (
+        <div className="answer-image">
+          <img alt="img not load" src={props.answerInputValue.url} />
+        </div>
+      ) : props.answerInputValue.type === "video" ? (
+        <div className="answer-image">
+          <video alt="video not load" src={props.answerInputValue.url} />
+        </div>
+      ) : props.answerInputValue.file ? (
+        <div className="answer-image">
+          <img
+            alt="img not load"
+            src={props.renderImageFile(props.answerInputValue.file.name)}
+          />
+        </div>
+      ) : (
+        ""
+      )}
       <div className="answer-content">
         <div className="answer">
           <ExportOutlined /> Trả lời
         </div>
-        <div className="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum
-        </div>
+        {props.answerInputValue.type === "image" ? (
+          <div className="content">[Hình ảnh]</div>
+        ) : props.answerInputValue.type === "video" ? (
+          <div className="content">[Video]</div>
+        ) : props.answerInputValue.file ? (
+          <div className="content">
+            {`[File] ${props.answerInputValue.file.name}`}
+          </div>
+        ) : (
+          <div className="content">{props.answerInputValue.content}</div>
+        )}
       </div>
-      <div className="delete">
+      <div className="delete" onClick={() => props.clearAnswerTnputValue()}>
         <CloseCircleOutlined />
       </div>
     </Row>

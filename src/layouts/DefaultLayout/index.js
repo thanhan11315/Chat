@@ -92,6 +92,7 @@ function DefaultLayout({ children }) {
   const render = (valueChatReplace) => {
     setValueChats([
       {
+        answer: answerInputValue,
         content: valueChatReplace,
         year: d.getFullYear(),
         month: d.getMonth(),
@@ -103,12 +104,14 @@ function DefaultLayout({ children }) {
     ]);
     console.log([
       {
+        answer: answerInputValue,
         content: valueChatReplace,
         ...date,
       },
       ...valueChats,
     ]);
     setValueChat("");
+    setanswerInputValue("");
   };
 
   const onChangeImage = (e) => {
@@ -459,8 +462,17 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const onClickShareIcon = (value) => {
+  const [answerInputValue, setanswerInputValue] = useState("");
+
+  const onClickAnswerIcon = (value) => {
     console.log(value);
+    setanswerInputValue(value);
+    document.querySelector(".input-chat .ant-input").focus();
+  };
+
+  const clearAnswerTnputValue = () => {
+    setanswerInputValue("");
+    console.log("1");
   };
 
   const onClickRightMouse = (e, value, key) => {
@@ -687,47 +699,49 @@ function DefaultLayout({ children }) {
         </Col>
         <Col className="box-nav-3">
           <Row className="box-nav-chat">
-            <div
-              className="button-phone"
-              onClick={() => {
-                const hiddenBoxNav2 = document.querySelector(".box-nav-2");
-                hiddenBoxNav2.classList.remove("hiddenBoxNav2");
-              }}
-            >
-              <LeftOutlined />
-            </div>
-            <Row className="box-1">
-              <div className="image">
-                <img
-                  src={headerBoxChat.avatar}
-                  alt="not load img"
-                  style={{
-                    border: "0.5px solid #fff",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    width: "48px",
-                    height: "48px",
-                    cursor: "pointer",
-                  }}
-                />
+            <Row>
+              <div
+                className="button-phone"
+                onClick={() => {
+                  const hiddenBoxNav2 = document.querySelector(".box-nav-2");
+                  hiddenBoxNav2.classList.remove("hiddenBoxNav2");
+                }}
+              >
+                <LeftOutlined />
               </div>
-              <div className="box-1-1">
-                <div className="title">{headerBoxChat.name}</div>
-                <Row className="status">
-                  <div className="status-1">
-                    <UserOutlined
-                      style={{
-                        marginRight: "5px",
-                      }}
-                    />
-                  </div>
-                  <div className="status-2">{headerBoxChat.status}</div>
-                  <div className="brick"></div>
-                  <div className="icon">
-                    <TagOutlined />
-                  </div>
-                </Row>
-              </div>
+              <Row className="box-1">
+                <div className="image">
+                  <img
+                    src={headerBoxChat.avatar}
+                    alt="not load img"
+                    style={{
+                      border: "0.5px solid #fff",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      width: "48px",
+                      height: "48px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </div>
+                <div className="box-1-1">
+                  <div className="title">{headerBoxChat.name}</div>
+                  <Row className="status">
+                    <div className="status-1">
+                      <UserOutlined
+                        style={{
+                          marginRight: "5px",
+                        }}
+                      />
+                    </div>
+                    <div className="status-2">{headerBoxChat.status}</div>
+                    <div className="brick"></div>
+                    <div className="icon">
+                      <TagOutlined />
+                    </div>
+                  </Row>
+                </div>
+              </Row>
             </Row>
             <div className="box-2">
               <Row className="icon-title">
@@ -842,7 +856,9 @@ function DefaultLayout({ children }) {
                 >
                   <Row className={`share-response share-response-${key}`}>
                     <div>
-                      <ExportOutlined onClick={() => onClickShareIcon(value)} />
+                      <ExportOutlined
+                        onClick={() => onClickAnswerIcon(value)}
+                      />
                     </div>
                     <div>
                       <ShareAltOutlined />
@@ -943,6 +959,15 @@ function DefaultLayout({ children }) {
                             onClickRightMouse(e, value, key);
                           }}
                         >
+                          {value.answer ? (
+                            <AnswerInput
+                              answerInputValue={value.answer}
+                              clearAnswerTnputValue={clearAnswerTnputValue}
+                              renderImageFile={renderImageFile}
+                            />
+                          ) : (
+                            ""
+                          )}
                           {value.content}
                           <div className="date">
                             {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
@@ -1138,7 +1163,15 @@ function DefaultLayout({ children }) {
             <div className={`nav-chat ${focusInput}`}>
               {/* answer-input */}
 
-              <AnswerInput />
+              {answerInputValue ? (
+                <AnswerInput
+                  answerInputValue={answerInputValue}
+                  clearAnswerTnputValue={clearAnswerTnputValue}
+                  renderImageFile={renderImageFile}
+                />
+              ) : (
+                ""
+              )}
 
               {/* answer-input */}
 
