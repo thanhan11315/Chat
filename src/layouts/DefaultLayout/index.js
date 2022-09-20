@@ -39,8 +39,10 @@ import {
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
-import InPutSearch from "../../components/InPutSearch";
-
+// compoment
+import InPutSearch from "../../components/inPutSearch/InPutSearch";
+import AnswerInput from "../../components/answerInput/Answerinput";
+//
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
 import AvatarAn from "../../assets/images/AvatarAn.jpg";
@@ -424,7 +426,6 @@ function DefaultLayout({ children }) {
         return AvatarAn;
     }
   };
-
   const onClickAllTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
@@ -486,6 +487,10 @@ function DefaultLayout({ children }) {
     }, 1);
   };
   // Modal
+
+  // rendercontent
+
+  // rendercontent
 
   return (
     <>
@@ -1130,54 +1135,62 @@ function DefaultLayout({ children }) {
                 <EllipsisOutlined />
               </div>
             </Row>
-            <Row className={`nav-chat ${focusInput}`}>
-              <div className="input-chat">
-                <TextArea
-                  onChange={onChangeChat}
-                  value={valueChat}
-                  placeholder="Nhập tin nhắn"
-                  autoSize={{
-                    minRows: 1,
-                    maxRows: 6,
-                  }}
-                  onBlur={() => {
-                    SetFocusInput("");
-                  }}
-                  onFocus={() => {
-                    SetFocusInput("focus-input");
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.code === "Enter" && !e.shiftKey) {
-                      e.preventDefault();
-                      enterChat();
-                    }
-                  }}
-                />
-              </div>
-              <Row className="icon-input">
-                <div>
-                  <CommentOutlined />
+            <div className={`nav-chat ${focusInput}`}>
+              {/* answer-input */}
+
+              <AnswerInput />
+
+              {/* answer-input */}
+
+              <Row>
+                <div className="input-chat">
+                  <TextArea
+                    onChange={onChangeChat}
+                    value={valueChat}
+                    placeholder="Nhập tin nhắn"
+                    autoSize={{
+                      minRows: 1,
+                      maxRows: 6,
+                    }}
+                    onBlur={() => {
+                      SetFocusInput("");
+                    }}
+                    onFocus={() => {
+                      SetFocusInput("focus-input");
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.code === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        enterChat();
+                      }
+                    }}
+                  />
                 </div>
-                <div>
-                  <SmileOutlined />
-                </div>
-                <div>
-                  <DingtalkOutlined />
-                </div>
-                <div>
-                  {valueChat.trim() !== "" && valueChat !== null ? (
-                    <span
-                      className="button-sent"
-                      onClick={() => render(valueChat)}
-                    >
-                      GỬi
-                    </span>
-                  ) : (
-                    <LikeOutlined />
-                  )}
-                </div>
+                <Row className="icon-input">
+                  <div>
+                    <CommentOutlined />
+                  </div>
+                  <div>
+                    <SmileOutlined />
+                  </div>
+                  <div>
+                    <DingtalkOutlined />
+                  </div>
+                  <div>
+                    {valueChat.trim() !== "" && valueChat !== null ? (
+                      <span
+                        className="button-sent"
+                        onClick={() => render(valueChat)}
+                      >
+                        GỬi
+                      </span>
+                    ) : (
+                      <LikeOutlined />
+                    )}
+                  </div>
+                </Row>
               </Row>
-            </Row>
+            </div>
           </div>
         </Col>
         <Col className={`box-nav-4 ${hiddenRightNav}`}>

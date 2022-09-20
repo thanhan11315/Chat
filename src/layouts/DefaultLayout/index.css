@@ -1456,6 +1456,89 @@ li {
 
 /*  */
 
+/* answer-input */
+
+.nav-chat .answer-input-box {
+  margin: 12px 15px 0;
+  background-color: var(--NG10);
+  border: none;
+  padding: 12px;
+  min-width: 150px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.nav-chat .answer-input-box:hover {
+  background-color: var(--lst-item-hover);
+}
+
+.nav-chat .answer-input-box .border-right {
+  width: 2px;
+  min-width: 2px;
+  background-color: var(--B60);
+  margin-right: 8px;
+}
+
+.nav-chat .answer-input-box .answer-image {
+  min-width: 36px;
+  height: 36px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-chat .answer-input-box .answer-image img {
+  height: 36px;
+}
+
+.nav-chat .answer-input-box .answer-content {
+  overflow: hidden;
+}
+
+.nav-chat .answer-input-box .answer-content .answer {
+  user-select: none;
+}
+
+.nav-chat .answer-input-box .answer-content .answer .anticon svg {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  color: var(--NG80);
+}
+
+.nav-chat .answer-input-box .answer-content .content {
+  color: var(--text-quote);
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-chat .answer-input-box .delete {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  background-color: var(--N80);
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.nav-chat .answer-input-box .delete:hover {
+  background-color: var(--B60);
+}
+
+.nav-chat .answer-input-box .delete .anticon svg {
+  font-weight: 400;
+  color: #fff;
+}
+
+/* answer-input */
 .wrapper-modal-information .box-profile-action {
   padding-left: 20px;
   border-top: 8px solid var(--border);
