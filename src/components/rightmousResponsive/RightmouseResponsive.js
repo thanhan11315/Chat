@@ -1,5 +1,6 @@
 import React from "react";
 import { ExportOutlined, ShareAltOutlined } from "@ant-design/icons";
+import "./RightmousResponsive.css";
 
 function RightmouseResponsive(props) {
   return (
