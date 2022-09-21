@@ -17,3 +17,9 @@
 #InPutSearch .ant-input {
   background-color: var(--N20);
 }
+
+@media screen and (max-width: 992px) {
+  #wrapper #InPutSearch .ant-input-affix-wrapper {
+    width: 100%;
+  }
+}

@@ -1,0 +1,36 @@
+#wrapper .box-nav-1 {
+  width: 64px;
+  background-color: var(--HL_sidebar);
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#wrapper .box-nav-1 ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--WA100);
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+
+#wrapper .box-nav-1 ul li:hover {
+  background-color: var(--BA10);
+}
+
+#wrapper .box-nav-1 ul li:active {
+  background-color: var(--HL_sidebar-active);
+}
+
+#wrapper .box-nav-1 ul .active {
+  background-color: var(--HL_sidebar-active);
+}
+
+#wrapper .box-nav-1 ul li .anticon svg {
+  width: 24px;
+  height: 24px;
+}

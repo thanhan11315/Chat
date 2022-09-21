@@ -1,4 +1,4 @@
-import { Col, Input, Row, Tooltip, Popover, Modal } from "antd";
+import { Col, Input, Row, Tooltip, Popover } from "antd";
 import {
   MessageOutlined,
   ContainerOutlined,
@@ -41,7 +41,8 @@ import React from "react";
 import "./index.css";
 // compoment
 import InPutSearch from "../../components/inPutSearch/InPutSearch";
-import AnswerInput from "../../components/answerInput/Answerinput";
+import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.js";
+import ModalInformation from "../../components/modal/Modal.js";
 //
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
@@ -51,6 +52,10 @@ import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
 import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
+import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
+import Nav1 from "./nav1/Nav1";
+import Nav2 from "./nav2/Nav2";
+import NavChatHead from "../../components/navChatHead/NavChatHead";
 const { TextArea } = Input;
 
 function DefaultLayout({ children }) {
@@ -92,7 +97,7 @@ function DefaultLayout({ children }) {
   const render = (valueChatReplace) => {
     setValueChats([
       {
-        answer: answerInputValue,
+        Responsive: ResponsiveInputValue,
         content: valueChatReplace,
         year: d.getFullYear(),
         month: d.getMonth(),
@@ -104,14 +109,14 @@ function DefaultLayout({ children }) {
     ]);
     console.log([
       {
-        answer: answerInputValue,
+        Responsive: ResponsiveInputValue,
         content: valueChatReplace,
         ...date,
       },
       ...valueChats,
     ]);
     setValueChat("");
-    setanswerInputValue("");
+    setResponsiveInputValue("");
   };
 
   const onChangeImage = (e) => {
@@ -462,28 +467,19 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const [answerInputValue, setanswerInputValue] = useState("");
+  const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
+  const [valueResponsiveRightClick, setValueResponsiveRightClick] =
+    useState("");
 
-  const onClickAnswerIcon = (value) => {
+  const onClickResponsiveIcon = (value) => {
     console.log(value);
-    setanswerInputValue(value);
+    setResponsiveInputValue(value);
     document.querySelector(".input-chat .ant-input").focus();
   };
 
-  const clearAnswerTnputValue = () => {
-    setanswerInputValue("");
-    console.log("1");
-  };
-
-  const onClickRightMouse = (e, value, key) => {
-    e.preventDefault();
-    let targetEl = e.target;
-    console.log(targetEl);
-    const flyoutEl = document.querySelector(
-      `.right-mouse-share-responsive-${key}`
-    );
-    console.log(flyoutEl);
-    console.log(targetEl === flyoutEl);
+  const clearResponsiveTnputValue = () => {
+    setResponsiveInputValue("");
+    document.querySelector(".input-chat .ant-input").focus();
   };
 
   // Modal
@@ -498,272 +494,80 @@ function DefaultLayout({ children }) {
       document.querySelector(".ant-modal").style.width = "352px";
     }, 1);
   };
+
   // Modal
+  window.addEventListener("click", () => {
+    document.querySelector(".right-mouse-share-responsive ").style.display =
+      "none";
+  });
 
-  // rendercontent
+  window.addEventListener("wheel", () => {
+    document.querySelector(".right-mouse-share-responsive ").style.display =
+      "none";
+  });
 
-  // rendercontent
+  window.addEventListener("contextmenu", () => {
+    document.querySelector(".right-mouse-share-responsive ").style.display =
+      "none";
+  });
+
+  window.addEventListener("keydown", () => {
+    document.querySelector(".input-chat .ant-input").focus();
+  });
+
+  if (document.getElementById("InPutSearch")) {
+    document.getElementById("InPutSearch").addEventListener("keydown", (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  const handleOnContextMenu = (e) => {
+    e.preventDefault();
+    const menu = document.querySelector(".right-mouse-share-responsive");
+    menu.style.display = "block";
+    menu.style.top = `${e.clientY - 10}px`;
+    menu.style.left = `${e.clientX - 10}px`;
+    e.stopPropagation();
+  };
 
   return (
     <>
       {/* Modal */}
-      <Modal
-        open={modalInformation}
-        title="Thông tin tài khoản"
-        onCancel={handleCancelModalInformation}
-        footer={[]}
-      >
-        <div className="wrapper-modal-information">
-          <div className="profilePhoto">
-            <div className="avatar-profile">
-              <img className="img-profile" alt="not load img" src={AvatarAn} />
-            </div>
-            <div className="user-profile-preview">
-              <div className="box-img-avatar">
-                <img className="img-avatar" alt="not load img" src={AvatarAn} />
-              </div>
-              <div className="preview-content">
-                <div className="name-content">Lê Thanh Ân</div>
-              </div>
-            </div>
-          </div>
-          <div className="box-btn-sentmgs">
-            <div className="btn-sentmgs">Nhắn tin</div>
-          </div>
-          <div className="box-profile-information">
-            <div className="header-profile-detail">Thông tin cá nhân</div>
-            <div className="box-user-profile-detail">
-              <div className="user-profile-detail">
-                <span className="title-profile-detail">Điện Thoại</span>
-                <span className="content-profile-detail"> 0898999907 </span>
-              </div>
-              <div className="user-profile-detail">
-                <span className="title-profile-detail">Giới Tính</span>
-                <span className="content-profile-detail"> Nam </span>
-              </div>
-              <div className="user-profile-detail">
-                <span className="title-profile-detail">Ngày Sinh</span>
-                <span className="content-profile-detail"> 22/02/2022 </span>
-              </div>
-            </div>
-          </div>
-          <div className="box-profile-action"></div>
-        </div>
-      </Modal>
+      <ModalInformation
+        modalInformation={modalInformation}
+        handleCancelModalInformation={handleCancelModalInformation}
+      />
+      {/* Modal*/}
 
-      {/* Modal */}
+      {/* RightmouseResponsive */}
+      <RightmouseResponsive
+        onClickResponsiveIcon={onClickResponsiveIcon}
+        valueResponsiveRightClick={valueResponsiveRightClick}
+      />
+      {/* RightmouseResponsive */}
+
       <Row id="wrapper">
-        <Col
-          // xxl={24}
-          // xl={24}
-          // lg={24}
-          // md={24}
-          // sm={24}
-          // xs={24}
-          className="box-nav-1"
-        >
-          <ul className="list-1">
-            <div
-              style={{
-                height: "100px",
-                paddingTop: "32px",
-                alignItems: "flex-start",
-                objectFit: "cover",
-                textAlign: "center",
-              }}
-            >
-              <img
-                src={AvatarAn}
-                alt="img not load"
-                style={{
-                  border: "0.5px solid #fff",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  width: "48px",
-                  height: "48px",
-                  cursor: "pointer",
-                }}
-              />
-            </div>
-            <li
-              onClick={() => {
-                const hiddenBoxNav2 = document.querySelector(".box-nav-2");
-                hiddenBoxNav2.classList.remove("hiddenBoxNav2");
-              }}
-              className="active"
-            >
-              <MessageOutlined />
-            </li>
-            <li>
-              <ContainerOutlined />
-            </li>
-            <li>
-              <CheckSquareOutlined />
-            </li>
-          </ul>
-          <ul className="list-2">
-            <li>
-              <CloudOutlined />
-            </li>
-            <li>
-              <ToolOutlined />
-            </li>
-            <li>
-              <SettingOutlined />
-            </li>
-          </ul>
-        </Col>
-        <Col className="box-nav-2 box-nav-2-mobile">
-          <Row className="search-add">
-            <Col className="search">
-              <InPutSearch />
-            </Col>
-            <Col className="add-friend icon">
-              <UserAddOutlined />
-            </Col>
-            <Col className="create-group icon">
-              <UsergroupAddOutlined />
-            </Col>
-          </Row>
-          <Row className="title-nav-2">
-            <Row className="box-title-nav2-1">
-              <Col className="all title selected" onClick={onClickAllTitle}>
-                Tất cả
-              </Col>
-              <Col className="not-read title" onClick={onClickNotReadTitle}>
-                Chưa đọc
-              </Col>
-            </Row>
-            <Row className="box-title-nav2-2">
-              <Col className="title classify">
-                Phân loại
-                <DownOutlined
-                  style={{
-                    marginLeft: "8px",
-                  }}
-                />
-              </Col>
-              <Col className="title dots">
-                <EllipsisOutlined />
-              </Col>
-            </Row>
-          </Row>
-          <div className="overflow">
-            {dataBoxChat.map((value, key) => {
-              return (
-                <Row
-                  className="box-choose-chatbox"
-                  onClick={() => onClickChooseBoxChat(value)}
-                  key={key}
-                >
-                  <Row className="box1">
-                    <Col className="image">
-                      <img
-                        src={value.avatar}
-                        alt="not load img"
-                        style={{
-                          border: "0.5px solid #fff",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                          height: "48px",
-                          width: "48px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </Col>
-                    <Col className="choose-chatbox">
-                      <div className="title">{value.name}</div>
-                      <div className="content">{value.message}</div>
-                    </Col>
-                  </Row>
-                  <Col className="box2">
-                    <div className="time-before" onClick={() => {}}>
-                      <BellOutlined />
-                      14 phút
-                    </div>
-                    <div className="number-unread">
-                      <div>
-                        <div>5+</div>
-                      </div>
-                    </div>
-                  </Col>
-                  <Col className="box3">
-                    <div className="icon">
-                      <EllipsisOutlined />
-                    </div>
-                  </Col>
-                </Row>
-              );
-            })}
-          </div>
-        </Col>
+        {/* Nav1 */}
+        <Nav1 />
+        {/* Nav1 */}
+
+        {/* Nav2 */}
+        <Nav2
+          onClickAllTitle={onClickAllTitle}
+          onClickNotReadTitle={onClickNotReadTitle}
+          dataBoxChat={dataBoxChat}
+          onClickChooseBoxChat={onClickChooseBoxChat}
+        />
+        {/* Nav2 */}
+
         <Col className="box-nav-3">
-          <Row className="box-nav-chat">
-            <Row>
-              <div
-                className="button-phone"
-                onClick={() => {
-                  const hiddenBoxNav2 = document.querySelector(".box-nav-2");
-                  hiddenBoxNav2.classList.remove("hiddenBoxNav2");
-                }}
-              >
-                <LeftOutlined />
-              </div>
-              <Row className="box-1">
-                <div className="image">
-                  <img
-                    src={headerBoxChat.avatar}
-                    alt="not load img"
-                    style={{
-                      border: "0.5px solid #fff",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      width: "48px",
-                      height: "48px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </div>
-                <div className="box-1-1">
-                  <div className="title">{headerBoxChat.name}</div>
-                  <Row className="status">
-                    <div className="status-1">
-                      <UserOutlined
-                        style={{
-                          marginRight: "5px",
-                        }}
-                      />
-                    </div>
-                    <div className="status-2">{headerBoxChat.status}</div>
-                    <div className="brick"></div>
-                    <div className="icon">
-                      <TagOutlined />
-                    </div>
-                  </Row>
-                </div>
-              </Row>
-            </Row>
-            <div className="box-2">
-              <Row className="icon-title">
-                <div>
-                  <UsergroupAddOutlined />
-                </div>
-                <div>
-                  <SearchOutlined />
-                </div>
-                <div>
-                  <VideoCameraOutlined />
-                </div>
-                <div onClick={navRight}>
-                  {hiddenRightNav ? (
-                    <MenuFoldOutlined />
-                  ) : (
-                    <MenuUnfoldOutlined />
-                  )}
-                </div>
-              </Row>
-            </div>
-          </Row>
+          {/* NavChatHead */}
+          <NavChatHead
+            headerBoxChat={headerBoxChat}
+            navRight={navRight}
+            hiddenRightNav={hiddenRightNav}
+          />
+          {/* NavChatHead */}
           {lengthghim ? (
             <>
               <div className="box-ghim-1">
@@ -857,7 +661,7 @@ function DefaultLayout({ children }) {
                   <Row className={`share-response share-response-${key}`}>
                     <div>
                       <ExportOutlined
-                        onClick={() => onClickAnswerIcon(value)}
+                        onClick={() => onClickResponsiveIcon(value)}
                       />
                     </div>
                     <div>
@@ -880,26 +684,20 @@ function DefaultLayout({ children }) {
                         }}
                       />
                     </div>
-                    {value.url ? (
-                      <div className="hover-image-chat">
-                        {value.type === "video" ? (
-                          <video
-                            controls
-                            src={value.url}
-                            alt="video not load"
-                            style={{
-                              objectFit: "cover",
-                              maxHeight: "390px",
-                              cursor: "pointer",
-                              marginBottom: "8px",
-                              borderRadius: "10px",
-                            }}
-                          />
-                        ) : (
-                          <>
-                            <img
+                    <div
+                      className="box-content-all-chat"
+                      onContextMenu={(e) => {
+                        handleOnContextMenu(e);
+                        setValueResponsiveRightClick(value);
+                      }}
+                    >
+                      {value.url ? (
+                        <div className="hover-image-chat">
+                          {value.type === "video" ? (
+                            <video
+                              controls
                               src={value.url}
-                              alt="img not load"
+                              alt="video not load"
                               style={{
                                 objectFit: "cover",
                                 maxHeight: "390px",
@@ -908,80 +706,84 @@ function DefaultLayout({ children }) {
                                 borderRadius: "10px",
                               }}
                             />
-                          </>
-                        )}
-                        <div className="date">
-                          {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-                          {value.hours}:{value.minutes}
-                        </div>
-                      </div>
-                    ) : value.file ? (
-                      <div className="box-file">
-                        <Row className="box-content-file">
-                          <div className="img-file">
-                            <img
-                              src={renderImageFile(value.file?.name)}
-                              alt="img not load"
-                              style={{
-                                marginRight: "10px",
-                                height: "56px",
-                                borderRadius: "3px",
-                              }}
-                            />
-                          </div>
-                          <div className="box-content-file-title">
-                            <div className="content-file-title">
-                              {value.file?.name}
-                            </div>
-                            <Row className="box-information">
-                              <div className="file-size">
-                                {bytesToSize(value.file?.size)}
-                              </div>
-                              <div className="icon-download">
-                                <DownloadOutlined />
-                              </div>
-                            </Row>
-                          </div>
-                        </Row>
-                        <div className="date">
-                          <div>
-                            {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-                            {value.hours}:{value.minutes}
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <>
-                        <div
-                          className="content-chat"
-                          key={key}
-                          onContextMenu={(e) => {
-                            onClickRightMouse(e, value, key);
-                          }}
-                        >
-                          {value.answer ? (
-                            <AnswerInput
-                              answerInputValue={value.answer}
-                              clearAnswerTnputValue={clearAnswerTnputValue}
-                              renderImageFile={renderImageFile}
-                            />
                           ) : (
-                            ""
+                            <>
+                              <img
+                                src={value.url}
+                                alt="img not load"
+                                style={{
+                                  objectFit: "cover",
+                                  maxHeight: "390px",
+                                  cursor: "pointer",
+                                  marginBottom: "8px",
+                                  borderRadius: "10px",
+                                }}
+                              />
+                            </>
                           )}
-                          {value.content}
                           <div className="date">
                             {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
                             {value.hours}:{value.minutes}
                           </div>
-                          <div
-                            className={`right-mouse-share-responsive right-mouse-share-responsive-${key}`}
-                          >
-                            <div className="share-responsive"> Trả lời </div>
-                            <div className="share-responsive"> Chia sẻ </div>
+                        </div>
+                      ) : value.file ? (
+                        <div className="box-file">
+                          <Row className="box-content-file">
+                            <div className="img-file">
+                              <img
+                                src={renderImageFile(value.file?.name)}
+                                alt="img not load"
+                                style={{
+                                  marginRight: "10px",
+                                  height: "56px",
+                                  borderRadius: "3px",
+                                }}
+                              />
+                            </div>
+                            <div className="box-content-file-title">
+                              <div className="content-file-title">
+                                {value.file?.name}
+                              </div>
+                              <Row className="box-information">
+                                <div className="file-size">
+                                  {bytesToSize(value.file?.size)}
+                                </div>
+                                <div className="icon-download">
+                                  <DownloadOutlined />
+                                </div>
+                              </Row>
+                            </div>
+                          </Row>
+                          <div className="date">
+                            <div>
+                              {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
+                              {value.hours}:{value.minutes}
+                            </div>
                           </div>
                         </div>
-                      </>
-                    )}
+                      ) : (
+                        <>
+                          <div className="content-chat" key={key}>
+                            {value.Responsive ? (
+                              <ResponsiveInput
+                                ResponsiveInputValue={value.Responsive}
+                                clearResponsiveTnputValue={
+                                  clearResponsiveTnputValue
+                                }
+                                renderImageFile={renderImageFile}
+                              />
+                            ) : (
+                              ""
+                            )}
+                            {value.content}
+                            <div className="date">
+                              {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
+                              {value.hours}:{value.minutes}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -1161,19 +963,19 @@ function DefaultLayout({ children }) {
               </div>
             </Row>
             <div className={`nav-chat ${focusInput}`}>
-              {/* answer-input */}
+              {/* Responsive-input */}
 
-              {answerInputValue ? (
-                <AnswerInput
-                  answerInputValue={answerInputValue}
-                  clearAnswerTnputValue={clearAnswerTnputValue}
+              {ResponsiveInputValue ? (
+                <ResponsiveInput
+                  ResponsiveInputValue={ResponsiveInputValue}
+                  clearResponsiveTnputValue={clearResponsiveTnputValue}
                   renderImageFile={renderImageFile}
                 />
               ) : (
                 ""
               )}
 
-              {/* answer-input */}
+              {/* Responsive-input */}
 
               <Row>
                 <div className="input-chat">
@@ -1290,44 +1092,6 @@ function DefaultLayout({ children }) {
                 </div>
               </Row>
             </div>
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
-            <div className="test" />
             <div className="test" />
           </div>
         </Col>

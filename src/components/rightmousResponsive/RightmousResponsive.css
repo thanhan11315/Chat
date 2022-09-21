@@ -1,0 +1,34 @@
+/* menus-right-mouse */
+
+.right-mouse-share-responsive {
+  position: absolute;
+  left: 0px;
+  border-radius: 4px;
+  background-color: var(--WA100);
+  padding: 8px;
+  z-index: 100;
+  min-width: 100px;
+  display: none;
+  border: 1px solid var(--border);
+}
+
+.right-mouse-share-responsive .share-responsive {
+  height: 32px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  line-height: normal;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: normal;
+  color: var(--primary-text);
+  position: relative;
+  margin: 0 -8px;
+}
+
+.right-mouse-share-responsive .share-responsive:hover {
+  background-color: var(--lst-item-hover);
+}
+
+/* menus-right-mouse */
