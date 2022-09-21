@@ -1,21 +1,9 @@
 import { Col, Input, Row, Tooltip, Popover } from "antd";
 import {
   MessageOutlined,
-  ContainerOutlined,
-  CheckSquareOutlined,
-  CloudOutlined,
-  ToolOutlined,
-  SettingOutlined,
-  UserAddOutlined,
-  UsergroupAddOutlined,
   DownOutlined,
   EllipsisOutlined,
-  BellOutlined,
-  SearchOutlined,
-  VideoCameraOutlined,
   MenuUnfoldOutlined,
-  TagOutlined,
-  UserOutlined,
   SmileOutlined,
   RadiusUpleftOutlined,
   ContactsOutlined,
@@ -31,7 +19,6 @@ import {
   FileImageOutlined,
   FileOutlined,
   FolderOutlined,
-  LeftOutlined,
   CaretUpOutlined,
   ShareAltOutlined,
   ExportOutlined,
@@ -40,7 +27,6 @@ import {
 import React from "react";
 import "./index.css";
 // compoment
-import InPutSearch from "../../components/inPutSearch/InPutSearch";
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.js";
 import ModalInformation from "../../components/modal/Modal.js";
 //
