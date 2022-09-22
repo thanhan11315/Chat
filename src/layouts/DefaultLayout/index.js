@@ -22,7 +22,6 @@ import {
   CaretUpOutlined,
   ShareAltOutlined,
   ExportOutlined,
-  DownloadOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
@@ -42,6 +41,8 @@ import RightmouseResponsive from "../../components/rightmousResponsive/Rightmous
 import Nav1 from "./nav1/Nav1";
 import Nav2 from "./nav2/Nav2";
 import NavChatHead from "../../components/navChatHead/NavChatHead";
+import RenderFile from "../../components/file/RenderFile";
+import ImageOrVideo from "../../components/imageOrVideo/ImageOrVideo";
 const { TextArea } = Input;
 
 function DefaultLayout({ children }) {
@@ -618,7 +619,7 @@ function DefaultLayout({ children }) {
                           <div className="box-1-1">
                             <div className="title">Tin nhắn</div>
                             <div className="status">
-                              <div className="content">
+                              <div className="content" key={key}>
                                 {`${value.name} : ${value.content}`}
                               </div>
                             </div>
@@ -678,75 +679,13 @@ function DefaultLayout({ children }) {
                       }}
                     >
                       {value.url ? (
-                        <div className="hover-image-chat">
-                          {value.type === "video" ? (
-                            <video
-                              controls
-                              src={value.url}
-                              alt="video not load"
-                              style={{
-                                objectFit: "cover",
-                                maxHeight: "390px",
-                                cursor: "pointer",
-                                marginBottom: "8px",
-                                borderRadius: "10px",
-                              }}
-                            />
-                          ) : (
-                            <>
-                              <img
-                                src={value.url}
-                                alt="img not load"
-                                style={{
-                                  objectFit: "cover",
-                                  maxHeight: "390px",
-                                  cursor: "pointer",
-                                  marginBottom: "8px",
-                                  borderRadius: "10px",
-                                }}
-                              />
-                            </>
-                          )}
-                          <div className="date">
-                            {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-                            {value.hours}:{value.minutes}
-                          </div>
-                        </div>
+                        <ImageOrVideo value={value} />
                       ) : value.file ? (
-                        <div className="box-file">
-                          <Row className="box-content-file">
-                            <div className="img-file">
-                              <img
-                                src={renderImageFile(value.file?.name)}
-                                alt="img not load"
-                                style={{
-                                  marginRight: "10px",
-                                  height: "56px",
-                                  borderRadius: "3px",
-                                }}
-                              />
-                            </div>
-                            <div className="box-content-file-title">
-                              <div className="content-file-title">
-                                {value.file?.name}
-                              </div>
-                              <Row className="box-information">
-                                <div className="file-size">
-                                  {bytesToSize(value.file?.size)}
-                                </div>
-                                <div className="icon-download">
-                                  <DownloadOutlined />
-                                </div>
-                              </Row>
-                            </div>
-                          </Row>
-                          <div className="date">
-                            <div>
-                              {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-                              {value.hours}:{value.minutes}
-                            </div>
-                          </div>
-                        </div>
+                        <RenderFile
+                          renderImageFile={renderImageFile}
+                          value={value}
+                          bytesToSize={bytesToSize}
+                        />
                       ) : (
                         <>
                           <div className="content-chat" key={key}>
@@ -1003,7 +942,7 @@ function DefaultLayout({ children }) {
                         className="button-sent"
                         onClick={() => render(valueChat)}
                       >
-                        GỬi
+                        GỬI
                       </span>
                     ) : (
                       <LikeOutlined />

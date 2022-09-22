@@ -12,7 +12,7 @@ function ModalInformation(props) {
         onCancel={props.handleCancelModalInformation}
         footer={[]}
       >
-        <div className="handleClickButonPhonehandleClickButonPhone">
+        <div className="wrapper-modal-information">
           <div className="profilePhoto">
             <div className="avatar-profile">
               <img className="img-profile" alt="not load img" src={AvatarAn} />
