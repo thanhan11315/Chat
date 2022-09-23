@@ -1,5 +1,9 @@
 import React from "react";
-import { ExportOutlined, ShareAltOutlined } from "@ant-design/icons";
+import {
+  ExportOutlined,
+  PaperClipOutlined,
+  ShareAltOutlined,
+} from "@ant-design/icons";
 import "./RightmousResponsive.css";
 
 function RightmouseResponsive(props) {
@@ -11,10 +15,18 @@ function RightmouseResponsive(props) {
           props.onClickResponsiveIcon(props.valueResponsiveRightClick);
         }}
       >
-        <ExportOutlined style={{ marginRight: "5px" }} /> Trả lờin
+        <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời
       </div>
       <div className="share-responsive">
         <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ{" "}
+      </div>
+      <div
+        className="share-responsive"
+        onClick={() => {
+          props.handleClickGhim(props.valueResponsiveRightClick);
+        }}
+      >
+        <PaperClipOutlined style={{ marginRight: "5px" }} /> Ghim tin nhắn{" "}
       </div>
     </div>
   );

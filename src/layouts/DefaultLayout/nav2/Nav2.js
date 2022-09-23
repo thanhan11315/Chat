@@ -80,11 +80,15 @@ function Nav2(props) {
                   <BellOutlined />
                   14 phút
                 </div>
-                <div className="number-unread">
-                  <div>
-                    <div>5+</div>
+                {value.not_read ? (
+                  <div className="number-unread">
+                    <div>
+                      <div>5+</div>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  ""
+                )}
               </Col>
               <Col className="box3">
                 <div className="icon">

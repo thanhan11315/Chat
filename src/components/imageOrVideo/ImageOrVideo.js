@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "antd";
 
 function ImageOrVideo(props) {
   return (
@@ -18,7 +19,7 @@ function ImageOrVideo(props) {
         />
       ) : (
         <>
-          <img
+          <Image
             src={props.value.url}
             alt="img not load"
             style={{

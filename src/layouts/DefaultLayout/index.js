@@ -43,6 +43,8 @@ import Nav2 from "./nav2/Nav2";
 import NavChatHead from "../../components/navChatHead/NavChatHead";
 import RenderFile from "../../components/file/RenderFile";
 import ImageOrVideo from "../../components/imageOrVideo/ImageOrVideo";
+import ListGhim from "../../components/listGhim/ListGhim";
+import Ghim from "../../components/listGhim/Ghim";
 const { TextArea } = Input;
 
 function DefaultLayout({ children }) {
@@ -257,33 +259,30 @@ function DefaultLayout({ children }) {
 
   // demo
 
-  //
+  // Ghim
 
-  const dataBoxChat = [
+  const [valueListGhim, setValueListGhim] = useState("");
+
+  const handleClickGhim = (value) => {
+    setValueListGhim([...valueListGhim, { ...value, name: "Thanh Ân" }]);
+    console.log([...valueListGhim, { ...value, name: "Thanh Ân" }]);
+    setHeaderBoxChat({
+      ...value,
+      ghim: valueListGhim,
+    });
+    console.log(headerBoxChat);
+  };
+
+  // Ghim
+
+  const dataBoxChatApi = [
     {
       id: "1",
       name: "Thanh Ân",
       message: "Thanh Ân Thanh Ân Thanh Ân",
       avatar: AvatarAn,
       status: "Vừa truy cập",
-      ghim: [
-        {
-          name: "Lê Thanh Ân",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-        {
-          name: "Lê Thanh Ân",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-        {
-          name: "Lê Thanh Ân",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-        {
-          name: "Lê Thanh Ân",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-      ],
+      not_read: true,
       valueChatStore: [
         {
           me: {
@@ -341,29 +340,14 @@ function DefaultLayout({ children }) {
       message: "SuperShip SuperShip SuperShip SuperShip",
       avatar: SuperShipLogo,
       status: "Vừa truy cập",
-      ghim: [
-        {
-          name: "Nguyễn Văn Hóa",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-        {
-          name: "Nguyễn Văn Hóa",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-      ],
     },
     {
       id: "3",
       name: "Nhóm Chat",
       message: "Nhóm Chat Nhóm Chat Nhóm Chat",
       avatar: MicrosoftExcel,
+      not_read: true,
       status: "16 thành viên",
-      ghim: [
-        {
-          name: "Nguyễn Văn Thành Viên",
-          content: "Lorem Ipsum is simply dummy text of the printing",
-        },
-      ],
     },
     {
       id: "4",
@@ -373,7 +357,7 @@ function DefaultLayout({ children }) {
       status: "106 thành viên",
     },
   ];
-
+  const [dataBoxChat, setDataBoxChat] = useState(dataBoxChatApi);
   const [headerBoxChat, setHeaderBoxChat] = useState(dataBoxChat[0]);
 
   const onClickChooseBoxChat = (value) => {
@@ -385,8 +369,12 @@ function DefaultLayout({ children }) {
     if (document.querySelector(".box-ghim-2")) {
       document.querySelector(".box-ghim-2").style.display = "none";
     }
-    setHeaderBoxChat(value);
-    console.log(value);
+    setHeaderBoxChat({
+      ghim: valueListGhim,
+      ...value,
+    });
+    console.log({ ...value, ghim: valueListGhim });
+    console.log(headerBoxChat);
   };
 
   const lengthghim = headerBoxChat?.ghim?.length;
@@ -428,15 +416,7 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.remove("selected");
-    document.querySelector(
-      ".box-choose-chatbox .box2 .number-unread"
-    ).style.visibility = "hidden";
-    const arrayList = document.querySelectorAll(".number-unread");
-    if (arrayList) {
-      for (let x = 0; x < arrayList.length; x++) {
-        arrayList[x].style.visibility = "hidden";
-      }
-    }
+    setDataBoxChat(dataBoxChatApi);
   };
 
   const onClickNotReadTitle = () => {
@@ -446,20 +426,13 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.add("selected");
-    const arrayList = document.querySelectorAll(".number-unread");
-    if (arrayList) {
-      for (let x = 0; x < arrayList.length; x++) {
-        arrayList[x].style.visibility = "visible";
-      }
-    }
+    setDataBoxChat(dataBoxChatApi.filter((value) => value.not_read === true));
   };
 
   const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
-  const [valueResponsiveRightClick, setValueResponsiveRightClick] =
-    useState("");
+  const [valueRightClickMessage, setValueReRightClickMessage] = useState("");
 
   const onClickResponsiveIcon = (value) => {
-    console.log(value);
     setResponsiveInputValue(value);
     document.querySelector(".input-chat .ant-input").focus();
   };
@@ -509,12 +482,14 @@ function DefaultLayout({ children }) {
   }
 
   const handleOnContextMenu = (e) => {
-    e.preventDefault();
-    const menu = document.querySelector(".right-mouse-share-responsive");
-    menu.style.display = "block";
-    menu.style.top = `${e.clientY - 10}px`;
-    menu.style.left = `${e.clientX - 10}px`;
-    e.stopPropagation();
+    if (!document.querySelector(".ant-image-preview-mask")) {
+      e.preventDefault();
+      const menu = document.querySelector(".right-mouse-share-responsive");
+      menu.style.display = "block";
+      menu.style.top = `${e.clientY - 10}px`;
+      menu.style.left = `${e.clientX - 10}px`;
+      e.stopPropagation();
+    }
   };
 
   return (
@@ -529,7 +504,8 @@ function DefaultLayout({ children }) {
       {/* RightmouseResponsive */}
       <RightmouseResponsive
         onClickResponsiveIcon={onClickResponsiveIcon}
-        valueResponsiveRightClick={valueResponsiveRightClick}
+        valueResponsiveRightClick={valueRightClickMessage}
+        handleClickGhim={handleClickGhim}
       />
       {/* RightmouseResponsive */}
 
@@ -563,16 +539,10 @@ function DefaultLayout({ children }) {
                     <div className="image">
                       <MessageOutlined />
                     </div>
-                    <div className="box-1-1">
-                      <div className="title">Tin nhắn</div>
-                      <div className="status">
-                        <div className="content">
-                          {`${headerBoxChat.ghim[lengthghim - 1].name}: ${
-                            headerBoxChat.ghim[lengthghim - 1].content
-                          }`}
-                        </div>
-                      </div>
-                    </div>
+                    <Ghim
+                      headerBoxChat={headerBoxChat}
+                      lengthghim={lengthghim}
+                    />
                   </Row>
                   {lengthghim > 1 ? (
                     <div className="box-2">
@@ -616,14 +586,7 @@ function DefaultLayout({ children }) {
                           <div className="image">
                             <MessageOutlined />
                           </div>
-                          <div className="box-1-1">
-                            <div className="title">Tin nhắn</div>
-                            <div className="status">
-                              <div className="content" key={key}>
-                                {`${value.name} : ${value.content}`}
-                              </div>
-                            </div>
-                          </div>
+                          <ListGhim value={value} key={key} />
                         </Row>
                       </Row>
                     );
@@ -675,7 +638,8 @@ function DefaultLayout({ children }) {
                       className="box-content-all-chat"
                       onContextMenu={(e) => {
                         handleOnContextMenu(e);
-                        setValueResponsiveRightClick(value);
+                        console.log(value);
+                        setValueReRightClickMessage(value);
                       }}
                     >
                       {value.url ? (

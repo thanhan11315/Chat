@@ -329,7 +329,6 @@ li {
 #wrapper .box-choose-chatbox .box2 .number-unread {
   display: flex;
   justify-content: flex-end;
-  visibility: hidden;
 }
 #wrapper .box-choose-chatbox .box2 .number-unread div {
   display: flex;
@@ -341,7 +340,7 @@ li {
   padding: 0px 6px;
   height: 16px;
   font-size: 9px;
-  background-color: var(--NG40);
+  background-color: var(--B60);
   color: var(--WA100);
   border-radius: 8px;
   font-weight: 900;
@@ -969,6 +968,7 @@ li {
   margin-bottom: 4px;
   width: 390px;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .box-chat .box-file .box-content-file {
