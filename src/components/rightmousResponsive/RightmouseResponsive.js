@@ -11,7 +11,7 @@ function RightmouseResponsive(props) {
           props.onClickResponsiveIcon(props.valueResponsiveRightClick);
         }}
       >
-        <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời
+        <ExportOutlined style={{ marginRight: "5px" }} /> Trả lờin
       </div>
       <div className="share-responsive">
         <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ{" "}
