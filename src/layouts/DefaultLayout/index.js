@@ -722,7 +722,7 @@ function DefaultLayout({ children }) {
               >
                 <Tooltip placement="leftBottom" title="Gửi Icon">
                   <div>
-                    <SmileOutlined className="not-use" />
+                    <SmileOutlined />
                   </div>
                 </Tooltip>
               </Popover>
