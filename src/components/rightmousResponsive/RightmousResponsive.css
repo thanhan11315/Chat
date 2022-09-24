@@ -1,5 +1,10 @@
 /* menus-right-mouse */
 
+.box-nav-3 .box-chat .box-other-people .share-response {
+  margin-left: 20px;
+  margin-right: 0px;
+}
+
 .right-mouse-share-responsive {
   position: absolute;
   left: 0px;
@@ -7,7 +12,7 @@
   background-color: var(--WA100);
   padding: 8px;
   z-index: 100;
-  min-width: 100px;
+  width: 186px;
   display: none;
   border: 1px solid var(--border);
 }

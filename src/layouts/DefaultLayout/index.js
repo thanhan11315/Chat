@@ -1,7 +1,5 @@
 import { Col, Input, Row, Tooltip, Popover } from "antd";
 import {
-  MessageOutlined,
-  DownOutlined,
   EllipsisOutlined,
   MenuUnfoldOutlined,
   SmileOutlined,
@@ -61,7 +59,48 @@ function DefaultLayout({ children }) {
 
   // demochatlocal
 
-  const [valueChats, setValueChats] = useState([]);
+  const valueChatDemo = [
+    {
+      content: "Tin nhắn text",
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+    },
+    {
+      content: "Tin nhắn text",
+      other_people: true,
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+    },
+    {
+      content: "thanh an",
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      url: AvatarAn,
+      type: "image",
+    },
+    {
+      content: "thanh an",
+      date: 24,
+      other_people: true,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      url: AvatarAn,
+      type: "image",
+    },
+  ];
+
+  const [valueChats, setValueChats] = useState(valueChatDemo);
   const [valueChat, setValueChat] = useState(``);
 
   const onChangeChat = (e) => {
@@ -88,6 +127,7 @@ function DefaultLayout({ children }) {
       {
         Responsive: ResponsiveInputValue,
         content: valueChatReplace,
+        name: "Thanh Ân",
         year: d.getFullYear(),
         month: d.getMonth(),
         date: d.getDate(),
@@ -113,6 +153,7 @@ function DefaultLayout({ children }) {
       {
         type: e.target.files[0].type.slice(0, 5),
         url: URL.createObjectURL(e.target.files[0]),
+        content: e.target.files[0].name,
         ...date,
       },
       ...valueChats,
@@ -120,7 +161,10 @@ function DefaultLayout({ children }) {
   };
 
   const onChangeFile = (e) => {
-    setValueChats([{ file: e.target.files[0], ...date }, ...valueChats]);
+    setValueChats([
+      { file: e.target.files[0], content: e.target.files[0].name, ...date },
+      ...valueChats,
+    ]);
   };
 
   const content = (
@@ -160,7 +204,7 @@ function DefaultLayout({ children }) {
     </div>
   );
 
-  const onClickIcon = (e) => {
+  const handleClickIcon = (e) => {
     setValueChat(`${valueChat} ${e}`);
     document.querySelector(".input-chat .ant-input").focus();
   };
@@ -248,7 +292,7 @@ function DefaultLayout({ children }) {
             className="choose-icon"
             key={key}
             style={{ fontSize: "22px" }}
-            onClick={() => onClickIcon(value)}
+            onClick={() => handleClickIcon(value)}
           >
             {value}
           </div>
@@ -266,15 +310,8 @@ function DefaultLayout({ children }) {
   const handleClickGhim = (value) => {
     setValueListGhim([...valueListGhim, { ...value, name: "Thanh Ân" }]);
     console.log([...valueListGhim, { ...value, name: "Thanh Ân" }]);
-    setHeaderBoxChat({
-      ...value,
-      ghim: valueListGhim,
-    });
-    console.log(headerBoxChat);
   };
-
-  // Ghim
-
+  const lengthGhim = valueListGhim?.length;
   const dataBoxChatApi = [
     {
       id: "1",
@@ -283,56 +320,6 @@ function DefaultLayout({ children }) {
       avatar: AvatarAn,
       status: "Vừa truy cập",
       not_read: true,
-      valueChatStore: [
-        {
-          me: {
-            type: "text",
-            message: "Node.js Email - W3Schools",
-          },
-        },
-        {
-          otherPeople: {
-            type: "text",
-            message: "Node.js Email - W3Schools",
-          },
-        },
-        {
-          me: {
-            type: "picture",
-            url: AvatarAn,
-          },
-        },
-        {
-          otherPeople: {
-            type: "picture",
-            url: AvatarAn,
-          },
-        },
-        {
-          me: {
-            type: "video",
-            url: AvatarAn,
-          },
-        },
-        {
-          otherPeople: {
-            type: "video",
-            url: AvatarAn,
-          },
-        },
-        {
-          me: {
-            type: "file",
-            url: AvatarAn,
-          },
-        },
-        {
-          otherPeople: {
-            type: "file",
-            url: AvatarAn,
-          },
-        },
-      ],
     },
     {
       id: "2",
@@ -360,7 +347,7 @@ function DefaultLayout({ children }) {
   const [dataBoxChat, setDataBoxChat] = useState(dataBoxChatApi);
   const [headerBoxChat, setHeaderBoxChat] = useState(dataBoxChat[0]);
 
-  const onClickChooseBoxChat = (value) => {
+  const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
     hiddenBoxNav2.classList.add("hiddenBoxNav2");
     if (document.querySelector(".box-ghim-1")) {
@@ -369,15 +356,9 @@ function DefaultLayout({ children }) {
     if (document.querySelector(".box-ghim-2")) {
       document.querySelector(".box-ghim-2").style.display = "none";
     }
-    setHeaderBoxChat({
-      ghim: valueListGhim,
-      ...value,
-    });
-    console.log({ ...value, ghim: valueListGhim });
+    setHeaderBoxChat(value);
     console.log(headerBoxChat);
   };
-
-  const lengthghim = headerBoxChat?.ghim?.length;
 
   const onMounseOverBox = (key) => {
     document.querySelector(`.share-response-${key}`).style.display = "flex";
@@ -409,7 +390,7 @@ function DefaultLayout({ children }) {
         return AvatarAn;
     }
   };
-  const onClickAllTitle = () => {
+  const handleClickAllTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
       .classList.add("selected");
@@ -419,7 +400,7 @@ function DefaultLayout({ children }) {
     setDataBoxChat(dataBoxChatApi);
   };
 
-  const onClickNotReadTitle = () => {
+  const handleClickNotReadTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
       .classList.remove("selected");
@@ -432,7 +413,7 @@ function DefaultLayout({ children }) {
   const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
   const [valueRightClickMessage, setValueReRightClickMessage] = useState("");
 
-  const onClickResponsiveIcon = (value) => {
+  const handleClickResponsiveIcon = (value) => {
     setResponsiveInputValue(value);
     document.querySelector(".input-chat .ant-input").focus();
   };
@@ -457,18 +438,24 @@ function DefaultLayout({ children }) {
 
   // Modal
   window.addEventListener("click", () => {
-    document.querySelector(".right-mouse-share-responsive ").style.display =
-      "none";
+    if (document.querySelector(".right-mouse-share-responsive ")) {
+      document.querySelector(".right-mouse-share-responsive ").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("wheel", () => {
-    document.querySelector(".right-mouse-share-responsive ").style.display =
-      "none";
+    if (document.querySelector(".right-mouse-share-responsive ")) {
+      document.querySelector(".right-mouse-share-responsive ").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("contextmenu", () => {
-    document.querySelector(".right-mouse-share-responsive ").style.display =
-      "none";
+    if (document.querySelector(".right-mouse-share-responsive ")) {
+      document.querySelector(".right-mouse-share-responsive ").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("keydown", () => {
@@ -503,7 +490,7 @@ function DefaultLayout({ children }) {
 
       {/* RightmouseResponsive */}
       <RightmouseResponsive
-        onClickResponsiveIcon={onClickResponsiveIcon}
+        handleClickResponsiveIcon={handleClickResponsiveIcon}
         valueResponsiveRightClick={valueRightClickMessage}
         handleClickGhim={handleClickGhim}
       />
@@ -516,10 +503,10 @@ function DefaultLayout({ children }) {
 
         {/* Nav2 */}
         <Nav2
-          onClickAllTitle={onClickAllTitle}
-          onClickNotReadTitle={onClickNotReadTitle}
+          handleClickAllTitle={handleClickAllTitle}
+          handleClickNotReadTitle={handleClickNotReadTitle}
           dataBoxChat={dataBoxChat}
-          onClickChooseBoxChat={onClickChooseBoxChat}
+          handleClickChooseBoxChat={handleClickChooseBoxChat}
         />
         {/* Nav2 */}
 
@@ -531,42 +518,19 @@ function DefaultLayout({ children }) {
             hiddenRightNav={hiddenRightNav}
           />
           {/* NavChatHead */}
-          {lengthghim ? (
+          {lengthGhim ? (
             <>
               <div className="box-ghim-1">
-                <Row className="box-ghim">
-                  <Row className="box-1">
-                    <div className="image">
-                      <MessageOutlined />
-                    </div>
-                    <Ghim
-                      headerBoxChat={headerBoxChat}
-                      lengthghim={lengthghim}
-                    />
-                  </Row>
-                  {lengthghim > 1 ? (
-                    <div className="box-2">
-                      <div
-                        className="ghim"
-                        onClick={() => {
-                          document.querySelector(".box-ghim-1").style.display =
-                            "none";
-                          document.querySelector(".box-ghim-2").style.display =
-                            "block";
-                        }}
-                      >
-                        {lengthghim - 1} ghim khác <DownOutlined />{" "}
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </Row>
+                <Ghim
+                  valueListGhim={valueListGhim}
+                  lengthGhim={lengthGhim}
+                  renderImageFile={renderImageFile}
+                />
               </div>
-              {lengthghim > 1 ? (
+              {lengthGhim > 1 ? (
                 <div className="box-ghim-2">
                   <Row className="list-ghim">
-                    <div className="list">Danh sách ghim ({lengthghim})</div>
+                    <div className="list">Danh sách ghim ({lengthGhim})</div>
                     <div
                       className="collapse"
                       onClick={() => {
@@ -579,16 +543,13 @@ function DefaultLayout({ children }) {
                       Thu Gọn <CaretUpOutlined />
                     </div>
                   </Row>
-                  {headerBoxChat.ghim.map((value, key) => {
+                  {valueListGhim.map((value, key) => {
                     return (
-                      <Row className="box-ghim">
-                        <Row className="box-1">
-                          <div className="image">
-                            <MessageOutlined />
-                          </div>
-                          <ListGhim value={value} key={key} />
-                        </Row>
-                      </Row>
+                      <ListGhim
+                        value={value}
+                        key={key}
+                        renderImageFile={renderImageFile}
+                      />
                     );
                   })}
                 </div>
@@ -604,21 +565,21 @@ function DefaultLayout({ children }) {
             {valueChats.map((value, key) => {
               return (
                 <div
-                  className="box-me"
+                  className={value.other_people ? "box-other-people" : "box-me"}
                   onMouseOver={() => onMounseOverBox(key)}
                   onMouseOut={() => onMouseOutBox(key)}
                 >
                   <Row className={`share-response share-response-${key}`}>
                     <div>
                       <ExportOutlined
-                        onClick={() => onClickResponsiveIcon(value)}
+                        onClick={() => handleClickResponsiveIcon(value)}
                       />
                     </div>
                     <div>
                       <ShareAltOutlined />
                     </div>
                   </Row>
-                  <div className="me">
+                  <div className={value.other_people ? "other-people" : "me"}>
                     <div className="img-chat">
                       <img
                         src={AvatarAn}
@@ -728,65 +689,6 @@ function DefaultLayout({ children }) {
                 <Col className="content-message">đã rời khỏi nhóm</Col>
               </Row>
             </Row>
-            <div className="box-other-people">
-              <div className="other-people">
-                <div className="img-chat">
-                  <img
-                    src={AvatarAn}
-                    alt="img not load"
-                    style={{
-                      border: "0.5px solid #fff",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      width: "40px",
-                      height: "40px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </div>
-                <div className="content-chat">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum
-                </div>
-              </div>
-            </div>
-            <div className="box-me">
-              <div className="me">
-                <div className="img-chat">
-                  <img
-                    src={AvatarAn}
-                    alt="img not load"
-                    style={{
-                      border: "0.5px solid #fff",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      width: "40px",
-                      height: "40px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </div>
-                <img
-                  src={AvatarAn}
-                  alt="img not load"
-                  style={{
-                    objectFit: "cover",
-                    maxHeight: "390px",
-                    cursor: "pointer",
-                    marginBottom: "8px",
-                    borderRadius: "10px",
-                  }}
-                />
-              </div>
-            </div>
           </div>
           <div className="nav-input-chat">
             <Row className="nav-input">

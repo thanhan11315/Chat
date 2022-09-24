@@ -26,10 +26,10 @@ function Nav2(props) {
       </Row>
       <Row className="title-nav-2">
         <Row className="box-title-nav2-1">
-          <Col className="all title selected" onClick={props.onClickAllTitle}>
+          <Col className="all title selected" onClick={props.handleClickAllTitle}>
             Tất cả
           </Col>
-          <Col className="not-read title" onClick={props.onClickNotReadTitle}>
+          <Col className="not-read title" onClick={props.handleClickNotReadTitle}>
             Chưa đọc
           </Col>
         </Row>
@@ -52,7 +52,7 @@ function Nav2(props) {
           return (
             <Row
               className="box-choose-chatbox"
-              onClick={() => props.onClickChooseBoxChat(value)}
+              onClick={() => props.handleClickChooseBoxChat(value)}
               key={key}
             >
               <Row className="box1">
