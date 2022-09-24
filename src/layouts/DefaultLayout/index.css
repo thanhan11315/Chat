@@ -297,6 +297,14 @@ li {
   list-style: none;
 }
 
+#wrapper .not-use svg {
+  color: var(--icon-hover-bg) !important;
+}
+
+#Wrapper .hidden-icon-none-uses .anticon svg {
+  color: var(--icon-hover-bg) !important;
+}
+
 #wrapper {
   position: relative;
 }

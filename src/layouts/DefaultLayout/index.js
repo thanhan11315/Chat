@@ -62,6 +62,7 @@ function DefaultLayout({ children }) {
   const valueChatDemo = [
     {
       content: "Tin nhắn text",
+      name: " Thanh Ân",
       date: 24,
       hours: 13,
       minutes: 39,
@@ -70,6 +71,7 @@ function DefaultLayout({ children }) {
     },
     {
       content: "Tin nhắn text",
+      name: " Thanh Ân",
       other_people: true,
       date: 24,
       hours: 13,
@@ -79,6 +81,7 @@ function DefaultLayout({ children }) {
     },
     {
       content: "thanh an",
+      name: " Thanh Ân",
       date: 24,
       hours: 13,
       minutes: 39,
@@ -89,6 +92,7 @@ function DefaultLayout({ children }) {
     },
     {
       content: "thanh an",
+      name: " Thanh Ân",
       date: 24,
       other_people: true,
       hours: 13,
@@ -154,6 +158,7 @@ function DefaultLayout({ children }) {
         type: e.target.files[0].type.slice(0, 5),
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
+        name: "Thanh Ân",
         ...date,
       },
       ...valueChats,
@@ -162,7 +167,12 @@ function DefaultLayout({ children }) {
 
   const onChangeFile = (e) => {
     setValueChats([
-      { file: e.target.files[0], content: e.target.files[0].name, ...date },
+      {
+        file: e.target.files[0],
+        content: e.target.files[0].name,
+        name: "Thanh Ân",
+        ...date,
+      },
       ...valueChats,
     ]);
   };
@@ -308,15 +318,15 @@ function DefaultLayout({ children }) {
   const [valueListGhim, setValueListGhim] = useState("");
 
   const handleClickGhim = (value) => {
-    setValueListGhim([...valueListGhim, { ...value, name: "Thanh Ân" }]);
-    console.log([...valueListGhim, { ...value, name: "Thanh Ân" }]);
+    setValueListGhim([...valueListGhim, value]);
+    console.log([...valueListGhim, value]);
   };
   const lengthGhim = valueListGhim?.length;
   const dataBoxChatApi = [
     {
       id: "1",
       name: "Thanh Ân",
-      message: "Thanh Ân Thanh Ân Thanh Ân",
+      message: "Ân Lê",
       avatar: AvatarAn,
       status: "Vừa truy cập",
       not_read: true,
@@ -469,12 +479,24 @@ function DefaultLayout({ children }) {
   }
 
   const handleOnContextMenu = (e) => {
+    let leftPos = "";
+    let topPos = "";
     if (!document.querySelector(".ant-image-preview-mask")) {
       e.preventDefault();
       const menu = document.querySelector(".right-mouse-share-responsive");
+      if (180 < window.innerWidth - e.clientX) {
+        leftPos = `${e.clientX - 10}px`;
+      } else {
+        leftPos = `${e.pageX - 180}px`;
+      }
+      if (250 < window.innerHeight - e.clientY) {
+        topPos = `${e.clientY - 10}px`;
+      } else {
+        topPos = `${e.pageY - 114}px`;
+      }
       menu.style.display = "block";
-      menu.style.top = `${e.clientY - 10}px`;
-      menu.style.left = `${e.clientX - 10}px`;
+      menu.style.top = topPos;
+      menu.style.left = leftPos;
       e.stopPropagation();
     }
   };
@@ -507,6 +529,7 @@ function DefaultLayout({ children }) {
           handleClickNotReadTitle={handleClickNotReadTitle}
           dataBoxChat={dataBoxChat}
           handleClickChooseBoxChat={handleClickChooseBoxChat}
+          valueChats={valueChats}
         />
         {/* Nav2 */}
 
@@ -699,7 +722,7 @@ function DefaultLayout({ children }) {
               >
                 <Tooltip placement="leftBottom" title="Gửi Icon">
                   <div>
-                    <SmileOutlined />
+                    <SmileOutlined className="not-use" />
                   </div>
                 </Tooltip>
               </Popover>
@@ -732,25 +755,25 @@ function DefaultLayout({ children }) {
                 </Tooltip>
               </Popover>
               <div>
-                <RadiusUpleftOutlined />
+                <RadiusUpleftOutlined className="not-use" />
               </div>
               <div>
-                <ContactsOutlined />
+                <ContactsOutlined className="not-use" />
               </div>
               <div>
-                <ClockCircleOutlined />
+                <ClockCircleOutlined className="not-use" />
               </div>
               <div>
-                <ScheduleOutlined />
+                <ScheduleOutlined className="not-use" />
               </div>
               <div>
-                <FontColorsOutlined />
+                <FontColorsOutlined className="not-use" />
               </div>
               <div>
-                <ExclamationOutlined />
+                <ExclamationOutlined className="not-use" />
               </div>
               <div>
-                <EllipsisOutlined />
+                <EllipsisOutlined className="not-use" />
               </div>
             </Row>
             <div className={`nav-chat ${focusInput}`}>
@@ -794,13 +817,13 @@ function DefaultLayout({ children }) {
                 </div>
                 <Row className="icon-input">
                   <div>
-                    <CommentOutlined />
+                    <CommentOutlined className="not-use" />
                   </div>
                   <div>
-                    <SmileOutlined />
+                    <SmileOutlined className="not-use" />
                   </div>
                   <div>
-                    <DingtalkOutlined />
+                    <DingtalkOutlined className="not-use" />
                   </div>
                   <div>
                     {valueChat.trim() !== "" && valueChat !== null ? (
@@ -811,7 +834,7 @@ function DefaultLayout({ children }) {
                         GỬI
                       </span>
                     ) : (
-                      <LikeOutlined />
+                      <LikeOutlined className="not-use" />
                     )}
                   </div>
                 </Row>

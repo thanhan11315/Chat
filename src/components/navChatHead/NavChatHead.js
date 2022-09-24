@@ -62,13 +62,13 @@ function NavChatHead(props) {
       <div className="box-2">
         <Row className="icon-title">
           <div>
-            <UsergroupAddOutlined />
+            <UsergroupAddOutlined className="not-use" />
           </div>
           <div>
-            <SearchOutlined />
+            <SearchOutlined className="not-use" />
           </div>
           <div>
-            <VideoCameraOutlined />
+            <VideoCameraOutlined className="not-use" />
           </div>
           <div onClick={props.navRight}>
             {props.hiddenRightNav ? (

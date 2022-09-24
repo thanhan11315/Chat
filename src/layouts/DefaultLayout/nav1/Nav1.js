@@ -47,21 +47,21 @@ function Nav1(props) {
           <MessageOutlined />
         </li>
         <li>
-          <ContainerOutlined />
+          <ContainerOutlined className="not-use" />
         </li>
         <li>
-          <CheckSquareOutlined />
+          <CheckSquareOutlined className="not-use" />
         </li>
       </ul>
       <ul className="list-2">
         <li>
-          <CloudOutlined />
+          <CloudOutlined className="not-use" />
         </li>
         <li>
-          <ToolOutlined />
+          <ToolOutlined className="not-use" />
         </li>
         <li>
-          <SettingOutlined />
+          <SettingOutlined className="not-use" />
         </li>
       </ul>
     </Col>

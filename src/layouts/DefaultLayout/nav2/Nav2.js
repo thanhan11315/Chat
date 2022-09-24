@@ -18,18 +18,24 @@ function Nav2(props) {
           <InPutSearch />
         </Col>
         <Col className="add-friend icon">
-          <UserAddOutlined />
+          <UserAddOutlined className="not-use" />
         </Col>
         <Col className="create-group icon">
-          <UsergroupAddOutlined />
+          <UsergroupAddOutlined className="not-use" />
         </Col>
       </Row>
       <Row className="title-nav-2">
         <Row className="box-title-nav2-1">
-          <Col className="all title selected" onClick={props.handleClickAllTitle}>
+          <Col
+            className="all title selected"
+            onClick={props.handleClickAllTitle}
+          >
             Tất cả
           </Col>
-          <Col className="not-read title" onClick={props.handleClickNotReadTitle}>
+          <Col
+            className="not-read title"
+            onClick={props.handleClickNotReadTitle}
+          >
             Chưa đọc
           </Col>
         </Row>
@@ -72,7 +78,24 @@ function Nav2(props) {
                 </Col>
                 <Col className="choose-chatbox">
                   <div className="title">{value.name}</div>
-                  <div className="content">{value.message}</div>
+                  <div className="content">
+                    <>
+                      {props.valueChats.slice(0, 1)[0].name}:{" "}
+                      {props.valueChats.slice(0, 1)[0].type === "image" ? (
+                        <>[Hình ảnh]</>
+                      ) : props.valueChats.slice(0, 1)[0].type === "video" ? (
+                        <>[Video]</>
+                      ) : props.valueChats.slice(0, 1)[0].file ? (
+                        <>
+                          {`[File] ${
+                            props.valueChats.slice(0, 1)[0].file.name
+                          }`}
+                        </>
+                      ) : (
+                        <>{props.valueChats.slice(0, 1)[0].content}</>
+                      )}
+                    </>
+                  </div>
                 </Col>
               </Row>
               <Col className="box2">
