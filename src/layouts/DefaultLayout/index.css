@@ -289,6 +289,10 @@ body {
   text-shadow: 0 0 0 var(--BA30);
 }
 
+#wrapper .ant-image-mask:hover {
+  opacity: 0;
+}
+
 ul {
   margin: 0px;
   padding: 0px;
@@ -702,7 +706,7 @@ li {
 #wrapper .box-nav-4 {
   display: flex;
   flex-direction: column;
-  width: 344px;
+  min-width: 344px;
   border-left: 1px solid var(--border);
   height: 100vh;
 }

@@ -1,7 +1,6 @@
 import { Col, Input, Row, Tooltip, Popover } from "antd";
 import {
   EllipsisOutlined,
-  MenuUnfoldOutlined,
   SmileOutlined,
   RadiusUpleftOutlined,
   ContactsOutlined,
@@ -13,7 +12,6 @@ import {
   DingtalkOutlined,
   CommentOutlined,
   LikeOutlined,
-  MenuFoldOutlined,
   FileImageOutlined,
   FileOutlined,
   FolderOutlined,
@@ -23,9 +21,19 @@ import {
 } from "@ant-design/icons";
 import React from "react";
 import "./index.css";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // compoment
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.js";
 import ModalInformation from "../../components/modal/Modal.js";
+import Nav1 from "./nav1/Nav1";
+import Nav2 from "./nav2/Nav2";
+import NavChatHead from "../../components/navChatHead/NavChatHead";
+import RenderFile from "../../components/file/RenderFile";
+import ImageOrVideo from "../../components/imageOrVideo/ImageOrVideo";
+import ListGhim from "../../components/listGhim/ListGhim";
+import Ghim from "../../components/listGhim/Ghim";
+import Nav4 from "./nav4/Nav4";
 //
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
@@ -36,24 +44,35 @@ import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
 import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
-import Nav1 from "./nav1/Nav1";
-import Nav2 from "./nav2/Nav2";
-import NavChatHead from "../../components/navChatHead/NavChatHead";
-import RenderFile from "../../components/file/RenderFile";
-import ImageOrVideo from "../../components/imageOrVideo/ImageOrVideo";
-import ListGhim from "../../components/listGhim/ListGhim";
-import Ghim from "../../components/listGhim/Ghim";
-const { TextArea } = Input;
 
+const { TextArea } = Input;
 function DefaultLayout({ children }) {
+  const navigate = useNavigate();
+  const refreshPage = () => {
+    const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
+    console.log(getLocalUsername);
+    if (getLocalUsername === "zndkeadeeqwrmf") {
+      navigate("/chat");
+    } else {
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    refreshPage();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const [focusInput, SetFocusInput] = useState("");
   const [hiddenRightNav, setHiddenRightNav] = useState("hiddenRightNav");
 
-  const navRight = () => {
+  const handleClickNavRight = (e) => {
     if (hiddenRightNav) {
       setHiddenRightNav("");
     } else {
       setHiddenRightNav("hiddenRightNav");
+    }
+    if (window.innerWidth < 993) {
+      e.stopPropagation();
     }
   };
 
@@ -61,27 +80,32 @@ function DefaultLayout({ children }) {
 
   const valueChatDemo = [
     {
+      id: 3213213213132131,
       content: "Tin nhắn text",
-      name: " Thanh Ân",
+      name: "Thanh Ân",
       date: 24,
       hours: 13,
       minutes: 39,
       month: 8,
       year: 2022,
+      ghim: false,
     },
     {
+      id: 3234243546546565,
       content: "Tin nhắn text",
-      name: " Thanh Ân",
+      name: "Thanh Ân",
       other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
       month: 8,
       year: 2022,
+      ghim: false,
     },
     {
+      id: 321321653784387,
       content: "thanh an",
-      name: " Thanh Ân",
+      name: "Thanh Ân",
       date: 24,
       hours: 13,
       minutes: 39,
@@ -89,10 +113,12 @@ function DefaultLayout({ children }) {
       year: 2022,
       url: AvatarAn,
       type: "image",
+      ghim: false,
     },
     {
+      id: 321321434321321,
       content: "thanh an",
-      name: " Thanh Ân",
+      name: "Thanh Ân",
       date: 24,
       other_people: true,
       hours: 13,
@@ -101,6 +127,7 @@ function DefaultLayout({ children }) {
       year: 2022,
       url: AvatarAn,
       type: "image",
+      ghim: false,
     },
   ];
 
@@ -126,9 +153,14 @@ function DefaultLayout({ children }) {
     minutes: d.getMinutes(),
   };
 
+  const id = `${Date.now()}${Math.floor(Math.random() * 1000000000000)}`;
+
   const render = (valueChatReplace) => {
     setValueChats([
       {
+        other_people: true,
+        ghim: false,
+        id: id,
         Responsive: ResponsiveInputValue,
         content: valueChatReplace,
         name: "Thanh Ân",
@@ -159,6 +191,7 @@ function DefaultLayout({ children }) {
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
         name: "Thanh Ân",
+        other_people: true,
         ...date,
       },
       ...valueChats,
@@ -171,6 +204,7 @@ function DefaultLayout({ children }) {
         file: e.target.files[0],
         content: e.target.files[0].name,
         name: "Thanh Ân",
+        other_people: true,
         ...date,
       },
       ...valueChats,
@@ -317,9 +351,20 @@ function DefaultLayout({ children }) {
 
   const [valueListGhim, setValueListGhim] = useState("");
 
-  const handleClickGhim = (value) => {
-    setValueListGhim([...valueListGhim, value]);
-    console.log([...valueListGhim, value]);
+  const handleClickGhim = (valueGhim) => {
+    const newValueChats = valueChats.map((value) => {
+      if (value.id === valueGhim.id) {
+        return { ...value, ghim: true };
+      } else {
+        return value;
+      }
+    });
+    setValueChats(newValueChats);
+    setValueListGhim(
+      newValueChats.filter((value) => {
+        return value.ghim === true;
+      })
+    );
   };
   const lengthGhim = valueListGhim?.length;
   const dataBoxChatApi = [
@@ -356,6 +401,17 @@ function DefaultLayout({ children }) {
   ];
   const [dataBoxChat, setDataBoxChat] = useState(dataBoxChatApi);
   const [headerBoxChat, setHeaderBoxChat] = useState(dataBoxChat[0]);
+  const chooseBackground = () => {
+    if (document.querySelector(`.box-choose-chatbox-${dataBoxChat[0].id}`)) {
+      document.querySelector(
+        `.box-choose-chatbox-${dataBoxChat[0].id}`
+      ).style.backgroundColor = "#eeeff2";
+    }
+  };
+
+  useEffect(() => {
+    chooseBackground();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
@@ -367,7 +423,24 @@ function DefaultLayout({ children }) {
       document.querySelector(".box-ghim-2").style.display = "none";
     }
     setHeaderBoxChat(value);
-    console.log(headerBoxChat);
+    const newdataBoxChat = dataBoxChat.map((valueN) => {
+      if (valueN.id === value.id) {
+        return { ...valueN, not_read: false };
+      } else {
+        return valueN;
+      }
+    });
+
+    dataBoxChat.forEach((value) => {
+      document.querySelector(
+        `.box-choose-chatbox-${value.id}`
+      ).style.backgroundColor = "#fff";
+    });
+
+    document.querySelector(
+      `.box-choose-chatbox-${value.id}`
+    ).style.backgroundColor = "#eeeff2";
+    setDataBoxChat(newdataBoxChat);
   };
 
   const onMounseOverBox = (key) => {
@@ -400,6 +473,9 @@ function DefaultLayout({ children }) {
         return AvatarAn;
     }
   };
+
+  const [dataBoxChatRender, setDataBoxChatRender] = useState(dataBoxChatApi);
+
   const handleClickAllTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
@@ -407,7 +483,7 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.remove("selected");
-    setDataBoxChat(dataBoxChatApi);
+    setDataBoxChatRender(dataBoxChat);
   };
 
   const handleClickNotReadTitle = () => {
@@ -417,7 +493,9 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.add("selected");
-    setDataBoxChat(dataBoxChatApi.filter((value) => value.not_read === true));
+    setDataBoxChatRender(
+      dataBoxChat.filter((value) => value.not_read === true)
+    );
   };
 
   const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
@@ -447,6 +525,26 @@ function DefaultLayout({ children }) {
   };
 
   // Modal
+
+  //
+
+  // Right nav bar media 992px
+
+  window.addEventListener("click", () => {
+    if (window.innerWidth < 993) {
+      setHiddenRightNav("hiddenRightNav");
+    }
+  });
+
+  if (document.querySelector(".box-nav-4") && window.innerWidth < 993) {
+    document.querySelector(".box-nav-4").addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  }
+  // Right nav bar media 992px
+
+  // right mouse and forcus input
+
   window.addEventListener("click", () => {
     if (document.querySelector(".right-mouse-share-responsive ")) {
       document.querySelector(".right-mouse-share-responsive ").style.display =
@@ -478,6 +576,10 @@ function DefaultLayout({ children }) {
     });
   }
 
+  // right mouse and forcus input
+
+  // contextMenu Click Right mouse
+
   const handleOnContextMenu = (e) => {
     let leftPos = "";
     let topPos = "";
@@ -500,6 +602,8 @@ function DefaultLayout({ children }) {
       e.stopPropagation();
     }
   };
+
+  // contextMenu Click Right mouse
 
   return (
     <>
@@ -527,7 +631,7 @@ function DefaultLayout({ children }) {
         <Nav2
           handleClickAllTitle={handleClickAllTitle}
           handleClickNotReadTitle={handleClickNotReadTitle}
-          dataBoxChat={dataBoxChat}
+          dataBoxChatRender={dataBoxChatRender}
           handleClickChooseBoxChat={handleClickChooseBoxChat}
           valueChats={valueChats}
         />
@@ -537,8 +641,9 @@ function DefaultLayout({ children }) {
           {/* NavChatHead */}
           <NavChatHead
             headerBoxChat={headerBoxChat}
-            navRight={navRight}
+            handleClickNavRight={handleClickNavRight}
             hiddenRightNav={hiddenRightNav}
+            handleClickImgChat={handleClickImgChat}
           />
           {/* NavChatHead */}
           {lengthGhim ? (
@@ -622,7 +727,6 @@ function DefaultLayout({ children }) {
                       className="box-content-all-chat"
                       onContextMenu={(e) => {
                         handleOnContextMenu(e);
-                        console.log(value);
                         setValueReRightClickMessage(value);
                       }}
                     >
@@ -637,7 +741,7 @@ function DefaultLayout({ children }) {
                       ) : (
                         <>
                           <div className="content-chat" key={key}>
-                            {value.Responsive ? (
+                            {value.Responsive && (
                               <ResponsiveInput
                                 ResponsiveInputValue={value.Responsive}
                                 clearResponsiveTnputValue={
@@ -645,8 +749,6 @@ function DefaultLayout({ children }) {
                                 }
                                 renderImageFile={renderImageFile}
                               />
-                            ) : (
-                              ""
                             )}
                             {value.content}
                             <div className="date">
@@ -675,6 +777,7 @@ function DefaultLayout({ children }) {
                 <Col className="image-message">
                   <img
                     src={AvatarAn}
+                    onClick={handleClickImgChat}
                     alt="img not load"
                     style={{
                       border: "0.5px solid #fff",
@@ -697,6 +800,7 @@ function DefaultLayout({ children }) {
                 <Col className="image-message">
                   <img
                     src={AvatarAn}
+                    onClick={handleClickImgChat}
                     alt="img not load"
                     style={{
                       border: "0.5px solid #fff",
@@ -842,73 +946,11 @@ function DefaultLayout({ children }) {
             </div>
           </div>
         </Col>
-        <Col className={`box-nav-4 ${hiddenRightNav}`}>
-          <div className="title-nav">
-            <div onClick={navRight}>
-              {hiddenRightNav ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-            </div>
-            Thông tin hội thoại
-          </div>
-          <div className="box-wrapper">
-            <div className="box-information">
-              <div className="image">
-                <img
-                  src={headerBoxChat.avatar}
-                  alt="img not load"
-                  style={{
-                    border: "0.5px solid #fff",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    width: "56px",
-                    height: "56px",
-                    cursor: "pointer",
-                  }}
-                />
-              </div>
-              <div className="header-info-name">
-                <div className="header">{headerBoxChat.name}</div>
-                <div className="icon">
-                  <LikeOutlined />
-                </div>
-              </div>
-              <Row className="box-icon-content">
-                <div className="icon-content">
-                  <div className="box-icon">
-                    <div className="icon">
-                      <LikeOutlined />
-                    </div>
-                  </div>
-                  <div className="content">Bật Thông báo</div>
-                </div>
-                <div className="icon-content">
-                  <div className="box-icon">
-                    <div className="icon">
-                      <LikeOutlined />
-                    </div>
-                  </div>
-                  <div className="content">Bật Thông báo</div>
-                </div>
-                <div className="icon-content">
-                  <div className="box-icon">
-                    <div className="icon">
-                      <LikeOutlined />
-                    </div>
-                  </div>
-                  <div className="content">Bật Thông báo</div>
-                </div>
-                <div className="icon-content">
-                  <div className="box-icon">
-                    <div className="icon">
-                      <LikeOutlined />
-                    </div>
-                  </div>
-                  <div className="content">Bật Thông báo</div>
-                </div>
-              </Row>
-            </div>
-            <div className="test" />
-          </div>
-        </Col>
+        <Nav4
+          hiddenRightNav={hiddenRightNav}
+          handleClickImgChat={handleClickImgChat}
+          headerBoxChat={headerBoxChat}
+        />
       </Row>
     </>
   );

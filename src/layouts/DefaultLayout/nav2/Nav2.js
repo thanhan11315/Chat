@@ -54,12 +54,12 @@ function Nav2(props) {
         </Row>
       </Row>
       <div className="overflow">
-        {props.dataBoxChat.map((value, key) => {
+        {props.dataBoxChatRender.map((value) => {
           return (
             <Row
-              className="box-choose-chatbox"
+              className={`box-choose-chatbox box-choose-chatbox-${value.id}`}
               onClick={() => props.handleClickChooseBoxChat(value)}
-              key={key}
+              key={value.id}
             >
               <Row className="box1">
                 <Col className="image">
@@ -103,14 +103,15 @@ function Nav2(props) {
                   <BellOutlined />
                   14 phút
                 </div>
-                {value.not_read ? (
-                  <div className="number-unread">
+                {value.not_read && (
+                  <div
+                    className={`number-unread number-unread-${value.id}`}
+                    key={value.id}
+                  >
                     <div>
                       <div>5+</div>
                     </div>
                   </div>
-                ) : (
-                  ""
                 )}
               </Col>
               <Col className="box3">

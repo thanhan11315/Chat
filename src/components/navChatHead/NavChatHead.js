@@ -30,6 +30,7 @@ function NavChatHead(props) {
             <img
               src={props.headerBoxChat.avatar}
               alt="not load img"
+              onClick={props.handleClickImgChat}
               style={{
                 border: "0.5px solid #fff",
                 borderRadius: "50%",
@@ -70,7 +71,10 @@ function NavChatHead(props) {
           <div>
             <VideoCameraOutlined className="not-use" />
           </div>
-          <div onClick={props.navRight}>
+          <div
+            className="control-nav-right"
+            onClick={(e) => props.handleClickNavRight(e)}
+          >
             {props.hiddenRightNav ? (
               <MenuFoldOutlined />
             ) : (
