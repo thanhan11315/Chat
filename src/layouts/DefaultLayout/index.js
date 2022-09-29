@@ -11,7 +11,6 @@ import {
   ExclamationOutlined,
   DingtalkOutlined,
   CommentOutlined,
-  LikeOutlined,
   FileImageOutlined,
   FileOutlined,
   FolderOutlined,
@@ -44,10 +43,11 @@ import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
 import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
+import LikeIcon from "../../components/likeIcon/LikeIcon";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
-  const navigate = useNavigate();
+  var navigate = useNavigate();
   const refreshPage = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
     console.log(getLocalUsername);
@@ -205,6 +205,19 @@ function DefaultLayout({ children }) {
         content: e.target.files[0].name,
         name: "Thanh Ân",
         other_people: true,
+        ...date,
+      },
+      ...valueChats,
+    ]);
+  };
+
+  const handleClickLikeIcon = () => {
+    setValueChats([
+      {
+        name: "thanh Ân",
+        other_people: true,
+        content: "👍",
+        type: "likeIcon",
         ...date,
       },
       ...valueChats,
@@ -416,6 +429,8 @@ function DefaultLayout({ children }) {
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
     hiddenBoxNav2.classList.add("hiddenBoxNav2");
+    const hiddenBoxNav1 = document.querySelector(".box-nav-1");
+    hiddenBoxNav1.classList.add("hiddenBoxNav1");
     if (document.querySelector(".box-ghim-1")) {
       document.querySelector(".box-ghim-1").style.display = "block";
     }
@@ -432,15 +447,19 @@ function DefaultLayout({ children }) {
     });
 
     dataBoxChat.forEach((value) => {
-      document.querySelector(
-        `.box-choose-chatbox-${value.id}`
-      ).style.backgroundColor = "#fff";
+      if (document.querySelector(`.box-choose-chatbox-${value.id}`)) {
+        document.querySelector(
+          `.box-choose-chatbox-${value.id}`
+        ).style.backgroundColor = "transparent";
+      }
     });
 
     document.querySelector(
       `.box-choose-chatbox-${value.id}`
     ).style.backgroundColor = "#eeeff2";
     setDataBoxChat(newdataBoxChat);
+
+    document.querySelector(`.number-unread-${value.id}`).style.display = "none";
   };
 
   const onMounseOverBox = (key) => {
@@ -646,7 +665,7 @@ function DefaultLayout({ children }) {
             handleClickImgChat={handleClickImgChat}
           />
           {/* NavChatHead */}
-          {lengthGhim ? (
+          {lengthGhim > 0 && (
             <>
               <div className="box-ghim-1">
                 <Ghim
@@ -655,7 +674,7 @@ function DefaultLayout({ children }) {
                   renderImageFile={renderImageFile}
                 />
               </div>
-              {lengthGhim > 1 ? (
+              {lengthGhim > 1 && (
                 <div className="box-ghim-2">
                   <Row className="list-ghim">
                     <div className="list">Danh sách ghim ({lengthGhim})</div>
@@ -681,12 +700,8 @@ function DefaultLayout({ children }) {
                     );
                   })}
                 </div>
-              ) : (
-                ""
               )}
             </>
-          ) : (
-            ""
           )}
           <div className="box-chat">
             {children}
@@ -738,6 +753,8 @@ function DefaultLayout({ children }) {
                           value={value}
                           bytesToSize={bytesToSize}
                         />
+                      ) : value.type === "likeIcon" ? (
+                        <LikeIcon value={value} />
                       ) : (
                         <>
                           <div className="content-chat" key={key}>
@@ -938,7 +955,13 @@ function DefaultLayout({ children }) {
                         GỬI
                       </span>
                     ) : (
-                      <LikeOutlined className="not-use" />
+                      <div
+                        className="not-use"
+                        style={{ fontSize: "24px" }}
+                        onClick={handleClickLikeIcon}
+                      >
+                        👍
+                      </div>
                     )}
                   </div>
                 </Row>

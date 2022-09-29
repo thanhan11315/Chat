@@ -6,6 +6,8 @@
   min-width: 150px;
   border-radius: 6px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .responsive-input-box:hover {

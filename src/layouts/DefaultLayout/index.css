@@ -435,96 +435,6 @@ li {
   flex-direction: column;
 }
 
-#wrapper .box-nav-3 .box-ghim {
-  height: 50px;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-}
-
-#wrapper .box-nav-3 .box-ghim .box-1 .image {
-  width: 24px;
-  height: 48px;
-  margin-left: 16px;
-  margin-right: 12px;
-  display: flex;
-  align-items: center;
-}
-
-#wrapper .box-nav-3 .box-ghim .box-1 .image .anticon svg {
-  width: 24px;
-  height: 24px;
-  color: var(--B60);
-}
-
-#wrapper .box-nav-3 .box-ghim .box-1 .box-1-1 {
-  overflow: hidden;
-  align-self: center;
-}
-
-#wrapper .box-nav-3 .box-ghim .box-1 .box-1-1 .title {
-  line-height: normal;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: normal;
-  color: var(--primary-text);
-}
-
-#wrapper .box-nav-3 .box-ghim .box-1 .box-1-1 .content {
-  line-height: normal;
-  font-weight: 400;
-  font-size: 13px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-#wrapper .box-nav-3 .box-ghim .box-2 {
-  margin-right: 16px;
-}
-
-#wrapper .box-nav-3 .box-ghim .box-2 .ghim {
-  margin-left: 12px;
-  color: var(--B60);
-  height: 24px;
-  padding: 0 8px;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 22px;
-  border: 1px solid var(--B60);
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-#wrapper .box-nav-3 .box-ghim .box-2 .ghim:hover {
-  background-color: var(--B10);
-}
-
-#wrapper .box-nav-3 .box-ghim-2 {
-  display: none;
-}
-
-#wrapper .box-nav-3 .box-ghim-2 .box-ghim:hover {
-  background-color: var(--lst-item-hover);
-}
-
-#wrapper .box-nav-3 .box-ghim-2 .list-ghim {
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--NG20);
-  box-shadow: 0 1px var(--border);
-  min-height: 24px;
-}
-
-#wrapper .box-nav-3 .box-ghim-2 .list-ghim .list {
-  line-height: normal;
-  font-weight: 400;
-  font-size: 12px;
-  letter-spacing: normal;
-  padding-left: 12px;
-  color: var(--NG60);
-}
 #wrapper .box-nav-3 .collapse {
   color: var(--primary-text) !important;
   line-height: normal;
@@ -706,7 +616,7 @@ li {
 #wrapper .box-nav-4 {
   display: flex;
   flex-direction: column;
-  min-width: 344px;
+  max-width: 335px;
   border-left: 1px solid var(--border);
   height: 100vh;
 }
@@ -913,7 +823,7 @@ li {
   font-weight: 400;
   font-size: 13px;
   color: var(--WA100);
-  width: 280px;
+  min-width: 140px;
   text-align: center;
 }
 

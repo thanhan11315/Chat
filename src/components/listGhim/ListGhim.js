@@ -7,20 +7,35 @@ function ListGhim(props) {
     <>
       <Row className="box-ghim">
         <Row className="box-1">
-          <div className="image">
-            {props.value.type === "image" ? (
-              <img alt="img not load" src={props.value.url} />
-            ) : props.value.type === "video" ? (
-              <video alt="video not load" src={props.value.url} />
-            ) : props.value.file ? (
-              <img
-                alt="img not load"
-                src={props.renderImageFile(props.value.file.name)}
-              />
-            ) : (
+          {props.value.type === "image" ? (
+            <>
+              <div className="image-box">
+                <div className="border-right" />
+                <img alt="img not load" src={props.value.url} />
+              </div>
+            </>
+          ) : props.value.type === "video" ? (
+            <>
+              <div className="image-box">
+                <div className="border-right" />
+                <video alt="video not load" src={props.value.url} />
+              </div>
+            </>
+          ) : props.value.file ? (
+            <>
+              <div className="image-box">
+                <div className="border-right" />
+                <img
+                  alt="img not load"
+                  src={props.renderImageFile(props.value.file.name)}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="image-message">
               <MessageOutlined />
-            )}
-          </div>
+            </div>
+          )}
           <div className="box-1-1">
             <div className="title">
               {props.value?.type === "image" ? (

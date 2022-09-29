@@ -21,6 +21,8 @@ function NavChatHead(props) {
           onClick={() => {
             const hiddenBoxNav2 = document.querySelector(".box-nav-2");
             hiddenBoxNav2.classList.remove("hiddenBoxNav2");
+            const hiddenBoxNav1 = document.querySelector(".box-nav-1");
+            hiddenBoxNav1.classList.remove("hiddenBoxNav1");
           }}
         >
           <LeftOutlined />
