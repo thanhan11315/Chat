@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "antd";
 import { MessageOutlined } from "@ant-design/icons";
-import "./ListGhim.css";
+import "./ListGhim.scss";
 function ListGhim(props) {
   return (
     <>

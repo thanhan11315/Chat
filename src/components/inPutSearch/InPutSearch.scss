@@ -1,0 +1,32 @@
+:root {
+  --N20: #eeeff2;
+}
+
+.InPutSearch .ant-input-affix-wrapper {
+  height: 32px;
+  width: 240px;
+  background-color: var(--N20);
+  border: 1px solid var(--N20);
+  border-radius: 5px;
+}
+
+.InPutSearch .ant-input-prefix {
+  cursor: pointer;
+}
+
+.InPutSearch .ant-input {
+  background-color: var(--N20);
+}
+.InPutSearch .ant-input-affix-wrapper-focused {
+  box-shadow: none !important;
+}
+
+.InPutSearch .ant-input-affix-wrapper-focused {
+  border: solid 1px var(--B60) !important;
+}
+
+@media screen and (max-width: 992px) {
+  #wrapper .InPutSearch .ant-input-affix-wrapper {
+    width: 100%;
+  }
+}

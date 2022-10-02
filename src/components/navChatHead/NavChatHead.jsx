@@ -10,7 +10,7 @@ import {
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import "./NavChatHead.css";
+import "./NavChatHead.scss";
 
 function NavChatHead(props) {
   return (
@@ -30,7 +30,7 @@ function NavChatHead(props) {
         <Row className="box-1">
           <div className="image">
             <img
-              src={props.headerBoxChat.avatar}
+              src={props.dataUserFriend.avatar}
               alt="not load img"
               onClick={props.handleClickImgChat}
               style={{
@@ -44,7 +44,7 @@ function NavChatHead(props) {
             />
           </div>
           <div className="box-1-1">
-            <div className="title">{props.headerBoxChat.name}</div>
+            <div className="title">{props.dataUserFriend.name}</div>
             <Row className="status">
               <div className="status-1">
                 <UserOutlined
@@ -53,7 +53,7 @@ function NavChatHead(props) {
                   }}
                 />
               </div>
-              <div className="status-2">{props.headerBoxChat.status}</div>
+              <div className="status-2">{props.dataUserFriend.status}</div>
               <div className="brick"></div>
               <div className="icon">
                 <TagOutlined />

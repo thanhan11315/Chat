@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "antd";
 import { MessageOutlined, DownOutlined } from "@ant-design/icons";
-import "./ListGhim.css";
+import "./ListGhim.scss";
 function Ghim(props) {
   return (
     <Row className="box-ghim">

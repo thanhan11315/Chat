@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "antd";
 import { ExportOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import "./ResponsiveInput.css";
+import "./ResponsiveInput.scss";
 
 function ResponsiveInput(props) {
   return (

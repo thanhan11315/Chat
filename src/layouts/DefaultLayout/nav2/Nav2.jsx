@@ -8,7 +8,7 @@ import {
   EllipsisOutlined,
   BellOutlined,
 } from "@ant-design/icons";
-import "./Nav2.css";
+import "./Nav2.scss";
 
 function Nav2(props) {
   return (
@@ -54,7 +54,7 @@ function Nav2(props) {
         </Row>
       </Row>
       <div className="overflow">
-        {props.dataBoxChatRender.map((value) => {
+        {props.dataUserFriendsRender.map((value) => {
           return (
             <Row
               className={`box-choose-chatbox box-choose-chatbox-${value.id}`}

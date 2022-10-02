@@ -11,7 +11,7 @@ import {
 import React from "react";
 import { Popover } from "antd";
 import { useNavigate } from "react-router-dom";
-import "./Nav1.css";
+import "./Nav1.scss";
 
 function Nav1() {
   var nagative = useNavigate();

@@ -4,9 +4,12 @@ import {
   PaperClipOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons";
-import "./RightmousResponsive.css";
+import "./RightmousResponsive.scss";
 
 function RightmouseResponsive(props) {
+  const handleClickShareRightMouse = () => {
+    props.setModalShare(true);
+  };
   return (
     <div className="right-mouse-share-responsive">
       <div
@@ -17,8 +20,8 @@ function RightmouseResponsive(props) {
       >
         <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời
       </div>
-      <div className="share-responsive">
-        <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ{" "}
+      <div className="share-responsive" onClick={handleClickShareRightMouse}>
+        <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ
       </div>
       <div
         className="share-responsive"

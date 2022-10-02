@@ -9,7 +9,7 @@ function Nav4(props) {
         <div className="box-information">
           <div className="image">
             <img
-              src={props.headerBoxChat.avatar}
+              src={props.dataUserFriend.avatar}
               onClick={props.handleClickImgChat}
               alt="img not load"
               style={{
@@ -23,7 +23,7 @@ function Nav4(props) {
             />
           </div>
           <div className="header-info-name">
-            <div className="header">{props.headerBoxChat.name}</div>
+            <div className="header">{props.dataUserFriend.name}</div>
             <div className="icon">
               <LikeOutlined />
             </div>

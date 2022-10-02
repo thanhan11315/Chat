@@ -1,5 +1,5 @@
 import React from "react";
-import "./LikeIcon.css";
+import "./LikeIcon.scss";
 
 function LikeIcon(props) {
   return (

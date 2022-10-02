@@ -19,12 +19,12 @@ import {
   ExportOutlined,
 } from "@ant-design/icons";
 import React from "react";
-import "./index.css";
+import "./index.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // compoment
-import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.js";
-import ModalInformation from "../../components/modal/Modal.js";
+import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.jsx";
+import ModalInformation from "../../components/modal/Modal.jsx";
 import Nav1 from "./nav1/Nav1";
 import Nav2 from "./nav2/Nav2";
 import NavChatHead from "../../components/navChatHead/NavChatHead";
@@ -33,6 +33,8 @@ import ImageOrVideo from "../../components/imageOrVideo/ImageOrVideo";
 import ListGhim from "../../components/listGhim/ListGhim";
 import Ghim from "../../components/listGhim/Ghim";
 import Nav4 from "./nav4/Nav4";
+import ModalShare from "../../components/modalShare/ModalShare";
+
 //
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
@@ -380,7 +382,7 @@ function DefaultLayout({ children }) {
     );
   };
   const lengthGhim = valueListGhim?.length;
-  const dataBoxChatApi = [
+  const dataUserFriendsApi = [
     {
       id: "1",
       name: "Thanh Ân",
@@ -388,6 +390,7 @@ function DefaultLayout({ children }) {
       avatar: AvatarAn,
       status: "Vừa truy cập",
       not_read: true,
+      birthday: "23 / 10 / 2025",
     },
     {
       id: "2",
@@ -395,6 +398,7 @@ function DefaultLayout({ children }) {
       message: "SuperShip SuperShip SuperShip SuperShip",
       avatar: SuperShipLogo,
       status: "Vừa truy cập",
+      birthday: "22 / 11 / 2022",
     },
     {
       id: "3",
@@ -403,6 +407,7 @@ function DefaultLayout({ children }) {
       avatar: MicrosoftExcel,
       not_read: true,
       status: "16 thành viên",
+      birthday: "21 / 11 / 2011",
     },
     {
       id: "4",
@@ -410,14 +415,17 @@ function DefaultLayout({ children }) {
       message: "Nhóm Chat Nhóm Chat Nhóm Chat",
       avatar: MicrosoftExcel,
       status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
     },
   ];
-  const [dataBoxChat, setDataBoxChat] = useState(dataBoxChatApi);
-  const [headerBoxChat, setHeaderBoxChat] = useState(dataBoxChat[0]);
+  const [dataUserFriends, setDataUserFriends] = useState(dataUserFriendsApi);
+  const [dataUserFriend, setDataUserFriend] = useState(dataUserFriends[0]);
   const chooseBackground = () => {
-    if (document.querySelector(`.box-choose-chatbox-${dataBoxChat[0].id}`)) {
+    if (
+      document.querySelector(`.box-choose-chatbox-${dataUserFriends[0].id}`)
+    ) {
       document.querySelector(
-        `.box-choose-chatbox-${dataBoxChat[0].id}`
+        `.box-choose-chatbox-${dataUserFriends[0].id}`
       ).style.backgroundColor = "#eeeff2";
     }
   };
@@ -437,8 +445,8 @@ function DefaultLayout({ children }) {
     if (document.querySelector(".box-ghim-2")) {
       document.querySelector(".box-ghim-2").style.display = "none";
     }
-    setHeaderBoxChat(value);
-    const newdataBoxChat = dataBoxChat.map((valueN) => {
+    setDataUserFriend(value);
+    const newdataUserFriends = dataUserFriends.map((valueN) => {
       if (valueN.id === value.id) {
         return { ...valueN, not_read: false };
       } else {
@@ -446,7 +454,7 @@ function DefaultLayout({ children }) {
       }
     });
 
-    dataBoxChat.forEach((value) => {
+    dataUserFriends.forEach((value) => {
       if (document.querySelector(`.box-choose-chatbox-${value.id}`)) {
         document.querySelector(
           `.box-choose-chatbox-${value.id}`
@@ -454,12 +462,16 @@ function DefaultLayout({ children }) {
       }
     });
 
-    document.querySelector(
-      `.box-choose-chatbox-${value.id}`
-    ).style.backgroundColor = "#eeeff2";
-    setDataBoxChat(newdataBoxChat);
-
-    document.querySelector(`.number-unread-${value.id}`).style.display = "none";
+    if (document.querySelector(`.box-choose-chatbox-${value.id}`)) {
+      document.querySelector(
+        `.box-choose-chatbox-${value.id}`
+      ).style.backgroundColor = "#eeeff2";
+      setDataUserFriends(newdataUserFriends);
+    }
+    if (document.querySelector(`.number-unread-${value.id}`)) {
+      document.querySelector(`.number-unread-${value.id}`).style.display =
+        "none";
+    }
   };
 
   const onMounseOverBox = (key) => {
@@ -493,7 +505,8 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const [dataBoxChatRender, setDataBoxChatRender] = useState(dataBoxChatApi);
+  const [dataUserFriendsRender, setDataUserFriendsRender] =
+    useState(dataUserFriendsApi);
 
   const handleClickAllTitle = () => {
     document
@@ -502,7 +515,7 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.remove("selected");
-    setDataBoxChatRender(dataBoxChat);
+    setDataUserFriendsRender(dataUserFriends);
   };
 
   const handleClickNotReadTitle = () => {
@@ -512,13 +525,13 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.add("selected");
-    setDataBoxChatRender(
-      dataBoxChat.filter((value) => value.not_read === true)
+    setDataUserFriendsRender(
+      dataUserFriends.filter((value) => value.not_read === true)
     );
   };
 
   const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
-  const [valueRightClickMessage, setValueReRightClickMessage] = useState("");
+  const [valueRightClickMessage, setValueRightClickMessage] = useState("");
 
   const handleClickResponsiveIcon = (value) => {
     setResponsiveInputValue(value);
@@ -538,14 +551,18 @@ function DefaultLayout({ children }) {
   };
   const handleClickImgChat = () => {
     setModalInformation(true);
-    setTimeout(() => {
-      document.querySelector(".ant-modal").style.width = "352px";
-    }, 1);
+  };
+
+  const [modalShare, setModalShare] = useState(false);
+  const handleCancelModalShare = () => {
+    setModalShare(false);
+  };
+  const handleClickShare = (value) => {
+    setModalShare(true);
+    setValueRightClickMessage(value);
   };
 
   // Modal
-
-  //
 
   // Right nav bar media 992px
 
@@ -589,10 +606,14 @@ function DefaultLayout({ children }) {
     document.querySelector(".input-chat .ant-input").focus();
   });
 
-  if (document.getElementById("InPutSearch")) {
-    document.getElementById("InPutSearch").addEventListener("keydown", (e) => {
-      e.stopPropagation();
-    });
+  if (document.getElementsByClassName("InPutSearch")) {
+    const arrayEvent = document.getElementsByClassName("InPutSearch");
+    const length = arrayEvent.length;
+    for (let i = 0; i < length; i++) {
+      arrayEvent[i].addEventListener("keydown", (e) => {
+        e.stopPropagation();
+      });
+    }
   }
 
   // right mouse and forcus input
@@ -631,6 +652,13 @@ function DefaultLayout({ children }) {
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}
       />
+      <ModalShare
+        modalShare={modalShare}
+        handleCancelModalShare={handleCancelModalShare}
+        valueRightClickMessage={valueRightClickMessage}
+        renderImageFile={renderImageFile}
+        dataUserFriendsApi={dataUserFriendsApi}
+      />
       {/* Modal*/}
 
       {/* RightmouseResponsive */}
@@ -638,6 +666,7 @@ function DefaultLayout({ children }) {
         handleClickResponsiveIcon={handleClickResponsiveIcon}
         valueResponsiveRightClick={valueRightClickMessage}
         handleClickGhim={handleClickGhim}
+        setModalShare={setModalShare}
       />
       {/* RightmouseResponsive */}
 
@@ -650,7 +679,7 @@ function DefaultLayout({ children }) {
         <Nav2
           handleClickAllTitle={handleClickAllTitle}
           handleClickNotReadTitle={handleClickNotReadTitle}
-          dataBoxChatRender={dataBoxChatRender}
+          dataUserFriendsRender={dataUserFriendsRender}
           handleClickChooseBoxChat={handleClickChooseBoxChat}
           valueChats={valueChats}
         />
@@ -659,7 +688,7 @@ function DefaultLayout({ children }) {
         <Col className="box-nav-3">
           {/* NavChatHead */}
           <NavChatHead
-            headerBoxChat={headerBoxChat}
+            dataUserFriend={dataUserFriend}
             handleClickNavRight={handleClickNavRight}
             hiddenRightNav={hiddenRightNav}
             handleClickImgChat={handleClickImgChat}
@@ -711,6 +740,7 @@ function DefaultLayout({ children }) {
                   className={value.other_people ? "box-other-people" : "box-me"}
                   onMouseOver={() => onMounseOverBox(key)}
                   onMouseOut={() => onMouseOutBox(key)}
+                  key={key}
                 >
                   <Row className={`share-response share-response-${key}`}>
                     <div>
@@ -718,8 +748,11 @@ function DefaultLayout({ children }) {
                         onClick={() => handleClickResponsiveIcon(value)}
                       />
                     </div>
-                    <div>
+                    <div onClick={() => handleClickShare(value)}>
                       <ShareAltOutlined />
+                    </div>
+                    <div onClick={() => handleClickGhim(value)}>
+                      <PaperClipOutlined />
                     </div>
                   </Row>
                   <div className={value.other_people ? "other-people" : "me"}>
@@ -742,7 +775,7 @@ function DefaultLayout({ children }) {
                       className="box-content-all-chat"
                       onContextMenu={(e) => {
                         handleOnContextMenu(e);
-                        setValueReRightClickMessage(value);
+                        setValueRightClickMessage(value);
                       }}
                     >
                       {value.url ? (
@@ -757,7 +790,7 @@ function DefaultLayout({ children }) {
                         <LikeIcon value={value} />
                       ) : (
                         <>
-                          <div className="content-chat" key={key}>
+                          <div className="content-chat">
                             {value.Responsive && (
                               <ResponsiveInput
                                 ResponsiveInputValue={value.Responsive}
@@ -955,13 +988,13 @@ function DefaultLayout({ children }) {
                         GỬI
                       </span>
                     ) : (
-                      <div
+                      <span
                         className="not-use"
                         style={{ fontSize: "24px" }}
                         onClick={handleClickLikeIcon}
                       >
                         👍
-                      </div>
+                      </span>
                     )}
                   </div>
                 </Row>
@@ -972,7 +1005,7 @@ function DefaultLayout({ children }) {
         <Nav4
           hiddenRightNav={hiddenRightNav}
           handleClickImgChat={handleClickImgChat}
-          headerBoxChat={headerBoxChat}
+          dataUserFriend={dataUserFriend}
         />
       </Row>
     </>

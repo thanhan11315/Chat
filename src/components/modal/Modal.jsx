@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "antd/lib/modal/Modal";
 import AvatarAn from "../../assets/images/AvatarAn.jpg";
-import "./ModalInformation.css";
+import "./ModalInformation.scss";
 
 function ModalInformation(props) {
   return (
