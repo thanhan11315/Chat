@@ -75,14 +75,16 @@ function ModalShare(props) {
                       <>
                         <label htmlFor={value.id_user} key={value.id_user}>
                           <div className="choose-share">
-                            <input
-                              className="input-checkbox-share"
-                              onChange={handleClickCheckBox}
-                              type="checkbox"
-                              name={value.id_user}
-                              value={value.id_user}
-                              id={value.id_user}
-                            />
+                            <div className="box-input">
+                              <input
+                                className="input-checkbox-share"
+                                onChange={handleClickCheckBox}
+                                type="checkbox"
+                                name={value.id_user}
+                                value={value.id_user}
+                                id={value.id_user}
+                              />
+                            </div>
                             <div className="image">
                               <img src={value.avatar} alt="img not load" />
                             </div>

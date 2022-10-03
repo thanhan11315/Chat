@@ -154,7 +154,7 @@ function DefaultLayout({ children }) {
       minutes: 39,
       month: 8,
       year: 2022,
-      url: AvatarAn,
+      url: SuperShipLogo,
       type: "image",
       ghim: false,
     },
@@ -235,7 +235,7 @@ function DefaultLayout({ children }) {
     setValueChats([
       {
         ...dataUserFriendsApi[0],
-        type: e.target.files[0].type.slice(0, 5),
+        type: e.target.files[0].type?.slice(0, 5),
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
         other_people: true,
@@ -1018,6 +1018,9 @@ function DefaultLayout({ children }) {
           </div>
         </Col>
         <Nav4
+          renderImageFile={renderImageFile}
+          bytesToSize={bytesToSize}
+          valueChats={valueChats}
           hiddenRightNav={hiddenRightNav}
           handleClickImgChat={handleClickImgChat}
           dataUserFriend={dataUserFriend}

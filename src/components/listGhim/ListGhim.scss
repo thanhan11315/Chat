@@ -25,10 +25,13 @@
   align-items: center;
 }
 
-#wrapper .box-nav-3 .box-ghim .box-1 .image-box img {
-  width: 100%;
-  height: 70%;
-  object-fit: scale-down;
+#wrapper .box-nav-3 .box-ghim .box-1 .image-box {
+  video,
+  img {
+    width: 100%;
+    height: 70%;
+    object-fit: scale-down;
+  }
 }
 
 #wrapper .box-nav-3 .box-ghim {

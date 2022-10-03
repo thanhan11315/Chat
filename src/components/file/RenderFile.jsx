@@ -1,6 +1,7 @@
 import React from "react";
 import { Row } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
+import "./RenderFile.scss";
 
 function RenderFile(props) {
   return (
@@ -10,11 +11,6 @@ function RenderFile(props) {
           <img
             src={props.renderImageFile(props.value.file?.name)}
             alt="img not load"
-            style={{
-              marginRight: "10px",
-              height: "56px",
-              borderRadius: "3px",
-            }}
           />
         </div>
         <div className="box-content-file-title">
@@ -31,8 +27,12 @@ function RenderFile(props) {
       </Row>
       <div className="date">
         <div>
-          {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-          {props.value.hours}:{props.value.minutes}
+          <span className="d-m-year">
+            {props.value.date}-{props.value.month + 1}-{props.value.year}
+          </span>{" "}
+          <span className="m-hours">
+            {props.value.hours}:{props.value.minutes}
+          </span>
         </div>
       </div>
     </div>
