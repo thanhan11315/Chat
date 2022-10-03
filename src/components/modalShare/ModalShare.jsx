@@ -16,7 +16,7 @@ function ModalShare(props) {
     setCheckedValues(
       [...inputElements].map((inputElement) => {
         return props.dataUserFriendsApi.find(
-          (object) => object.id === inputElement.value
+          (object) => object.id_user === inputElement.value
         );
       })
     );
@@ -34,7 +34,7 @@ function ModalShare(props) {
   };
 
   const unCheckShare = (value) => {
-    document.getElementById(`${value.id}`).checked = false;
+    document.getElementById(`${value.id_user}`).checked = false;
     handleClickCheckBox();
   };
 
@@ -73,15 +73,15 @@ function ModalShare(props) {
                   {props.dataUserFriendsApi.map((value) => {
                     return (
                       <>
-                        <label htmlFor={value.id} key={value.id}>
+                        <label htmlFor={value.id_user} key={value.id_user}>
                           <div className="choose-share">
                             <input
                               className="input-checkbox-share"
                               onChange={handleClickCheckBox}
                               type="checkbox"
-                              name={value.id}
-                              value={value.id}
-                              id={value.id}
+                              name={value.id_user}
+                              value={value.id_user}
+                              id={value.id_user}
                             />
                             <div className="image">
                               <img src={value.avatar} alt="img not load" />

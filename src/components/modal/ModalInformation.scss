@@ -1,6 +1,9 @@
 /* modalInformation Style */
 
 /* edit-css-libary */
+.ant-image-mask:hover {
+  opacity: 0;
+}
 
 .ant-modal-wrap .ant-modal-content {
   border-radius: 4px;
@@ -24,6 +27,10 @@
 /* modalInformation Style */
 
 .wrapper-modal-information {
+  .ant-image {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /*  */

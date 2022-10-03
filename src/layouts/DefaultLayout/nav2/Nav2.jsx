@@ -57,9 +57,9 @@ function Nav2(props) {
         {props.dataUserFriendsRender.map((value) => {
           return (
             <Row
-              className={`box-choose-chatbox box-choose-chatbox-${value.id}`}
+              className={`box-choose-chatbox box-choose-chatbox-${value.id_user}`}
               onClick={() => props.handleClickChooseBoxChat(value)}
-              key={value.id}
+              key={value.id_user}
             >
               <Row className="box1">
                 <Col className="image">
@@ -105,8 +105,8 @@ function Nav2(props) {
                 </div>
                 {value.not_read && (
                   <div
-                    className={`number-unread number-unread-${value.id}`}
-                    key={value.id}
+                    className={`number-unread number-unread-${value.id_user}`}
+                    key={value.id_user}
                   >
                     <div>
                       <div>5+</div>

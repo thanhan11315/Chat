@@ -10,7 +10,7 @@ function Nav4(props) {
           <div className="image">
             <img
               src={props.dataUserFriend.avatar}
-              onClick={props.handleClickImgChat}
+              onClick={() => props.handleClickImgChat(props.dataUserFriend)}
               alt="img not load"
               style={{
                 border: "0.5px solid #fff",

@@ -80,11 +80,52 @@ function DefaultLayout({ children }) {
 
   // demochatlocal
 
+  const dataUserFriendsApi = [
+    {
+      phone_number: "0898999907",
+      gender: "Nam",
+      id_user: "1",
+      name: "Thanh Ân",
+      avatar: AvatarAn,
+      status: "Vừa truy cập",
+      not_read: true,
+      birthday: "23 / 10 / 2025",
+    },
+    {
+      phone_number: "0898999999",
+      id_user: "2",
+      name: "SuperShip",
+      avatar: SuperShipLogo,
+      status: "Vừa truy cập",
+      birthday: "22 / 11 / 2022",
+      gender: "Nữ",
+    },
+    {
+      phone_number: "0898888888",
+      id_user: "3",
+      name: "Nhóm Chat",
+      avatar: MicrosoftExcel,
+      not_read: true,
+      status: "16 thành viên",
+      birthday: "21 / 11 / 2011",
+      gender: "Nữ",
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "4",
+      name: "Nhóm Chat",
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+    },
+  ];
+
   const valueChatDemo = [
     {
       id: 3213213213132131,
+      ...dataUserFriendsApi[0],
       content: "Tin nhắn text",
-      name: "Thanh Ân",
       date: 24,
       hours: 13,
       minutes: 39,
@@ -95,7 +136,7 @@ function DefaultLayout({ children }) {
     {
       id: 3234243546546565,
       content: "Tin nhắn text",
-      name: "Thanh Ân",
+      ...dataUserFriendsApi[0],
       other_people: true,
       date: 24,
       hours: 13,
@@ -107,7 +148,7 @@ function DefaultLayout({ children }) {
     {
       id: 321321653784387,
       content: "thanh an",
-      name: "Thanh Ân",
+      ...dataUserFriendsApi[0],
       date: 24,
       hours: 13,
       minutes: 39,
@@ -120,7 +161,7 @@ function DefaultLayout({ children }) {
     {
       id: 321321434321321,
       content: "thanh an",
-      name: "Thanh Ân",
+      ...dataUserFriendsApi[0],
       date: 24,
       other_people: true,
       hours: 13,
@@ -160,12 +201,12 @@ function DefaultLayout({ children }) {
   const render = (valueChatReplace) => {
     setValueChats([
       {
+        ...dataUserFriendsApi[0],
         other_people: true,
         ghim: false,
         id: id,
         Responsive: ResponsiveInputValue,
         content: valueChatReplace,
-        name: "Thanh Ân",
         year: d.getFullYear(),
         month: d.getMonth(),
         date: d.getDate(),
@@ -176,6 +217,10 @@ function DefaultLayout({ children }) {
     ]);
     console.log([
       {
+        ...dataUserFriendsApi[0],
+        other_people: true,
+        ghim: false,
+        id: id,
         Responsive: ResponsiveInputValue,
         content: valueChatReplace,
         ...date,
@@ -189,10 +234,10 @@ function DefaultLayout({ children }) {
   const onChangeImage = (e) => {
     setValueChats([
       {
+        ...dataUserFriendsApi[0],
         type: e.target.files[0].type.slice(0, 5),
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
-        name: "Thanh Ân",
         other_people: true,
         ...date,
       },
@@ -203,9 +248,9 @@ function DefaultLayout({ children }) {
   const onChangeFile = (e) => {
     setValueChats([
       {
+        ...dataUserFriendsApi[0],
         file: e.target.files[0],
         content: e.target.files[0].name,
-        name: "Thanh Ân",
         other_people: true,
         ...date,
       },
@@ -216,7 +261,7 @@ function DefaultLayout({ children }) {
   const handleClickLikeIcon = () => {
     setValueChats([
       {
-        name: "thanh Ân",
+        ...dataUserFriendsApi[0],
         other_people: true,
         content: "👍",
         type: "likeIcon",
@@ -382,50 +427,17 @@ function DefaultLayout({ children }) {
     );
   };
   const lengthGhim = valueListGhim?.length;
-  const dataUserFriendsApi = [
-    {
-      id: "1",
-      name: "Thanh Ân",
-      message: "Ân Lê",
-      avatar: AvatarAn,
-      status: "Vừa truy cập",
-      not_read: true,
-      birthday: "23 / 10 / 2025",
-    },
-    {
-      id: "2",
-      name: "SuperShip",
-      message: "SuperShip SuperShip SuperShip SuperShip",
-      avatar: SuperShipLogo,
-      status: "Vừa truy cập",
-      birthday: "22 / 11 / 2022",
-    },
-    {
-      id: "3",
-      name: "Nhóm Chat",
-      message: "Nhóm Chat Nhóm Chat Nhóm Chat",
-      avatar: MicrosoftExcel,
-      not_read: true,
-      status: "16 thành viên",
-      birthday: "21 / 11 / 2011",
-    },
-    {
-      id: "4",
-      name: "Nhóm Chat",
-      message: "Nhóm Chat Nhóm Chat Nhóm Chat",
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-    },
-  ];
+
   const [dataUserFriends, setDataUserFriends] = useState(dataUserFriendsApi);
   const [dataUserFriend, setDataUserFriend] = useState(dataUserFriends[0]);
   const chooseBackground = () => {
     if (
-      document.querySelector(`.box-choose-chatbox-${dataUserFriends[0].id}`)
+      document.querySelector(
+        `.box-choose-chatbox-${dataUserFriends[0].id_user}`
+      )
     ) {
       document.querySelector(
-        `.box-choose-chatbox-${dataUserFriends[0].id}`
+        `.box-choose-chatbox-${dataUserFriends[0].id_user}`
       ).style.backgroundColor = "#eeeff2";
     }
   };
@@ -447,7 +459,7 @@ function DefaultLayout({ children }) {
     }
     setDataUserFriend(value);
     const newdataUserFriends = dataUserFriends.map((valueN) => {
-      if (valueN.id === value.id) {
+      if (valueN.id_user === value.id_user) {
         return { ...valueN, not_read: false };
       } else {
         return valueN;
@@ -455,21 +467,21 @@ function DefaultLayout({ children }) {
     });
 
     dataUserFriends.forEach((value) => {
-      if (document.querySelector(`.box-choose-chatbox-${value.id}`)) {
+      if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
         document.querySelector(
-          `.box-choose-chatbox-${value.id}`
+          `.box-choose-chatbox-${value.id_user}`
         ).style.backgroundColor = "transparent";
       }
     });
 
-    if (document.querySelector(`.box-choose-chatbox-${value.id}`)) {
+    if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
       document.querySelector(
-        `.box-choose-chatbox-${value.id}`
+        `.box-choose-chatbox-${value.id_user}`
       ).style.backgroundColor = "#eeeff2";
       setDataUserFriends(newdataUserFriends);
     }
-    if (document.querySelector(`.number-unread-${value.id}`)) {
-      document.querySelector(`.number-unread-${value.id}`).style.display =
+    if (document.querySelector(`.number-unread-${value.id_user}`)) {
+      document.querySelector(`.number-unread-${value.id_user}`).style.display =
         "none";
     }
   };
@@ -546,11 +558,13 @@ function DefaultLayout({ children }) {
   // Modal
 
   const [modalInformation, setModalInformation] = useState(false);
+  const [dataModalInformation, setDataModalInformation] = useState({});
   const handleCancelModalInformation = () => {
     setModalInformation(false);
   };
-  const handleClickImgChat = () => {
+  const handleClickImgChat = (value) => {
     setModalInformation(true);
+    setDataModalInformation(value);
   };
 
   const [modalShare, setModalShare] = useState(false);
@@ -651,6 +665,7 @@ function DefaultLayout({ children }) {
       <ModalInformation
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}
+        dataModalInformation={dataModalInformation}
       />
       <ModalShare
         modalShare={modalShare}
@@ -760,7 +775,7 @@ function DefaultLayout({ children }) {
                       <img
                         src={AvatarAn}
                         alt="img not load"
-                        onClick={handleClickImgChat}
+                        onClick={() => handleClickImgChat(value)}
                         style={{
                           border: "0.5px solid #fff",
                           borderRadius: "50%",
@@ -826,8 +841,8 @@ function DefaultLayout({ children }) {
               <Row className="event-message">
                 <Col className="image-message">
                   <img
-                    src={AvatarAn}
-                    onClick={handleClickImgChat}
+                    src={dataUserFriendsApi[0].avatar}
+                    onClick={() => handleClickImgChat(dataUserFriendsApi[0])}
                     alt="img not load"
                     style={{
                       border: "0.5px solid #fff",
@@ -849,8 +864,8 @@ function DefaultLayout({ children }) {
               <Row className="event-message">
                 <Col className="image-message">
                   <img
-                    src={AvatarAn}
-                    onClick={handleClickImgChat}
+                    src={dataUserFriendsApi[0].avatar}
+                    onClick={() => handleClickImgChat(dataUserFriendsApi[0])}
                     alt="img not load"
                     style={{
                       border: "0.5px solid #fff",

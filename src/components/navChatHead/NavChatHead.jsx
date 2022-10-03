@@ -32,7 +32,7 @@ function NavChatHead(props) {
             <img
               src={props.dataUserFriend.avatar}
               alt="not load img"
-              onClick={props.handleClickImgChat}
+              onClick={() => props.handleClickImgChat(props.dataUserFriend)}
               style={{
                 border: "0.5px solid #fff",
                 borderRadius: "50%",

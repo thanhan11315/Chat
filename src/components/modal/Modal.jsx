@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "antd/lib/modal/Modal";
-import AvatarAn from "../../assets/images/AvatarAn.jpg";
+import { Image } from "antd";
 import "./ModalInformation.scss";
 
 function ModalInformation(props) {
@@ -15,14 +15,24 @@ function ModalInformation(props) {
         <div className="wrapper-modal-information">
           <div className="profilePhoto">
             <div className="avatar-profile">
-              <img className="img-profile" alt="not load img" src={AvatarAn} />
+              <Image
+                className="img-profile"
+                alt="not load img"
+                src={props.dataModalInformation.avatar}
+              />
             </div>
             <div className="user-profile-preview">
               <div className="box-img-avatar">
-                <img className="img-avatar" alt="not load img" src={AvatarAn} />
+                <Image
+                  className="img-avatar"
+                  alt="not load img"
+                  src={props.dataModalInformation.avatar}
+                />
               </div>
               <div className="preview-content">
-                <div className="name-content">Lê Thanh Ân</div>
+                <div className="name-content">
+                  {props.dataModalInformation.name}
+                </div>
               </div>
             </div>
           </div>
@@ -34,15 +44,22 @@ function ModalInformation(props) {
             <div className="box-user-profile-detail">
               <div className="user-profile-detail">
                 <span className="title-profile-detail">Điện Thoại</span>
-                <span className="content-profile-detail"> 0898999907 </span>
+                <span className="content-profile-detail">
+                  {" "}
+                  {props.dataModalInformation.phone_number}{" "}
+                </span>
               </div>
               <div className="user-profile-detail">
                 <span className="title-profile-detail">Giới Tính</span>
-                <span className="content-profile-detail"> Nam </span>
+                <span className="content-profile-detail">
+                  {props.dataModalInformation.gender}
+                </span>
               </div>
               <div className="user-profile-detail">
                 <span className="title-profile-detail">Ngày Sinh</span>
-                <span className="content-profile-detail"> 22/02/2022 </span>
+                <span className="content-profile-detail">
+                  {props.dataModalInformation.birthday}{" "}
+                </span>
               </div>
             </div>
           </div>
