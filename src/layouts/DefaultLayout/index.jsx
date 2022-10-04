@@ -34,7 +34,7 @@ import ListGhim from "../../components/listGhim/ListGhim";
 import Ghim from "../../components/listGhim/Ghim";
 import Nav4 from "./nav4/Nav4";
 import ModalShare from "../../components/modalShare/ModalShare";
-
+import RightmouseChooseBoxChat from "../../components/rightmouseChooseBoxChat/RightmouseChooseBoxChat";
 //
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
@@ -84,40 +84,219 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0898999907",
       gender: "Nam",
+      notification: true,
       id_user: "1",
       name: "Thanh Ân",
       avatar: AvatarAn,
       status: "Vừa truy cập",
       not_read: true,
       birthday: "23 / 10 / 2025",
+      pin_conversation: false,
     },
     {
       phone_number: "0898999999",
       id_user: "2",
       name: "SuperShip",
+      notification: false,
       avatar: SuperShipLogo,
       status: "Vừa truy cập",
       birthday: "22 / 11 / 2022",
       gender: "Nữ",
+      pin_conversation: true,
     },
     {
       phone_number: "0898888888",
       id_user: "3",
+      notification: false,
       name: "Nhóm Chat",
       avatar: MicrosoftExcel,
       not_read: true,
       status: "16 thành viên",
       birthday: "21 / 11 / 2011",
       gender: "Nữ",
+      pin_conversation: true,
     },
     {
       phone_number: "0998889999",
       id_user: "4",
       name: "Nhóm Chat",
+      notification: false,
       avatar: MicrosoftExcel,
       status: "106 thành viên",
       birthday: "01 / 02 / 2012",
       gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0898999907",
+      gender: "Nam",
+      notification: true,
+      id_user: "5",
+      name: "Thanh Ân",
+      avatar: AvatarAn,
+      status: "Vừa truy cập",
+      not_read: true,
+      birthday: "23 / 10 / 2025",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0898999999",
+      id_user: "6",
+      name: "SuperShip",
+      notification: false,
+      avatar: SuperShipLogo,
+      status: "Vừa truy cập",
+      birthday: "22 / 11 / 2022",
+      gender: "Nữ",
+      pin_conversation: true,
+    },
+    {
+      phone_number: "0898888888",
+      id_user: "7",
+      notification: false,
+      name: "Nhóm Chat",
+      avatar: MicrosoftExcel,
+      not_read: true,
+      status: "16 thành viên",
+      birthday: "21 / 11 / 2011",
+      gender: "Nữ",
+      pin_conversation: true,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "8",
+      name: "Nhóm Chat",
+      notification: false,
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0898999907",
+      gender: "Nam",
+      notification: true,
+      id_user: "9",
+      name: "Thanh Ân",
+      avatar: AvatarAn,
+      status: "Vừa truy cập",
+      not_read: true,
+      birthday: "23 / 10 / 2025",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0898999999",
+      id_user: "10",
+      name: "SuperShip",
+      notification: false,
+      avatar: SuperShipLogo,
+      status: "Vừa truy cập",
+      birthday: "22 / 11 / 2022",
+      gender: "Nữ",
+      pin_conversation: true,
+    },
+    {
+      phone_number: "0898888888",
+      id_user: "11",
+      notification: false,
+      name: "Nhóm Chat",
+      avatar: MicrosoftExcel,
+      not_read: true,
+      status: "16 thành viên",
+      birthday: "21 / 11 / 2011",
+      gender: "Nữ",
+      pin_conversation: true,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "12",
+      name: "Nhóm Chat",
+      notification: false,
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0898999907",
+      gender: "Nam",
+      notification: true,
+      id_user: "13",
+      name: "Thanh Ân",
+      avatar: AvatarAn,
+      status: "Vừa truy cập",
+      not_read: true,
+      birthday: "23 / 10 / 2025",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0898999999",
+      id_user: "14",
+      name: "SuperShip",
+      notification: false,
+      avatar: SuperShipLogo,
+      status: "Vừa truy cập",
+      birthday: "22 / 11 / 2022",
+      gender: "Nữ",
+      pin_conversation: true,
+    },
+    {
+      phone_number: "0898888888",
+      id_user: "15",
+      notification: false,
+      name: "Nhóm Chat",
+      avatar: MicrosoftExcel,
+      not_read: true,
+      status: "16 thành viên",
+      birthday: "21 / 11 / 2011",
+      gender: "Nữ",
+      pin_conversation: true,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "16",
+      name: "Nhóm Chat",
+      notification: false,
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "17",
+      name: "Nhóm Chat",
+      notification: false,
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "18",
+      name: "Nhóm Chat",
+      notification: false,
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "19",
+      name: "Nhóm Chat",
+      notification: false,
+      avatar: MicrosoftExcel,
+      status: "106 thành viên",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
     },
   ];
 
@@ -235,6 +414,7 @@ function DefaultLayout({ children }) {
     setValueChats([
       {
         ...dataUserFriendsApi[0],
+        id: id,
         type: e.target.files[0].type?.slice(0, 5),
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
@@ -249,6 +429,7 @@ function DefaultLayout({ children }) {
     setValueChats([
       {
         ...dataUserFriendsApi[0],
+        id: id,
         file: e.target.files[0],
         content: e.target.files[0].name,
         other_people: true,
@@ -262,6 +443,7 @@ function DefaultLayout({ children }) {
     setValueChats([
       {
         ...dataUserFriendsApi[0],
+        id: id,
         other_people: true,
         content: "👍",
         type: "likeIcon",
@@ -466,6 +648,8 @@ function DefaultLayout({ children }) {
       }
     });
 
+    setDataUserFriends(newdataUserFriends);
+
     dataUserFriends.forEach((value) => {
       if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
         document.querySelector(
@@ -478,12 +662,12 @@ function DefaultLayout({ children }) {
       document.querySelector(
         `.box-choose-chatbox-${value.id_user}`
       ).style.backgroundColor = "#eeeff2";
-      setDataUserFriends(newdataUserFriends);
     }
-    if (document.querySelector(`.number-unread-${value.id_user}`)) {
-      document.querySelector(`.number-unread-${value.id_user}`).style.display =
-        "none";
-    }
+    setDataUserFriendsRender(newdataUserFriends);
+    // if (document.querySelector(`.number-unread-${value.id_user}`)) {
+    //   document.querySelector(`.number-unread-${value.id_user}`).style.display =
+    //     "none";
+    // }
   };
 
   const onMounseOverBox = (key) => {
@@ -600,6 +784,10 @@ function DefaultLayout({ children }) {
       document.querySelector(".right-mouse-share-responsive ").style.display =
         "none";
     }
+    if (document.querySelector(".rightmouse-choose-box-chat ")) {
+      document.querySelector(".rightmouse-choose-box-chat ").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("wheel", () => {
@@ -607,11 +795,19 @@ function DefaultLayout({ children }) {
       document.querySelector(".right-mouse-share-responsive ").style.display =
         "none";
     }
+    if (document.querySelector(".rightmouse-choose-box-chat ")) {
+      document.querySelector(".rightmouse-choose-box-chat ").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("contextmenu", () => {
     if (document.querySelector(".right-mouse-share-responsive ")) {
       document.querySelector(".right-mouse-share-responsive ").style.display =
+        "none";
+    }
+    if (document.querySelector(".rightmouse-choose-box-chat ")) {
+      document.querySelector(".rightmouse-choose-box-chat ").style.display =
         "none";
     }
   });
@@ -634,7 +830,7 @@ function DefaultLayout({ children }) {
 
   // contextMenu Click Right mouse
 
-  const handleOnContextMenu = (e) => {
+  const handleOnContextMenu = (e, value) => {
     let leftPos = "";
     let topPos = "";
     if (!document.querySelector(".ant-image-preview-mask")) {
@@ -653,10 +849,35 @@ function DefaultLayout({ children }) {
       menu.style.display = "block";
       menu.style.top = topPos;
       menu.style.left = leftPos;
+      setValueRightClickMessage(value);
       e.stopPropagation();
     }
   };
 
+  // onContextMenuChooseBoxChat
+  const [valueRightClickChooseBoxChat, setValueRightClickChooseBoxChat] =
+    useState("");
+  const onContextMenuChooseBoxChat = (e, value) => {
+    let leftPos = "";
+    let topPos = "";
+    e.preventDefault();
+    const menu = document.querySelector(".rightmouse-choose-box-chat");
+    if (180 < window.innerWidth - e.clientX) {
+      leftPos = `${e.clientX - 10}px`;
+    } else {
+      leftPos = `${e.pageX - 220}px`;
+    }
+    if (250 < window.innerHeight - e.clientY) {
+      topPos = `${e.clientY - 10}px`;
+    } else {
+      topPos = `${e.pageY - 251}px`;
+    }
+    menu.style.display = "block";
+    menu.style.top = topPos;
+    menu.style.left = leftPos;
+    e.stopPropagation();
+    setValueRightClickChooseBoxChat(value);
+  };
   // contextMenu Click Right mouse
 
   return (
@@ -685,6 +906,15 @@ function DefaultLayout({ children }) {
       />
       {/* RightmouseResponsive */}
 
+      {/* RightmouseChooseBoxChat */}
+      <RightmouseChooseBoxChat
+        valueRightClickChooseBoxChat={valueRightClickChooseBoxChat}
+        dataUserFriends={dataUserFriends}
+        setDataUserFriends={setDataUserFriends}
+        setDataUserFriendsRender={setDataUserFriendsRender}
+      />
+      {/* RightmouseChooseBoxChat */}
+
       <Row id="wrapper">
         {/* Nav1 */}
         <Nav1 />
@@ -697,6 +927,7 @@ function DefaultLayout({ children }) {
           dataUserFriendsRender={dataUserFriendsRender}
           handleClickChooseBoxChat={handleClickChooseBoxChat}
           valueChats={valueChats}
+          onContextMenuChooseBoxChat={onContextMenuChooseBoxChat}
         />
         {/* Nav2 */}
 
@@ -789,8 +1020,7 @@ function DefaultLayout({ children }) {
                     <div
                       className="box-content-all-chat"
                       onContextMenu={(e) => {
-                        handleOnContextMenu(e);
-                        setValueRightClickMessage(value);
+                        handleOnContextMenu(e, value);
                       }}
                     >
                       {value.url ? (

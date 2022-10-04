@@ -314,7 +314,7 @@ li {
 }
 
 #wrapper .box-choose-chatbox {
-  height: 72px;
+  min-height: 72px;
   align-items: center;
   justify-content: space-between;
   padding: 0px 16px;
@@ -340,7 +340,7 @@ li {
 
 #wrapper .box-choose-chatbox .box2 .number-unread {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 #wrapper .box-choose-chatbox .box2 .number-unread div {
   display: flex;
@@ -350,11 +350,12 @@ li {
 
 #wrapper .box-choose-chatbox .box2 .number-unread div div {
   padding: 0px 6px;
-  height: 16px;
+  height: 12px;
+  width: 12px;
   font-size: 9px;
   background-color: var(--B60);
   color: var(--WA100);
-  border-radius: 8px;
+  border-radius: 50%;
   font-weight: 900;
 }
 

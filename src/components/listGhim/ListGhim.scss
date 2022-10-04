@@ -72,6 +72,9 @@
 
 #wrapper .box-nav-3 .box-ghim .box-2 {
   margin-right: 16px;
+  min-width: 125px;
+  display: flex;
+  justify-content: space-between;
 }
 
 #wrapper .box-nav-3 .box-ghim .box-2 .ghim {

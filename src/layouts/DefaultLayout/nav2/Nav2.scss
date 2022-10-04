@@ -9,6 +9,8 @@
 #wrapper .box-nav-2 .overflow {
   overflow-y: scroll;
   height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
 }
 
 #wrapper .box-nav-2 .search-add {
