@@ -4,6 +4,8 @@
 .wrapper-modal-Share .box-choose-share {
   border-top: 1px solid #e1e4ea;
   margin: 0px 16px;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .wrapper-modal-Share .box-list-choose-share {
@@ -75,9 +77,11 @@
   border-bottom: 1px solid #e1e4ea;
   margin-top: 12px;
   min-height: 66px;
+  flex-wrap: wrap !important;
   .image {
     position: relative;
     margin-left: 8px;
+    margin-bottom: 10px;
     img {
       border-radius: 50%;
       width: 40px;

@@ -84,7 +84,7 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0898999907",
       gender: "Nam",
-      notification: true,
+      notification: false,
       id_user: "1",
       name: "Thanh Ân",
       avatar: AvatarAn,
@@ -102,7 +102,7 @@ function DefaultLayout({ children }) {
       status: "Vừa truy cập",
       birthday: "22 / 11 / 2022",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0898888888",
@@ -110,11 +110,11 @@ function DefaultLayout({ children }) {
       notification: false,
       name: "Nhóm Chat",
       avatar: MicrosoftExcel,
-      not_read: true,
+      not_read: false,
       status: "16 thành viên",
       birthday: "21 / 11 / 2011",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0998889999",
@@ -130,7 +130,7 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0898999907",
       gender: "Nam",
-      notification: true,
+      notification: false,
       id_user: "5",
       name: "Thanh Ân",
       avatar: AvatarAn,
@@ -148,7 +148,7 @@ function DefaultLayout({ children }) {
       status: "Vừa truy cập",
       birthday: "22 / 11 / 2022",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0898888888",
@@ -156,11 +156,11 @@ function DefaultLayout({ children }) {
       notification: false,
       name: "Nhóm Chat",
       avatar: MicrosoftExcel,
-      not_read: true,
+      not_read: false,
       status: "16 thành viên",
       birthday: "21 / 11 / 2011",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0998889999",
@@ -176,7 +176,7 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0898999907",
       gender: "Nam",
-      notification: true,
+      notification: false,
       id_user: "9",
       name: "Thanh Ân",
       avatar: AvatarAn,
@@ -194,7 +194,7 @@ function DefaultLayout({ children }) {
       status: "Vừa truy cập",
       birthday: "22 / 11 / 2022",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0898888888",
@@ -202,11 +202,11 @@ function DefaultLayout({ children }) {
       notification: false,
       name: "Nhóm Chat",
       avatar: MicrosoftExcel,
-      not_read: true,
+      not_read: false,
       status: "16 thành viên",
       birthday: "21 / 11 / 2011",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0998889999",
@@ -222,12 +222,12 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0898999907",
       gender: "Nam",
-      notification: true,
+      notification: false,
       id_user: "13",
       name: "Thanh Ân",
       avatar: AvatarAn,
       status: "Vừa truy cập",
-      not_read: true,
+      not_read: false,
       birthday: "23 / 10 / 2025",
       pin_conversation: false,
     },
@@ -240,7 +240,7 @@ function DefaultLayout({ children }) {
       status: "Vừa truy cập",
       birthday: "22 / 11 / 2022",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0898888888",
@@ -252,7 +252,7 @@ function DefaultLayout({ children }) {
       status: "16 thành viên",
       birthday: "21 / 11 / 2011",
       gender: "Nữ",
-      pin_conversation: true,
+      pin_conversation: false,
     },
     {
       phone_number: "0998889999",
@@ -316,7 +316,7 @@ function DefaultLayout({ children }) {
       id: 3234243546546565,
       content: "Tin nhắn text",
       ...dataUserFriendsApi[0],
-      other_people: true,
+      other_people: false,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -342,7 +342,7 @@ function DefaultLayout({ children }) {
       content: "thanh an",
       ...dataUserFriendsApi[0],
       date: 24,
-      other_people: true,
+      other_people: false,
       hours: 13,
       minutes: 39,
       month: 8,
@@ -375,7 +375,9 @@ function DefaultLayout({ children }) {
     minutes: d.getMinutes(),
   };
 
-  const id = `${Date.now()}${Math.floor(Math.random() * 1000000000000)}`;
+  const id = `${new Date().valueOf()}${Math.floor(
+    Math.random() * 1000000000000
+  )}`;
 
   const render = (valueChatReplace) => {
     setValueChats([
@@ -663,11 +665,18 @@ function DefaultLayout({ children }) {
         `.box-choose-chatbox-${value.id_user}`
       ).style.backgroundColor = "#eeeff2";
     }
-    setDataUserFriendsRender(newdataUserFriends);
-    // if (document.querySelector(`.number-unread-${value.id_user}`)) {
-    //   document.querySelector(`.number-unread-${value.id_user}`).style.display =
-    //     "none";
-    // }
+
+    if (document.querySelector(".not-read.selected")) {
+      setDataUserFriendsRender(
+        dataUserFriendsRender.map((valueN) => {
+          if (valueN.id_user === value.id_user) {
+            return { ...valueN, not_read: false };
+          } else {
+            return valueN;
+          }
+        })
+      );
+    }
   };
 
   const onMounseOverBox = (key) => {
@@ -870,7 +879,7 @@ function DefaultLayout({ children }) {
     if (250 < window.innerHeight - e.clientY) {
       topPos = `${e.clientY - 10}px`;
     } else {
-      topPos = `${e.pageY - 251}px`;
+      topPos = `${e.pageY - 155}px`;
     }
     menu.style.display = "block";
     menu.style.top = topPos;
@@ -912,6 +921,8 @@ function DefaultLayout({ children }) {
         dataUserFriends={dataUserFriends}
         setDataUserFriends={setDataUserFriends}
         setDataUserFriendsRender={setDataUserFriendsRender}
+        dataUserFriendsRender={dataUserFriendsRender}
+        dataUserFriend={dataUserFriend}
       />
       {/* RightmouseChooseBoxChat */}
 
@@ -1001,7 +1012,10 @@ function DefaultLayout({ children }) {
                       <PaperClipOutlined />
                     </div>
                   </Row>
-                  <div className={value.other_people ? "other-people" : "me"}>
+                  <div
+                    className={value.other_people ? "other-people" : "me"}
+                    id={`${value.id}`}
+                  >
                     <div className="img-chat">
                       <img
                         src={AvatarAn}
@@ -1037,13 +1051,15 @@ function DefaultLayout({ children }) {
                         <>
                           <div className="content-chat">
                             {value.Responsive && (
-                              <ResponsiveInput
-                                ResponsiveInputValue={value.Responsive}
-                                clearResponsiveTnputValue={
-                                  clearResponsiveTnputValue
-                                }
-                                renderImageFile={renderImageFile}
-                              />
+                              <a href={`#${value.Responsive.id}`}>
+                                <ResponsiveInput
+                                  ResponsiveInputValue={value.Responsive}
+                                  clearResponsiveTnputValue={
+                                    clearResponsiveTnputValue
+                                  }
+                                  renderImageFile={renderImageFile}
+                                />
+                              </a>
                             )}
                             {value.content}
                             <div className="date">

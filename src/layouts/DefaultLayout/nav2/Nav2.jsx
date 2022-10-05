@@ -62,7 +62,7 @@ function Nav2(props) {
               onClick={() => props.handleClickChooseBoxChat(value)}
               key={value.id_user}
               onContextMenu={(e) => props.onContextMenuChooseBoxChat(e, value)}
-              style={{ order: value.style_order }}
+              style={{ order: value.pin_conversation && -value.style_order }}
             >
               <Row className="box1">
                 <Col className="image">
@@ -80,8 +80,16 @@ function Nav2(props) {
                   />
                 </Col>
                 <Col className="choose-chatbox">
-                  <div className="title">{value.name}</div>
-                  <div className="content">
+                  <div
+                    className="title"
+                    style={{ fontWeight: value.not_read && "600" }}
+                  >
+                    {value.name}
+                  </div>
+                  <div
+                    className="content"
+                    style={{ color: value.not_read && "#001a33" }}
+                  >
                     <>
                       {props.valueChats.slice(0, 1)[0].name}:{" "}
                       {props.valueChats.slice(0, 1)[0].type === "image" ? (
