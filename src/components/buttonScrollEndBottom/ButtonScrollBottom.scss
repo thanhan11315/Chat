@@ -1,0 +1,29 @@
+.box-button-scroll-bottom {
+  position: absolute;
+  right: 43px;
+  bottom: 42px;
+  .hidden {
+    display: none !important;
+  }
+  .button-scroll-bottom {
+    position: fixed;
+    -webkit-box-shadow: 0 0 5px 0 var(--BA20);
+    width: 32px;
+    height: 32px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--WA100);
+    border-radius: 50%;
+    cursor: pointer;
+    .anticon svg {
+      color: var(--N80);
+    }
+  }
+  .button-scroll-bottom:hover {
+    .anticon svg {
+      color: var(--HL_sidebar);
+    }
+  }
+}

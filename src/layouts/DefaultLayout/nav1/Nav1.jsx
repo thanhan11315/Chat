@@ -70,21 +70,21 @@ function Nav1() {
         >
           <MessageOutlined />
         </li>
-        <li>
+        <li className="not-use">
           <ContainerOutlined className="not-use" />
         </li>
-        <li>
+        <li className="not-use">
           <CheckSquareOutlined className="not-use" />
         </li>
       </ul>
       <ul className="list-2">
-        <li>
+        <li className="not-use">
           <CloudOutlined className="not-use" />
         </li>
-        <li>
+        <li className="not-use">
           <ToolOutlined className="not-use" />
         </li>
-        <li>
+        <li className="not-use">
           <SettingOutlined className="not-use" />
         </li>
       </ul>

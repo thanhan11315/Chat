@@ -35,8 +35,11 @@
   height: 24px;
 }
 
-#wrapper .box-nav-1 ul li .not-use svg {
-  color: #6a0b0b !important;
+#wrapper .box-nav-1 ul .not-use {
+  cursor: no-drop;
+}
+#wrapper .box-nav-1 ul .not-use:hover {
+  background-color: var(--HL_sidebar);
 }
 
 .ant-popover-placement-rightTop {

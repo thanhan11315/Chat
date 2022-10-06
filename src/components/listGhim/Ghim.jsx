@@ -1,6 +1,10 @@
 import React from "react";
 import { Row } from "antd";
-import { MessageOutlined, DownOutlined } from "@ant-design/icons";
+import {
+  MessageOutlined,
+  DownOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import "./ListGhim.scss";
 function Ghim(props) {
   return (
@@ -54,8 +58,13 @@ function Ghim(props) {
           </div>
         </div>
       </Row>
-      {props.lengthGhim > 1 && (
-        <div className="box-2">
+      <div className="box-2">
+        <div className="delete-ghim">
+          <CloseOutlined
+            onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
+          />
+        </div>
+        {props.lengthGhim > 1 && (
           <div
             className="ghim"
             onClick={() => {
@@ -65,8 +74,8 @@ function Ghim(props) {
           >
             {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </Row>
   );
 }

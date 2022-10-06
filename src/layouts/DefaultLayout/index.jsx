@@ -46,6 +46,7 @@ import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
 import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
 import LikeIcon from "../../components/likeIcon/LikeIcon";
+import ButtonScrollBottom from "../../components/buttonScrollEndBottom/ButtonScrollEndBottom";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -127,177 +128,6 @@ function DefaultLayout({ children }) {
       gender: "Nam",
       pin_conversation: false,
     },
-    {
-      phone_number: "0898999907",
-      gender: "Nam",
-      notification: false,
-      id_user: "5",
-      name: "Thanh Ân",
-      avatar: AvatarAn,
-      status: "Vừa truy cập",
-      not_read: true,
-      birthday: "23 / 10 / 2025",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898999999",
-      id_user: "6",
-      name: "SuperShip",
-      notification: false,
-      avatar: SuperShipLogo,
-      status: "Vừa truy cập",
-      birthday: "22 / 11 / 2022",
-      gender: "Nữ",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898888888",
-      id_user: "7",
-      notification: false,
-      name: "Nhóm Chat",
-      avatar: MicrosoftExcel,
-      not_read: false,
-      status: "16 thành viên",
-      birthday: "21 / 11 / 2011",
-      gender: "Nữ",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0998889999",
-      id_user: "8",
-      name: "Nhóm Chat",
-      notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-      gender: "Nam",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898999907",
-      gender: "Nam",
-      notification: false,
-      id_user: "9",
-      name: "Thanh Ân",
-      avatar: AvatarAn,
-      status: "Vừa truy cập",
-      not_read: true,
-      birthday: "23 / 10 / 2025",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898999999",
-      id_user: "10",
-      name: "SuperShip",
-      notification: false,
-      avatar: SuperShipLogo,
-      status: "Vừa truy cập",
-      birthday: "22 / 11 / 2022",
-      gender: "Nữ",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898888888",
-      id_user: "11",
-      notification: false,
-      name: "Nhóm Chat",
-      avatar: MicrosoftExcel,
-      not_read: false,
-      status: "16 thành viên",
-      birthday: "21 / 11 / 2011",
-      gender: "Nữ",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0998889999",
-      id_user: "12",
-      name: "Nhóm Chat",
-      notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-      gender: "Nam",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898999907",
-      gender: "Nam",
-      notification: false,
-      id_user: "13",
-      name: "Thanh Ân",
-      avatar: AvatarAn,
-      status: "Vừa truy cập",
-      not_read: false,
-      birthday: "23 / 10 / 2025",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898999999",
-      id_user: "14",
-      name: "SuperShip",
-      notification: false,
-      avatar: SuperShipLogo,
-      status: "Vừa truy cập",
-      birthday: "22 / 11 / 2022",
-      gender: "Nữ",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0898888888",
-      id_user: "15",
-      notification: false,
-      name: "Nhóm Chat",
-      avatar: MicrosoftExcel,
-      not_read: true,
-      status: "16 thành viên",
-      birthday: "21 / 11 / 2011",
-      gender: "Nữ",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0998889999",
-      id_user: "16",
-      name: "Nhóm Chat",
-      notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-      gender: "Nam",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0998889999",
-      id_user: "17",
-      name: "Nhóm Chat",
-      notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-      gender: "Nam",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0998889999",
-      id_user: "18",
-      name: "Nhóm Chat",
-      notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-      gender: "Nam",
-      pin_conversation: false,
-    },
-    {
-      phone_number: "0998889999",
-      id_user: "19",
-      name: "Nhóm Chat",
-      notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
-      birthday: "01 / 02 / 2012",
-      gender: "Nam",
-      pin_conversation: false,
-    },
   ];
 
   const valueChatDemo = [
@@ -351,6 +181,29 @@ function DefaultLayout({ children }) {
       type: "image",
       ghim: false,
     },
+    {
+      id: 3213213132131,
+      ...dataUserFriendsApi[0],
+      content: "Tin nhắn text",
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      ghim: false,
+    },
+    {
+      id: 323426546565,
+      content: "Tin nhắn text",
+      ...dataUserFriendsApi[0],
+      other_people: false,
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      ghim: false,
+    },
   ];
 
   const [valueChats, setValueChats] = useState(valueChatDemo);
@@ -363,6 +216,9 @@ function DefaultLayout({ children }) {
   const enterChat = () => {
     if (valueChat.trim() !== "" && valueChat !== null) {
       render(valueChat);
+      const element = document.querySelector(".box-nav-3 .box-chat");
+      element.scrollTo(0, 0);
+      document.querySelector(".button-scroll-bottom").classList.add("hidden");
     }
   };
 
@@ -378,6 +234,17 @@ function DefaultLayout({ children }) {
   const id = `${new Date().valueOf()}${Math.floor(
     Math.random() * 1000000000000
   )}`;
+
+  const deleteMessage = (value) => {
+    // let newValueChats = valueChats;
+    // const indexOjbRemove = valueChats.findIndex((obj) => obj.id === value.id);
+    // newValueChats.splice(indexOjbRemove, 1);
+    // setValueChats(newValueChats);
+    const newValueChats = valueChats.filter(
+      (valueChat) => valueChat.id !== value.id
+    );
+    setValueChats(newValueChats);
+  };
 
   const render = (valueChatReplace) => {
     setValueChats([
@@ -594,6 +461,7 @@ function DefaultLayout({ children }) {
   // Ghim
 
   const [valueListGhim, setValueListGhim] = useState("");
+  const [lengthGhim, setLengthGhim] = useState("");
 
   const handleClickGhim = (valueGhim) => {
     const newValueChats = valueChats.map((value) => {
@@ -609,8 +477,38 @@ function DefaultLayout({ children }) {
         return value.ghim === true;
       })
     );
+    setLengthGhim(
+      newValueChats.filter((value) => {
+        return value.ghim === true;
+      }).length
+    );
   };
-  const lengthGhim = valueListGhim?.length;
+
+  const handleClickUnGhim = (valueGhim) => {
+    const newValueChats = valueChats.map((value) => {
+      if (value.id === valueGhim.id) {
+        return { ...value, ghim: false };
+      } else {
+        return value;
+      }
+    });
+    setValueChats(newValueChats);
+    setValueListGhim(
+      newValueChats.filter((value) => {
+        return value.ghim === true;
+      })
+    );
+    const newLenghtGhim = newValueChats.filter((value) => {
+      return value.ghim === true;
+    }).length;
+
+    setLengthGhim(newLenghtGhim);
+    if (newLenghtGhim === 1) {
+      document.querySelector(".box-ghim-1").style.display = "block";
+    }
+  };
+
+  // Ghim
 
   const [dataUserFriends, setDataUserFriends] = useState(dataUserFriendsApi);
   const [dataUserFriend, setDataUserFriend] = useState(dataUserFriends[0]);
@@ -676,6 +574,8 @@ function DefaultLayout({ children }) {
           }
         })
       );
+    } else {
+      setDataUserFriendsRender(newdataUserFriends);
     }
   };
 
@@ -912,6 +812,8 @@ function DefaultLayout({ children }) {
         valueResponsiveRightClick={valueRightClickMessage}
         handleClickGhim={handleClickGhim}
         setModalShare={setModalShare}
+        handleClickUnGhim={handleClickUnGhim}
+        deleteMessage={deleteMessage}
       />
       {/* RightmouseResponsive */}
 
@@ -958,6 +860,7 @@ function DefaultLayout({ children }) {
                   valueListGhim={valueListGhim}
                   lengthGhim={lengthGhim}
                   renderImageFile={renderImageFile}
+                  handleClickUnGhim={handleClickUnGhim}
                 />
               </div>
               {lengthGhim > 1 && (
@@ -982,6 +885,7 @@ function DefaultLayout({ children }) {
                         value={value}
                         key={key}
                         renderImageFile={renderImageFile}
+                        handleClickUnGhim={handleClickUnGhim}
                       />
                     );
                   })}
@@ -991,6 +895,7 @@ function DefaultLayout({ children }) {
           )}
           <div className="box-chat">
             {children}
+            <ButtonScrollBottom />
             {valueChats.map((value, key) => {
               return (
                 <div
@@ -1193,15 +1098,12 @@ function DefaultLayout({ children }) {
             </Row>
             <div className={`nav-chat ${focusInput}`}>
               {/* Responsive-input */}
-
-              {ResponsiveInputValue ? (
+              {ResponsiveInputValue && (
                 <ResponsiveInput
                   ResponsiveInputValue={ResponsiveInputValue}
                   clearResponsiveTnputValue={clearResponsiveTnputValue}
                   renderImageFile={renderImageFile}
                 />
-              ) : (
-                ""
               )}
 
               {/* Responsive-input */}

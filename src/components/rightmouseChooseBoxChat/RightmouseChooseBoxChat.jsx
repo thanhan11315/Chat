@@ -201,50 +201,30 @@ function RightmouseChooseBoxChat(props) {
       props.setDataUserFriendsRender(newDataUserFriends);
     }
   };
-  const remove0bjectWidthId = (arr, id) => {
-    const objWithIdIndex = arr.findIndex((obj) => obj.id_user === id);
-    arr.splice(objWithIdIndex, 1);
-    return arr;
-  };
+
   const deleteConversation = () => {
-    const newDataUserFriends = remove0bjectWidthId(
-      props.dataUserFriends,
-      props.valueRightClickChooseBoxChat.id_user
+    const newDataUserFriends = props.dataUserFriends.filter(
+      (dataUserFriend) =>
+        dataUserFriend.id_user !== props.valueRightClickChooseBoxChat.id_user
     );
     props.setDataUserFriends(newDataUserFriends);
     if (document.querySelector(".not-read.selected")) {
-      const newDataUserFriendNotRead = remove0bjectWidthId(
-        props.dataUserFriendsRender,
-        props.valueRightClickChooseBoxChat.id_user
-      );
-      props.setDataUserFriendsRender(newDataUserFriendNotRead);
-      const elementBoxChat = document.querySelector(
-        `.box-choose-chatbox-${props.dataUserFriend.id_user}`
+      const newDataUserFriendsNotRead = props.dataUserFriendsRender.filter(
+        (dataUserFriendRender) =>
+          dataUserFriendRender.id_user !==
+          props.valueRightClickChooseBoxChat.id_user
       );
       if (
         props.dataUserFriend.id_user ===
         props.valueRightClickChooseBoxChat.id_user
       ) {
         const elementBoxChat0 = document.querySelector(
-          `.box-choose-chatbox-${newDataUserFriendNotRead[0].id_user}`
+          `.box-choose-chatbox-${newDataUserFriendsNotRead[0].id_user}`
         );
         elementBoxChat0.click();
-      } else {
-        if (elementBoxChat) {
-          elementBoxChat.click();
-        } else {
-          document
-            .querySelector(
-              `.box-choose-chatbox-${newDataUserFriendNotRead[0].id_user}`
-            )
-            .click();
-        }
       }
+      props.setDataUserFriendsRender(newDataUserFriendsNotRead);
     } else {
-      props.setDataUserFriendsRender(newDataUserFriends);
-      const elementBoxChat = document.querySelector(
-        `.box-choose-chatbox-${props.dataUserFriend.id_user}`
-      );
       if (
         props.dataUserFriend.id_user ===
         props.valueRightClickChooseBoxChat.id_user
@@ -253,9 +233,9 @@ function RightmouseChooseBoxChat(props) {
           `.box-choose-chatbox-${newDataUserFriends[0].id_user}`
         );
         elementBoxChat0.click();
-      } else {
-        elementBoxChat.click();
+        console.log(1);
       }
+      props.setDataUserFriendsRender(newDataUserFriends);
     }
   };
   return (

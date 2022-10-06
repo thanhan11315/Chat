@@ -58,7 +58,6 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  background-color: var(--N80);
   position: absolute;
   top: 4px;
   right: 4px;
@@ -66,15 +65,21 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  border: 2px solid var(--primary-icon);
 }
 
 .responsive-input-box .delete:hover {
-  background-color: var(--B60);
+  border: 2px solid var(--B60);
+  .anticon svg {
+    color: var(--B60);
+  }
 }
 
 .responsive-input-box .delete .anticon svg {
   font-weight: 400;
-  color: #fff;
+  color: var(--primary-icon);
+  width: 12px;
+  height: 12px;
 }
 
 .content-chat .responsive-input-box .delete {

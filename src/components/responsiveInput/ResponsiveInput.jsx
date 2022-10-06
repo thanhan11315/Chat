@@ -1,6 +1,6 @@
 import React from "react";
 import { Row } from "antd";
-import { ExportOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { ExportOutlined, CloseOutlined } from "@ant-design/icons";
 import "./ResponsiveInput.scss";
 
 function ResponsiveInput(props) {
@@ -42,7 +42,7 @@ function ResponsiveInput(props) {
         )}
       </div>
       <div className="delete" onClick={() => props.clearResponsiveTnputValue()}>
-        <CloseCircleOutlined />
+        <CloseOutlined />
       </div>
     </Row>
   );
