@@ -34,6 +34,134 @@ function Nav4(props) {
     element.style.maxHeight = "217px";
     setShowAllFile(false);
   };
+  const turnOffNotification = () => {
+    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+      if (props.dataUserFriend.id_user === dataUserFriend.id_user) {
+        return { ...dataUserFriend, notification: false };
+      } else {
+        return dataUserFriend;
+      }
+    });
+    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriend({ ...props.dataUserFriend, notification: false });
+    if (document.querySelector(".not-read.selected")) {
+      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
+        (dataUserFriendRender) => {
+          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
+            return {
+              ...dataUserFriendRender,
+              notification: false,
+            };
+          } else {
+            return dataUserFriendRender;
+          }
+        }
+      );
+      console.log(newDataUserFriendNotRead);
+      props.setDataUserFriendsRender(newDataUserFriendNotRead);
+    } else {
+      props.setDataUserFriendsRender(newDataUserFriends);
+    }
+  };
+  const turnOnNotification = () => {
+    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+      if (props.dataUserFriend.id_user === dataUserFriend.id_user) {
+        return { ...dataUserFriend, notification: true };
+      } else {
+        return dataUserFriend;
+      }
+    });
+    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriend({ ...props.dataUserFriend, notification: true });
+    if (document.querySelector(".not-read.selected")) {
+      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
+        (dataUserFriendRender) => {
+          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
+            return {
+              ...dataUserFriendRender,
+              notification: true,
+            };
+          } else {
+            return dataUserFriendRender;
+          }
+        }
+      );
+      props.setDataUserFriendsRender(newDataUserFriendNotRead);
+    } else {
+      props.setDataUserFriendsRender(newDataUserFriends);
+    }
+  };
+
+  const UnpinConversation = () => {
+    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+      if (props.dataUserFriend.id_user === dataUserFriend.id_user) {
+        delete dataUserFriend["style_order"];
+        return { ...dataUserFriend, pin_conversation: false };
+      } else {
+        return dataUserFriend;
+      }
+    });
+    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriend({
+      ...props.dataUserFriend,
+      pin_conversation: false,
+    });
+    if (document.querySelector(".not-read.selected")) {
+      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
+        (dataUserFriendRender) => {
+          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
+            delete dataUserFriendRender["style_order"];
+            return {
+              ...dataUserFriendRender,
+              pin_conversation: false,
+            };
+          } else {
+            return dataUserFriendRender;
+          }
+        }
+      );
+      props.setDataUserFriendsRender(newDataUserFriendNotRead);
+    } else {
+      props.setDataUserFriendsRender(newDataUserFriends);
+    }
+  };
+  const Pinconversation = () => {
+    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+      if (props.dataUserFriend.id_user === dataUserFriend.id_user) {
+        return {
+          ...dataUserFriend,
+          pin_conversation: true,
+          style_order: 1,
+        };
+      } else {
+        return dataUserFriend;
+      }
+    });
+    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriend({
+      ...props.dataUserFriend,
+      pin_conversation: true,
+    });
+    if (document.querySelector(".not-read.selected")) {
+      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
+        (dataUserFriendRender) => {
+          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
+            return {
+              ...dataUserFriendRender,
+              pin_conversation: true,
+              style_order: 1,
+            };
+          } else {
+            return dataUserFriendRender;
+          }
+        }
+      );
+      props.setDataUserFriendsRender(newDataUserFriendNotRead);
+    } else {
+      props.setDataUserFriendsRender(newDataUserFriends);
+    }
+  };
+
   return (
     <Col className={`box-nav-4 ${props.hiddenRightNav}`}>
       <div className="title-nav">Thông tin hội thoại</div>
@@ -61,38 +189,73 @@ function Nav4(props) {
             </div>
           </div>
           <Row className="box-icon-content">
-            <div className="icon-content">
-              <div className="box-icon">
-                <div className="icon">
-                  <BellOutlined />
+            {props.dataUserFriend.notification ? (
+              <div className="icon-content">
+                <div className="box-icon">
+                  <div className="icon" onClick={turnOffNotification}>
+                    <BellOutlined />
+                  </div>
                 </div>
+                <div className="content">Tắt thông báo</div>
               </div>
-              <div className="content">Bật Thông báo</div>
-            </div>
-            <div className="icon-content">
-              <div className="box-icon">
-                <div className="icon">
-                  <PaperClipOutlined />
+            ) : (
+              <div className="icon-content">
+                <div className="box-icon">
+                  <div className="icon" onClick={turnOnNotification}>
+                    <BellOutlined />
+                  </div>
                 </div>
+                <div className="content">Bật thông báo</div>
               </div>
-              <div className="content">Ghim hội thoại</div>
-            </div>
-            <div className="icon-content">
-              <div className="box-icon">
-                <div className="icon">
-                  <UsergroupAddOutlined />
+            )}
+            {props.dataUserFriend.pin_conversation ? (
+              <div className="icon-content">
+                <div className="box-icon">
+                  <div className="icon" onClick={UnpinConversation}>
+                    <PaperClipOutlined />
+                  </div>
                 </div>
+                <div className="content">Bỏ Ghim hội thoại</div>
               </div>
-              <div className="content">Thêm thành viên</div>
-            </div>
-            <div className="icon-content">
-              <div className="box-icon">
-                <div className="icon">
-                  <SettingOutlined />
+            ) : (
+              <div className="icon-content">
+                <div className="box-icon">
+                  <div className="icon" onClick={Pinconversation}>
+                    <PaperClipOutlined />
+                  </div>
                 </div>
+                <div className="content">Ghim hội thoại</div>
               </div>
-              <div className="content">Quản lí nhóm</div>
-            </div>
+            )}
+            {props.dataUserFriend.group ? (
+              <>
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div className="icon">
+                      <UsergroupAddOutlined />
+                    </div>
+                  </div>
+                  <div className="content">Thêm thành viên</div>
+                </div>
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div className="icon">
+                      <SettingOutlined />
+                    </div>
+                  </div>
+                  <div className="content">Quản lí nhóm</div>
+                </div>
+              </>
+            ) : (
+              <div className="icon-content">
+                <div className="box-icon">
+                  <div className="icon" onClick={props.handleClickCreateGroup}>
+                    <UsergroupAddOutlined />
+                  </div>
+                </div>
+                <div className="content">Tạo nhóm trò chuyện</div>
+              </div>
+            )}
           </Row>
         </div>
         <div className="box-element">

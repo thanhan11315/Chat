@@ -1,10 +1,11 @@
 #wrapper .box-nav-4 {
   display: flex;
   flex-direction: column;
-  max-width: 350px;
   border-left: 1px solid var(--border);
   height: 100vh;
   z-index: 10;
+  max-width: 345px;
+  min-width: 345px;
 }
 
 #wrapper .box-nav-4 .title-nav {
@@ -108,6 +109,7 @@
   color: var(--primary-text);
   background-color: var(--N30);
   border-radius: 50%;
+  cursor: pointer;
 }
 
 #wrapper

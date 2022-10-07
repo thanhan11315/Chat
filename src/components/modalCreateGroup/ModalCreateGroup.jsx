@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Modal from "antd/lib/modal/Modal";
 import InPutSearch from "../inPutSearch/InPutSearch";
-import { Button, Row } from "antd";
-import "./ModalShare.scss";
-import ShareInput from "../shareInput/ShareInput";
+import { Button, Row, Input } from "antd";
+import "./ModalCreateGroup.scss";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
-function ModalShare(props) {
+function ModalCreateGroup(props) {
   const [checkedValues, setCheckedValues] = useState([]);
+  const [nameGroup, setNameGroup] = useState("");
   const handleClickCheckBox = () => {
     const inputElements = document.querySelectorAll(
-      ".input-checkbox-share:checked"
+      ".input-checkbox-create-group:checked"
     );
     setCheckedValues(
       [...inputElements].map((inputElement) => {
@@ -22,9 +22,9 @@ function ModalShare(props) {
   };
 
   const unCheckCancel = () => {
-    props.handleCancelModalShare();
+    props.handleCancelModalCreateGroup();
     const inputElements = document.querySelectorAll(
-      ".input-checkbox-share:checked"
+      ".input-checkbox-create-group:checked"
     );
     inputElements.forEach((inputElement) => {
       inputElement.checked = false;
@@ -32,52 +32,76 @@ function ModalShare(props) {
     setCheckedValues([]);
   };
 
-  const unCheckShare = (value) => {
+  const unCheckCreateGroup = (value) => {
     document.getElementById(`${value.id_user}`).checked = false;
     handleClickCheckBox();
   };
 
-  const handleClickShareButton = () => {
+  const handleClickCreateGroupButton = () => {
     console.log(checkedValues);
-    console.log(props.valueRightClickMessage);
-    props.handleCancelModalShare();
+    console.log(nameGroup);
+    props.handleCancelModalCreateGroup();
+    const newDataUserFriends = [
+      {
+        ...props.dataUserMe,
+        id_user: props.id,
+        name: nameGroup,
+        group: true,
+        status: `${checkedValues.length + 1} Thành Viên`,
+        menber: checkedValues,
+      },
+      ...props.dataUserFriends,
+    ];
+    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsRender(newDataUserFriends);
     unCheckCancel();
   };
 
   return (
     <>
       <Modal
-        open={props.modalShare}
-        title="Chia sẻ"
+        open={props.modalCreateGroup}
+        title="Tạo Nhóm"
         onCancel={unCheckCancel}
         footer={[
           <Button onClick={unCheckCancel}>Hủy</Button>,
-          <Button onClick={handleClickShareButton}>Chia sẻ</Button>,
+          <Button onClick={handleClickCreateGroupButton}>Tạo Nhóm</Button>,
         ]}
       >
-        <div className="wrapper-modal-Share">
+        <div className="wrapper-modal-create-group">
+          <div className="box-input-create-group">
+            <Input
+              placeholder="Nhập tên nhóm"
+              value={nameGroup}
+              onChange={(e) => setNameGroup(e.target.value)}
+              onKeyDown={(e) => {
+                e.stopPropagation();
+              }}
+              maxLength={30}
+            />
+          </div>
+          <div className="content">Thêm bạn bè vào nhóm</div>
           <InPutSearch />
-          <Row className="box-choose-share">
-            <div className="box-list-choose-share">
-              <div className="title-choose-share">Trò chuyện gần đây</div>
-              <div className="list-choose-share">
+          <Row className="box-choose-create-group">
+            <div className="box-list-choose-create-group">
+              <div className="title-choose-create-group">
+                Trò chuyện gần đây
+              </div>
+              <div className="list-choose-create-group">
                 <form>
-                  {props.dataUserFriendsApi.map((value, key) => {
+                  {props.dataUserFriendsApi.map((value) => {
                     return (
                       <>
-                        <label
-                          htmlFor={value.id_user + key}
-                          key={value.id_user}
-                        >
-                          <div className="choose-share">
+                        <label htmlFor={value.id_user} key={value.id_user}>
+                          <div className="choose-create-group">
                             <div className="box-input">
                               <input
-                                className="input-checkbox-share"
+                                className="input-checkbox-create-group"
                                 onChange={handleClickCheckBox}
                                 type="checkbox"
                                 name={value.id_user}
                                 value={value.id_user}
-                                id={value.id_user + key}
+                                id={value.id_user}
                               />
                             </div>
                             <div className="image">
@@ -93,26 +117,20 @@ function ModalShare(props) {
               </div>
             </div>
           </Row>
-          <div className="history-choose-share">
+          <div className="history-choose-create-group">
             {checkedValues.map((value) => {
               return (
                 <div className="image">
                   <img src={value.avatar} alt="img not load" />
-                  <div className="delete" onClick={() => unCheckShare(value)}>
+                  <div
+                    className="delete"
+                    onClick={() => unCheckCreateGroup(value)}
+                  >
                     <CloseCircleOutlined />
                   </div>
                 </div>
               );
             })}
-          </div>
-          <div className="box-content">
-            <div className="title-content">Nội dung chia sẻ</div>
-            <div className="content">
-              <ShareInput
-                shareInputValue={props.valueRightClickMessage}
-                renderImageFile={props.renderImageFile}
-              />
-            </div>
           </div>
         </div>
       </Modal>
@@ -120,4 +138,4 @@ function ModalShare(props) {
   );
 }
 
-export default ModalShare;
+export default ModalCreateGroup;

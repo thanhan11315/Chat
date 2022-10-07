@@ -67,7 +67,6 @@
 #wrapper .box-nav-3 .box-nav-chat .box-2 .icon-title div {
   width: 32px;
   height: 32px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,11 +75,11 @@
 }
 #wrapper .box-nav-3 .box-nav-chat .box-2 .icon-title div:hover {
   background: var(--item-wa-hover);
+  cursor: pointer;
 }
 
 #wrapper .box-nav-3 .box-nav-chat .box-2 .icon-title div .anticon svg {
   width: 20px;
   height: 20px;
-  cursor: pointer;
   color: var(--N100);
 }

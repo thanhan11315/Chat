@@ -35,6 +35,7 @@ import Ghim from "../../components/listGhim/Ghim";
 import Nav4 from "./nav4/Nav4";
 import ModalShare from "../../components/modalShare/ModalShare";
 import RightmouseChooseBoxChat from "../../components/rightmouseChooseBoxChat/RightmouseChooseBoxChat";
+import ModalCreateGroup from "../../components/modalCreateGroup/ModalCreateGroup";
 //
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
@@ -80,20 +81,17 @@ function DefaultLayout({ children }) {
   };
 
   // demochatlocal
+  const dataUserMe = {
+    phone_number: "0898999907",
+    gender: "Nam",
+    id_user: "0898999907",
+    name: "Thanh Ân",
+    avatar: AvatarAn,
+    status: "Vừa truy cập",
+    birthday: "23 / 10 / 2025",
+  };
 
   const dataUserFriendsApi = [
-    {
-      phone_number: "0898999907",
-      gender: "Nam",
-      notification: false,
-      id_user: "1",
-      name: "Thanh Ân",
-      avatar: AvatarAn,
-      status: "Vừa truy cập",
-      not_read: true,
-      birthday: "23 / 10 / 2025",
-      pin_conversation: false,
-    },
     {
       phone_number: "0898999999",
       id_user: "2",
@@ -109,10 +107,10 @@ function DefaultLayout({ children }) {
       phone_number: "0898888888",
       id_user: "3",
       notification: false,
-      name: "Nhóm Chat",
+      name: "MicrosoftExcel",
       avatar: MicrosoftExcel,
       not_read: false,
-      status: "16 thành viên",
+      status: "vừa Truy Cập",
       birthday: "21 / 11 / 2011",
       gender: "Nữ",
       pin_conversation: false,
@@ -120,10 +118,32 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0998889999",
       id_user: "4",
-      name: "Nhóm Chat",
+      name: "MicrosoftWord",
       notification: false,
-      avatar: MicrosoftExcel,
-      status: "106 thành viên",
+      avatar: MicrosoftWord,
+      status: "vừa Truy Cập",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "5",
+      name: "ImagePDF",
+      notification: false,
+      avatar: ImagePDF,
+      status: "vừa Truy Cập",
+      birthday: "01 / 02 / 2012",
+      gender: "Nam",
+      pin_conversation: false,
+    },
+    {
+      phone_number: "0998889999",
+      id_user: "6",
+      name: "ImageZIP",
+      notification: false,
+      avatar: ImageZIP,
+      status: "vừa Truy Cập",
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
@@ -132,8 +152,36 @@ function DefaultLayout({ children }) {
 
   const valueChatDemo = [
     {
+      id: 32132147332396546,
+      content: "thanh an",
+      ...dataUserMe,
+      date: 24,
+      other_people: false,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      url: ImagePDF,
+      type: "image",
+      ghim: false,
+    },
+    {
+      id: 32132143333654211321,
+      content: "thanh an",
+      ...dataUserMe,
+      date: 24,
+      other_people: false,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      url: MicrosoftExcel,
+      type: "image",
+      ghim: false,
+    },
+    {
       id: 3213213213132131,
-      ...dataUserFriendsApi[0],
+      ...dataUserMe,
       content: "Tin nhắn text",
       date: 24,
       hours: 13,
@@ -145,7 +193,7 @@ function DefaultLayout({ children }) {
     {
       id: 3234243546546565,
       content: "Tin nhắn text",
-      ...dataUserFriendsApi[0],
+      ...dataUserMe,
       other_people: false,
       date: 24,
       hours: 13,
@@ -157,7 +205,7 @@ function DefaultLayout({ children }) {
     {
       id: 321321653784387,
       content: "thanh an",
-      ...dataUserFriendsApi[0],
+      ...dataUserMe,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -170,7 +218,7 @@ function DefaultLayout({ children }) {
     {
       id: 321321434321321,
       content: "thanh an",
-      ...dataUserFriendsApi[0],
+      ...dataUserMe,
       date: 24,
       other_people: false,
       hours: 13,
@@ -183,7 +231,7 @@ function DefaultLayout({ children }) {
     },
     {
       id: 3213213132131,
-      ...dataUserFriendsApi[0],
+      ...dataUserMe,
       content: "Tin nhắn text",
       date: 24,
       hours: 13,
@@ -194,8 +242,9 @@ function DefaultLayout({ children }) {
     },
     {
       id: 323426546565,
-      content: "Tin nhắn text",
-      ...dataUserFriendsApi[0],
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      ...dataUserMe,
       other_people: false,
       date: 24,
       hours: 13,
@@ -236,10 +285,6 @@ function DefaultLayout({ children }) {
   )}`;
 
   const deleteMessage = (value) => {
-    // let newValueChats = valueChats;
-    // const indexOjbRemove = valueChats.findIndex((obj) => obj.id === value.id);
-    // newValueChats.splice(indexOjbRemove, 1);
-    // setValueChats(newValueChats);
     const newValueChats = valueChats.filter(
       (valueChat) => valueChat.id !== value.id
     );
@@ -249,8 +294,8 @@ function DefaultLayout({ children }) {
   const render = (valueChatReplace) => {
     setValueChats([
       {
-        ...dataUserFriendsApi[0],
-        other_people: true,
+        ...dataUserMe,
+        other_people: false,
         ghim: false,
         id: id,
         Responsive: ResponsiveInputValue,
@@ -265,8 +310,8 @@ function DefaultLayout({ children }) {
     ]);
     console.log([
       {
-        ...dataUserFriendsApi[0],
-        other_people: true,
+        ...dataUserMe,
+        other_people: false,
         ghim: false,
         id: id,
         Responsive: ResponsiveInputValue,
@@ -282,12 +327,12 @@ function DefaultLayout({ children }) {
   const onChangeImage = (e) => {
     setValueChats([
       {
-        ...dataUserFriendsApi[0],
+        ...dataUserMe,
         id: id,
         type: e.target.files[0].type?.slice(0, 5),
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
-        other_people: true,
+        other_people: false,
         ...date,
       },
       ...valueChats,
@@ -297,11 +342,11 @@ function DefaultLayout({ children }) {
   const onChangeFile = (e) => {
     setValueChats([
       {
-        ...dataUserFriendsApi[0],
+        ...dataUserMe,
         id: id,
         file: e.target.files[0],
         content: e.target.files[0].name,
-        other_people: true,
+        other_people: false,
         ...date,
       },
       ...valueChats,
@@ -311,9 +356,9 @@ function DefaultLayout({ children }) {
   const handleClickLikeIcon = () => {
     setValueChats([
       {
-        ...dataUserFriendsApi[0],
+        ...dataUserMe,
         id: id,
-        other_people: true,
+        other_people: false,
         content: "👍",
         type: "likeIcon",
         ...date,
@@ -669,6 +714,13 @@ function DefaultLayout({ children }) {
     setValueRightClickMessage(value);
   };
 
+  const [modalCreateGroup, setModalCreateGroup] = useState(false);
+  const handleCancelModalCreateGroup = () => {
+    setModalCreateGroup(false);
+  };
+  const handleClickCreateGroup = () => {
+    setModalCreateGroup(true);
+  };
   // Modal
 
   // Right nav bar media 992px
@@ -804,6 +856,17 @@ function DefaultLayout({ children }) {
         renderImageFile={renderImageFile}
         dataUserFriendsApi={dataUserFriendsApi}
       />
+
+      <ModalCreateGroup
+        modalCreateGroup={modalCreateGroup}
+        dataUserFriendsApi={dataUserFriendsApi}
+        handleCancelModalCreateGroup={handleCancelModalCreateGroup}
+        setDataUserFriends={setDataUserFriends}
+        dataUserFriends={dataUserFriends}
+        id={id}
+        setDataUserFriendsRender={setDataUserFriendsRender}
+        dataUserMe={dataUserMe}
+      />
       {/* Modal*/}
 
       {/* RightmouseResponsive */}
@@ -825,6 +888,7 @@ function DefaultLayout({ children }) {
         setDataUserFriendsRender={setDataUserFriendsRender}
         dataUserFriendsRender={dataUserFriendsRender}
         dataUserFriend={dataUserFriend}
+        setDataUserFriend={setDataUserFriend}
       />
       {/* RightmouseChooseBoxChat */}
 
@@ -841,6 +905,7 @@ function DefaultLayout({ children }) {
           handleClickChooseBoxChat={handleClickChooseBoxChat}
           valueChats={valueChats}
           onContextMenuChooseBoxChat={onContextMenuChooseBoxChat}
+          handleClickCreateGroup={handleClickCreateGroup}
         />
         {/* Nav2 */}
 
@@ -923,7 +988,7 @@ function DefaultLayout({ children }) {
                   >
                     <div className="img-chat">
                       <img
-                        src={AvatarAn}
+                        src={value.avatar}
                         alt="img not load"
                         onClick={() => handleClickImgChat(value)}
                         style={{
@@ -1074,26 +1139,26 @@ function DefaultLayout({ children }) {
                   </div>
                 </Tooltip>
               </Popover>
-              <div>
-                <RadiusUpleftOutlined className="not-use" />
+              <div className="not-use">
+                <RadiusUpleftOutlined />
               </div>
-              <div>
-                <ContactsOutlined className="not-use" />
+              <div className="not-use">
+                <ContactsOutlined />
               </div>
-              <div>
-                <ClockCircleOutlined className="not-use" />
+              <div className="not-use">
+                <ClockCircleOutlined />
               </div>
-              <div>
-                <ScheduleOutlined className="not-use" />
+              <div className="not-use">
+                <ScheduleOutlined />
               </div>
-              <div>
-                <FontColorsOutlined className="not-use" />
+              <div className="not-use">
+                <FontColorsOutlined />
               </div>
-              <div>
-                <ExclamationOutlined className="not-use" />
+              <div className="not-use">
+                <ExclamationOutlined />
               </div>
-              <div>
-                <EllipsisOutlined className="not-use" />
+              <div className="not-use">
+                <EllipsisOutlined />
               </div>
             </Row>
             <div className={`nav-chat ${focusInput}`}>
@@ -1133,14 +1198,14 @@ function DefaultLayout({ children }) {
                   />
                 </div>
                 <Row className="icon-input">
-                  <div>
-                    <CommentOutlined className="not-use" />
+                  <div className="not-use">
+                    <CommentOutlined />
                   </div>
-                  <div>
-                    <SmileOutlined className="not-use" />
+                  <div className="not-use">
+                    <SmileOutlined />
                   </div>
-                  <div>
-                    <DingtalkOutlined className="not-use" />
+                  <div className="not-use">
+                    <DingtalkOutlined />
                   </div>
                   <div>
                     {valueChat.trim() !== "" && valueChat !== null ? (
@@ -1172,6 +1237,12 @@ function DefaultLayout({ children }) {
           hiddenRightNav={hiddenRightNav}
           handleClickImgChat={handleClickImgChat}
           dataUserFriend={dataUserFriend}
+          setDataUserFriend={setDataUserFriend}
+          dataUserFriends={dataUserFriends}
+          setDataUserFriends={setDataUserFriends}
+          setDataUserFriendsRender={setDataUserFriendsRender}
+          dataUserFriendsRender={dataUserFriendsRender}
+          handleClickCreateGroup={handleClickCreateGroup}
         />
       </Row>
     </>

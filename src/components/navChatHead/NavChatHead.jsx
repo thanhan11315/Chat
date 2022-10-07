@@ -63,15 +63,15 @@ function NavChatHead(props) {
         </Row>
       </Row>
       <div className="box-2">
-        <Row className="icon-title">
-          <div>
-            <UsergroupAddOutlined className="not-use" />
+        <Row className="icon-title ">
+          <div className="not-use">
+            <UsergroupAddOutlined />
           </div>
-          <div>
-            <SearchOutlined className="not-use" />
+          <div className="not-use">
+            <SearchOutlined />
           </div>
-          <div>
-            <VideoCameraOutlined className="not-use" />
+          <div className="not-use">
+            <VideoCameraOutlined />
           </div>
           <div
             className="control-nav-right"

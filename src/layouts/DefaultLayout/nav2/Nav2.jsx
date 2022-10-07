@@ -18,11 +18,14 @@ function Nav2(props) {
         <Col className="search">
           <InPutSearch />
         </Col>
-        <Col className="add-friend icon">
-          <UserAddOutlined className="not-use" />
+        <Col className="add-friend icon not-use">
+          <UserAddOutlined />
         </Col>
-        <Col className="create-group icon">
-          <UsergroupAddOutlined className="not-use" />
+        <Col
+          className="create-group icon"
+          onClick={props.handleClickCreateGroup}
+        >
+          <UsergroupAddOutlined />
         </Col>
       </Row>
       <Row className="title-nav-2">

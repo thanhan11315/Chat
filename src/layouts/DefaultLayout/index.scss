@@ -305,6 +305,11 @@ li {
   color: var(--icon-hover-bg) !important;
 }
 
+#wrapper .not-use:hover {
+  background-color: inherit !important;
+  cursor: no-drop !important;
+}
+
 #Wrapper .hidden-icon-none-uses .anticon svg {
   color: var(--icon-hover-bg) !important;
 }
@@ -514,6 +519,7 @@ li {
 }
 
 #wrapper .box-nav-3 .box-chat .content-chat {
+  text-align: justify;
   position: relative;
   display: block;
   padding: 12px;
