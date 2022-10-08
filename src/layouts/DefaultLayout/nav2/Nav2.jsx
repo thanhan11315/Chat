@@ -1,6 +1,7 @@
 import React from "react";
 import { Col, Row } from "antd";
 import InPutSearch from "../../../components/inPutSearch/InPutSearch";
+import ImageGroup from "../../../components/imageGroup/ImageGroup";
 import {
   UserAddOutlined,
   UsergroupAddOutlined,
@@ -58,29 +59,33 @@ function Nav2(props) {
         </Row>
       </Row>
       <div className="overflow">
-        {props.dataUserFriendsRender.map((value) => {
+        {props.dataUserFriendsRender.map((value, key) => {
           return (
             <Row
               className={`box-choose-chatbox box-choose-chatbox-${value.id_user}`}
               onClick={() => props.handleClickChooseBoxChat(value)}
-              key={value.id_user}
+              key={key}
               onContextMenu={(e) => props.onContextMenuChooseBoxChat(e, value)}
               style={{ order: value.pin_conversation && -value.style_order }}
             >
               <Row className="box1">
                 <Col className="image">
-                  <img
-                    src={value.avatar}
-                    alt="not load img"
-                    style={{
-                      border: "0.5px solid #fff",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      height: "48px",
-                      width: "48px",
-                      cursor: "pointer",
-                    }}
-                  />
+                  {value.group ? (
+                    <ImageGroup dataUserFriend={value} />
+                  ) : (
+                    <img
+                      src={value.avatar}
+                      alt="not load img"
+                      style={{
+                        border: "0.5px solid #fff",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        height: "48px",
+                        width: "48px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  )}
                 </Col>
                 <Col className="choose-chatbox">
                   <div
@@ -106,7 +111,7 @@ function Nav2(props) {
                           }`}
                         </>
                       ) : (
-                        <>{props.valueChats.slice(0, 1)[0].content}</>
+                        <>{props.valueChats.slice(0, 1)[0].text_message}</>
                       )}
                     </>
                   </div>

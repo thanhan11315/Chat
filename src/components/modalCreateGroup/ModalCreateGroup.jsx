@@ -38,23 +38,23 @@ function ModalCreateGroup(props) {
   };
 
   const handleClickCreateGroupButton = () => {
-    console.log(checkedValues);
-    console.log(nameGroup);
-    props.handleCancelModalCreateGroup();
-    const newDataUserFriends = [
-      {
-        ...props.dataUserMe,
-        id_user: props.id,
-        name: nameGroup,
-        group: true,
-        status: `${checkedValues.length + 1} Thành Viên`,
-        menber: checkedValues,
-      },
-      ...props.dataUserFriends,
-    ];
-    props.setDataUserFriends(newDataUserFriends);
-    props.setDataUserFriendsRender(newDataUserFriends);
-    unCheckCancel();
+    if (checkedValues.length >= 2) {
+      const newDataUserFriends = [
+        {
+          ...props.dataUserMe,
+          id_user: props.id,
+          name: nameGroup,
+          group: true,
+          status: `${checkedValues.length + 1} thành viên`,
+          members: [props.dataUserMe, ...checkedValues],
+        },
+        ...props.dataUserFriends,
+      ];
+      props.setDataUserFriends(newDataUserFriends);
+      props.setDataUserFriendsRender(newDataUserFriends);
+      unCheckCancel();
+      props.handleCancelModalCreateGroup();
+    }
   };
 
   return (
@@ -120,7 +120,7 @@ function ModalCreateGroup(props) {
           <div className="history-choose-create-group">
             {checkedValues.map((value) => {
               return (
-                <div className="image">
+                <div className="image" key={value.id_user}>
                   <img src={value.avatar} alt="img not load" />
                   <div
                     className="delete"

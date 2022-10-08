@@ -9,6 +9,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
+import ImageGroup from "../imageGroup/ImageGroup";
 import React from "react";
 import "./NavChatHead.scss";
 
@@ -29,19 +30,27 @@ function NavChatHead(props) {
         </div>
         <Row className="box-1">
           <div className="image">
-            <img
-              src={props.dataUserFriend.avatar}
-              alt="not load img"
-              onClick={() => props.handleClickImgChat(props.dataUserFriend)}
-              style={{
-                border: "0.5px solid #fff",
-                borderRadius: "50%",
-                objectFit: "cover",
-                width: "48px",
-                height: "48px",
-                cursor: "pointer",
-              }}
-            />
+            {props.dataUserFriend.group ? (
+              <div
+                onClick={() => props.handleClickImgChat(props.dataUserFriend)}
+              >
+                <ImageGroup dataUserFriend={props.dataUserFriend} />
+              </div>
+            ) : (
+              <img
+                src={props.dataUserFriend.avatar}
+                alt="not load img"
+                onClick={() => props.handleClickImgChat(props.dataUserFriend)}
+                style={{
+                  border: "0.5px solid #fff",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  width: "48px",
+                  height: "48px",
+                  cursor: "pointer",
+                }}
+              />
+            )}
           </div>
           <div className="box-1-1">
             <div className="title">{props.dataUserFriend.name}</div>

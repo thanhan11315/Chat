@@ -33,15 +33,13 @@ function ModalShare(props) {
   };
 
   const unCheckShare = (value) => {
-    document.getElementById(`${value.id_user}`).checked = false;
+    document.getElementById(`${value.id_user + 1}`).checked = false;
     handleClickCheckBox();
   };
 
   const handleClickShareButton = () => {
-    console.log(checkedValues);
-    console.log(props.valueRightClickMessage);
-    props.handleCancelModalShare();
     unCheckCancel();
+    props.handleCancelModalShare();
   };
 
   return (
@@ -62,12 +60,12 @@ function ModalShare(props) {
               <div className="title-choose-share">Trò chuyện gần đây</div>
               <div className="list-choose-share">
                 <form>
-                  {props.dataUserFriendsApi.map((value, key) => {
+                  {props.dataUserFriendsApi.map((value) => {
                     return (
                       <>
                         <label
-                          htmlFor={value.id_user + key}
-                          key={value.id_user}
+                          htmlFor={value.id_user + 1}
+                          key={value.id_user + 1}
                         >
                           <div className="choose-share">
                             <div className="box-input">
@@ -77,7 +75,7 @@ function ModalShare(props) {
                                 type="checkbox"
                                 name={value.id_user}
                                 value={value.id_user}
-                                id={value.id_user + key}
+                                id={value.id_user + 1}
                               />
                             </div>
                             <div className="image">
@@ -96,7 +94,7 @@ function ModalShare(props) {
           <div className="history-choose-share">
             {checkedValues.map((value) => {
               return (
-                <div className="image">
+                <div className="image" key={value.id_user + 1}>
                   <img src={value.avatar} alt="img not load" />
                   <div className="delete" onClick={() => unCheckShare(value)}>
                     <CloseCircleOutlined />

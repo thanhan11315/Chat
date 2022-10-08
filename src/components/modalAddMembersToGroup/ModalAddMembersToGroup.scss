@@ -1,0 +1,121 @@
+.wrapper-modal-add-members-to-group {
+}
+
+.wrapper-modal-add-members-to-group .box-choose-add-members-to-group {
+  border-top: 1px solid #e1e4ea;
+  margin: 0px 16px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.wrapper-modal-add-members-to-group .box-list-choose-add-members-to-group {
+  width: 100%;
+
+  .title-choose-add-members-to-group {
+    font-weight: 600;
+    font-size: 14px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .list-choose-add-members-to-group {
+    .choose-add-members-to-group {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      height: 52px;
+      width: 100%;
+      padding: 0px 5px;
+      border-radius: 4px;
+      .box-input {
+        position: relative;
+        border-radius: 50%;
+        border: solid 1px;
+        width: 22px;
+        height: 22px;
+        overflow: hidden;
+        .input-checkbox-add-members-to-group {
+          position: absolute;
+          left: -13%;
+          top: -5%;
+          width: 24px;
+          height: 24px;
+        }
+      }
+      .image {
+        margin-left: 8px;
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+        }
+      }
+      .name {
+        margin-left: 8px;
+        line-height: normal;
+        font-weight: 400;
+        font-size: 14px;
+        letter-spacing: normal;
+        max-width: calc(100% - 12px);
+      }
+    }
+    .choose-add-members-to-group:hover {
+      background-color: var(--lst-item-hover);
+    }
+  }
+}
+
+.wrapper-modal-add-members-to-group .history-choose-add-members-to-group {
+  display: flex;
+  margin: 0px 16px;
+  padding: 12px 0px;
+  border-top: 1px solid #e1e4ea;
+  border-bottom: 1px solid #e1e4ea;
+  margin-top: 12px;
+  min-height: 66px;
+  flex-wrap: wrap !important;
+  .image {
+    position: relative;
+    margin-left: 8px;
+    margin-bottom: 10px;
+    img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    .delete {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: var(--B60);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      .anticon svg {
+        margin-right: 4px;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.wrapper-modal-add-members-to-group .InPutSearch {
+  margin: 16px 16px;
+
+  .ant-input-affix-wrapper {
+    width: 100%;
+    border-radius: 25px;
+  }
+}
+
+.ant-modal-wrap .ant-modal-footer {
+  display: block;
+}

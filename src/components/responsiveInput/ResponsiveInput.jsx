@@ -38,7 +38,9 @@ function ResponsiveInput(props) {
             {`[File] ${props.ResponsiveInputValue.file.name}`}
           </div>
         ) : (
-          <div className="content">{props.ResponsiveInputValue.content}</div>
+          <div className="content">
+            {props.ResponsiveInputValue.text_message}
+          </div>
         )}
       </div>
       <div className="delete" onClick={() => props.clearResponsiveTnputValue()}>

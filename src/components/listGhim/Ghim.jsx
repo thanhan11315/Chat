@@ -53,7 +53,9 @@ function Ghim(props) {
           </div>
           <div className="status">
             <div className="content">
-              {`${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.content}`}
+              {props.valueListGhim[0]?.text_message
+                ? `${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.text_message}`
+                : `${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.content}`}
             </div>
           </div>
         </div>

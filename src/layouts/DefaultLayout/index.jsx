@@ -38,7 +38,6 @@ import RightmouseChooseBoxChat from "../../components/rightmouseChooseBoxChat/Ri
 import ModalCreateGroup from "../../components/modalCreateGroup/ModalCreateGroup";
 //
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
-
 import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import MicrosoftWord from "../../assets/images/MicrosoftWord.png";
 import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
@@ -48,6 +47,7 @@ import { useState } from "react";
 import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
 import LikeIcon from "../../components/likeIcon/LikeIcon";
 import ButtonScrollBottom from "../../components/buttonScrollEndBottom/ButtonScrollEndBottom";
+import ModalAddMembersToGroup from "../../components/modalAddMembersToGroup/ModalAddMemberToGroup";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -153,7 +153,6 @@ function DefaultLayout({ children }) {
   const valueChatDemo = [
     {
       id: 32132147332396546,
-      content: "thanh an",
       ...dataUserMe,
       date: 24,
       other_people: false,
@@ -167,7 +166,6 @@ function DefaultLayout({ children }) {
     },
     {
       id: 32132143333654211321,
-      content: "thanh an",
       ...dataUserMe,
       date: 24,
       other_people: false,
@@ -182,7 +180,7 @@ function DefaultLayout({ children }) {
     {
       id: 3213213213132131,
       ...dataUserMe,
-      content: "Tin nhắn text",
+      text_message: "Tin nhắn text",
       date: 24,
       hours: 13,
       minutes: 39,
@@ -192,7 +190,7 @@ function DefaultLayout({ children }) {
     },
     {
       id: 3234243546546565,
-      content: "Tin nhắn text",
+      text_message: "Tin nhắn text",
       ...dataUserMe,
       other_people: false,
       date: 24,
@@ -204,7 +202,6 @@ function DefaultLayout({ children }) {
     },
     {
       id: 321321653784387,
-      content: "thanh an",
       ...dataUserMe,
       date: 24,
       hours: 13,
@@ -217,7 +214,6 @@ function DefaultLayout({ children }) {
     },
     {
       id: 321321434321321,
-      content: "thanh an",
       ...dataUserMe,
       date: 24,
       other_people: false,
@@ -232,7 +228,7 @@ function DefaultLayout({ children }) {
     {
       id: 3213213132131,
       ...dataUserMe,
-      content: "Tin nhắn text",
+      text_message: "Tin nhắn text",
       date: 24,
       hours: 13,
       minutes: 39,
@@ -242,7 +238,7 @@ function DefaultLayout({ children }) {
     },
     {
       id: 323426546565,
-      content:
+      text_message:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       ...dataUserMe,
       other_people: false,
@@ -299,7 +295,7 @@ function DefaultLayout({ children }) {
         ghim: false,
         id: id,
         Responsive: ResponsiveInputValue,
-        content: valueChatReplace,
+        text_message: valueChatReplace,
         year: d.getFullYear(),
         month: d.getMonth(),
         date: d.getDate(),
@@ -315,7 +311,7 @@ function DefaultLayout({ children }) {
         ghim: false,
         id: id,
         Responsive: ResponsiveInputValue,
-        content: valueChatReplace,
+        text_message: valueChatReplace,
         ...date,
       },
       ...valueChats,
@@ -715,12 +711,38 @@ function DefaultLayout({ children }) {
   };
 
   const [modalCreateGroup, setModalCreateGroup] = useState(false);
+  const [
+    dataUserFriendsApiAddMembersToGroup,
+    setDataUserFriendsApiAddMembersToGroup,
+  ] = useState([]);
+
+  const createListAddMembersToGroup = () => {
+    let listAddMenbersToGroup = dataUserFriendsApi;
+    dataUserFriend.members.forEach((memberDelete) => {
+      const indexObjectDelete = listAddMenbersToGroup.findIndex(
+        (member) => memberDelete.id_user === member.id_user
+      );
+      if (indexObjectDelete !== -1) {
+        listAddMenbersToGroup.splice(indexObjectDelete, 1);
+      }
+    });
+    setDataUserFriendsApiAddMembersToGroup(listAddMenbersToGroup);
+  };
   const handleCancelModalCreateGroup = () => {
     setModalCreateGroup(false);
   };
   const handleClickCreateGroup = () => {
     setModalCreateGroup(true);
   };
+  const [modalAddMembersToGroup, setModalAddMembersToGroup] = useState(false);
+  const handleCancelModalAddMembersToGroup = () => {
+    setModalAddMembersToGroup(false);
+  };
+  const handleClickAddMembersToGroup = () => {
+    setModalAddMembersToGroup(true);
+    createListAddMembersToGroup();
+  };
+
   // Modal
 
   // Right nav bar media 992px
@@ -867,6 +889,24 @@ function DefaultLayout({ children }) {
         setDataUserFriendsRender={setDataUserFriendsRender}
         dataUserMe={dataUserMe}
       />
+
+      <ModalAddMembersToGroup
+        modalAddMembersToGroup={modalAddMembersToGroup}
+        dataUserFriendsApi={dataUserFriendsApi}
+        handleCancelModalAddMembersToGroup={handleCancelModalAddMembersToGroup}
+        setDataUserFriends={setDataUserFriends}
+        dataUserFriends={dataUserFriends}
+        setDataUserFriendsRender={setDataUserFriendsRender}
+        dataUserMe={dataUserMe}
+        dataUserFriend={dataUserFriend}
+        setDataUserFriend={setDataUserFriend}
+        dataUserFriendsApiAddMembersToGroup={
+          dataUserFriendsApiAddMembersToGroup
+        }
+        setValueChats={setValueChats}
+        valueChats={valueChats}
+        id={id}
+      />
       {/* Modal*/}
 
       {/* RightmouseResponsive */}
@@ -963,88 +1003,96 @@ function DefaultLayout({ children }) {
             <ButtonScrollBottom />
             {valueChats.map((value, key) => {
               return (
-                <div
-                  className={value.other_people ? "box-other-people" : "box-me"}
-                  onMouseOver={() => onMounseOverBox(key)}
-                  onMouseOut={() => onMouseOutBox(key)}
-                  key={key}
-                >
-                  <Row className={`share-response share-response-${key}`}>
-                    <div>
-                      <ExportOutlined
-                        onClick={() => handleClickResponsiveIcon(value)}
-                      />
-                    </div>
-                    <div onClick={() => handleClickShare(value)}>
-                      <ShareAltOutlined />
-                    </div>
-                    <div onClick={() => handleClickGhim(value)}>
-                      <PaperClipOutlined />
-                    </div>
-                  </Row>
-                  <div
-                    className={value.other_people ? "other-people" : "me"}
-                    id={`${value.id}`}
-                  >
-                    <div className="img-chat">
-                      <img
-                        src={value.avatar}
-                        alt="img not load"
-                        onClick={() => handleClickImgChat(value)}
-                        style={{
-                          border: "0.5px solid #fff",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                          width: "40px",
-                          height: "40px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </div>
+                <>
+                  {(value.url ||
+                    value.file ||
+                    value.type ||
+                    value.text_message) && (
                     <div
-                      className="box-content-all-chat"
-                      onContextMenu={(e) => {
-                        handleOnContextMenu(e, value);
-                      }}
+                      className={
+                        value.other_people ? "box-other-people" : "box-me"
+                      }
+                      onMouseOver={() => onMounseOverBox(key)}
+                      onMouseOut={() => onMouseOutBox(key)}
+                      key={key}
                     >
-                      {value.url ? (
-                        <ImageOrVideo value={value} />
-                      ) : value.file ? (
-                        <RenderFile
-                          renderImageFile={renderImageFile}
-                          value={value}
-                          bytesToSize={bytesToSize}
-                        />
-                      ) : value.type === "likeIcon" ? (
-                        <LikeIcon value={value} />
-                      ) : (
-                        <>
-                          <div className="content-chat">
-                            {value.Responsive && (
-                              <a href={`#${value.Responsive.id}`}>
-                                <ResponsiveInput
-                                  ResponsiveInputValue={value.Responsive}
-                                  clearResponsiveTnputValue={
-                                    clearResponsiveTnputValue
-                                  }
-                                  renderImageFile={renderImageFile}
-                                />
-                              </a>
-                            )}
-                            {value.content}
-                            <div className="date">
-                              {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-                              {value.hours}:{value.minutes}
-                            </div>
-                          </div>
-                        </>
-                      )}
+                      <Row className={`share-response share-response-${key}`}>
+                        <div>
+                          <ExportOutlined
+                            onClick={() => handleClickResponsiveIcon(value)}
+                          />
+                        </div>
+                        <div onClick={() => handleClickShare(value)}>
+                          <ShareAltOutlined />
+                        </div>
+                        <div onClick={() => handleClickGhim(value)}>
+                          <PaperClipOutlined />
+                        </div>
+                      </Row>
+                      <div
+                        className={value.other_people ? "other-people" : "me"}
+                        id={`${value.id}`}
+                      >
+                        <div className="img-chat">
+                          <img
+                            src={value.avatar}
+                            alt="img not load"
+                            onClick={() => handleClickImgChat(value)}
+                            style={{
+                              border: "0.5px solid #fff",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                              width: "40px",
+                              height: "40px",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </div>
+                        <div
+                          className="box-content-all-chat"
+                          onContextMenu={(e) => {
+                            handleOnContextMenu(e, value);
+                          }}
+                        >
+                          {value.url && <ImageOrVideo value={value} />}{" "}
+                          {value.file && (
+                            <RenderFile
+                              renderImageFile={renderImageFile}
+                              value={value}
+                              bytesToSize={bytesToSize}
+                            />
+                          )}
+                          {value.type === "likeIcon" && (
+                            <LikeIcon value={value} />
+                          )}
+                          {value.text_message && (
+                            <>
+                              <div className="content-chat">
+                                {value.Responsive && (
+                                  <a href={`#${value.Responsive.id}`}>
+                                    <ResponsiveInput
+                                      ResponsiveInputValue={value.Responsive}
+                                      clearResponsiveTnputValue={
+                                        clearResponsiveTnputValue
+                                      }
+                                      renderImageFile={renderImageFile}
+                                    />
+                                  </a>
+                                )}
+                                {value.text_message}
+                                <div className="date">
+                                  {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
+                                  {value.hours}:{value.minutes}
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-            <div className="box-date">
+                  )}
+
+                  {/* <div className="box-date">
               <div className="line" />
               <span className="overdate">
                 {" "}
@@ -1052,31 +1100,51 @@ function DefaultLayout({ children }) {
                 {date.minutes}
               </span>
               <div className="line" />
-            </div>
-            <Row className="box-message">
-              <Row className="event-message">
-                <Col className="image-message">
-                  <img
-                    src={dataUserFriendsApi[0].avatar}
-                    onClick={() => handleClickImgChat(dataUserFriendsApi[0])}
-                    alt="img not load"
-                    style={{
-                      border: "0.5px solid #fff",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      width: "24px",
-                      height: "24px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Col>
-                <Col className="name-message">Lê Thanh Ân</Col>
-                <Col className="content-message">được</Col>
-                <Col className="name-message">Lê Thanh Ân</Col>
-                <Col className="content-message">thêm vào nhóm</Col>
-              </Row>
-            </Row>
-            <Row className="box-message">
+            </div> */}
+                  {value.add_members_to_group &&
+                    value.members_added.map((memberAdded) => {
+                      return (
+                        <Row
+                          className="box-message"
+                          id="1665217404457888996306170"
+                        >
+                          <Row className="event-message">
+                            <Col className="image-message">
+                              <img
+                                src={memberAdded.avatar}
+                                onClick={() => handleClickImgChat(memberAdded)}
+                                alt="img not load"
+                                style={{
+                                  border: "0.5px solid #fff",
+                                  borderRadius: "50%",
+                                  objectFit: "cover",
+                                  width: "24px",
+                                  height: "24px",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </Col>
+                            <Col
+                              className="name-message"
+                              onClick={() => handleClickImgChat(memberAdded)}
+                            >
+                              {memberAdded.name}
+                            </Col>
+                            <Col className="content-message">được</Col>
+                            <Col
+                              className="name-message"
+                              onClick={() =>
+                                handleClickImgChat(value.members_add)
+                              }
+                            >
+                              {value.members_add.name}
+                            </Col>
+                            <Col className="content-message">thêm vào nhóm</Col>
+                          </Row>
+                        </Row>
+                      );
+                    })}
+                  {/* <Row className="box-message">
               <Row className="event-message">
                 <Col className="image-message">
                   <img
@@ -1096,7 +1164,10 @@ function DefaultLayout({ children }) {
                 <Col className="name-message">Lê Thanh Ân</Col>
                 <Col className="content-message">đã rời khỏi nhóm</Col>
               </Row>
-            </Row>
+            </Row> */}
+                </>
+              );
+            })}
           </div>
           <div className="nav-input-chat">
             <Row className="nav-input">
@@ -1243,6 +1314,7 @@ function DefaultLayout({ children }) {
           setDataUserFriendsRender={setDataUserFriendsRender}
           dataUserFriendsRender={dataUserFriendsRender}
           handleClickCreateGroup={handleClickCreateGroup}
+          handleClickAddMembersToGroup={handleClickAddMembersToGroup}
         />
       </Row>
     </>

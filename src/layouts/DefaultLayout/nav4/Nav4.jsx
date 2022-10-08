@@ -9,6 +9,7 @@ import {
 import { Col, Image, Row } from "antd";
 import "./Nav4.scss";
 import RenderFile from "../../../components/file/RenderFile";
+import ImageGroup from "../../../components/imageGroup/ImageGroup";
 import { useState } from "react";
 function Nav4(props) {
   const [showAllImage, setShowAllImage] = useState(false);
@@ -168,19 +169,27 @@ function Nav4(props) {
       <div className="box-wrapper">
         <div className="box-information">
           <div className="image">
-            <img
-              src={props.dataUserFriend.avatar}
-              onClick={() => props.handleClickImgChat(props.dataUserFriend)}
-              alt="img not load"
-              style={{
-                border: "0.5px solid #fff",
-                borderRadius: "50%",
-                objectFit: "cover",
-                width: "56px",
-                height: "56px",
-                cursor: "pointer",
-              }}
-            />
+            {props.dataUserFriend.group ? (
+              <div
+                onClick={() => props.handleClickImgChat(props.dataUserFriend)}
+              >
+                <ImageGroup dataUserFriend={props.dataUserFriend} />
+              </div>
+            ) : (
+              <img
+                src={props.dataUserFriend.avatar}
+                onClick={() => props.handleClickImgChat(props.dataUserFriend)}
+                alt="img not load"
+                style={{
+                  border: "0.5px solid #fff",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  width: "56px",
+                  height: "56px",
+                  cursor: "pointer",
+                }}
+              />
+            )}
           </div>
           <div className="header-info-name">
             <div className="header">{props.dataUserFriend.name}</div>
@@ -231,7 +240,10 @@ function Nav4(props) {
               <>
                 <div className="icon-content">
                   <div className="box-icon">
-                    <div className="icon">
+                    <div
+                      className="icon"
+                      onClick={props.handleClickAddMembersToGroup}
+                    >
                       <UsergroupAddOutlined />
                     </div>
                   </div>
