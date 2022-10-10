@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  CopyOutlined,
   DeleteOutlined,
   ExportOutlined,
   PaperClipOutlined,
@@ -12,8 +13,21 @@ function RightmouseResponsive(props) {
     props.setModalShare(true);
     console.log(props.valueResponsiveRightClick);
   };
+  const handleClickCopyMessage = (valueResponsiveRightClick) => {
+    navigator.clipboard.writeText(valueResponsiveRightClick.text_message);
+  };
   return (
     <div className="right-mouse-share-responsive">
+      {props.valueResponsiveRightClick.text_message && (
+        <div
+          className="share-responsive"
+          onClick={() => {
+            handleClickCopyMessage(props.valueResponsiveRightClick);
+          }}
+        >
+          <CopyOutlined style={{ marginRight: "5px" }} /> Copy tin nhắn
+        </div>
+      )}
       <div
         className="share-responsive"
         onClick={() => {

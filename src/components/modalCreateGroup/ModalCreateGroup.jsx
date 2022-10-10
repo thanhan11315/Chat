@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "antd/lib/modal/Modal";
 import InPutSearch from "../inPutSearch/InPutSearch";
+import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 import { Button, Row, Input } from "antd";
 import "./ModalCreateGroup.scss";
 import { CloseCircleOutlined } from "@ant-design/icons";
@@ -41,12 +42,12 @@ function ModalCreateGroup(props) {
     if (checkedValues.length >= 2) {
       const newDataUserFriends = [
         {
-          ...props.dataUserMe,
+          avatar: SuperShipLogo,
           id_user: props.id,
           name: nameGroup,
           group: true,
           status: `${checkedValues.length + 1} thành viên`,
-          members: [props.dataUserMe, ...checkedValues],
+          members: [{ ...props.dataUserMe, leader: true }, ...checkedValues],
         },
         ...props.dataUserFriends,
       ];
@@ -65,7 +66,14 @@ function ModalCreateGroup(props) {
         onCancel={unCheckCancel}
         footer={[
           <Button onClick={unCheckCancel}>Hủy</Button>,
-          <Button onClick={handleClickCreateGroupButton}>Tạo Nhóm</Button>,
+          <button
+            onClick={handleClickCreateGroupButton}
+            className={`buton-confirm ${
+              checkedValues.length < 2 && "unconditional"
+            }`}
+          >
+            Tạo Nhóm
+          </button>,
         ]}
       >
         <div className="wrapper-modal-create-group">

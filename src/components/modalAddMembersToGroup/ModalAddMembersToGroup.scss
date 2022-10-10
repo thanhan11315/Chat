@@ -76,7 +76,7 @@
   border-top: 1px solid #e1e4ea;
   border-bottom: 1px solid #e1e4ea;
   margin-top: 12px;
-  min-height: 66px;
+  min-height: 76px;
   flex-wrap: wrap !important;
   .image {
     position: relative;
@@ -118,4 +118,41 @@
 
 .ant-modal-wrap .ant-modal-footer {
   display: block;
+}
+
+.buton-confirm-add-friend:hover,
+.buton-confirm-add-friend:active,
+.buton-confirm-add-friend:focus {
+  background-color: var(--B60);
+}
+
+.ant-modal-content {
+  .buton-confirm {
+    padding: 5px 16px;
+    margin-left: 8px;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0px;
+    border: 0px;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-family: "Fira Sans", sans-serif;
+    color: rgb(255, 255, 255);
+    background-color: rgb(167, 58, 58);
+    box-shadow: rgb(167 58 58 / 24%) 0px 8px 16px 0px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+
+  .buton-confirm.unconditional {
+    -webkit-tap-highlight-color: transparent;
+    cursor: no-drop;
+    background-color: #f5d8d7cf;
+    box-shadow: rgba(255, 255, 255, 0.24) 0px 8px 16px 0px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
 }

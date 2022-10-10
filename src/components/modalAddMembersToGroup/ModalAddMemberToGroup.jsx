@@ -43,9 +43,7 @@ function ModalAddMembersToGroup(props) {
         if (value.id_user === props.dataUserFriend.id_user) {
           return {
             ...value,
-            status: `${
-              [...value.members, ...checkedValues].length + 1
-            } thành viên`,
+            status: `${[...value.members, ...checkedValues].length} thành viên`,
             members: [...value.members, ...checkedValues],
           };
         } else {
@@ -59,7 +57,6 @@ function ModalAddMembersToGroup(props) {
         members_added: checkedValues,
       };
       props.setValueChats([valueChatsAddMembersToGroup, ...props.valueChats]);
-      console.log(valueChatsAddMembersToGroup);
       props.setDataUserFriends(newDataUserFriends);
       props.setDataUserFriendsRender(newDataUserFriends);
       props.setDataUserFriend(
@@ -80,9 +77,14 @@ function ModalAddMembersToGroup(props) {
         onCancel={unCheckCancel}
         footer={[
           <Button onClick={unCheckCancel}>Hủy</Button>,
-          <Button onClick={handleClickAddMembersToGroupButton}>
+          <button
+            onClick={handleClickAddMembersToGroupButton}
+            className={`buton-confirm ${
+              checkedValues.length < 1 && "unconditional"
+            }`}
+          >
             Xác nhận
-          </Button>,
+          </button>,
         ]}
       >
         <div className="wrapper-modal-add-members-to-group">

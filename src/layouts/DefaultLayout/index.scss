@@ -515,9 +515,6 @@ li {
   position: relative;
 }
 
-#wrapper .box-nav-3 .box-chat .me .box-content-all-chat {
-}
-
 #wrapper .box-nav-3 .box-chat .content-chat {
   text-align: justify;
   position: relative;
@@ -533,6 +530,10 @@ li {
   min-width: 32px;
   margin-bottom: 8px;
   white-space: pre-wrap;
+  .box-make-hidden-content-chat {
+    max-height: 400px;
+    overflow: hidden;
+  }
 }
 
 #wrapper .box-nav-3 .box-chat .box-me .me .img-chat {

@@ -38,8 +38,10 @@ function ModalShare(props) {
   };
 
   const handleClickShareButton = () => {
-    unCheckCancel();
-    props.handleCancelModalShare();
+    if (checkedValues.length > 0) {
+      unCheckCancel();
+      props.handleCancelModalShare();
+    }
   };
 
   return (
@@ -50,7 +52,14 @@ function ModalShare(props) {
         onCancel={unCheckCancel}
         footer={[
           <Button onClick={unCheckCancel}>Hủy</Button>,
-          <Button onClick={handleClickShareButton}>Chia sẻ</Button>,
+          <button
+            onClick={handleClickShareButton}
+            className={`buton-confirm ${
+              checkedValues.length < 1 && "unconditional"
+            }`}
+          >
+            Chia sẻ
+          </button>,
         ]}
       >
         <div className="wrapper-modal-Share">

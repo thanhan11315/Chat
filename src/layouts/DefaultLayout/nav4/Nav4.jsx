@@ -2,6 +2,7 @@ import React from "react";
 import {
   BellOutlined,
   EditOutlined,
+  ExportOutlined,
   PaperClipOutlined,
   SettingOutlined,
   UsergroupAddOutlined,
@@ -35,6 +36,21 @@ function Nav4(props) {
     element.style.maxHeight = "217px";
     setShowAllFile(false);
   };
+
+  const [showAllMembers, setShowAllMembers] = useState(false);
+
+  const hanldeClickShowAllMembers = () => {
+    const element = document.querySelector(".box-element .content-member");
+    element.style.maxHeight = "none";
+    setShowAllMembers(true);
+  };
+
+  const hanldeClickHiddenAllMembers = () => {
+    const element = document.querySelector(".box-element .content-member");
+    element.style.maxHeight = "192px";
+    setShowAllMembers(false);
+  };
+
   const turnOffNotification = () => {
     const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
       if (props.dataUserFriend.id_user === dataUserFriend.id_user) {
@@ -163,6 +179,36 @@ function Nav4(props) {
     }
   };
 
+  const handleClickOutGroup = (dataUserMe) => {
+    const IndexUserMeInDataUserFriendMembers =
+      props.dataUserFriend?.members.findIndex(
+        (member) => member.id_user === dataUserMe.id_user
+      );
+    const newDataUserFriend = props.dataUserFriend;
+    if (IndexUserMeInDataUserFriendMembers !== -1) {
+      newDataUserFriend.members.splice(IndexUserMeInDataUserFriendMembers, 1);
+    }
+    props.setDataUserFriend({
+      ...newDataUserFriend,
+      status: `${newDataUserFriend.members.length} thành viên`,
+    });
+    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+      if (dataUserMe.id_user === dataUserFriend.id_user) {
+        return newDataUserFriend;
+      } else {
+        return dataUserFriend;
+      }
+    });
+    props.setDataUserFriends(newDataUserFriends);
+    const valueChatsRemoveMembersToGroup = {
+      id: props.id,
+      remove_members_to_group: true,
+      members_removed: dataUserMe,
+    };
+    console.log(valueChatsRemoveMembersToGroup);
+    props.setValueChats([valueChatsRemoveMembersToGroup, ...props.valueChats]);
+  };
+
   return (
     <Col className={`box-nav-4 ${props.hiddenRightNav}`}>
       <div className="title-nav">Thông tin hội thoại</div>
@@ -270,6 +316,47 @@ function Nav4(props) {
             )}
           </Row>
         </div>
+        {props.dataUserFriend.group && (
+          <div className="box-element">
+            <div className="title">Thành viên nhóm</div>
+            <div className="content-member">
+              {props.dataUserFriend.members.map((member) => {
+                return (
+                  <div
+                    className="box-member"
+                    onClick={() => props.handleClickImgChat(member)}
+                  >
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <div className="image-member">
+                        <img src={member.avatar} alt="img not load" />
+                      </div>
+                      <div className="box-information">
+                        <div className="name">{member.name}</div>
+                        {member.leader && (
+                          <div className="position">Trưởng nhóm</div>
+                        )}
+                      </div>
+                    </div>
+                    {member.id_user !== props.dataUserMe.id_user && (
+                      <div className="add-friend">
+                        <span>Kết bạn</span>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            {showAllMembers ? (
+              <div className="div-button" onClick={hanldeClickHiddenAllMembers}>
+                Thu Gọn
+              </div>
+            ) : (
+              <div className="div-button" onClick={hanldeClickShowAllMembers}>
+                Xem tất cả
+              </div>
+            )}
+          </div>
+        )}
         <div className="box-element">
           <div className="title">Ảnh/Video</div>
           <Image.PreviewGroup>
@@ -326,6 +413,20 @@ function Nav4(props) {
           ) : (
             <div className="div-button" onClick={hanldeClickShowAllFile}>
               Xem tất cả
+            </div>
+          )}
+        </div>
+        <div className="box-element">
+          <div className="title">Thiểt lập bảo mật</div>
+          {props.dataUserFriend.group && (
+            <div
+              className="box-element-children"
+              onClick={() => handleClickOutGroup(props.dataUserMe)}
+            >
+              <div>
+                <ExportOutlined />
+              </div>
+              <div>Rời nhóm</div>
             </div>
           )}
         </div>

@@ -265,6 +265,14 @@ function DefaultLayout({ children }) {
       element.scrollTo(0, 0);
       document.querySelector(".button-scroll-bottom").classList.add("hidden");
     }
+    const elements = document.querySelectorAll(
+      ".box-content-all-chat .content-chat"
+    );
+    if (elements) {
+      elements.forEach((element) => {
+        console.log(element.clientHeight);
+      });
+    }
   };
 
   const d = new Date();
@@ -795,8 +803,25 @@ function DefaultLayout({ children }) {
     }
   });
 
-  window.addEventListener("keydown", () => {
-    document.querySelector(".input-chat .ant-input").focus();
+  let control = false;
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Control") {
+      control = true;
+    }
+    console.log(control);
+  });
+
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "Control") {
+      control = false;
+    }
+  });
+
+  document.addEventListener("keydown", () => {
+    if (!control) {
+      document.querySelector(".input-chat .ant-input").focus();
+    }
   });
 
   if (document.getElementsByClassName("InPutSearch")) {
@@ -1068,18 +1093,20 @@ function DefaultLayout({ children }) {
                           {value.text_message && (
                             <>
                               <div className="content-chat">
-                                {value.Responsive && (
-                                  <a href={`#${value.Responsive.id}`}>
-                                    <ResponsiveInput
-                                      ResponsiveInputValue={value.Responsive}
-                                      clearResponsiveTnputValue={
-                                        clearResponsiveTnputValue
-                                      }
-                                      renderImageFile={renderImageFile}
-                                    />
-                                  </a>
-                                )}
-                                {value.text_message}
+                                <div className="box-make-hidden-content-chat">
+                                  {value.Responsive && (
+                                    <a href={`#${value.Responsive.id}`}>
+                                      <ResponsiveInput
+                                        ResponsiveInputValue={value.Responsive}
+                                        clearResponsiveTnputValue={
+                                          clearResponsiveTnputValue
+                                        }
+                                        renderImageFile={renderImageFile}
+                                      />
+                                    </a>
+                                  )}
+                                  {value.text_message}
+                                </div>
                                 <div className="date">
                                   {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
                                   {value.hours}:{value.minutes}
@@ -1144,27 +1171,38 @@ function DefaultLayout({ children }) {
                         </Row>
                       );
                     })}
-                  {/* <Row className="box-message">
-              <Row className="event-message">
-                <Col className="image-message">
-                  <img
-                    src={dataUserFriendsApi[0].avatar}
-                    onClick={() => handleClickImgChat(dataUserFriendsApi[0])}
-                    alt="img not load"
-                    style={{
-                      border: "0.5px solid #fff",
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                      width: "24px",
-                      height: "24px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Col>
-                <Col className="name-message">Lê Thanh Ân</Col>
-                <Col className="content-message">đã rời khỏi nhóm</Col>
-              </Row>
-            </Row> */}
+                  {value.remove_members_to_group && (
+                    <Row className="box-message">
+                      <Row className="event-message">
+                        <Col className="image-message">
+                          <img
+                            src={value.members_removed.avatar}
+                            onClick={() =>
+                              handleClickImgChat(value.members_removed)
+                            }
+                            alt="img not load"
+                            style={{
+                              border: "0.5px solid #fff",
+                              borderRadius: "50%",
+                              objectFit: "cover",
+                              width: "24px",
+                              height: "24px",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </Col>
+                        <Col
+                          className="name-message"
+                          onClick={() =>
+                            handleClickImgChat(value.members_removed)
+                          }
+                        >
+                          {value.members_removed.name}
+                        </Col>
+                        <Col className="content-message">đã rời khỏi nhóm</Col>
+                      </Row>
+                    </Row>
+                  )}
                 </>
               );
             })}
@@ -1315,6 +1353,9 @@ function DefaultLayout({ children }) {
           dataUserFriendsRender={dataUserFriendsRender}
           handleClickCreateGroup={handleClickCreateGroup}
           handleClickAddMembersToGroup={handleClickAddMembersToGroup}
+          dataUserMe={dataUserMe}
+          id={id}
+          setValueChats={setValueChats}
         />
       </Row>
     </>
