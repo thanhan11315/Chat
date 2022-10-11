@@ -100,24 +100,26 @@ function ModalCreateGroup(props) {
                   {props.dataUserFriendsApi.map((value) => {
                     return (
                       <>
-                        <label htmlFor={value.id_user} key={value.id_user}>
-                          <div className="choose-create-group">
-                            <div className="box-input">
-                              <input
-                                className="input-checkbox-create-group"
-                                onChange={handleClickCheckBox}
-                                type="checkbox"
-                                name={value.id_user}
-                                value={value.id_user}
-                                id={value.id_user}
-                              />
+                        {!value.notification_system && (
+                          <label htmlFor={value.id_user} key={value.id_user}>
+                            <div className="choose-create-group">
+                              <div className="box-input">
+                                <input
+                                  className="input-checkbox-create-group"
+                                  onChange={handleClickCheckBox}
+                                  type="checkbox"
+                                  name={value.id_user}
+                                  value={value.id_user}
+                                  id={value.id_user}
+                                />
+                              </div>
+                              <div className="image">
+                                <img src={value.avatar} alt="img not load" />
+                              </div>
+                              <div className="name">{value.name}</div>
                             </div>
-                            <div className="image">
-                              <img src={value.avatar} alt="img not load" />
-                            </div>
-                            <div className="name">{value.name}</div>
-                          </div>
-                        </label>
+                          </label>
+                        )}
                       </>
                     );
                   })}

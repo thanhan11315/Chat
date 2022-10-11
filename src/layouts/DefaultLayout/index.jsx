@@ -37,6 +37,10 @@ import ModalShare from "../../components/modalShare/ModalShare";
 import RightmouseChooseBoxChat from "../../components/rightmouseChooseBoxChat/RightmouseChooseBoxChat";
 import ModalCreateGroup from "../../components/modalCreateGroup/ModalCreateGroup";
 //
+import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
+import AvatarTN from "../../assets/images/AvatarTN.jpg";
+import AvatarAnhHoai from "../../assets/images/AvatarAnhHoai.jpg";
+import AvatarCTO from "../../assets/images/AvatarCTO.jpg";
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 import AvatarAn from "../../assets/images/AvatarAn.jpg";
 import MicrosoftWord from "../../assets/images/MicrosoftWord.png";
@@ -69,6 +73,14 @@ function DefaultLayout({ children }) {
   const [focusInput, SetFocusInput] = useState("");
   const [hiddenRightNav, setHiddenRightNav] = useState("hiddenRightNav");
 
+  const linkify = (text) => {
+    var urlRegex =
+      /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+    return text.replace(urlRegex, function (url) {
+      return '<a href="' + url + '" target="_blank">' + url + "</a>";
+    });
+  };
+
   const handleClickNavRight = (e) => {
     if (hiddenRightNav) {
       setHiddenRightNav("");
@@ -86,7 +98,8 @@ function DefaultLayout({ children }) {
     gender: "Nam",
     id_user: "0898999907",
     name: "Thanh Ân",
-    avatar: AvatarAn,
+    cover_photo: AvatarTN,
+    avatar: AvatarAnLe,
     status: "Vừa truy cập",
     birthday: "23 / 10 / 2025",
   };
@@ -94,9 +107,23 @@ function DefaultLayout({ children }) {
   const dataUserFriendsApi = [
     {
       phone_number: "0898999999",
+      id_user: "0898999999",
+      name: "SuperShip Thông Báo",
+      notification: false,
+      cover_photo: AvatarTN,
+      avatar: SuperShipLogo,
+      status: "Vừa truy cập",
+      birthday: "22 / 11 / 2022",
+      gender: "Nữ",
+      pin_conversation: false,
+      notification_system: true,
+    },
+    {
+      phone_number: "0898999999",
       id_user: "2",
       name: "SuperShip",
       notification: false,
+      cover_photo: AvatarTN,
       avatar: SuperShipLogo,
       status: "Vừa truy cập",
       birthday: "22 / 11 / 2022",
@@ -107,21 +134,23 @@ function DefaultLayout({ children }) {
       phone_number: "0898888888",
       id_user: "3",
       notification: false,
-      name: "MicrosoftExcel",
-      avatar: MicrosoftExcel,
+      name: "Lê Thanh Hoài",
+      cover_photo: AvatarTN,
+      avatar: AvatarAnhHoai,
       not_read: false,
-      status: "vừa Truy Cập",
+      status: "Vừa truy Cập",
       birthday: "21 / 11 / 2011",
-      gender: "Nữ",
+      gender: "Nam",
       pin_conversation: false,
     },
     {
       phone_number: "0998889999",
       id_user: "4",
-      name: "MicrosoftWord",
+      name: "Nguyễn Trọng Tài",
       notification: false,
-      avatar: MicrosoftWord,
-      status: "vừa Truy Cập",
+      cover_photo: AvatarTN,
+      avatar: AvatarCTO,
+      status: "Vừa truy Cập",
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
@@ -129,10 +158,11 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0998889999",
       id_user: "5",
-      name: "ImagePDF",
+      name: "Kho hàng",
       notification: false,
-      avatar: ImagePDF,
-      status: "vừa Truy Cập",
+      cover_photo: AvatarTN,
+      avatar: AvatarAn,
+      status: "Vừa truy Cập",
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
@@ -140,10 +170,11 @@ function DefaultLayout({ children }) {
     {
       phone_number: "0998889999",
       id_user: "6",
-      name: "ImageZIP",
+      name: "SuperShipVN",
       notification: false,
-      avatar: ImageZIP,
-      status: "vừa Truy Cập",
+      cover_photo: AvatarTN,
+      avatar: AvatarTN,
+      status: "Vừa truy Cập",
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
@@ -156,6 +187,7 @@ function DefaultLayout({ children }) {
       ...dataUserMe,
       date: 24,
       other_people: false,
+      create_date: true,
       hours: 13,
       minutes: 39,
       month: 8,
@@ -180,7 +212,9 @@ function DefaultLayout({ children }) {
     {
       id: 3213213213132131,
       ...dataUserMe,
-      text_message: "Tin nhắn text",
+      text_message: linkify(
+        "https://www.w3schools.com/jsref/met_storage_setitem.asp"
+      ),
       date: 24,
       hours: 13,
       minutes: 39,
@@ -190,7 +224,9 @@ function DefaultLayout({ children }) {
     },
     {
       id: 3234243546546565,
-      text_message: "Tin nhắn text",
+      text_message: linkify(
+        "https://www.w3schools.com/jsref/met_storage_setitem.asp"
+      ),
       ...dataUserMe,
       other_people: false,
       date: 24,
@@ -238,8 +274,9 @@ function DefaultLayout({ children }) {
     },
     {
       id: 323426546565,
-      text_message:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      text_message: linkify(
+        "Find me at http://www.example.com and also at http://stackoverflow.com"
+      ),
       ...dataUserMe,
       other_people: false,
       date: 24,
@@ -293,6 +330,20 @@ function DefaultLayout({ children }) {
       (valueChat) => valueChat.id !== value.id
     );
     setValueChats(newValueChats);
+    localStorage.setItem(`${dataUserFriend.id_user}`, newValueChats);
+    console.log(localStorage.getItem(`${dataUserFriend.id_user}`));
+  };
+
+  const createDateBoxChat = () => {
+    const valueTimeLast = valueChats.find(
+      (valueChat) => valueChat.create_date === true
+    );
+    return (
+      date.year - valueTimeLast?.year >= 1 ||
+      date.month - valueTimeLast?.month >= 1 ||
+      date.date - valueTimeLast?.date >= 1 ||
+      date.hours - valueTimeLast?.hours >= 2
+    );
   };
 
   const render = (valueChatReplace) => {
@@ -303,12 +354,9 @@ function DefaultLayout({ children }) {
         ghim: false,
         id: id,
         Responsive: ResponsiveInputValue,
-        text_message: valueChatReplace,
-        year: d.getFullYear(),
-        month: d.getMonth(),
-        date: d.getDate(),
-        hours: d.getHours(),
-        minutes: d.getMinutes(),
+        text_message: linkify(valueChatReplace),
+        ...date,
+        create_date: createDateBoxChat(),
       },
       ...valueChats,
     ]);
@@ -321,6 +369,7 @@ function DefaultLayout({ children }) {
         Responsive: ResponsiveInputValue,
         text_message: valueChatReplace,
         ...date,
+        create_date: createDateBoxChat(),
       },
       ...valueChats,
     ]);
@@ -337,6 +386,7 @@ function DefaultLayout({ children }) {
         url: URL.createObjectURL(e.target.files[0]),
         content: e.target.files[0].name,
         other_people: false,
+        create_date: createDateBoxChat(),
         ...date,
       },
       ...valueChats,
@@ -351,6 +401,7 @@ function DefaultLayout({ children }) {
         file: e.target.files[0],
         content: e.target.files[0].name,
         other_people: false,
+        create_date: createDateBoxChat(),
         ...date,
       },
       ...valueChats,
@@ -365,6 +416,7 @@ function DefaultLayout({ children }) {
         other_people: false,
         content: "👍",
         type: "likeIcon",
+        create_date: createDateBoxChat(),
         ...date,
       },
       ...valueChats,
@@ -521,6 +573,7 @@ function DefaultLayout({ children }) {
       }
     });
     setValueChats(newValueChats);
+    localStorage.setItem(dataUserFriend.id_user, newValueChats);
     setValueListGhim(
       newValueChats.filter((value) => {
         return value.ghim === true;
@@ -809,7 +862,6 @@ function DefaultLayout({ children }) {
     if (e.key === "Control") {
       control = true;
     }
-    console.log(control);
   });
 
   document.addEventListener("keyup", (e) => {
@@ -959,7 +1011,7 @@ function DefaultLayout({ children }) {
 
       <Row id="wrapper">
         {/* Nav1 */}
-        <Nav1 />
+        <Nav1 dataUserMe={dataUserMe} />
         {/* Nav1 */}
 
         {/* Nav2 */}
@@ -1023,7 +1075,12 @@ function DefaultLayout({ children }) {
               )}
             </>
           )}
-          <div className="box-chat">
+          <div
+            className="box-chat"
+            onContextMenu={(e) => {
+              e.preventDefault();
+            }}
+          >
             {children}
             <ButtonScrollBottom />
             {valueChats.map((value, key) => {
@@ -1105,10 +1162,13 @@ function DefaultLayout({ children }) {
                                       />
                                     </a>
                                   )}
-                                  {value.text_message}
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: value.text_message,
+                                    }}
+                                  />
                                 </div>
                                 <div className="date">
-                                  {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
                                   {value.hours}:{value.minutes}
                                 </div>
                               </div>
@@ -1118,16 +1178,16 @@ function DefaultLayout({ children }) {
                       </div>
                     </div>
                   )}
-
-                  {/* <div className="box-date">
-              <div className="line" />
-              <span className="overdate">
-                {" "}
-                {date.date}-{date.month + 1}-{date.year} {date.hours}:
-                {date.minutes}
-              </span>
-              <div className="line" />
-            </div> */}
+                  {value.create_date && (
+                    <div className="box-date">
+                      <div className="line" />
+                      <span className="overdate">
+                        {value.date}-{value.month + 1}-{value.year}{" "}
+                        {value.hours}:{value.minutes}
+                      </span>
+                      <div className="line" />
+                    </div>
+                  )}
                   {value.add_members_to_group &&
                     value.members_added.map((memberAdded) => {
                       return (
@@ -1207,137 +1267,140 @@ function DefaultLayout({ children }) {
               );
             })}
           </div>
-          <div className="nav-input-chat">
-            <Row className="nav-input">
-              <Popover
-                placement="topLeft"
-                content={contentIcon}
-                trigger="click"
-              >
-                <Tooltip placement="leftBottom" title="Gửi Icon">
-                  <div>
-                    <SmileOutlined />
-                  </div>
-                </Tooltip>
-              </Popover>
-              <Tooltip placement="leftBottom" title="Gửi hình ảnh/video">
-                <div
-                  onClick={() => {
-                    const uploadImage = document.querySelector(".uploadImage");
-                    uploadImage.click();
-                  }}
+          {!dataUserFriend.notification_system && (
+            <div className="nav-input-chat">
+              <Row className="nav-input">
+                <Popover
+                  placement="topLeft"
+                  content={contentIcon}
+                  trigger="click"
                 >
-                  <FileImageOutlined />
-                  <input
-                    className="uploadImage"
-                    type="file"
-                    accept="audio/*,video/*,image/*"
-                    onChange={(e) => {
-                      onChangeImage(e);
+                  <Tooltip placement="leftBottom" title="Gửi Icon">
+                    <div>
+                      <SmileOutlined />
+                    </div>
+                  </Tooltip>
+                </Popover>
+                <Tooltip placement="leftBottom" title="Gửi hình ảnh/video">
+                  <div
+                    onClick={() => {
+                      const uploadImage =
+                        document.querySelector(".uploadImage");
+                      uploadImage.click();
                     }}
-                    style={{
-                      display: "none",
-                    }}
-                  />
-                </div>
-              </Tooltip>
-              <Popover placement="topLeft" content={content} trigger="click">
-                <Tooltip placement="leftBottom" title="Đính kèm File">
-                  <div>
-                    <PaperClipOutlined />
+                  >
+                    <FileImageOutlined />
+                    <input
+                      className="uploadImage"
+                      type="file"
+                      accept="audio/*,video/*,image/*"
+                      onChange={(e) => {
+                        onChangeImage(e);
+                      }}
+                      style={{
+                        display: "none",
+                      }}
+                    />
                   </div>
                 </Tooltip>
-              </Popover>
-              <div className="not-use">
-                <RadiusUpleftOutlined />
-              </div>
-              <div className="not-use">
-                <ContactsOutlined />
-              </div>
-              <div className="not-use">
-                <ClockCircleOutlined />
-              </div>
-              <div className="not-use">
-                <ScheduleOutlined />
-              </div>
-              <div className="not-use">
-                <FontColorsOutlined />
-              </div>
-              <div className="not-use">
-                <ExclamationOutlined />
-              </div>
-              <div className="not-use">
-                <EllipsisOutlined />
-              </div>
-            </Row>
-            <div className={`nav-chat ${focusInput}`}>
-              {/* Responsive-input */}
-              {ResponsiveInputValue && (
-                <ResponsiveInput
-                  ResponsiveInputValue={ResponsiveInputValue}
-                  clearResponsiveTnputValue={clearResponsiveTnputValue}
-                  renderImageFile={renderImageFile}
-                />
-              )}
-
-              {/* Responsive-input */}
-
-              <Row>
-                <div className="input-chat">
-                  <TextArea
-                    onChange={onChangeChat}
-                    value={valueChat}
-                    placeholder="Nhập tin nhắn"
-                    autoSize={{
-                      minRows: 1,
-                      maxRows: 6,
-                    }}
-                    onBlur={() => {
-                      SetFocusInput("");
-                    }}
-                    onFocus={() => {
-                      SetFocusInput("focus-input");
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.code === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        enterChat();
-                      }
-                    }}
-                  />
+                <Popover placement="topLeft" content={content} trigger="click">
+                  <Tooltip placement="leftBottom" title="Đính kèm File">
+                    <div>
+                      <PaperClipOutlined />
+                    </div>
+                  </Tooltip>
+                </Popover>
+                <div className="not-use">
+                  <RadiusUpleftOutlined />
                 </div>
-                <Row className="icon-input">
-                  <div className="not-use">
-                    <CommentOutlined />
-                  </div>
-                  <div className="not-use">
-                    <SmileOutlined />
-                  </div>
-                  <div className="not-use">
-                    <DingtalkOutlined />
-                  </div>
-                  <div>
-                    {valueChat.trim() !== "" && valueChat !== null ? (
-                      <span
-                        className="button-sent"
-                        onClick={() => render(valueChat)}
-                      >
-                        GỬI
-                      </span>
-                    ) : (
-                      <span
-                        className="not-use"
-                        style={{ fontSize: "24px" }}
-                        onClick={handleClickLikeIcon}
-                      >
-                        👍
-                      </span>
-                    )}
-                  </div>
-                </Row>
+                <div className="not-use">
+                  <ContactsOutlined />
+                </div>
+                <div className="not-use">
+                  <ClockCircleOutlined />
+                </div>
+                <div className="not-use">
+                  <ScheduleOutlined />
+                </div>
+                <div className="not-use">
+                  <FontColorsOutlined />
+                </div>
+                <div className="not-use">
+                  <ExclamationOutlined />
+                </div>
+                <div className="not-use">
+                  <EllipsisOutlined />
+                </div>
               </Row>
+              <div className={`nav-chat ${focusInput}`}>
+                {/* Responsive-input */}
+                {ResponsiveInputValue && (
+                  <ResponsiveInput
+                    ResponsiveInputValue={ResponsiveInputValue}
+                    clearResponsiveTnputValue={clearResponsiveTnputValue}
+                    renderImageFile={renderImageFile}
+                  />
+                )}
+
+                {/* Responsive-input */}
+
+                <Row>
+                  <div className="input-chat">
+                    <TextArea
+                      onChange={onChangeChat}
+                      value={valueChat}
+                      placeholder="Nhập tin nhắn"
+                      autoSize={{
+                        minRows: 1,
+                        maxRows: 6,
+                      }}
+                      onBlur={() => {
+                        SetFocusInput("");
+                      }}
+                      onFocus={() => {
+                        SetFocusInput("focus-input");
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.code === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          enterChat();
+                        }
+                      }}
+                    />
+                  </div>
+                  <Row className="icon-input">
+                    <div className="not-use">
+                      <CommentOutlined />
+                    </div>
+                    <div className="not-use">
+                      <SmileOutlined />
+                    </div>
+                    <div className="not-use">
+                      <DingtalkOutlined />
+                    </div>
+                    <div>
+                      {valueChat.trim() !== "" && valueChat !== null ? (
+                        <span
+                          className="button-sent"
+                          onClick={() => render(valueChat)}
+                        >
+                          GỬI
+                        </span>
+                      ) : (
+                        <span
+                          className="not-use"
+                          style={{ fontSize: "24px" }}
+                          onClick={handleClickLikeIcon}
+                        >
+                          👍
+                        </span>
+                      )}
+                    </div>
+                  </Row>
+                </Row>
+              </div>
             </div>
-          </div>
+          )}
         </Col>
         <Nav4
           renderImageFile={renderImageFile}

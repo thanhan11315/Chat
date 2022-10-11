@@ -239,8 +239,8 @@ function Nav4(props) {
           </div>
           <div className="header-info-name">
             <div className="header">{props.dataUserFriend.name}</div>
-            <div className="icon">
-              <EditOutlined />
+            <div className="icon not-use">
+              <EditOutlined className="not-use" />
             </div>
           </div>
           <Row className="box-icon-content">
@@ -295,9 +295,9 @@ function Nav4(props) {
                   </div>
                   <div className="content">Thêm thành viên</div>
                 </div>
-                <div className="icon-content">
-                  <div className="box-icon">
-                    <div className="icon">
+                <div className="icon-content ">
+                  <div className="box-icon ">
+                    <div className="icon not-use">
                       <SettingOutlined />
                     </div>
                   </div>
@@ -305,14 +305,19 @@ function Nav4(props) {
                 </div>
               </>
             ) : (
-              <div className="icon-content">
-                <div className="box-icon">
-                  <div className="icon" onClick={props.handleClickCreateGroup}>
-                    <UsergroupAddOutlined />
+              !props.dataUserFriend.notification_system && (
+                <div className="icon-content">
+                  <div className="box-icon">
+                    <div
+                      className="icon"
+                      onClick={props.handleClickCreateGroup}
+                    >
+                      <UsergroupAddOutlined />
+                    </div>
                   </div>
+                  <div className="content">Tạo nhóm trò chuyện</div>
                 </div>
-                <div className="content">Tạo nhóm trò chuyện</div>
-              </div>
+              )
             )}
           </Row>
         </div>

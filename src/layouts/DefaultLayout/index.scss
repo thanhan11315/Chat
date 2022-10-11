@@ -765,6 +765,10 @@ li {
   }
 }
 
+.ant-modal-content .ant-modal-title {
+  font-weight: 600;
+}
+
 @media screen and (max-width: 992px) {
   #wrapper .box-nav-3 .box-nav-chat .button-phone {
     display: flex !important;

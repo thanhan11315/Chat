@@ -61,7 +61,7 @@ function ModalInformation(props) {
                 <Image
                   className="img-profile"
                   alt=""
-                  src={props.dataModalInformation.avatar}
+                  src={props.dataModalInformation.cover_photo}
                 />
               </div>
               <div className="user-profile-preview">

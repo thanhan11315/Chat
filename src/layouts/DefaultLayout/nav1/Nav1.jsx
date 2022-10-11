@@ -1,5 +1,4 @@
 import { Col } from "antd";
-import AvatarAn from "../../../assets/images/AvatarAn.jpg";
 import {
   MessageOutlined,
   ContainerOutlined,
@@ -13,14 +12,13 @@ import { Popover } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./Nav1.scss";
 
-function Nav1() {
+function Nav1(props) {
   var nagative = useNavigate();
   const logout = () => {
     nagative("/");
     localStorage.setItem("dzzshasddf", JSON.stringify("logout"));
-    console.log(1);
   };
-  const text = <span>Lê Thanh Ân</span>;
+  const text = <span>{props.dataUserMe.name}</span>;
   const content = (
     <div className="popver-nav1" onClick={logout}>
       <p>Đăng Xuất</p>
@@ -48,7 +46,7 @@ function Nav1() {
             }}
           >
             <img
-              src={AvatarAn}
+              src={props.dataUserMe.avatar}
               alt="img not load"
               style={{
                 border: "0.5px solid #fff",
