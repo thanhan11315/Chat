@@ -75,7 +75,7 @@ function DefaultLayout({ children }) {
 
   const linkify = (text) => {
     var urlRegex =
-      /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+      /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; //eslint-disable-line
     return text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + url + "</a>";
     });
