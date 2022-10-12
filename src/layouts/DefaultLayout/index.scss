@@ -328,7 +328,7 @@ li {
 }
 
 #wrapper .box-choose-chatbox:hover {
-  background-color: var(--item-wa-hover);
+  background-color: var(--item-wa-hover) !important;
 }
 #wrapper .box1 {
   flex: 1;

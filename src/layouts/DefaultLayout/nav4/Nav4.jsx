@@ -59,7 +59,7 @@ function Nav4(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     props.setDataUserFriend({ ...props.dataUserFriend, notification: false });
     if (document.querySelector(".not-read.selected")) {
       const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
@@ -88,7 +88,7 @@ function Nav4(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     props.setDataUserFriend({ ...props.dataUserFriend, notification: true });
     if (document.querySelector(".not-read.selected")) {
       const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
@@ -118,7 +118,7 @@ function Nav4(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     props.setDataUserFriend({
       ...props.dataUserFriend,
       pin_conversation: false,
@@ -154,7 +154,7 @@ function Nav4(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     props.setDataUserFriend({
       ...props.dataUserFriend,
       pin_conversation: true,
@@ -181,7 +181,7 @@ function Nav4(props) {
 
   const handleClickOutGroup = (dataUserMe) => {
     const IndexUserMeInDataUserFriendMembers =
-      props.dataUserFriend?.members.findIndex(
+      props.dataUserFriend?.members?.findIndex(
         (member) => member.id_user === dataUserMe.id_user
       );
     const newDataUserFriend = props.dataUserFriend;
@@ -190,16 +190,16 @@ function Nav4(props) {
     }
     props.setDataUserFriend({
       ...newDataUserFriend,
-      status: `${newDataUserFriend.members.length} thành viên`,
+      status: `${newDataUserFriend?.members.length} thành viên`,
     });
-    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+    const newDataUserFriends = props.dataUserFriends?.map((dataUserFriend) => {
       if (dataUserMe.id_user === dataUserFriend.id_user) {
         return newDataUserFriend;
       } else {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     const valueChatsRemoveMembersToGroup = {
       id: props.id,
       remove_members_to_group: true,
@@ -207,6 +207,10 @@ function Nav4(props) {
     };
     console.log(valueChatsRemoveMembersToGroup);
     props.setValueChats([valueChatsRemoveMembersToGroup, ...props.valueChats]);
+    localStorage.setItem(
+      props.dataUserFriend.id_user,
+      JSON.stringify([valueChatsRemoveMembersToGroup, ...props.valueChats])
+    );
   };
 
   return (
@@ -215,7 +219,7 @@ function Nav4(props) {
       <div className="box-wrapper">
         <div className="box-information">
           <div className="image">
-            {props.dataUserFriend.group ? (
+            {props.dataUserFriend?.group ? (
               <div
                 onClick={() => props.handleClickImgChat(props.dataUserFriend)}
               >
@@ -223,7 +227,7 @@ function Nav4(props) {
               </div>
             ) : (
               <img
-                src={props.dataUserFriend.avatar}
+                src={props.dataUserFriend?.avatar}
                 onClick={() => props.handleClickImgChat(props.dataUserFriend)}
                 alt="img not load"
                 style={{
@@ -238,13 +242,13 @@ function Nav4(props) {
             )}
           </div>
           <div className="header-info-name">
-            <div className="header">{props.dataUserFriend.name}</div>
+            <div className="header">{props.dataUserFriend?.name}</div>
             <div className="icon not-use">
               <EditOutlined className="not-use" />
             </div>
           </div>
           <Row className="box-icon-content">
-            {props.dataUserFriend.notification ? (
+            {props.dataUserFriend?.notification ? (
               <div className="icon-content">
                 <div className="box-icon">
                   <div className="icon" onClick={turnOffNotification}>
@@ -263,7 +267,7 @@ function Nav4(props) {
                 <div className="content">Bật thông báo</div>
               </div>
             )}
-            {props.dataUserFriend.pin_conversation ? (
+            {props.dataUserFriend?.pin_conversation ? (
               <div className="icon-content">
                 <div className="box-icon">
                   <div className="icon" onClick={UnpinConversation}>
@@ -282,7 +286,7 @@ function Nav4(props) {
                 <div className="content">Ghim hội thoại</div>
               </div>
             )}
-            {props.dataUserFriend.group ? (
+            {props.dataUserFriend?.group ? (
               <>
                 <div className="icon-content">
                   <div className="box-icon">
@@ -305,7 +309,7 @@ function Nav4(props) {
                 </div>
               </>
             ) : (
-              !props.dataUserFriend.notification_system && (
+              !props.dataUserFriend?.notification_system && (
                 <div className="icon-content">
                   <div className="box-icon">
                     <div
@@ -321,11 +325,11 @@ function Nav4(props) {
             )}
           </Row>
         </div>
-        {props.dataUserFriend.group && (
+        {props.dataUserFriend?.group && (
           <div className="box-element">
             <div className="title">Thành viên nhóm</div>
             <div className="content-member">
-              {props.dataUserFriend.members.map((member) => {
+              {props.dataUserFriend?.members.map((member) => {
                 return (
                   <div
                     className="box-member"
@@ -366,23 +370,24 @@ function Nav4(props) {
           <div className="title">Ảnh/Video</div>
           <Image.PreviewGroup>
             <div className="content-image-video">
-              {props.valueChats.map((valueChat, key) => {
-                return (
-                  valueChat.url && (
-                    <div className="box-image-video" key={key}>
-                      {valueChat.type === "video" ? (
-                        <video src={valueChat.url} alt="not load" />
-                      ) : (
-                        <Image
-                          src={valueChat.url}
-                          alt="img not load"
-                          className="image"
-                        />
-                      )}
-                    </div>
-                  )
-                );
-              })}
+              {props.valueChats &&
+                props.valueChats.map((valueChat, key) => {
+                  return (
+                    valueChat.url && (
+                      <div className="box-image-video" key={key}>
+                        {valueChat.type === "video" ? (
+                          <video src={valueChat.url} alt="not load" />
+                        ) : (
+                          <Image
+                            src={valueChat.url}
+                            alt="img not load"
+                            className="image"
+                          />
+                        )}
+                      </div>
+                    )
+                  );
+                })}
             </div>
             {showAllImage ? (
               <div className="div-button" onClick={hanldeClickHiddenAllImage}>
@@ -398,18 +403,19 @@ function Nav4(props) {
         <div className="box-element">
           <div className="title">File</div>
           <div className="content-file">
-            {props.valueChats.map((valueChat, key) => {
-              return (
-                valueChat.file && (
-                  <RenderFile
-                    key={key}
-                    renderImageFile={props.renderImageFile}
-                    value={valueChat}
-                    bytesToSize={props.bytesToSize}
-                  />
-                )
-              );
-            })}
+            {props.valueChat &&
+              props.valueChats.map((valueChat, key) => {
+                return (
+                  valueChat.file && (
+                    <RenderFile
+                      key={key}
+                      renderImageFile={props.renderImageFile}
+                      value={valueChat}
+                      bytesToSize={props.bytesToSize}
+                    />
+                  )
+                );
+              })}
           </div>
           {showAllFile ? (
             <div className="div-button" onClick={hanldeClickHiddenAllFile}>
@@ -423,7 +429,7 @@ function Nav4(props) {
         </div>
         <div className="box-element">
           <div className="title">Thiểt lập bảo mật</div>
-          {props.dataUserFriend.group && (
+          {props.dataUserFriend?.group && (
             <div
               className="box-element-children"
               onClick={() => handleClickOutGroup(props.dataUserMe)}

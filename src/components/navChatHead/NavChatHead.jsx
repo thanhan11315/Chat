@@ -30,7 +30,7 @@ function NavChatHead(props) {
         </div>
         <Row className="box-1">
           <div className="image">
-            {props.dataUserFriend.group ? (
+            {props.dataUserFriend?.group ? (
               <div
                 onClick={() => props.handleClickImgChat(props.dataUserFriend)}
               >
@@ -38,7 +38,7 @@ function NavChatHead(props) {
               </div>
             ) : (
               <img
-                src={props.dataUserFriend.avatar}
+                src={props.dataUserFriend?.avatar}
                 alt="not load img"
                 onClick={() => props.handleClickImgChat(props.dataUserFriend)}
                 style={{
@@ -53,7 +53,7 @@ function NavChatHead(props) {
             )}
           </div>
           <div className="box-1-1">
-            <div className="title">{props.dataUserFriend.name}</div>
+            <div className="title">{props.dataUserFriend?.name}</div>
             <Row className="status">
               <div className="status-1">
                 <UserOutlined
@@ -62,7 +62,7 @@ function NavChatHead(props) {
                   }}
                 />
               </div>
-              <div className="status-2">{props.dataUserFriend.status}</div>
+              <div className="status-2">{props.dataUserFriend?.status}</div>
               <div className="brick"></div>
               <div className="icon">
                 <TagOutlined />

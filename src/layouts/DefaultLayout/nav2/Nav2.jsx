@@ -13,6 +13,30 @@ import {
 import "./Nav2.scss";
 
 function Nav2(props) {
+  console.log(props.date);
+  const timepast = (value) => {
+    if (props.date?.date - value?.date > 10) {
+      return `${value?.date} / ${value?.moth}`;
+    } else if (
+      props.date?.date - value?.date < 10 &&
+      props.date?.date - value?.date > 0
+    ) {
+      return `${props.date?.date - value?.date} ngày`;
+    } else if (
+      props.date.hours - value?.hours < 24 &&
+      props.date.hours - value?.hours > 0
+    ) {
+      return `${props.date.hours - value?.hours} giờ`;
+    } else if (
+      props.date.minutes - value?.minutes < 60 &&
+      props.date.minutes - value?.minutes > 0
+    ) {
+      return `${props.date.minutes - value?.minutes} phút`;
+    } else {
+      return "gần đây";
+    }
+  };
+
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
       <Row className="search-add">
@@ -99,19 +123,15 @@ function Nav2(props) {
                     style={{ color: value.not_read && "#001a33" }}
                   >
                     <>
-                      {props.valueChats.slice(0, 1)[0].name}:{" "}
-                      {props.valueChats.slice(0, 1)[0].type === "image" ? (
+                      {value.last_value_chat?.name}:{" "}
+                      {value.last_value_chat?.type === "image" ? (
                         <>[Hình ảnh]</>
-                      ) : props.valueChats.slice(0, 1)[0].type === "video" ? (
+                      ) : value.last_value_chat?.type === "video" ? (
                         <>[Video]</>
-                      ) : props.valueChats.slice(0, 1)[0].file ? (
-                        <>
-                          {`[File] ${
-                            props.valueChats.slice(0, 1)[0].file.name
-                          }`}
-                        </>
+                      ) : value.last_value_chat?.file ? (
+                        <>{`[File] ${value.last_value_chat?.file.name}`}</>
                       ) : (
-                        <>{props.valueChats.slice(0, 1)[0].text_message}</>
+                        <>{value.last_value_chat?.text_message}</>
                       )}
                     </>
                   </div>
@@ -119,18 +139,18 @@ function Nav2(props) {
               </Row>
               <Col className="box2">
                 <div className="time-before" onClick={() => {}}>
-                  {value.notification && <BellOutlined />}
-                  14 phút
+                  {value?.notification && <BellOutlined />}
+                  {timepast(value?.last_value_chat)}
                 </div>
                 {
                   <div
-                    className={`number-unread number-unread-${value.id_user}`}
-                    key={value.id_user}
+                    className={`number-unread number-unread-${value?.id_user}`}
+                    key={value?.id_user}
                   >
                     <div className="time-before">
-                      {value.pin_conversation && <PushpinOutlined />}
+                      {value?.pin_conversation && <PushpinOutlined />}
                     </div>
-                    <div>{value.not_read && <div></div>}</div>
+                    <div>{value?.not_read && <div></div>}</div>
                   </div>
                 }
               </Col>

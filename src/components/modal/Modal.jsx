@@ -6,7 +6,7 @@ import "./ModalInformation.scss";
 function ModalInformation(props) {
   return (
     <>
-      {props.dataModalInformation.group ? (
+      {props.dataModalInformation?.group ? (
         <Modal
           open={props.modalInformation}
           title="Thông tin nhóm"
@@ -19,7 +19,7 @@ function ModalInformation(props) {
                 <Image
                   className="img-profile"
                   alt=""
-                  src={props.dataModalInformation.avatar}
+                  src={props.dataModalInformation?.avatar}
                 />
               </div>
               <div className="user-profile-preview">
@@ -27,12 +27,12 @@ function ModalInformation(props) {
                   <Image
                     className="img-avatar"
                     alt=""
-                    src={props.dataModalInformation.avatar}
+                    src={props.dataModalInformation?.avatar}
                   />
                 </div>
                 <div className="preview-content">
                   <div className="name-content">
-                    {props.dataModalInformation.name}
+                    {props.dataModalInformation?.name}
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@ function ModalInformation(props) {
             </div>
             <div className="box-profile-information">
               <div className="header-profile-detail">
-                Thành viên ({props.dataModalInformation.members.length})
+                Thành viên ({props.dataModalInformation.members?.length})
               </div>
             </div>
             <div className="box-profile-action"></div>
@@ -61,7 +61,7 @@ function ModalInformation(props) {
                 <Image
                   className="img-profile"
                   alt=""
-                  src={props.dataModalInformation.cover_photo}
+                  src={props.dataModalInformation?.cover_photo}
                 />
               </div>
               <div className="user-profile-preview">
@@ -69,12 +69,12 @@ function ModalInformation(props) {
                   <Image
                     className="img-avatar"
                     alt=""
-                    src={props.dataModalInformation.avatar}
+                    src={props.dataModalInformation?.avatar}
                   />
                 </div>
                 <div className="preview-content">
                   <div className="name-content">
-                    {props.dataModalInformation.name}
+                    {props.dataModalInformation?.name}
                   </div>
                 </div>
               </div>
@@ -89,19 +89,19 @@ function ModalInformation(props) {
                   <span className="title-profile-detail">Điện Thoại</span>
                   <span className="content-profile-detail">
                     {" "}
-                    {props.dataModalInformation.phone_number}{" "}
+                    {props.dataModalInformation?.phone_number}{" "}
                   </span>
                 </div>
                 <div className="user-profile-detail">
                   <span className="title-profile-detail">Giới Tính</span>
                   <span className="content-profile-detail">
-                    {props.dataModalInformation.gender}
+                    {props.dataModalInformation?.gender}
                   </span>
                 </div>
                 <div className="user-profile-detail">
                   <span className="title-profile-detail">Ngày Sinh</span>
                   <span className="content-profile-detail">
-                    {props.dataModalInformation.birthday}{" "}
+                    {props.dataModalInformation?.birthday}{" "}
                   </span>
                 </div>
               </div>

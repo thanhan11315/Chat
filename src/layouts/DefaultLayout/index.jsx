@@ -58,7 +58,6 @@ function DefaultLayout({ children }) {
   var navigate = useNavigate();
   const refreshPage = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
-    console.log(getLocalUsername);
     if (getLocalUsername === "zndkeadeeqwrmf") {
       navigate("/chat");
     } else {
@@ -288,8 +287,12 @@ function DefaultLayout({ children }) {
     },
   ];
 
-  const [valueChats, setValueChats] = useState(valueChatDemo);
+  const [valueChats, setValueChats] = useState("");
   const [valueChat, setValueChat] = useState(``);
+
+  useEffect(() => {
+    localStorage.setItem("0898999999", JSON.stringify(valueChatDemo));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onChangeChat = (e) => {
     setValueChat(e.target.value);
@@ -330,97 +333,104 @@ function DefaultLayout({ children }) {
       (valueChat) => valueChat.id !== value.id
     );
     setValueChats(newValueChats);
-    localStorage.setItem(`${dataUserFriend.id_user}`, newValueChats);
-    console.log(localStorage.getItem(`${dataUserFriend.id_user}`));
+    localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
   };
 
   const createDateBoxChat = () => {
-    const valueTimeLast = valueChats.find(
-      (valueChat) => valueChat.create_date === true
-    );
-    return (
-      date.year - valueTimeLast?.year >= 1 ||
-      date.month - valueTimeLast?.month >= 1 ||
-      date.date - valueTimeLast?.date >= 1 ||
-      date.hours - valueTimeLast?.hours >= 2
-    );
+    if (valueChats) {
+      const valueTimeLast = valueChats.find(
+        (valueChat) => valueChat.create_date === true
+      );
+      return (
+        date.year - valueTimeLast?.year >= 1 ||
+        date.month - valueTimeLast?.month >= 1 ||
+        date.date - valueTimeLast?.date >= 1 ||
+        date.hours - valueTimeLast?.hours >= 2
+      );
+    } else {
+      return true;
+    }
+  };
+
+  const setValueChatsInRenderAllMessage = (newValueChat) => {
+    if (valueChats) {
+      const newValueChats = [newValueChat, ...valueChats];
+      localStorage.setItem(
+        dataUserFriend.id_user,
+        JSON.stringify(newValueChats)
+      );
+      setValueChats(newValueChats);
+      setValueChat("");
+      setResponsiveInputValue("");
+      console.log(newValueChats);
+    } else {
+      const newValueChats = [newValueChat];
+      localStorage.setItem(
+        dataUserFriend.id_user,
+        JSON.stringify(newValueChats)
+      );
+      setValueChats(newValueChats);
+      setValueChat("");
+      setResponsiveInputValue("");
+      console.log(newValueChats);
+    }
   };
 
   const render = (valueChatReplace) => {
-    setValueChats([
-      {
-        ...dataUserMe,
-        other_people: false,
-        ghim: false,
-        id: id,
-        Responsive: ResponsiveInputValue,
-        text_message: linkify(valueChatReplace),
-        ...date,
-        create_date: createDateBoxChat(),
-      },
-      ...valueChats,
-    ]);
-    console.log([
-      {
-        ...dataUserMe,
-        other_people: false,
-        ghim: false,
-        id: id,
-        Responsive: ResponsiveInputValue,
-        text_message: valueChatReplace,
-        ...date,
-        create_date: createDateBoxChat(),
-      },
-      ...valueChats,
-    ]);
-    setValueChat("");
-    setResponsiveInputValue("");
+    const newValueChat = {
+      ...dataUserMe,
+      id_user_receiver: dataUserFriend.id_user,
+      other_people: false,
+      ghim: false,
+      id: id,
+      Responsive: ResponsiveInputValue,
+      text_message: linkify(valueChatReplace),
+      ...date,
+      create_date: createDateBoxChat(),
+    };
+    setValueChatsInRenderAllMessage(newValueChat);
   };
 
   const onChangeImage = (e) => {
-    setValueChats([
-      {
-        ...dataUserMe,
-        id: id,
-        type: e.target.files[0].type?.slice(0, 5),
-        url: URL.createObjectURL(e.target.files[0]),
-        content: e.target.files[0].name,
-        other_people: false,
-        create_date: createDateBoxChat(),
-        ...date,
-      },
-      ...valueChats,
-    ]);
+    const newValueChat = {
+      ...dataUserMe,
+      id_user_receiver: dataUserFriend.id_user,
+      id: id,
+      type: e.target.files[0].type?.slice(0, 5),
+      url: URL.createObjectURL(e.target.files[0]),
+      content: e.target.files[0].name,
+      other_people: false,
+      create_date: createDateBoxChat(),
+      ...date,
+    };
+    setValueChatsInRenderAllMessage(newValueChat);
   };
 
   const onChangeFile = (e) => {
-    setValueChats([
-      {
-        ...dataUserMe,
-        id: id,
-        file: e.target.files[0],
-        content: e.target.files[0].name,
-        other_people: false,
-        create_date: createDateBoxChat(),
-        ...date,
-      },
-      ...valueChats,
-    ]);
+    const newValueChat = {
+      ...dataUserMe,
+      id_user_receiver: dataUserFriend.id_user,
+      id: id,
+      file: e.target.files[0],
+      content: e.target.files[0].name,
+      other_people: false,
+      create_date: createDateBoxChat(),
+      ...date,
+    };
+    setValueChatsInRenderAllMessage(newValueChat);
   };
 
   const handleClickLikeIcon = () => {
-    setValueChats([
-      {
-        ...dataUserMe,
-        id: id,
-        other_people: false,
-        content: "👍",
-        type: "likeIcon",
-        create_date: createDateBoxChat(),
-        ...date,
-      },
-      ...valueChats,
-    ]);
+    const newValueChat = {
+      ...dataUserMe,
+      id: id,
+      other_people: false,
+      content: "👍",
+      type: "likeIcon",
+      create_date: createDateBoxChat(),
+      ...date,
+    };
+    setValueChatsInRenderAllMessage(newValueChat);
   };
 
   const content = (
@@ -573,7 +583,7 @@ function DefaultLayout({ children }) {
       }
     });
     setValueChats(newValueChats);
-    localStorage.setItem(dataUserFriend.id_user, newValueChats);
+    localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
     setValueListGhim(
       newValueChats.filter((value) => {
         return value.ghim === true;
@@ -595,6 +605,7 @@ function DefaultLayout({ children }) {
       }
     });
     setValueChats(newValueChats);
+    localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
     setValueListGhim(
       newValueChats.filter((value) => {
         return value.ghim === true;
@@ -612,23 +623,63 @@ function DefaultLayout({ children }) {
 
   // Ghim
 
-  const [dataUserFriends, setDataUserFriends] = useState(dataUserFriendsApi);
-  const [dataUserFriend, setDataUserFriend] = useState(dataUserFriends[0]);
-  const chooseBackground = () => {
-    if (
-      document.querySelector(
-        `.box-choose-chatbox-${dataUserFriends[0].id_user}`
-      )
-    ) {
-      document.querySelector(
-        `.box-choose-chatbox-${dataUserFriends[0].id_user}`
-      ).style.backgroundColor = "#eeeff2";
+  const [dataUserFriends, setDataUserFriends] = useState("");
+  const [dataUserFriend, setDataUserFriend] = useState("");
+
+  const getDataUserFriends = () => {
+    console.log(JSON.parse(localStorage.getItem("dataUserFriends")));
+    if (JSON.parse(localStorage.getItem("dataUserFriends"))) {
+      const getDataUserFriends = JSON.parse(
+        localStorage.getItem("dataUserFriends")
+      );
+      setDataUserFriends(getDataUserFriends);
+      setDataUserFriendsRender(getDataUserFriends);
+      setDataUserFriend(getDataUserFriends[0]);
+    } else {
+      setDataUserFriends(dataUserFriendsApi);
+      setDataUserFriendsRender(dataUserFriendsApi);
+      setDataUserFriend(dataUserFriendsApi[0]);
     }
   };
 
   useEffect(() => {
-    chooseBackground();
+    getDataUserFriends();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (dataUserFriends && valueChats) {
+      const newDataUserFriend = dataUserFriends.map((dataUserFriend) => {
+        console.log(dataUserFriend.id_user);
+        console.log(valueChats[0].id_user);
+        console.log(valueChats);
+        if (valueChats[0].id_user_receiver === dataUserFriend.id_user) {
+          console.log(2);
+          return { ...dataUserFriend, last_value_chat: valueChats[0] };
+        } else {
+          return dataUserFriend;
+        }
+      });
+      console.log(newDataUserFriend);
+      setDataUserFriends(newDataUserFriend);
+      setDataUserFriendsRender(newDataUserFriend);
+    }
+  }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (
+      document.querySelector(`.box-choose-chatbox-${dataUserFriend?.id_user}`)
+    ) {
+      document.querySelector(
+        `.box-choose-chatbox-${dataUserFriend?.id_user}`
+      ).style.backgroundColor = "#eeeff2";
+    }
+    getValueChats(dataUserFriend);
+  }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const setDataUserFriendsAll = (newDataUserFriends) => {
+    setDataUserFriends(newDataUserFriends);
+    localStorage.setItem("dataUserFriends", JSON.stringify(newDataUserFriends));
+  };
 
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
@@ -649,23 +700,7 @@ function DefaultLayout({ children }) {
         return valueN;
       }
     });
-
-    setDataUserFriends(newdataUserFriends);
-
-    dataUserFriends.forEach((value) => {
-      if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
-        document.querySelector(
-          `.box-choose-chatbox-${value.id_user}`
-        ).style.backgroundColor = "transparent";
-      }
-    });
-
-    if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
-      document.querySelector(
-        `.box-choose-chatbox-${value.id_user}`
-      ).style.backgroundColor = "#eeeff2";
-    }
-
+    setDataUserFriendsAll(newdataUserFriends);
     if (document.querySelector(".not-read.selected")) {
       setDataUserFriendsRender(
         dataUserFriendsRender.map((valueN) => {
@@ -679,6 +714,29 @@ function DefaultLayout({ children }) {
     } else {
       setDataUserFriendsRender(newdataUserFriends);
     }
+    dataUserFriends &&
+      dataUserFriends.forEach((value) => {
+        if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
+          document.querySelector(
+            `.box-choose-chatbox-${value.id_user}`
+          ).style.backgroundColor = "transparent";
+        }
+      });
+  };
+
+  const getValueChats = (value) => {
+    const getValueChats = JSON.parse(localStorage.getItem(value.id_user));
+    setValueChats(getValueChats);
+    setValueListGhim(
+      getValueChats?.filter((value) => {
+        return value.ghim === true;
+      })
+    );
+    setLengthGhim(
+      getValueChats?.filter((value) => {
+        return value.ghim === true;
+      }).length
+    );
   };
 
   const onMounseOverBox = (key) => {
@@ -698,17 +756,19 @@ function DefaultLayout({ children }) {
   };
 
   const renderImageFile = (value) => {
-    switch (value.substr(-4)) {
-      case "xlsx":
-        return MicrosoftExcel;
-      case "docx":
-        return MicrosoftWord;
-      case ".pdf":
-        return ImagePDF;
-      case ".zip":
-        return ImageZIP;
-      default:
-        return AvatarAn;
+    if (value?.substr(-4)) {
+      switch (value?.substr(-4)) {
+        case "xlsx":
+          return MicrosoftExcel;
+        case "docx":
+          return MicrosoftWord;
+        case ".pdf":
+          return ImagePDF;
+        case ".zip":
+          return ImageZIP;
+        default:
+          return AvatarAn;
+      }
     }
   };
 
@@ -858,23 +918,25 @@ function DefaultLayout({ children }) {
 
   let control = false;
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Control") {
-      control = true;
-    }
-  });
+  if (document.querySelector(".input-chat .ant-input")) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Control") {
+        control = true;
+      }
+    });
 
-  document.addEventListener("keyup", (e) => {
-    if (e.key === "Control") {
-      control = false;
-    }
-  });
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "Control") {
+        control = false;
+      }
+    });
 
-  document.addEventListener("keydown", () => {
-    if (!control) {
-      document.querySelector(".input-chat .ant-input").focus();
-    }
-  });
+    document.addEventListener("keydown", () => {
+      if (!control) {
+        document.querySelector(".input-chat .ant-input").focus();
+      }
+    });
+  }
 
   if (document.getElementsByClassName("InPutSearch")) {
     const arrayEvent = document.getElementsByClassName("InPutSearch");
@@ -960,7 +1022,7 @@ function DefaultLayout({ children }) {
         modalCreateGroup={modalCreateGroup}
         dataUserFriendsApi={dataUserFriendsApi}
         handleCancelModalCreateGroup={handleCancelModalCreateGroup}
-        setDataUserFriends={setDataUserFriends}
+        setDataUserFriendsAll={setDataUserFriendsAll}
         dataUserFriends={dataUserFriends}
         id={id}
         setDataUserFriendsRender={setDataUserFriendsRender}
@@ -971,7 +1033,7 @@ function DefaultLayout({ children }) {
         modalAddMembersToGroup={modalAddMembersToGroup}
         dataUserFriendsApi={dataUserFriendsApi}
         handleCancelModalAddMembersToGroup={handleCancelModalAddMembersToGroup}
-        setDataUserFriends={setDataUserFriends}
+        setDataUserFriendsAll={setDataUserFriendsAll}
         dataUserFriends={dataUserFriends}
         setDataUserFriendsRender={setDataUserFriendsRender}
         dataUserMe={dataUserMe}
@@ -983,6 +1045,7 @@ function DefaultLayout({ children }) {
         setValueChats={setValueChats}
         valueChats={valueChats}
         id={id}
+        setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
       {/* Modal*/}
 
@@ -1001,7 +1064,7 @@ function DefaultLayout({ children }) {
       <RightmouseChooseBoxChat
         valueRightClickChooseBoxChat={valueRightClickChooseBoxChat}
         dataUserFriends={dataUserFriends}
-        setDataUserFriends={setDataUserFriends}
+        setDataUserFriendsAll={setDataUserFriendsAll}
         setDataUserFriendsRender={setDataUserFriendsRender}
         dataUserFriendsRender={dataUserFriendsRender}
         dataUserFriend={dataUserFriend}
@@ -1020,9 +1083,9 @@ function DefaultLayout({ children }) {
           handleClickNotReadTitle={handleClickNotReadTitle}
           dataUserFriendsRender={dataUserFriendsRender}
           handleClickChooseBoxChat={handleClickChooseBoxChat}
-          valueChats={valueChats}
           onContextMenuChooseBoxChat={onContextMenuChooseBoxChat}
           handleClickCreateGroup={handleClickCreateGroup}
+          date={date}
         />
         {/* Nav2 */}
 
@@ -1083,191 +1146,200 @@ function DefaultLayout({ children }) {
           >
             {children}
             <ButtonScrollBottom />
-            {valueChats.map((value, key) => {
-              return (
-                <>
-                  {(value.url ||
-                    value.file ||
-                    value.type ||
-                    value.text_message) && (
-                    <div
-                      className={
-                        value.other_people ? "box-other-people" : "box-me"
-                      }
-                      onMouseOver={() => onMounseOverBox(key)}
-                      onMouseOut={() => onMouseOutBox(key)}
-                      key={key}
-                    >
-                      <Row className={`share-response share-response-${key}`}>
-                        <div>
-                          <ExportOutlined
-                            onClick={() => handleClickResponsiveIcon(value)}
-                          />
-                        </div>
-                        <div onClick={() => handleClickShare(value)}>
-                          <ShareAltOutlined />
-                        </div>
-                        <div onClick={() => handleClickGhim(value)}>
-                          <PaperClipOutlined />
-                        </div>
-                      </Row>
+            {valueChats &&
+              valueChats.map((value, key) => {
+                return (
+                  <>
+                    {(value.url ||
+                      value.file ||
+                      value.type ||
+                      value.text_message) && (
                       <div
-                        className={value.other_people ? "other-people" : "me"}
-                        id={`${value.id}`}
+                        className={
+                          value.other_people ? "box-other-people" : "box-me"
+                        }
+                        onMouseOver={() => onMounseOverBox(key)}
+                        onMouseOut={() => onMouseOutBox(key)}
+                        key={key}
                       >
-                        <div className="img-chat">
-                          <img
-                            src={value.avatar}
-                            alt="img not load"
-                            onClick={() => handleClickImgChat(value)}
-                            style={{
-                              border: "0.5px solid #fff",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                              width: "40px",
-                              height: "40px",
-                              cursor: "pointer",
-                            }}
-                          />
-                        </div>
-                        <div
-                          className="box-content-all-chat"
-                          onContextMenu={(e) => {
-                            handleOnContextMenu(e, value);
-                          }}
-                        >
-                          {value.url && <ImageOrVideo value={value} />}{" "}
-                          {value.file && (
-                            <RenderFile
-                              renderImageFile={renderImageFile}
-                              value={value}
-                              bytesToSize={bytesToSize}
+                        <Row className={`share-response share-response-${key}`}>
+                          <div>
+                            <ExportOutlined
+                              onClick={() => handleClickResponsiveIcon(value)}
                             />
-                          )}
-                          {value.type === "likeIcon" && (
-                            <LikeIcon value={value} />
-                          )}
-                          {value.text_message && (
-                            <>
-                              <div className="content-chat">
-                                <div className="box-make-hidden-content-chat">
-                                  {value.Responsive && (
-                                    <a href={`#${value.Responsive.id}`}>
-                                      <ResponsiveInput
-                                        ResponsiveInputValue={value.Responsive}
-                                        clearResponsiveTnputValue={
-                                          clearResponsiveTnputValue
-                                        }
-                                        renderImageFile={renderImageFile}
-                                      />
-                                    </a>
-                                  )}
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: value.text_message,
-                                    }}
-                                  />
+                          </div>
+                          <div onClick={() => handleClickShare(value)}>
+                            <ShareAltOutlined />
+                          </div>
+                          <div onClick={() => handleClickGhim(value)}>
+                            <PaperClipOutlined />
+                          </div>
+                        </Row>
+                        <div
+                          className={value.other_people ? "other-people" : "me"}
+                          id={`${value.id}`}
+                        >
+                          <div className="img-chat">
+                            <img
+                              src={value.avatar}
+                              alt="img not load"
+                              onClick={() => handleClickImgChat(value)}
+                              style={{
+                                border: "0.5px solid #fff",
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                                width: "40px",
+                                height: "40px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </div>
+                          <div
+                            className="box-content-all-chat"
+                            onContextMenu={(e) => {
+                              handleOnContextMenu(e, value);
+                            }}
+                          >
+                            {value.url && <ImageOrVideo value={value} />}{" "}
+                            {value.file && (
+                              <RenderFile
+                                renderImageFile={renderImageFile}
+                                value={value}
+                                bytesToSize={bytesToSize}
+                              />
+                            )}
+                            {value.type === "likeIcon" && (
+                              <LikeIcon value={value} />
+                            )}
+                            {value.text_message && (
+                              <>
+                                <div className="content-chat">
+                                  <div className="box-make-hidden-content-chat">
+                                    {value.Responsive && (
+                                      <a href={`#${value.Responsive.id}`}>
+                                        <ResponsiveInput
+                                          ResponsiveInputValue={
+                                            value.Responsive
+                                          }
+                                          clearResponsiveTnputValue={
+                                            clearResponsiveTnputValue
+                                          }
+                                          renderImageFile={renderImageFile}
+                                        />
+                                      </a>
+                                    )}
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: value.text_message,
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="date">
+                                    {value.hours}:{value.minutes}
+                                  </div>
                                 </div>
-                                <div className="date">
-                                  {value.hours}:{value.minutes}
-                                </div>
-                              </div>
-                            </>
-                          )}
+                              </>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                  {value.create_date && (
-                    <div className="box-date">
-                      <div className="line" />
-                      <span className="overdate">
-                        {value.date}-{value.month + 1}-{value.year}{" "}
-                        {value.hours}:{value.minutes}
-                      </span>
-                      <div className="line" />
-                    </div>
-                  )}
-                  {value.add_members_to_group &&
-                    value.members_added.map((memberAdded) => {
-                      return (
-                        <Row
-                          className="box-message"
-                          id="1665217404457888996306170"
-                        >
-                          <Row className="event-message">
-                            <Col className="image-message">
-                              <img
-                                src={memberAdded.avatar}
+                    )}
+                    {value.create_date && (
+                      <div className="box-date">
+                        <div className="line" />
+                        <span className="overdate">
+                          {value.date}-{value.month + 1}-{value.year}{" "}
+                          {value.hours}:{value.minutes}
+                        </span>
+                        <div className="line" />
+                      </div>
+                    )}
+                    {value.add_members_to_group &&
+                      value.members_added.map((memberAdded) => {
+                        return (
+                          <Row
+                            className="box-message"
+                            id="1665217404457888996306170"
+                          >
+                            <Row className="event-message">
+                              <Col className="image-message">
+                                <img
+                                  src={memberAdded.avatar}
+                                  onClick={() =>
+                                    handleClickImgChat(memberAdded)
+                                  }
+                                  alt="img not load"
+                                  style={{
+                                    border: "0.5px solid #fff",
+                                    borderRadius: "50%",
+                                    objectFit: "cover",
+                                    width: "24px",
+                                    height: "24px",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              </Col>
+                              <Col
+                                className="name-message"
                                 onClick={() => handleClickImgChat(memberAdded)}
-                                alt="img not load"
-                                style={{
-                                  border: "0.5px solid #fff",
-                                  borderRadius: "50%",
-                                  objectFit: "cover",
-                                  width: "24px",
-                                  height: "24px",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </Col>
-                            <Col
-                              className="name-message"
-                              onClick={() => handleClickImgChat(memberAdded)}
-                            >
-                              {memberAdded.name}
-                            </Col>
-                            <Col className="content-message">được</Col>
-                            <Col
-                              className="name-message"
-                              onClick={() =>
-                                handleClickImgChat(value.members_add)
-                              }
-                            >
-                              {value.members_add.name}
-                            </Col>
-                            <Col className="content-message">thêm vào nhóm</Col>
+                              >
+                                {memberAdded.name}
+                              </Col>
+                              <Col className="content-message">được</Col>
+                              <Col
+                                className="name-message"
+                                onClick={() =>
+                                  handleClickImgChat(value.members_add)
+                                }
+                              >
+                                {value.members_add.name}
+                              </Col>
+                              <Col className="content-message">
+                                thêm vào nhóm
+                              </Col>
+                            </Row>
                           </Row>
-                        </Row>
-                      );
-                    })}
-                  {value.remove_members_to_group && (
-                    <Row className="box-message">
-                      <Row className="event-message">
-                        <Col className="image-message">
-                          <img
-                            src={value.members_removed.avatar}
+                        );
+                      })}
+                    {value.remove_members_to_group && (
+                      <Row className="box-message">
+                        <Row className="event-message">
+                          <Col className="image-message">
+                            <img
+                              src={value.members_removed.avatar}
+                              onClick={() =>
+                                handleClickImgChat(value.members_removed)
+                              }
+                              alt="img not load"
+                              style={{
+                                border: "0.5px solid #fff",
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                                width: "24px",
+                                height: "24px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </Col>
+                          <Col
+                            className="name-message"
                             onClick={() =>
                               handleClickImgChat(value.members_removed)
                             }
-                            alt="img not load"
-                            style={{
-                              border: "0.5px solid #fff",
-                              borderRadius: "50%",
-                              objectFit: "cover",
-                              width: "24px",
-                              height: "24px",
-                              cursor: "pointer",
-                            }}
-                          />
-                        </Col>
-                        <Col
-                          className="name-message"
-                          onClick={() =>
-                            handleClickImgChat(value.members_removed)
-                          }
-                        >
-                          {value.members_removed.name}
-                        </Col>
-                        <Col className="content-message">đã rời khỏi nhóm</Col>
+                          >
+                            {value.members_removed.name}
+                          </Col>
+                          <Col className="content-message">
+                            đã rời khỏi nhóm
+                          </Col>
+                        </Row>
                       </Row>
-                    </Row>
-                  )}
-                </>
-              );
-            })}
+                    )}
+                  </>
+                );
+              })}
           </div>
-          {!dataUserFriend.notification_system && (
+          {!dataUserFriend?.notification_system && (
             <div className="nav-input-chat">
               <Row className="nav-input">
                 <Popover
@@ -1411,7 +1483,7 @@ function DefaultLayout({ children }) {
           dataUserFriend={dataUserFriend}
           setDataUserFriend={setDataUserFriend}
           dataUserFriends={dataUserFriends}
-          setDataUserFriends={setDataUserFriends}
+          setDataUserFriendsAll={setDataUserFriendsAll}
           setDataUserFriendsRender={setDataUserFriendsRender}
           dataUserFriendsRender={dataUserFriendsRender}
           handleClickCreateGroup={handleClickCreateGroup}

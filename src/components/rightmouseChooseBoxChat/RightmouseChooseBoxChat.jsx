@@ -22,7 +22,7 @@ function RightmouseChooseBoxChat(props) {
         pin_conversation: false,
       });
     }
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     if (document.querySelector(".not-read.selected")) {
       const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
         (dataUserFriendRender) => {
@@ -68,7 +68,7 @@ function RightmouseChooseBoxChat(props) {
         pin_conversation: true,
       });
     }
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     if (document.querySelector(".not-read.selected")) {
       const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
         (dataUserFriendRender) => {
@@ -101,7 +101,7 @@ function RightmouseChooseBoxChat(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     if (document.querySelector(".not-read.selected")) {
       const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
         (dataUserFriendRender) => {
@@ -133,7 +133,7 @@ function RightmouseChooseBoxChat(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     if (document.querySelector(".not-read.selected")) {
       const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
         (dataUserFriendRender) => {
@@ -165,7 +165,7 @@ function RightmouseChooseBoxChat(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     if (
       props.dataUserFriend.id_user ===
       props.valueRightClickChooseBoxChat.id_user
@@ -203,7 +203,7 @@ function RightmouseChooseBoxChat(props) {
         return dataUserFriend;
       }
     });
-    props.setDataUserFriends(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
     if (
       props.dataUserFriend.id_user ===
       props.valueRightClickChooseBoxChat.id_user
@@ -255,7 +255,7 @@ function RightmouseChooseBoxChat(props) {
           elementBoxChat0.click();
         }
       }
-      props.setDataUserFriends(newDataUserFriends);
+      props.setDataUserFriendsAll(newDataUserFriends);
       props.setDataUserFriendsRender(newDataUserFriendsNotRead);
     } else {
       if (
@@ -269,7 +269,7 @@ function RightmouseChooseBoxChat(props) {
           elementBoxChat0.click();
         }
       }
-      props.setDataUserFriends(newDataUserFriends);
+      props.setDataUserFriendsAll(newDataUserFriends);
       props.setDataUserFriendsRender(newDataUserFriends);
     }
   };

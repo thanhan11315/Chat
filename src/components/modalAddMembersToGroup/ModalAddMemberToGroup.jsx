@@ -56,8 +56,8 @@ function ModalAddMembersToGroup(props) {
         members_add: props.dataUserMe,
         members_added: checkedValues,
       };
-      props.setValueChats([valueChatsAddMembersToGroup, ...props.valueChats]);
-      props.setDataUserFriends(newDataUserFriends);
+      props.setValueChatsInRenderAllMessage(valueChatsAddMembersToGroup);
+      props.setDataUserFriendsAll(newDataUserFriends);
       props.setDataUserFriendsRender(newDataUserFriends);
       props.setDataUserFriend(
         newDataUserFriends.find(
