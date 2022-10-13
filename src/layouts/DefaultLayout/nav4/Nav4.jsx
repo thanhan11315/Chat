@@ -61,24 +61,6 @@ function Nav4(props) {
     });
     props.setDataUserFriendsAll(newDataUserFriends);
     props.setDataUserFriend({ ...props.dataUserFriend, notification: false });
-    if (document.querySelector(".not-read.selected")) {
-      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
-        (dataUserFriendRender) => {
-          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
-            return {
-              ...dataUserFriendRender,
-              notification: false,
-            };
-          } else {
-            return dataUserFriendRender;
-          }
-        }
-      );
-      console.log(newDataUserFriendNotRead);
-      props.setDataUserFriendsRender(newDataUserFriendNotRead);
-    } else {
-      props.setDataUserFriendsRender(newDataUserFriends);
-    }
   };
   const turnOnNotification = () => {
     const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
@@ -90,23 +72,6 @@ function Nav4(props) {
     });
     props.setDataUserFriendsAll(newDataUserFriends);
     props.setDataUserFriend({ ...props.dataUserFriend, notification: true });
-    if (document.querySelector(".not-read.selected")) {
-      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
-        (dataUserFriendRender) => {
-          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
-            return {
-              ...dataUserFriendRender,
-              notification: true,
-            };
-          } else {
-            return dataUserFriendRender;
-          }
-        }
-      );
-      props.setDataUserFriendsRender(newDataUserFriendNotRead);
-    } else {
-      props.setDataUserFriendsRender(newDataUserFriends);
-    }
   };
 
   const UnpinConversation = () => {
@@ -123,24 +88,6 @@ function Nav4(props) {
       ...props.dataUserFriend,
       pin_conversation: false,
     });
-    if (document.querySelector(".not-read.selected")) {
-      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
-        (dataUserFriendRender) => {
-          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
-            delete dataUserFriendRender["style_order"];
-            return {
-              ...dataUserFriendRender,
-              pin_conversation: false,
-            };
-          } else {
-            return dataUserFriendRender;
-          }
-        }
-      );
-      props.setDataUserFriendsRender(newDataUserFriendNotRead);
-    } else {
-      props.setDataUserFriendsRender(newDataUserFriends);
-    }
   };
   const Pinconversation = () => {
     const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
@@ -159,24 +106,6 @@ function Nav4(props) {
       ...props.dataUserFriend,
       pin_conversation: true,
     });
-    if (document.querySelector(".not-read.selected")) {
-      const newDataUserFriendNotRead = props.dataUserFriendsRender.map(
-        (dataUserFriendRender) => {
-          if (dataUserFriendRender.id_user === props.dataUserFriend.id_user) {
-            return {
-              ...dataUserFriendRender,
-              pin_conversation: true,
-              style_order: 1,
-            };
-          } else {
-            return dataUserFriendRender;
-          }
-        }
-      );
-      props.setDataUserFriendsRender(newDataUserFriendNotRead);
-    } else {
-      props.setDataUserFriendsRender(newDataUserFriends);
-    }
   };
 
   const handleClickOutGroup = (dataUserMe) => {
@@ -201,16 +130,28 @@ function Nav4(props) {
     });
     props.setDataUserFriendsAll(newDataUserFriends);
     const valueChatsRemoveMembersToGroup = {
+      create_date: props.createDateBoxChat(),
+      ...props.date,
       id: props.id,
       remove_members_to_group: true,
       members_removed: dataUserMe,
     };
-    console.log(valueChatsRemoveMembersToGroup);
-    props.setValueChats([valueChatsRemoveMembersToGroup, ...props.valueChats]);
-    localStorage.setItem(
-      props.dataUserFriend.id_user,
-      JSON.stringify([valueChatsRemoveMembersToGroup, ...props.valueChats])
-    );
+    if (props.valueChats) {
+      props.setValueChats([
+        valueChatsRemoveMembersToGroup,
+        ...props.valueChats,
+      ]);
+      localStorage.setItem(
+        props.dataUserFriend.id_user,
+        JSON.stringify([valueChatsRemoveMembersToGroup, ...props.valueChats])
+      );
+    } else {
+      props.setValueChats([valueChatsRemoveMembersToGroup]);
+      localStorage.setItem(
+        props.dataUserFriend.id_user,
+        JSON.stringify([valueChatsRemoveMembersToGroup])
+      );
+    }
   };
 
   return (

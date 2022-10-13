@@ -31,11 +31,12 @@
 .box-file .box-content-file-title .content-file-title {
   margin-bottom: 5px;
   line-height: normal;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  color: var(--primary-text);
 }
 
 .box-file .box-content-file .box-content-file-title .box-information {

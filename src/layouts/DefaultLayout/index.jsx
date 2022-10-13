@@ -36,6 +36,7 @@ import Nav4 from "./nav4/Nav4";
 import ModalShare from "../../components/modalShare/ModalShare";
 import RightmouseChooseBoxChat from "../../components/rightmouseChooseBoxChat/RightmouseChooseBoxChat";
 import ModalCreateGroup from "../../components/modalCreateGroup/ModalCreateGroup";
+import IframeFile from "../../components/iframe_file/IframeFile";
 //
 import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 import AvatarTN from "../../assets/images/AvatarTN.jpg";
@@ -181,6 +182,60 @@ function DefaultLayout({ children }) {
   ];
 
   const valueChatDemo = [
+    {
+      id: 3213213213213238,
+      ...dataUserMe,
+      other_people: false,
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      ghim: false,
+      file: {
+        url: "https://view.officeapps.live.com/op/embed.aspx?src=https://mysupership.com/custom/file/SuperShip_01_10_2022_Mau_Xac_Nhan_Don_Hang_Chuyen_Ngoai.xlsx&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+        name: "Ghim hội thoại.xlsx",
+        size: 1755705,
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      },
+      name: "Ghim hội thoại.xlsx",
+    },
+    {
+      id: 3213213213213233213,
+      ...dataUserMe,
+      other_people: false,
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      ghim: false,
+      file: {
+        url: "https://view.officeapps.live.com/op/embed.aspx?src=https://mdl.supership.net/CT01%20To%CC%9B%CC%80%20khai%20thay%20%C4%91o%CC%82%CC%89i%20tho%CC%82ng%20tin%20cu%CC%9B%20tru%CC%81.doc&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+        name: "HTML.docx",
+        size: 23326,
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      },
+      name: "HTML.docx",
+    },
+    {
+      id: 321321321321323321,
+      ...dataUserMe,
+      other_people: false,
+      date: 24,
+      hours: 13,
+      minutes: 39,
+      month: 8,
+      year: 2022,
+      ghim: false,
+      file: {
+        url: "https://drive.google.com/viewerng/viewer?url=https://mdl.supership.net/strgs/files/SuperShip%20-%20CHI%CC%81NH%20SA%CC%81CH%20BO%CC%82%CC%80I%20HOA%CC%80N.pdf?ref=MySuperShip&embedded=true&hl=vi&retry=0&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+        name: "HTML.pdf",
+        size: 420495,
+        type: "application/pdf",
+      },
+      name: "HTML.pdf",
+    },
     {
       id: 32132147332396546,
       ...dataUserMe,
@@ -341,12 +396,16 @@ function DefaultLayout({ children }) {
       const valueTimeLast = valueChats.find(
         (valueChat) => valueChat.create_date === true
       );
-      return (
-        date.year - valueTimeLast?.year >= 1 ||
-        date.month - valueTimeLast?.month >= 1 ||
-        date.date - valueTimeLast?.date >= 1 ||
-        date.hours - valueTimeLast?.hours >= 2
-      );
+      if (valueTimeLast) {
+        return (
+          date.year - valueTimeLast?.year >= 1 ||
+          date.month - valueTimeLast?.month >= 1 ||
+          date.date - valueTimeLast?.date >= 1 ||
+          date.hours - valueTimeLast?.hours >= 2
+        );
+      } else {
+        return true;
+      }
     } else {
       return true;
     }
@@ -411,13 +470,19 @@ function DefaultLayout({ children }) {
       ...dataUserMe,
       id_user_receiver: dataUserFriend.id_user,
       id: id,
-      file: e.target.files[0],
+      file: {
+        name: e.target.files[0].name,
+        size: e.target.files[0].size,
+        type: e.target.files[0].type,
+        file: e.target.files[0],
+      },
       content: e.target.files[0].name,
       other_people: false,
       create_date: createDateBoxChat(),
       ...date,
     };
     setValueChatsInRenderAllMessage(newValueChat);
+    localStorage.setItem("testfile", JSON.stringify(e.target.files[0]));
   };
 
   const handleClickLikeIcon = () => {
@@ -627,17 +692,14 @@ function DefaultLayout({ children }) {
   const [dataUserFriend, setDataUserFriend] = useState("");
 
   const getDataUserFriends = () => {
-    console.log(JSON.parse(localStorage.getItem("dataUserFriends")));
     if (JSON.parse(localStorage.getItem("dataUserFriends"))) {
       const getDataUserFriends = JSON.parse(
         localStorage.getItem("dataUserFriends")
       );
       setDataUserFriends(getDataUserFriends);
-      setDataUserFriendsRender(getDataUserFriends);
       setDataUserFriend(getDataUserFriends[0]);
     } else {
       setDataUserFriends(dataUserFriendsApi);
-      setDataUserFriendsRender(dataUserFriendsApi);
       setDataUserFriend(dataUserFriendsApi[0]);
     }
   };
@@ -648,24 +710,36 @@ function DefaultLayout({ children }) {
 
   useEffect(() => {
     if (dataUserFriends && valueChats) {
-      const newDataUserFriend = dataUserFriends.map((dataUserFriend) => {
-        console.log(dataUserFriend.id_user);
-        console.log(valueChats[0].id_user);
-        console.log(valueChats);
-        if (valueChats[0].id_user_receiver === dataUserFriend.id_user) {
-          console.log(2);
-          return { ...dataUserFriend, last_value_chat: valueChats[0] };
-        } else {
-          return dataUserFriend;
+      dataUserFriends.forEach((dataUserFriend) => {
+        if (
+          valueChats[0]?.id_user_receiver === dataUserFriend?.id_user &&
+          valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id
+        ) {
+          const newDataUserFriends = dataUserFriends;
+          const newDataUserFriend = {
+            ...dataUserFriend,
+            last_value_chat: valueChats[0],
+          };
+          const dataUserFriendIndex = newDataUserFriends.findIndex(
+            (dataUserFriend) =>
+              dataUserFriend?.id_user === valueChats[0]?.id_user_receiver
+          );
+          newDataUserFriends.splice(dataUserFriendIndex, 1);
+          setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
         }
       });
-      console.log(newDataUserFriend);
-      setDataUserFriends(newDataUserFriend);
-      setDataUserFriendsRender(newDataUserFriend);
     }
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    dataUserFriends &&
+      dataUserFriends.forEach((value) => {
+        if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
+          document.querySelector(
+            `.box-choose-chatbox-${value.id_user}`
+          ).style.backgroundColor = "transparent";
+        }
+      });
     if (
       document.querySelector(`.box-choose-chatbox-${dataUserFriend?.id_user}`)
     ) {
@@ -701,27 +775,6 @@ function DefaultLayout({ children }) {
       }
     });
     setDataUserFriendsAll(newdataUserFriends);
-    if (document.querySelector(".not-read.selected")) {
-      setDataUserFriendsRender(
-        dataUserFriendsRender.map((valueN) => {
-          if (valueN.id_user === value.id_user) {
-            return { ...valueN, not_read: false };
-          } else {
-            return valueN;
-          }
-        })
-      );
-    } else {
-      setDataUserFriendsRender(newdataUserFriends);
-    }
-    dataUserFriends &&
-      dataUserFriends.forEach((value) => {
-        if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
-          document.querySelector(
-            `.box-choose-chatbox-${value.id_user}`
-          ).style.backgroundColor = "transparent";
-        }
-      });
   };
 
   const getValueChats = (value) => {
@@ -772,9 +825,6 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const [dataUserFriendsRender, setDataUserFriendsRender] =
-    useState(dataUserFriendsApi);
-
   const handleClickAllTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
@@ -782,7 +832,11 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.remove("selected");
-    setDataUserFriendsRender(dataUserFriends);
+    dataUserFriends.forEach((dataUserFriend) => {
+      document.querySelector(
+        `.box-choose-chatbox-${dataUserFriend.id_user}`
+      ).style.display = "flex";
+    });
   };
 
   const handleClickNotReadTitle = () => {
@@ -792,9 +846,14 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.add("selected");
-    setDataUserFriendsRender(
-      dataUserFriends.filter((value) => value.not_read === true)
+    const dataUserFriendsReaded = dataUserFriends.filter(
+      (dataUserFriend) => dataUserFriend.not_read !== true
     );
+    dataUserFriendsReaded.forEach((dataUserFriendReaded) => {
+      document.querySelector(
+        `.box-choose-chatbox-${dataUserFriendReaded.id_user}`
+      ).style.display = "none";
+    });
   };
 
   const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
@@ -809,6 +868,24 @@ function DefaultLayout({ children }) {
     setResponsiveInputValue("");
     document.querySelector(".input-chat .ant-input").focus();
   };
+
+  useEffect(() => {
+    dataUserFriends &&
+      dataUserFriends.forEach((value) => {
+        if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
+          document.querySelector(
+            `.box-choose-chatbox-${value.id_user}`
+          ).style.backgroundColor = "transparent";
+        }
+      });
+    if (
+      document.querySelector(`.box-choose-chatbox-${dataUserFriend?.id_user}`)
+    ) {
+      document.querySelector(
+        `.box-choose-chatbox-${dataUserFriend?.id_user}`
+      ).style.backgroundColor = "#eeeff2";
+    }
+  }, [dataUserFriends]);
 
   // Modal
 
@@ -1005,6 +1082,7 @@ function DefaultLayout({ children }) {
   return (
     <>
       {/* Modal */}
+      <IframeFile />
       <ModalInformation
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}
@@ -1025,7 +1103,6 @@ function DefaultLayout({ children }) {
         setDataUserFriendsAll={setDataUserFriendsAll}
         dataUserFriends={dataUserFriends}
         id={id}
-        setDataUserFriendsRender={setDataUserFriendsRender}
         dataUserMe={dataUserMe}
       />
 
@@ -1035,7 +1112,6 @@ function DefaultLayout({ children }) {
         handleCancelModalAddMembersToGroup={handleCancelModalAddMembersToGroup}
         setDataUserFriendsAll={setDataUserFriendsAll}
         dataUserFriends={dataUserFriends}
-        setDataUserFriendsRender={setDataUserFriendsRender}
         dataUserMe={dataUserMe}
         dataUserFriend={dataUserFriend}
         setDataUserFriend={setDataUserFriend}
@@ -1046,6 +1122,8 @@ function DefaultLayout({ children }) {
         valueChats={valueChats}
         id={id}
         setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
+        createDateBoxChat={createDateBoxChat}
+        date={date}
       />
       {/* Modal*/}
 
@@ -1065,8 +1143,6 @@ function DefaultLayout({ children }) {
         valueRightClickChooseBoxChat={valueRightClickChooseBoxChat}
         dataUserFriends={dataUserFriends}
         setDataUserFriendsAll={setDataUserFriendsAll}
-        setDataUserFriendsRender={setDataUserFriendsRender}
-        dataUserFriendsRender={dataUserFriendsRender}
         dataUserFriend={dataUserFriend}
         setDataUserFriend={setDataUserFriend}
       />
@@ -1081,7 +1157,7 @@ function DefaultLayout({ children }) {
         <Nav2
           handleClickAllTitle={handleClickAllTitle}
           handleClickNotReadTitle={handleClickNotReadTitle}
-          dataUserFriendsRender={dataUserFriendsRender}
+          dataUserFriends={dataUserFriends}
           handleClickChooseBoxChat={handleClickChooseBoxChat}
           onContextMenuChooseBoxChat={onContextMenuChooseBoxChat}
           handleClickCreateGroup={handleClickCreateGroup}
@@ -1244,16 +1320,6 @@ function DefaultLayout({ children }) {
                         </div>
                       </div>
                     )}
-                    {value.create_date && (
-                      <div className="box-date">
-                        <div className="line" />
-                        <span className="overdate">
-                          {value.date}-{value.month + 1}-{value.year}{" "}
-                          {value.hours}:{value.minutes}
-                        </span>
-                        <div className="line" />
-                      </div>
-                    )}
                     {value.add_members_to_group &&
                       value.members_added.map((memberAdded) => {
                         return (
@@ -1334,6 +1400,16 @@ function DefaultLayout({ children }) {
                           </Col>
                         </Row>
                       </Row>
+                    )}
+                    {value.create_date && (
+                      <div className="box-date">
+                        <div className="line" />
+                        <span className="overdate">
+                          {value.date}-{value.month + 1}-{value.year}{" "}
+                          {value.hours}:{value.minutes}
+                        </span>
+                        <div className="line" />
+                      </div>
                     )}
                   </>
                 );
@@ -1484,13 +1560,13 @@ function DefaultLayout({ children }) {
           setDataUserFriend={setDataUserFriend}
           dataUserFriends={dataUserFriends}
           setDataUserFriendsAll={setDataUserFriendsAll}
-          setDataUserFriendsRender={setDataUserFriendsRender}
-          dataUserFriendsRender={dataUserFriendsRender}
           handleClickCreateGroup={handleClickCreateGroup}
           handleClickAddMembersToGroup={handleClickAddMembersToGroup}
           dataUserMe={dataUserMe}
           id={id}
           setValueChats={setValueChats}
+          date={date}
+          createDateBoxChat={createDateBoxChat}
         />
       </Row>
     </>

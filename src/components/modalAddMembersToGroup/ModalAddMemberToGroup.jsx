@@ -51,6 +51,8 @@ function ModalAddMembersToGroup(props) {
         }
       });
       const valueChatsAddMembersToGroup = {
+        create_date: props.createDateBoxChat(),
+        ...props.date,
         id: props.id,
         add_members_to_group: true,
         members_add: props.dataUserMe,
@@ -58,7 +60,6 @@ function ModalAddMembersToGroup(props) {
       };
       props.setValueChatsInRenderAllMessage(valueChatsAddMembersToGroup);
       props.setDataUserFriendsAll(newDataUserFriends);
-      props.setDataUserFriendsRender(newDataUserFriends);
       props.setDataUserFriend(
         newDataUserFriends.find(
           (value) => value.id_user === props.dataUserFriend.id_user

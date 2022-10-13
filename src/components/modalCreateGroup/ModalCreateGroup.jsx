@@ -52,7 +52,6 @@ function ModalCreateGroup(props) {
         ...props.dataUserFriends,
       ];
       props.setDataUserFriendsAll(newDataUserFriends);
-      props.setDataUserFriendsRender(newDataUserFriends);
       unCheckCancel();
       props.handleCancelModalCreateGroup();
     }

@@ -13,7 +13,6 @@ import {
 import "./Nav2.scss";
 
 function Nav2(props) {
-  console.log(props.date);
   const timepast = (value) => {
     if (props.date?.date - value?.date > 10) {
       return `${value?.date} / ${value?.moth}`;
@@ -83,85 +82,88 @@ function Nav2(props) {
         </Row>
       </Row>
       <div className="overflow">
-        {props.dataUserFriendsRender.map((value, key) => {
-          return (
-            <Row
-              className={`box-choose-chatbox box-choose-chatbox-${value.id_user}`}
-              onClick={() => props.handleClickChooseBoxChat(value)}
-              key={key}
-              onContextMenu={(e) => props.onContextMenuChooseBoxChat(e, value)}
-              style={{ order: value.pin_conversation && -value.style_order }}
-            >
-              <Row className="box1">
-                <Col className="image">
-                  {value.group ? (
-                    <ImageGroup dataUserFriend={value} />
-                  ) : (
-                    <img
-                      src={value.avatar}
-                      alt="not load img"
-                      style={{
-                        border: "0.5px solid #fff",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                        height: "48px",
-                        width: "48px",
-                        cursor: "pointer",
-                      }}
-                    />
-                  )}
-                </Col>
-                <Col className="choose-chatbox">
-                  <div
-                    className="title"
-                    style={{ fontWeight: value.not_read && "600" }}
-                  >
-                    {value.name}
+        {props.dataUserFriends &&
+          props.dataUserFriends.map((value, key) => {
+            return (
+              <Row
+                className={`box-choose-chatbox box-choose-chatbox-${value.id_user}`}
+                onClick={() => props.handleClickChooseBoxChat(value)}
+                key={key}
+                onContextMenu={(e) =>
+                  props.onContextMenuChooseBoxChat(e, value)
+                }
+                style={{ order: value.pin_conversation && -value.style_order }}
+              >
+                <Row className="box1">
+                  <Col className="image">
+                    {value.group ? (
+                      <ImageGroup dataUserFriend={value} />
+                    ) : (
+                      <img
+                        src={value.avatar}
+                        alt="not load img"
+                        style={{
+                          border: "0.5px solid #fff",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          height: "48px",
+                          width: "48px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    )}
+                  </Col>
+                  <Col className="choose-chatbox">
+                    <div
+                      className="title"
+                      style={{ fontWeight: value.not_read && "600" }}
+                    >
+                      {value.name}
+                    </div>
+                    <div
+                      className="content"
+                      style={{ color: value.not_read && "#001a33" }}
+                    >
+                      <>
+                        {value.last_value_chat?.name}:{" "}
+                        {value.last_value_chat?.type === "image" ? (
+                          <>[Hình ảnh]</>
+                        ) : value.last_value_chat?.type === "video" ? (
+                          <>[Video]</>
+                        ) : value.last_value_chat?.file ? (
+                          <>{`[File] ${value.last_value_chat?.file.name}`}</>
+                        ) : (
+                          <>{value.last_value_chat?.text_message}</>
+                        )}
+                      </>
+                    </div>
+                  </Col>
+                </Row>
+                <Col className="box2">
+                  <div className="time-before" onClick={() => {}}>
+                    {value?.notification && <BellOutlined />}
+                    {timepast(value?.last_value_chat)}
                   </div>
-                  <div
-                    className="content"
-                    style={{ color: value.not_read && "#001a33" }}
-                  >
-                    <>
-                      {value.last_value_chat?.name}:{" "}
-                      {value.last_value_chat?.type === "image" ? (
-                        <>[Hình ảnh]</>
-                      ) : value.last_value_chat?.type === "video" ? (
-                        <>[Video]</>
-                      ) : value.last_value_chat?.file ? (
-                        <>{`[File] ${value.last_value_chat?.file.name}`}</>
-                      ) : (
-                        <>{value.last_value_chat?.text_message}</>
-                      )}
-                    </>
+                  {
+                    <div
+                      className={`number-unread number-unread-${value?.id_user}`}
+                      key={value?.id_user}
+                    >
+                      <div className="time-before">
+                        {value?.pin_conversation && <PushpinOutlined />}
+                      </div>
+                      <div>{value?.not_read && <div></div>}</div>
+                    </div>
+                  }
+                </Col>
+                <Col className="box3">
+                  <div className="icon">
+                    <EllipsisOutlined />
                   </div>
                 </Col>
               </Row>
-              <Col className="box2">
-                <div className="time-before" onClick={() => {}}>
-                  {value?.notification && <BellOutlined />}
-                  {timepast(value?.last_value_chat)}
-                </div>
-                {
-                  <div
-                    className={`number-unread number-unread-${value?.id_user}`}
-                    key={value?.id_user}
-                  >
-                    <div className="time-before">
-                      {value?.pin_conversation && <PushpinOutlined />}
-                    </div>
-                    <div>{value?.not_read && <div></div>}</div>
-                  </div>
-                }
-              </Col>
-              <Col className="box3">
-                <div className="icon">
-                  <EllipsisOutlined />
-                </div>
-              </Col>
-            </Row>
-          );
-        })}
+            );
+          })}
       </div>
       <div />
     </Col>
