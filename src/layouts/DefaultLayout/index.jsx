@@ -885,7 +885,7 @@ function DefaultLayout({ children }) {
         `.box-choose-chatbox-${dataUserFriend?.id_user}`
       ).style.backgroundColor = "#eeeff2";
     }
-  }, [dataUserFriends]);
+  }, [dataUserFriends]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Modal
 
