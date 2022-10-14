@@ -185,6 +185,7 @@ function DefaultLayout({ children }) {
 
   const valueChatDemo = [
     {
+      notification_system: true,
       id: 3213213213213238,
       ...dataUserMe,
       other_people: false,
@@ -203,6 +204,7 @@ function DefaultLayout({ children }) {
       name: "Ghim hội thoại.xlsx",
     },
     {
+      notification_system: true,
       id: 3213213213213233213,
       ...dataUserMe,
       other_people: false,
@@ -221,6 +223,7 @@ function DefaultLayout({ children }) {
       name: "HTML.docx",
     },
     {
+      notification_system: true,
       id: 321321321321323321,
       ...dataUserMe,
       other_people: false,
@@ -239,6 +242,7 @@ function DefaultLayout({ children }) {
       name: "HTML.pdf",
     },
     {
+      notification_system: true,
       id: 32132147332396546,
       ...dataUserMe,
       date: 24,
@@ -253,6 +257,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 32132143333654211321,
       ...dataUserMe,
       date: 24,
@@ -266,6 +271,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 3213213213132131,
       ...dataUserMe,
       text_message: linkify(
@@ -279,6 +285,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 3234243546546565,
       text_message: linkify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
@@ -293,6 +300,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 321321653784387,
       ...dataUserMe,
       date: 24,
@@ -305,6 +313,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 321321434321321,
       ...dataUserMe,
       date: 24,
@@ -318,6 +327,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 3213213132131,
       ...dataUserMe,
       text_message: "Tin nhắn text",
@@ -329,6 +339,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      notification_system: true,
       id: 323426546565,
       text_message: linkify(
         "Find me at http://www.example.com and also at http://stackoverflow.com"
@@ -1011,7 +1022,7 @@ function DefaultLayout({ children }) {
     });
 
     document.addEventListener("keydown", () => {
-      if (!control) {
+      if (!control && document.querySelector(".input-chat .ant-input")) {
         document.querySelector(".input-chat .ant-input").focus();
       }
     });
@@ -1100,6 +1111,7 @@ function DefaultLayout({ children }) {
         valueRightClickMessage={valueRightClickMessage}
         renderImageFile={renderImageFile}
         dataUserFriendsApi={dataUserFriendsApi}
+        setValueChats={setValueChats}
       />
 
       <ModalCreateGroup
@@ -1245,11 +1257,13 @@ function DefaultLayout({ children }) {
                         key={key}
                       >
                         <Row className={`share-response share-response-${key}`}>
-                          <div>
-                            <ExportOutlined
-                              onClick={() => handleClickResponsiveIcon(value)}
-                            />
-                          </div>
+                          {!value.notification_system && (
+                            <div>
+                              <ExportOutlined
+                                onClick={() => handleClickResponsiveIcon(value)}
+                              />
+                            </div>
+                          )}
                           <div onClick={() => handleClickShare(value)}>
                             <ShareAltOutlined />
                           </div>

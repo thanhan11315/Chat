@@ -28,14 +28,16 @@ function RightmouseResponsive(props) {
           <CopyOutlined style={{ marginRight: "5px" }} /> Copy tin nhắn
         </div>
       )}
-      <div
-        className="share-responsive"
-        onClick={() => {
-          props.handleClickResponsiveIcon(props.valueResponsiveRightClick);
-        }}
-      >
-        <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời{" "}
-      </div>
+      {!props.valueResponsiveRightClick.notification_system && (
+        <div
+          className="share-responsive"
+          onClick={() => {
+            props.handleClickResponsiveIcon(props.valueResponsiveRightClick);
+          }}
+        >
+          <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời{" "}
+        </div>
+      )}
       <div className="share-responsive" onClick={handleClickShareRightMouse}>
         <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ
       </div>

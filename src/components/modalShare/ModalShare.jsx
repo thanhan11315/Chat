@@ -41,6 +41,28 @@ function ModalShare(props) {
     if (checkedValues.length > 0) {
       unCheckCancel();
       props.handleCancelModalShare();
+      console.log(checkedValues);
+      console.log(props.valueRightClickMessage);
+      checkedValues.forEach((checkedValue) => {
+        let oldValueChat = JSON.parse(
+          localStorage.getItem(`${checkedValue.id_user}`)
+        );
+        if (oldValueChat) {
+          let newValueChat = [props.valueRightClickMessage, ...oldValueChat];
+          localStorage.setItem(
+            `${checkedValue.id_user}`,
+            JSON.stringify(newValueChat)
+          );
+          props.setValueChats(newValueChat);
+        } else {
+          let newValueChat = [props.valueRightClickMessage];
+          localStorage.setItem(
+            `${checkedValue.id_user}`,
+            JSON.stringify(newValueChat)
+          );
+          props.setValueChats(newValueChat);
+        }
+      });
     }
   };
 
@@ -72,27 +94,29 @@ function ModalShare(props) {
                   {props.dataUserFriendsApi.map((value) => {
                     return (
                       <>
-                        <label
-                          htmlFor={value.id_user + 1}
-                          key={value.id_user + 1}
-                        >
-                          <div className="choose-share">
-                            <div className="box-input">
-                              <input
-                                className="input-checkbox-share"
-                                onChange={handleClickCheckBox}
-                                type="checkbox"
-                                name={value.id_user}
-                                value={value.id_user}
-                                id={value.id_user + 1}
-                              />
+                        {!value.notification_system && (
+                          <label
+                            htmlFor={value.id_user + 1}
+                            key={value.id_user + 1}
+                          >
+                            <div className="choose-share">
+                              <div className="box-input">
+                                <input
+                                  className="input-checkbox-share"
+                                  onChange={handleClickCheckBox}
+                                  type="checkbox"
+                                  name={value.id_user}
+                                  value={value.id_user}
+                                  id={value.id_user + 1}
+                                />
+                              </div>
+                              <div className="image">
+                                <img src={value.avatar} alt="img not load" />
+                              </div>
+                              <div className="name">{value.name}</div>
                             </div>
-                            <div className="image">
-                              <img src={value.avatar} alt="img not load" />
-                            </div>
-                            <div className="name">{value.name}</div>
-                          </div>
-                        </label>
+                          </label>
+                        )}
                       </>
                     );
                   })}
