@@ -4,9 +4,33 @@ import { DownloadOutlined } from "@ant-design/icons";
 import "./RenderFile.scss";
 
 function RenderFile(props) {
+  const renderLinkFile = (value) => {
+    if (value?.split(".").pop()) {
+      switch (value?.split(".").pop()) {
+        case "xlsx":
+          return "https://view.officeapps.live.com/op/embed.aspx?src=";
+        case "docx":
+          return "https://view.officeapps.live.com/op/embed.aspx?src=";
+        case "pdf":
+          return "https://drive.google.com/viewerng/viewer?url=";
+        default:
+          return "https://drive.google.com/viewerng/viewer?url=";
+      }
+    }
+  };
+  const handleClickFile = () => {
+    document.querySelector(".box_iframe_footer").style.display = "block";
+    props.setUrlFile(
+      `${renderLinkFile(props.value?.file?.name)}${props.value?.file?.url}`
+    );
+    props.setValueFile(props.value);
+  };
+  const handleClickDownLoadFile = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <a href={props.value?.file?.url} target="iframe_file">
-      {console.log(props.value.file?.url)}
+    <a href={props.urlFile} target="iframe_file" onClick={handleClickFile}>
       <div className="box-file">
         <Row className="box-content-file">
           <div className="img-file">
@@ -21,7 +45,10 @@ function RenderFile(props) {
               <div className="file-size">
                 {props.bytesToSize(props.value.file?.size)}
               </div>
-              <div className="icon-download">
+              <div
+                className="icon-download"
+                onClick={(e) => handleClickDownLoadFile(e)}
+              >
                 <DownloadOutlined />
               </div>
             </Row>

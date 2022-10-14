@@ -72,6 +72,8 @@ function DefaultLayout({ children }) {
 
   const [focusInput, SetFocusInput] = useState("");
   const [hiddenRightNav, setHiddenRightNav] = useState("hiddenRightNav");
+  const [urlFile, setUrlFile] = useState("");
+  const [valueFile, setValueFile] = useState("");
 
   const linkify = (text) => {
     var urlRegex =
@@ -193,7 +195,7 @@ function DefaultLayout({ children }) {
       year: 2022,
       ghim: false,
       file: {
-        url: "https://view.officeapps.live.com/op/embed.aspx?src=https://mysupership.com/custom/file/SuperShip_01_10_2022_Mau_Xac_Nhan_Don_Hang_Chuyen_Ngoai.xlsx&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+        url: "https://mysupership.com/custom/file/SuperShip_01_10_2022_Mau_Xac_Nhan_Don_Hang_Chuyen_Ngoai.xlsx&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
         name: "Ghim hội thoại.xlsx",
         size: 1755705,
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -211,8 +213,8 @@ function DefaultLayout({ children }) {
       year: 2022,
       ghim: false,
       file: {
-        url: "https://view.officeapps.live.com/op/embed.aspx?src=https://mdl.supership.net/CT01%20To%CC%9B%CC%80%20khai%20thay%20%C4%91o%CC%82%CC%89i%20tho%CC%82ng%20tin%20cu%CC%9B%20tru%CC%81.doc&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
-        name: "HTML.docx",
+        url: "https://mdl.supership.net/CT01%20To%CC%9B%CC%80%20khai%20thay%20%C4%91o%CC%82%CC%89i%20tho%CC%82ng%20tin%20cu%CC%9B%20tru%CC%81.doc&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+        name: "SuperShip.docx",
         size: 23326,
         type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       },
@@ -229,7 +231,7 @@ function DefaultLayout({ children }) {
       year: 2022,
       ghim: false,
       file: {
-        url: "https://drive.google.com/viewerng/viewer?url=https://mdl.supership.net/strgs/files/SuperShip%20-%20CHI%CC%81NH%20SA%CC%81CH%20BO%CC%82%CC%80I%20HOA%CC%80N.pdf?ref=MySuperShip&embedded=true&hl=vi&retry=0&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+        url: "https://mdl.supership.net/strgs/files/SuperShip%20-%20CHI%CC%81NH%20SA%CC%81CH%20BO%CC%82%CC%80I%20HOA%CC%80N.pdf?ref=MySuperShip&embedded=true&hl=vi&retry=0&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
         name: "HTML.pdf",
         size: 420495,
         type: "application/pdf",
@@ -809,15 +811,15 @@ function DefaultLayout({ children }) {
   };
 
   const renderImageFile = (value) => {
-    if (value?.substr(-4)) {
-      switch (value?.substr(-4)) {
+    if (value?.split(".").pop()) {
+      switch (value?.split(".").pop()) {
         case "xlsx":
           return MicrosoftExcel;
         case "docx":
           return MicrosoftWord;
-        case ".pdf":
+        case "pdf":
           return ImagePDF;
-        case ".zip":
+        case "zip":
           return ImageZIP;
         default:
           return AvatarAn;
@@ -1082,7 +1084,11 @@ function DefaultLayout({ children }) {
   return (
     <>
       {/* Modal */}
-      <IframeFile />
+      <IframeFile
+        setUrlFile={setUrlFile}
+        valueFile={valueFile}
+        bytesToSize={bytesToSize}
+      />
       <ModalInformation
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}
@@ -1282,6 +1288,9 @@ function DefaultLayout({ children }) {
                                 renderImageFile={renderImageFile}
                                 value={value}
                                 bytesToSize={bytesToSize}
+                                setUrlFile={setUrlFile}
+                                urlFile={urlFile}
+                                setValueFile={setValueFile}
                               />
                             )}
                             {value.type === "likeIcon" && (
