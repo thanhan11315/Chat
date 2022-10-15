@@ -541,9 +541,6 @@ li {
   margin-right: 16px;
 }
 
-#wrapper .box-nav-3 .box-chat .box-me .me .content-chat {
-}
-
 #wrapper .box-nav-3 .nav-input-chat .nav-input {
   padding: 0 0 0 8px;
   height: 46px;
@@ -767,6 +764,19 @@ li {
 
 .ant-modal-content .ant-modal-title {
   font-weight: 600;
+}
+
+.box-content-all-chat .hozbCb {
+  margin-top: 8px;
+  background-color: inherit;
+  border-color: var(--R40);
+  div {
+    border-radius: 10px;
+  }
+}
+.box-content-all-chat .hozbCb:hover {
+  background-color: inherit;
+  border-color: var(--R40);
 }
 
 @media screen and (max-width: 992px) {

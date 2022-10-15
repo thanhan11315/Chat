@@ -22,6 +22,7 @@ import React from "react";
 import "./index.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Microlink from "@microlink/react";
 // compoment
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.jsx";
 import ModalInformation from "../../components/modal/Modal.jsx";
@@ -81,6 +82,19 @@ function DefaultLayout({ children }) {
     return text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + url + "</a>";
     });
+  };
+
+  const isValidUrl = (urlString) => {
+    var urlPattern = new RegExp(
+      "^(https?:\\/\\/)?" + // validate protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // validate fragment locator
+    return !!urlPattern.test(urlString);
   };
 
   const handleClickNavRight = (e) => {
@@ -454,9 +468,12 @@ function DefaultLayout({ children }) {
       id_user_receiver: dataUserFriend.id_user,
       other_people: false,
       ghim: false,
+      is_message_url: isValidUrl(valueChatReplace),
+      message_url: valueChatReplace,
       id: id,
       Responsive: ResponsiveInputValue,
       text_message: linkify(valueChatReplace),
+
       ...date,
       create_date: createDateBoxChat(),
     };
@@ -1333,6 +1350,12 @@ function DefaultLayout({ children }) {
                                       }}
                                     />
                                   </div>
+                                  {value.is_message_url && (
+                                    <Microlink
+                                      url={value.message_url}
+                                      size="large"
+                                    />
+                                  )}
                                   <div className="date">
                                     {value.hours}:{value.minutes}
                                   </div>
