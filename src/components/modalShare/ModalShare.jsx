@@ -48,21 +48,77 @@ function ModalShare(props) {
           localStorage.getItem(`${checkedValue.id_user}`)
         );
         if (oldValueChat) {
-          let newValueChat = [props.valueRightClickMessage, ...oldValueChat];
+          let newValueChats = [
+            {
+              ...props.valueRightClickMessage,
+              ...props.date,
+              create_date: props.createDateBoxChat(),
+              id: props.id,
+            },
+            ...oldValueChat,
+          ];
           localStorage.setItem(
             `${checkedValue.id_user}`,
-            JSON.stringify(newValueChat)
+            JSON.stringify(newValueChats)
           );
-          props.setValueChats(newValueChat);
         } else {
-          let newValueChat = [props.valueRightClickMessage];
+          let newValueChats = [
+            {
+              ...props.valueRightClickMessage,
+              ...props.date,
+              create_date: props.createDateBoxChat(),
+              id: props.id,
+            },
+          ];
           localStorage.setItem(
             `${checkedValue.id_user}`,
-            JSON.stringify(newValueChat)
+            JSON.stringify(newValueChats)
           );
-          props.setValueChats(newValueChat);
+        }
+        if (checkedValue.id_user === props.dataUserFriend?.id_user) {
+          props.setValueChats([
+            {
+              ...props.valueRightClickMessage,
+              ...props.date,
+              create_date: props.createDateBoxChat(),
+              id: props.id,
+            },
+            ...oldValueChat,
+          ]);
         }
       });
+      let newdataUserFriendsChange = [];
+      checkedValues.forEach((checkedValue) => {
+        const IndexChangeDataUserFriend = props.dataUserFriends.findIndex(
+          (dataUserFriend) => checkedValue.id_user === dataUserFriend.id_user
+        );
+        newdataUserFriendsChange = [
+          ...newdataUserFriendsChange,
+          {
+            ...props.dataUserFriends[IndexChangeDataUserFriend],
+            last_value_chat: {
+              ...props.valueRightClickMessage,
+              ...props.date,
+              create_date: props.createDateBoxChat(),
+              id: props.id,
+            },
+          },
+        ];
+      });
+      let oldDataUserFriends = props.dataUserFriends;
+      checkedValues.forEach((checkedValue) => {
+        const IndexChangeDataUserFriend = oldDataUserFriends.findIndex(
+          (dataUserFriend) => checkedValue.id_user === dataUserFriend.id_user
+        );
+        oldDataUserFriends.splice(IndexChangeDataUserFriend, 1);
+      });
+      console.log(oldDataUserFriends);
+      const NewdataUserFriends = [
+        ...newdataUserFriendsChange,
+        ...oldDataUserFriends,
+      ];
+      console.log(NewdataUserFriends);
+      props.setDataUserFriends(NewdataUserFriends);
     }
   };
 

@@ -1112,6 +1112,7 @@ function DefaultLayout({ children }) {
   return (
     <>
       {/* Modal */}
+      {console.log(dataUserFriend)}
       <IframeFile
         setUrlFile={setUrlFile}
         valueFile={valueFile}
@@ -1129,6 +1130,12 @@ function DefaultLayout({ children }) {
         renderImageFile={renderImageFile}
         dataUserFriendsApi={dataUserFriendsApi}
         setValueChats={setValueChats}
+        date={date}
+        createDateBoxChat={createDateBoxChat}
+        id={id}
+        setDataUserFriends={setDataUserFriends}
+        dataUserFriends={dataUserFriends}
+        dataUserFriend={dataUserFriend}
       />
 
       <ModalCreateGroup
@@ -1329,7 +1336,14 @@ function DefaultLayout({ children }) {
                             )}
                             {value.text_message && (
                               <>
-                                <div className="content-chat">
+                                <div
+                                  className="content-chat"
+                                  style={
+                                    value.is_message_url
+                                      ? { maxWidth: "330px" }
+                                      : {}
+                                  }
+                                >
                                   <div className="box-make-hidden-content-chat">
                                     {value.Responsive && (
                                       <a href={`#${value.Responsive.id}`}>
@@ -1344,6 +1358,7 @@ function DefaultLayout({ children }) {
                                         />
                                       </a>
                                     )}
+
                                     <div
                                       dangerouslySetInnerHTML={{
                                         __html: value.text_message,
@@ -1354,6 +1369,7 @@ function DefaultLayout({ children }) {
                                     <Microlink
                                       url={value.message_url}
                                       size="large"
+                                      fetch-data="true"
                                     />
                                   )}
                                   <div className="date">
