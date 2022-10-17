@@ -149,7 +149,7 @@
     justify-content: center;
     cursor: pointer;
   }
-  .title {
+  > .title {
     height: 40px;
     padding: 0px 16px;
     font-weight: 600;
@@ -188,6 +188,10 @@
   .content-file {
     overflow: hidden;
     max-height: 217px;
+  }
+  .content-link {
+    overflow: hidden;
+    max-height: 197px;
   }
 }
 

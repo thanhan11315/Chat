@@ -50,9 +50,19 @@ function ListGhim(props) {
             </div>
             <div className="status">
               <div className="content">
-                {props.value?.text_message
-                  ? `${props.value?.name}: ${props.value?.text_message}`
-                  : `${props.value?.name}: ${props.value?.content}`}
+                {props.value?.text_message ? (
+                  <>
+                    {props.value?.name}
+                    <span>:</span>{" "}
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: props.value?.text_message,
+                      }}
+                    />
+                  </>
+                ) : (
+                  `${props.value?.name}: ${props.value?.content}`
+                )}
               </div>
             </div>
           </div>

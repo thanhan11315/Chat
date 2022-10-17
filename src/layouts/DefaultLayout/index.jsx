@@ -22,7 +22,6 @@ import React from "react";
 import "./index.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Microlink from "@microlink/react";
 // compoment
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.jsx";
 import ModalInformation from "../../components/modal/Modal.jsx";
@@ -54,6 +53,7 @@ import RightmouseResponsive from "../../components/rightmousResponsive/Rightmous
 import LikeIcon from "../../components/likeIcon/LikeIcon";
 import ButtonScrollBottom from "../../components/buttonScrollEndBottom/ButtonScrollEndBottom";
 import ModalAddMembersToGroup from "../../components/modalAddMembersToGroup/ModalAddMemberToGroup";
+import LinkPreview from "../../components/linkPreview/LinkPreview";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -75,6 +75,54 @@ function DefaultLayout({ children }) {
   const [hiddenRightNav, setHiddenRightNav] = useState("hiddenRightNav");
   const [urlFile, setUrlFile] = useState("");
   const [valueFile, setValueFile] = useState("");
+  const [valueChats, setValueChats] = useState("");
+  const [valueChat, setValueChat] = useState(``);
+  const [dataUserFriendsReaded, setDataUserFriendsReaded] = useState("");
+  const [dataUserFriends, setDataUserFriends] = useState("");
+  const [dataUserFriend, setDataUserFriend] = useState("");
+  const [valueListGhim, setValueListGhim] = useState("");
+  const [lengthGhim, setLengthGhim] = useState("");
+  const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
+  const [valueRightClickMessage, setValueRightClickMessage] = useState("");
+  const [modalInformation, setModalInformation] = useState(false);
+  const [dataModalInformation, setDataModalInformation] = useState({});
+  const [modalCreateGroup, setModalCreateGroup] = useState(false);
+  const [
+    dataUserFriendsApiAddMembersToGroup,
+    setDataUserFriendsApiAddMembersToGroup,
+  ] = useState([]);
+
+  const d = new Date();
+  const date = {
+    year: d.getFullYear(),
+    month: d.getMonth(),
+    date: d.getDate(),
+    hours: d.getHours(),
+    minutes: d.getMinutes(),
+  };
+
+  const id = `${new Date().valueOf()}${Math.floor(
+    Math.random() * 1000000000000
+  )}`;
+  const createDateBoxChat = () => {
+    if (valueChats) {
+      const valueTimeLast = valueChats.find(
+        (valueChat) => valueChat.create_date === true
+      );
+      if (valueTimeLast) {
+        return (
+          date.year - valueTimeLast?.year >= 1 ||
+          date.month - valueTimeLast?.month >= 1 ||
+          date.date - valueTimeLast?.date >= 1 ||
+          date.hours - valueTimeLast?.hours >= 2
+        );
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  };
 
   const linkify = (text) => {
     var urlRegex =
@@ -198,6 +246,42 @@ function DefaultLayout({ children }) {
   ];
 
   const valueChatDemo = [
+    {
+      ...dataUserMe,
+      id_user_receiver: dataUserFriend.id_user,
+      other_people: false,
+      ghim: false,
+      is_message_url: isValidUrl(
+        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+      ),
+      message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
+      id: id,
+      Responsive: ResponsiveInputValue,
+      text_message: linkify(
+        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+      ),
+
+      ...date,
+      create_date: createDateBoxChat(),
+    },
+    {
+      ...dataUserFriendsApi[0],
+      id_user_receiver: dataUserFriend.id_user,
+      other_people: true,
+      ghim: false,
+      is_message_url: isValidUrl(
+        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+      ),
+      message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
+      id: id,
+      Responsive: ResponsiveInputValue,
+      text_message: linkify(
+        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+      ),
+
+      ...date,
+      create_date: createDateBoxChat(),
+    },
     {
       notification_system: true,
       id: 3213213213213238,
@@ -369,9 +453,6 @@ function DefaultLayout({ children }) {
     },
   ];
 
-  const [valueChats, setValueChats] = useState("");
-  const [valueChat, setValueChat] = useState(``);
-
   useEffect(() => {
     localStorage.setItem("0898999999", JSON.stringify(valueChatDemo));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -397,45 +478,12 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const d = new Date();
-  const date = {
-    year: d.getFullYear(),
-    month: d.getMonth(),
-    date: d.getDate(),
-    hours: d.getHours(),
-    minutes: d.getMinutes(),
-  };
-
-  const id = `${new Date().valueOf()}${Math.floor(
-    Math.random() * 1000000000000
-  )}`;
-
   const deleteMessage = (value) => {
     const newValueChats = valueChats.filter(
       (valueChat) => valueChat.id !== value.id
     );
     setValueChats(newValueChats);
     localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
-  };
-
-  const createDateBoxChat = () => {
-    if (valueChats) {
-      const valueTimeLast = valueChats.find(
-        (valueChat) => valueChat.create_date === true
-      );
-      if (valueTimeLast) {
-        return (
-          date.year - valueTimeLast?.year >= 1 ||
-          date.month - valueTimeLast?.month >= 1 ||
-          date.date - valueTimeLast?.date >= 1 ||
-          date.hours - valueTimeLast?.hours >= 2
-        );
-      } else {
-        return true;
-      }
-    } else {
-      return true;
-    }
   };
 
   const setValueChatsInRenderAllMessage = (newValueChat) => {
@@ -666,9 +714,6 @@ function DefaultLayout({ children }) {
 
   // Ghim
 
-  const [valueListGhim, setValueListGhim] = useState("");
-  const [lengthGhim, setLengthGhim] = useState("");
-
   const handleClickGhim = (valueGhim) => {
     const newValueChats = valueChats.map((value) => {
       if (value.id === valueGhim.id) {
@@ -717,9 +762,6 @@ function DefaultLayout({ children }) {
   };
 
   // Ghim
-
-  const [dataUserFriends, setDataUserFriends] = useState("");
-  const [dataUserFriend, setDataUserFriend] = useState("");
 
   const getDataUserFriends = () => {
     if (JSON.parse(localStorage.getItem("dataUserFriends"))) {
@@ -797,14 +839,14 @@ function DefaultLayout({ children }) {
       document.querySelector(".box-ghim-2").style.display = "none";
     }
     setDataUserFriend(value);
-    const newdataUserFriends = dataUserFriends.map((valueN) => {
+    const newDataUserFriends = dataUserFriends.map((valueN) => {
       if (valueN.id_user === value.id_user) {
         return { ...valueN, not_read: false };
       } else {
         return valueN;
       }
     });
-    setDataUserFriendsAll(newdataUserFriends);
+    setDataUserFriendsAll(newDataUserFriends);
   };
 
   const getValueChats = (value) => {
@@ -869,6 +911,27 @@ function DefaultLayout({ children }) {
     });
   };
 
+  useEffect(() => {
+    if (
+      document.querySelector(
+        "#wrapper .box-nav-2 .title-nav-2 .not-read.selected"
+      )
+    ) {
+      dataUserFriends &&
+        dataUserFriends.forEach((dataUserFriends) => {
+          document.querySelector(
+            `.box-choose-chatbox-${dataUserFriends.id_user}`
+          ).style.display = "flex";
+        });
+      dataUserFriendsReaded &&
+        dataUserFriendsReaded.forEach((dataUserFriendReaded) => {
+          document.querySelector(
+            `.box-choose-chatbox-${dataUserFriendReaded?.id_user}`
+          ).style.display = "none";
+        });
+    }
+  }, [dataUserFriends]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleClickNotReadTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
@@ -876,18 +939,16 @@ function DefaultLayout({ children }) {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .not-read")
       .classList.add("selected");
-    const dataUserFriendsReaded = dataUserFriends.filter(
+    const newDataUserFriends = dataUserFriends.filter(
       (dataUserFriend) => dataUserFriend.not_read !== true
     );
-    dataUserFriendsReaded.forEach((dataUserFriendReaded) => {
+    setDataUserFriendsReaded(newDataUserFriends);
+    newDataUserFriends.forEach((dataUserFriendReaded) => {
       document.querySelector(
         `.box-choose-chatbox-${dataUserFriendReaded.id_user}`
       ).style.display = "none";
     });
   };
-
-  const [ResponsiveInputValue, setResponsiveInputValue] = useState("");
-  const [valueRightClickMessage, setValueRightClickMessage] = useState("");
 
   const handleClickResponsiveIcon = (value) => {
     setResponsiveInputValue(value);
@@ -919,8 +980,6 @@ function DefaultLayout({ children }) {
 
   // Modal
 
-  const [modalInformation, setModalInformation] = useState(false);
-  const [dataModalInformation, setDataModalInformation] = useState({});
   const handleCancelModalInformation = () => {
     setModalInformation(false);
   };
@@ -937,12 +996,6 @@ function DefaultLayout({ children }) {
     setModalShare(true);
     setValueRightClickMessage(value);
   };
-
-  const [modalCreateGroup, setModalCreateGroup] = useState(false);
-  const [
-    dataUserFriendsApiAddMembersToGroup,
-    setDataUserFriendsApiAddMembersToGroup,
-  ] = useState([]);
 
   const createListAddMembersToGroup = () => {
     let listAddMenbersToGroup = dataUserFriendsApi;
@@ -1112,7 +1165,6 @@ function DefaultLayout({ children }) {
   return (
     <>
       {/* Modal */}
-      {console.log(dataUserFriend)}
       <IframeFile
         setUrlFile={setUrlFile}
         valueFile={valueFile}
@@ -1334,16 +1386,9 @@ function DefaultLayout({ children }) {
                             {value.type === "likeIcon" && (
                               <LikeIcon value={value} />
                             )}
-                            {value.text_message && (
+                            {value.text_message && !value.is_message_url && (
                               <>
-                                <div
-                                  className="content-chat"
-                                  style={
-                                    value.is_message_url
-                                      ? { maxWidth: "330px" }
-                                      : {}
-                                  }
-                                >
+                                <div className="content-chat">
                                   <div className="box-make-hidden-content-chat">
                                     {value.Responsive && (
                                       <a href={`#${value.Responsive.id}`}>
@@ -1358,26 +1403,34 @@ function DefaultLayout({ children }) {
                                         />
                                       </a>
                                     )}
-
                                     <div
                                       dangerouslySetInnerHTML={{
                                         __html: value.text_message,
                                       }}
                                     />
                                   </div>
-                                  {value.is_message_url && (
-                                    <Microlink
-                                      url={value.message_url}
-                                      size="large"
-                                      fetch-data="true"
-                                    />
-                                  )}
-                                  <div className="date">
-                                    {value.hours}:{value.minutes}
-                                  </div>
                                 </div>
                               </>
                             )}
+                            {
+                              <>
+                                {value.is_message_url && (
+                                  <div className="content-chat">
+                                    <div className="box-make-hidden-content-chat">
+                                      <LinkPreview
+                                        url={value.message_url}
+                                        size={
+                                          value.other_people ? "two" : "one"
+                                        }
+                                      />
+                                      <div className="date">
+                                        {value.hours}:{value.minutes}
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            }
                           </div>
                         </div>
                       </div>
@@ -1551,6 +1604,7 @@ function DefaultLayout({ children }) {
                     renderImageFile={renderImageFile}
                   />
                 )}
+                {/* {<LinkPreview url={valueChat} size="four" />} */}
 
                 {/* Responsive-input */}
 
@@ -1629,6 +1683,9 @@ function DefaultLayout({ children }) {
           setValueChats={setValueChats}
           date={date}
           createDateBoxChat={createDateBoxChat}
+          setUrlFile={setUrlFile}
+          urlFile={urlFile}
+          setValueFile={setValueFile}
         />
       </Row>
     </>

@@ -12,6 +12,7 @@ import "./Nav4.scss";
 import RenderFile from "../../../components/file/RenderFile";
 import ImageGroup from "../../../components/imageGroup/ImageGroup";
 import { useState } from "react";
+import LinkPreview from "../../../components/linkPreview/LinkPreview";
 function Nav4(props) {
   const [showAllImage, setShowAllImage] = useState(false);
   const hanldeClickShowAllImage = () => {
@@ -35,6 +36,18 @@ function Nav4(props) {
     const element = document.querySelector(".box-element .content-file");
     element.style.maxHeight = "217px";
     setShowAllFile(false);
+  };
+
+  const [showAllLink, setShowAllLink] = useState(false);
+  const hanldeClickShowAllLink = () => {
+    const element = document.querySelector(".box-element .content-link");
+    element.style.maxHeight = "none";
+    setShowAllLink(true);
+  };
+  const hanldeClickHiddenAllLink = () => {
+    const element = document.querySelector(".box-element .content-link");
+    element.style.maxHeight = "197px";
+    setShowAllLink(false);
   };
 
   const [showAllMembers, setShowAllMembers] = useState(false);
@@ -344,17 +357,25 @@ function Nav4(props) {
         <div className="box-element">
           <div className="title">File</div>
           <div className="content-file">
-            {props.valueChat &&
+            {props.valueChats &&
               props.valueChats.map((valueChat, key) => {
                 return (
-                  valueChat.file && (
-                    <RenderFile
-                      key={key}
-                      renderImageFile={props.renderImageFile}
-                      value={valueChat}
-                      bytesToSize={props.bytesToSize}
-                    />
-                  )
+                  <>
+                    {valueChat.file && (
+                      <>
+                        {console.log(123)}
+                        <RenderFile
+                          key={key}
+                          renderImageFile={props.renderImageFile}
+                          value={valueChat}
+                          bytesToSize={props.bytesToSize}
+                          setUrlFile={props.setUrlFile}
+                          urlFile={props.urlFile}
+                          setValueFile={props.setValueFile}
+                        />
+                      </>
+                    )}
+                  </>
                 );
               })}
           </div>
@@ -364,6 +385,32 @@ function Nav4(props) {
             </div>
           ) : (
             <div className="div-button" onClick={hanldeClickShowAllFile}>
+              Xem tất cả
+            </div>
+          )}
+        </div>
+        <div className="box-element">
+          <div className="title">Link</div>
+          <div className="content-link">
+            {props.valueChats &&
+              props.valueChats.map((valueChat, key) => {
+                return (
+                  <>
+                    {valueChat.is_message_url && (
+                      <>
+                        <LinkPreview url={valueChat.message_url} size="three" />
+                      </>
+                    )}
+                  </>
+                );
+              })}
+          </div>
+          {showAllLink ? (
+            <div className="div-button" onClick={hanldeClickHiddenAllLink}>
+              Thu Gọn
+            </div>
+          ) : (
+            <div className="div-button" onClick={hanldeClickShowAllLink}>
               Xem tất cả
             </div>
           )}

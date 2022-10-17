@@ -133,7 +133,13 @@ function Nav2(props) {
                         ) : value.last_value_chat?.file ? (
                           <>{`[File] ${value.last_value_chat?.file.name}`}</>
                         ) : (
-                          <>{value.last_value_chat?.text_message}</>
+                          <>
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: value.last_value_chat?.text_message,
+                              }}
+                            />
+                          </>
                         )}
                       </>
                     </div>

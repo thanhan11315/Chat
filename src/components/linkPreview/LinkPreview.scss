@@ -1,0 +1,127 @@
+.box-link-preview {
+  background-color: inherit;
+  max-width: 330px;
+  .text-link {
+    margin-bottom: 14px;
+    a {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  .card-link-img {
+    cursor: pointer;
+    width: 100%;
+    img {
+      width: 100%;
+      border-radius: 8px;
+    }
+  }
+  .card-content {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 8px;
+    .title {
+      cursor: pointer;
+      margin-bottom: 3px;
+      color: var(--primary-text);
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.5;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .title:hover {
+      color: var(--B60);
+    }
+    .description {
+      cursor: pointer;
+      margin-bottom: 3px;
+      color: var(--NG60);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .domain {
+      cursor: pointer;
+      color: var(--B60);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+  }
+}
+
+.style-2 .box-link-preview {
+  .text-link {
+    a {
+    }
+    a:hover {
+    }
+  }
+  .card-link-img {
+    width: 75px;
+    min-width: 75px;
+    height: 75px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  }
+  .card-content {
+    margin: 3px 0px auto 16px;
+    .title {
+    }
+    .description {
+    }
+    .domain {
+    }
+  }
+}
+
+.style-3 .box-link-preview {
+  height: 65.5px;
+  align-items: center;
+  padding: 11px 16px;
+  cursor: pointer;
+  .card-link-img {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    img {
+      border-radius: 3px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .card-content {
+    margin: 0 0 0 8px;
+    .title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--primary-text);
+    }
+    .domain {
+    }
+  }
+}
+
+.style-3 .box-link-preview:hover {
+  background-color: var(--lst-item-hover);
+}
