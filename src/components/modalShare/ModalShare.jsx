@@ -37,56 +37,60 @@ function ModalShare(props) {
     handleClickCheckBox();
   };
 
+  const sentValueChatsShare = () => {
+    checkedValues.forEach((checkedValue) => {
+      let oldValueChat = JSON.parse(
+        localStorage.getItem(`${checkedValue.id_user}`)
+      );
+      if (oldValueChat) {
+        let newValueChats = [
+          {
+            ...props.valueRightClickMessage,
+            ...props.date,
+            create_date: props.createDateBoxChat(),
+            id: props.id + checkedValue.id_user,
+          },
+          ...oldValueChat,
+        ];
+        localStorage.setItem(
+          `${checkedValue.id_user}`,
+          JSON.stringify(newValueChats)
+        );
+      } else {
+        let newValueChats = [
+          {
+            ...props.valueRightClickMessage,
+            ...props.date,
+            create_date: props.createDateBoxChat(),
+            id: props.id + checkedValue.id_user,
+          },
+        ];
+        localStorage.setItem(
+          `${checkedValue.id_user}`,
+          JSON.stringify(newValueChats)
+        );
+      }
+      if (checkedValue.id_user === props.dataUserFriend?.id_user) {
+        props.setValueChats([
+          {
+            ...props.valueRightClickMessage,
+            ...props.date,
+            create_date: props.createDateBoxChat(),
+            id: props.id + checkedValue.id_user,
+          },
+          ...oldValueChat,
+        ]);
+      }
+    });
+  };
+
   const handleClickShareButton = () => {
     if (checkedValues.length > 0) {
       unCheckCancel();
       props.handleCancelModalShare();
       console.log(checkedValues);
       console.log(props.valueRightClickMessage);
-      checkedValues.forEach((checkedValue) => {
-        let oldValueChat = JSON.parse(
-          localStorage.getItem(`${checkedValue.id_user}`)
-        );
-        if (oldValueChat) {
-          let newValueChats = [
-            {
-              ...props.valueRightClickMessage,
-              ...props.date,
-              create_date: props.createDateBoxChat(),
-              id: props.id,
-            },
-            ...oldValueChat,
-          ];
-          localStorage.setItem(
-            `${checkedValue.id_user}`,
-            JSON.stringify(newValueChats)
-          );
-        } else {
-          let newValueChats = [
-            {
-              ...props.valueRightClickMessage,
-              ...props.date,
-              create_date: props.createDateBoxChat(),
-              id: props.id,
-            },
-          ];
-          localStorage.setItem(
-            `${checkedValue.id_user}`,
-            JSON.stringify(newValueChats)
-          );
-        }
-        if (checkedValue.id_user === props.dataUserFriend?.id_user) {
-          props.setValueChats([
-            {
-              ...props.valueRightClickMessage,
-              ...props.date,
-              create_date: props.createDateBoxChat(),
-              id: props.id,
-            },
-            ...oldValueChat,
-          ]);
-        }
-      });
+      sentValueChatsShare();
       let newdataUserFriendsChange = [];
       checkedValues.forEach((checkedValue) => {
         const IndexChangeDataUserFriend = props.dataUserFriends.findIndex(
@@ -119,6 +123,10 @@ function ModalShare(props) {
       ];
       console.log(NewdataUserFriends);
       props.setDataUserFriends(NewdataUserFriends);
+      localStorage.setItem(
+        "dataUserFriends",
+        JSON.stringify(NewdataUserFriends)
+      );
     }
   };
 

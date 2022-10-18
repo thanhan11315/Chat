@@ -6,89 +6,246 @@ import {
   CloseOutlined,
 } from "@ant-design/icons";
 import "./ListGhim.scss";
+import LinkPreview from "../linkPreview/LinkPreview";
 function Ghim(props) {
   return (
-    <Row className="box-ghim">
-      <Row className="box-1">
-        {props.valueListGhim[0].type === "image" ? (
-          <>
-            <div className="image-box">
-              <div className="border-right" />
-              <img alt="img not load" src={props.valueListGhim[0].url} />
-            </div>
-          </>
-        ) : props.valueListGhim[0].type === "video" ? (
-          <>
-            <div className="image-box">
-              <div className="border-right" />
-              <video alt="video not load" src={props.valueListGhim[0].url} />
-            </div>
-          </>
-        ) : props.valueListGhim[0].file ? (
-          <>
-            <div className="image-box">
-              <div className="border-right" />
-              <img
-                alt="img not load"
-                src={props.renderImageFile(props.valueListGhim[0].file.name)}
+    <>
+      {props.valueListGhim[0]?.type === "image" && (
+        <Row className="box-ghim">
+          <a
+            style={{ width: "calc(100% - 175px)" }}
+            href={`#${props.valueListGhim[0].id}`}
+          >
+            <Row className="box-1">
+              <>
+                <div className="image-box">
+                  <div className="border-right" />
+                  <img alt="img not load" src={props.valueListGhim[0].url} />
+                </div>
+              </>
+              <div className="box-1-1">
+                <div className="title">
+                  <div className="content">[Hình ảnh]</div>
+                </div>
+                <div className="status">
+                  <div className="content">
+                    {`${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.content}`}
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </a>
+          <div className="box-2">
+            <div className="delete-ghim">
+              <CloseOutlined
+                onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
               />
             </div>
-          </>
-        ) : (
-          <div className="image-message">
-            <MessageOutlined />
-          </div>
-        )}
-        <div className="box-1-1">
-          <div className="title">
-            {props.valueListGhim[0]?.type === "image" ? (
-              <div className="content">[Hình ảnh]</div>
-            ) : props.valueListGhim[0]?.type === "video" ? (
-              <div className="content">[Video]</div>
-            ) : props.valueListGhim[0]?.file ? (
-              <div className="content">[File]</div>
-            ) : (
-              <div className="content">Tin nhắn</div>
+            {props.lengthGhim > 1 && (
+              <div
+                className="ghim"
+                onClick={() => {
+                  document.querySelector(".box-ghim-1").style.display = "none";
+                  document.querySelector(".box-ghim-2").style.display = "block";
+                }}
+              >
+                {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
+              </div>
             )}
           </div>
-          <div className="status">
-            <div className="content">
-              {props.valueListGhim[0]?.text_message ? (
-                <>
-                  {props.valueListGhim[0]?.name}
-                  <span>:</span>{" "}
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: props.valueListGhim[0]?.text_message,
-                    }}
+        </Row>
+      )}
+      {props.valueListGhim[0]?.type === "video" && (
+        <Row className="box-ghim">
+          <a
+            style={{ width: "calc(100% - 175px)" }}
+            href={`#${props.valueListGhim[0].id}`}
+          >
+            <Row className="box-1">
+              <>
+                <div className="image-box">
+                  <div className="border-right" />
+                  <video
+                    alt="video not load"
+                    src={props.valueListGhim[0].url}
                   />
-                </>
-              ) : (
-                `${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.content}`
+                </div>
+              </>
+              <div className="box-1-1">
+                <div className="title">
+                  <div className="content">[Video]</div>
+                </div>
+                <div className="status">
+                  <div className="content">
+                    {`${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.content}`}
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </a>
+          <div className="box-2">
+            <div className="delete-ghim">
+              <CloseOutlined
+                onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
+              />
+            </div>
+            {props.lengthGhim > 1 && (
+              <div
+                className="ghim"
+                onClick={() => {
+                  document.querySelector(".box-ghim-1").style.display = "none";
+                  document.querySelector(".box-ghim-2").style.display = "block";
+                }}
+              >
+                {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
+              </div>
+            )}
+          </div>
+        </Row>
+      )}
+      {props.valueListGhim[0].file && (
+        <Row className="box-ghim">
+          <a
+            style={{ width: "calc(100% - 175px)" }}
+            href={`#${props.valueListGhim[0].id}`}
+          >
+            <Row className="box-1">
+              <>
+                <div className="image-box">
+                  <div className="border-right" />
+                  <img
+                    alt="img not load"
+                    src={props.renderImageFile(
+                      props.valueListGhim[0].file.name
+                    )}
+                  />
+                </div>
+              </>
+              <div className="box-1-1">
+                <div className="title">
+                  <div className="content">[File]</div>
+                </div>
+                <div className="status">
+                  <div className="content">
+                    {`${props.valueListGhim[0]?.name}: ${props.valueListGhim[0]?.content}`}
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </a>
+          <div className="box-2">
+            <div className="delete-ghim">
+              <CloseOutlined
+                onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
+              />
+            </div>
+            {props.lengthGhim > 1 && (
+              <div
+                className="ghim"
+                onClick={() => {
+                  document.querySelector(".box-ghim-1").style.display = "none";
+                  document.querySelector(".box-ghim-2").style.display = "block";
+                }}
+              >
+                {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
+              </div>
+            )}
+          </div>
+        </Row>
+      )}
+      {props.valueListGhim[0]?.text_message &&
+        !props.valueListGhim[0]?.is_message_url && (
+          <Row className="box-ghim">
+            <a
+              style={{ width: "calc(100% - 175px)" }}
+              href={`#${props.valueListGhim[0].id}`}
+            >
+              <Row className="box-1">
+                <div className="image-message">
+                  <MessageOutlined />
+                </div>
+                <div className="box-1-1">
+                  <div className="title">
+                    <div className="content">Tin nhắn</div>
+                  </div>
+                  <div className="status">
+                    <div className="content">
+                      <>
+                        {props.valueListGhim[0]?.name}
+                        <span>:</span>{" "}
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: props.valueListGhim[0]?.text_message,
+                          }}
+                        />
+                      </>
+                    </div>
+                  </div>
+                </div>
+              </Row>
+            </a>
+            <div className="box-2">
+              <div className="delete-ghim">
+                <CloseOutlined
+                  onClick={() =>
+                    props.handleClickUnGhim(props.valueListGhim[0])
+                  }
+                />
+              </div>
+              {props.lengthGhim > 1 && (
+                <div
+                  className="ghim"
+                  onClick={() => {
+                    document.querySelector(".box-ghim-1").style.display =
+                      "none";
+                    document.querySelector(".box-ghim-2").style.display =
+                      "block";
+                  }}
+                >
+                  {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
+                </div>
               )}
             </div>
-          </div>
-        </div>
-      </Row>
-      <div className="box-2">
-        <div className="delete-ghim">
-          <CloseOutlined
-            onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
-          />
-        </div>
-        {props.lengthGhim > 1 && (
-          <div
-            className="ghim"
-            onClick={() => {
-              document.querySelector(".box-ghim-1").style.display = "none";
-              document.querySelector(".box-ghim-2").style.display = "block";
-            }}
-          >
-            {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
-          </div>
+          </Row>
         )}
-      </div>
-    </Row>
+      {props.valueListGhim[0]?.text_message &&
+        props.valueListGhim[0]?.is_message_url && (
+          <Row className="box-ghim">
+            <a
+              style={{ width: "calc(100% - 175px)" }}
+              href={`#${props.valueListGhim[0].id}`}
+            >
+              <LinkPreview
+                url={props.valueListGhim[0]?.message_url}
+                size="six"
+                name={props.valueListGhim[0]?.name}
+              />
+            </a>
+            <div className="box-2">
+              <div className="delete-ghim">
+                <CloseOutlined
+                  onClick={() =>
+                    props.handleClickUnGhim(props.valueListGhim[0])
+                  }
+                />
+              </div>
+              {props.lengthGhim > 1 && (
+                <div
+                  className="ghim"
+                  onClick={() => {
+                    document.querySelector(".box-ghim-1").style.display =
+                      "none";
+                    document.querySelector(".box-ghim-2").style.display =
+                      "block";
+                  }}
+                >
+                  {props.lengthGhim - 1} ghim khác <DownOutlined />{" "}
+                </div>
+              )}
+            </div>
+          </Row>
+        )}
+    </>
   );
 }
 

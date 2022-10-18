@@ -126,21 +126,29 @@ function Nav2(props) {
                     >
                       <>
                         {value.last_value_chat?.name}:{" "}
-                        {value.last_value_chat?.type === "image" ? (
+                        {value.last_value_chat?.type === "image" && (
                           <>[Hình ảnh]</>
-                        ) : value.last_value_chat?.type === "video" ? (
-                          <>[Video]</>
-                        ) : value.last_value_chat?.file ? (
-                          <>{`[File] ${value.last_value_chat?.file.name}`}</>
-                        ) : (
-                          <>
-                            <span
-                              dangerouslySetInnerHTML={{
-                                __html: value.last_value_chat?.text_message,
-                              }}
-                            />
-                          </>
                         )}
+                        {value.last_value_chat?.type === "video" && (
+                          <>[Video]</>
+                        )}
+                        {value.last_value_chat?.file && (
+                          <>{`[File] ${value.last_value_chat?.file.name}`}</>
+                        )}
+                        {value.last_value_chat?.text_message &&
+                          !value.last_value_chat?.is_message_url && (
+                            <>
+                              <span
+                                dangerouslySetInnerHTML={{
+                                  __html: value.last_value_chat?.text_message,
+                                }}
+                              />
+                            </>
+                          )}
+                        {value.last_value_chat?.text_message &&
+                          value.last_value_chat?.is_message_url && (
+                            <>{`[Link] ${value.last_value_chat?.message_url}`}</>
+                          )}
                       </>
                     </div>
                   </Col>

@@ -142,7 +142,7 @@ function DefaultLayout({ children }) {
         "(\\#[-a-z\\d_]*)?$",
       "i"
     ); // validate fragment locator
-    return !!urlPattern.test(urlString);
+    return !!urlPattern.test(urlString.trim());
   };
 
   const handleClickNavRight = (e) => {
@@ -248,7 +248,7 @@ function DefaultLayout({ children }) {
   const valueChatDemo = [
     {
       ...dataUserMe,
-      id_user_receiver: dataUserFriend.id_user,
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       other_people: false,
       ghim: false,
       is_message_url: isValidUrl(
@@ -260,13 +260,12 @@ function DefaultLayout({ children }) {
       text_message: linkify(
         "https://mysupership.vn/register?referral=SPSHOMEPAGE"
       ),
-
       ...date,
       create_date: createDateBoxChat(),
     },
     {
-      ...dataUserFriendsApi[0],
-      id_user_receiver: dataUserFriend.id_user,
+      ...dataUserMe,
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       other_people: true,
       ghim: false,
       is_message_url: isValidUrl(
@@ -283,6 +282,7 @@ function DefaultLayout({ children }) {
       create_date: createDateBoxChat(),
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3213213213213238,
       ...dataUserMe,
@@ -302,6 +302,7 @@ function DefaultLayout({ children }) {
       name: "Ghim hội thoại.xlsx",
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3213213213213233213,
       ...dataUserMe,
@@ -321,6 +322,7 @@ function DefaultLayout({ children }) {
       name: "HTML.docx",
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 321321321321323321,
       ...dataUserMe,
@@ -340,6 +342,7 @@ function DefaultLayout({ children }) {
       name: "HTML.pdf",
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 32132147332396546,
       ...dataUserMe,
@@ -355,6 +358,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 32132143333654211321,
       ...dataUserMe,
@@ -369,6 +373,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3213213213132131,
       ...dataUserMe,
@@ -383,6 +388,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3234243546546565,
       text_message: linkify(
@@ -398,6 +404,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 321321653784387,
       ...dataUserMe,
@@ -411,6 +418,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 321321434321321,
       ...dataUserMe,
@@ -425,6 +433,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3213213132131,
       ...dataUserMe,
@@ -437,6 +446,7 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 323426546565,
       text_message: linkify(
@@ -780,26 +790,31 @@ function DefaultLayout({ children }) {
     getDataUserFriends();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const setDataUserFriendsAll = (newDataUserFriends) => {
+    setDataUserFriends(newDataUserFriends);
+    localStorage.setItem("dataUserFriends", JSON.stringify(newDataUserFriends));
+  };
+
   useEffect(() => {
     if (dataUserFriends && valueChats) {
-      dataUserFriends.forEach((dataUserFriend) => {
-        if (
-          valueChats[0]?.id_user_receiver === dataUserFriend?.id_user &&
-          valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id
-        ) {
-          const newDataUserFriends = dataUserFriends;
-          const newDataUserFriend = {
-            ...dataUserFriend,
-            last_value_chat: valueChats[0],
-          };
-          const dataUserFriendIndex = newDataUserFriends.findIndex(
-            (dataUserFriend) =>
-              dataUserFriend?.id_user === valueChats[0]?.id_user_receiver
-          );
-          newDataUserFriends.splice(dataUserFriendIndex, 1);
-          setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
-        }
-      });
+      if (
+        valueChats[0]?.id_user_receiver === dataUserFriend?.id_user &&
+        valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id
+      ) {
+        console.log(1);
+        const newDataUserFriends = dataUserFriends;
+        const newDataUserFriend = {
+          ...dataUserFriend,
+          not_read: false,
+          last_value_chat: valueChats[0],
+        };
+        const dataUserFriendIndex = newDataUserFriends.findIndex(
+          (newDataUserFriend) =>
+            newDataUserFriend?.id_user === dataUserFriend?.id_user
+        );
+        newDataUserFriends.splice(dataUserFriendIndex, 1);
+        setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
+      }
     }
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -821,11 +836,6 @@ function DefaultLayout({ children }) {
     }
     getValueChats(dataUserFriend);
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const setDataUserFriendsAll = (newDataUserFriends) => {
-    setDataUserFriends(newDataUserFriends);
-    localStorage.setItem("dataUserFriends", JSON.stringify(newDataUserFriends));
-  };
 
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
@@ -1400,6 +1410,7 @@ function DefaultLayout({ children }) {
                                             clearResponsiveTnputValue
                                           }
                                           renderImageFile={renderImageFile}
+                                          size="two"
                                         />
                                       </a>
                                     )}
@@ -1602,9 +1613,12 @@ function DefaultLayout({ children }) {
                     ResponsiveInputValue={ResponsiveInputValue}
                     clearResponsiveTnputValue={clearResponsiveTnputValue}
                     renderImageFile={renderImageFile}
+                    size="one"
                   />
                 )}
-                {/* {<LinkPreview url={valueChat} size="four" />} */}
+                {isValidUrl(valueChat) && (
+                  <LinkPreview url={valueChat} size="four" />
+                )}
 
                 {/* Responsive-input */}
 
