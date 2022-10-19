@@ -2,8 +2,13 @@ import React from "react";
 import Modal from "antd/lib/modal/Modal";
 import { Image } from "antd";
 import "./ModalInformation.scss";
+import { EditOutlined } from "@ant-design/icons";
 
 function ModalInformation(props) {
+  const hanldeClickUpdateProfile = () => {
+    props.setModalUpdateInformation(true);
+    props.handleCancelModalInformation();
+  };
   return (
     <>
       {props.dataModalInformation?.group ? (
@@ -11,7 +16,6 @@ function ModalInformation(props) {
           open={props.modalInformation}
           title="Thông tin nhóm"
           onCancel={props.handleCancelModalInformation}
-          footer={[]}
         >
           <div className="wrapper-modal-information">
             <div className="profilePhoto">
@@ -45,7 +49,7 @@ function ModalInformation(props) {
                 Thành viên ({props.dataModalInformation.members?.length})
               </div>
             </div>
-            <div className="box-profile-action"></div>
+            <div className="box-update-profile"></div>
           </div>
         </Modal>
       ) : (
@@ -80,7 +84,10 @@ function ModalInformation(props) {
               </div>
             </div>
             <div className="box-btn-sentmgs">
-              <div className="btn-sentmgs">Nhắn tin</div>
+              {props.dataModalInformation?.id_user !==
+                props.dataUserMe.id_user && (
+                <div className="btn-sentmgs">Nhắn tin</div>
+              )}
             </div>
             <div className="box-profile-information">
               <div className="header-profile-detail">Thông tin cá nhân</div>
@@ -106,7 +113,20 @@ function ModalInformation(props) {
                 </div>
               </div>
             </div>
-            <div className="box-profile-action"></div>
+            <div className="box-update-profile">
+              {props.dataModalInformation?.id_user ===
+                props.dataUserMe.id_user && (
+                <div className="button-update-profile">
+                  <div
+                    className="button-update-profile-children"
+                    onClick={hanldeClickUpdateProfile}
+                  >
+                    <EditOutlined />
+                    <span>Cập nhập thông tin cá nhân</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </Modal>
       )}

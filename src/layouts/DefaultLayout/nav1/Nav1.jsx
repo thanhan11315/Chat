@@ -20,9 +20,17 @@ function Nav1(props) {
   };
   const text = <span>{props.dataUserMe.name}</span>;
   const content = (
-    <div className="popver-nav1" onClick={logout}>
-      <p>Đăng Xuất</p>
-    </div>
+    <>
+      <div
+        className="popver-nav1"
+        onClick={() => props.handleClickImgChat(props.dataUserMe)}
+      >
+        <p>Hồ sơ của bạn</p>
+      </div>
+      <div className="popver-nav1" onClick={logout}>
+        <p>Đăng Xuất</p>
+      </div>
+    </>
   );
   return (
     <Col className="box-nav-1">

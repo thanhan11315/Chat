@@ -54,9 +54,12 @@ import LikeIcon from "../../components/likeIcon/LikeIcon";
 import ButtonScrollBottom from "../../components/buttonScrollEndBottom/ButtonScrollEndBottom";
 import ModalAddMembersToGroup from "../../components/modalAddMembersToGroup/ModalAddMemberToGroup";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
+import ModalUpdateInformation from "../../components/modalUpdateInformation/ModalUpdateInformation";
+import TabTitle from "../../pages/TapTitle";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
+  TabTitle("Chat");
   var navigate = useNavigate();
   const refreshPage = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
@@ -91,7 +94,8 @@ function DefaultLayout({ children }) {
     dataUserFriendsApiAddMembersToGroup,
     setDataUserFriendsApiAddMembersToGroup,
   ] = useState([]);
-
+  const [modalUpdateInformation, setModalUpdateInformation] = useState(false);
+  const [valueDeleteLink, setValueDeleteLink] = useState(true);
   const d = new Date();
   const date = {
     year: d.getFullYear(),
@@ -100,6 +104,27 @@ function DefaultLayout({ children }) {
     hours: d.getHours(),
     minutes: d.getMinutes(),
   };
+
+  const dataUserMeDemo = {
+    phone_number: "0898999907",
+    gender: "Nam",
+    id_user: "0898999907",
+    name: "Thanh Ân",
+    cover_photo: AvatarTN,
+    avatar: AvatarAnLe,
+    status: "Vừa truy cập",
+    birthday: "23 / 10 / 2025",
+  };
+
+  const getDataUserMe = () => {
+    const valueDataUserMe = localStorage.getItem("dataUserMe");
+    if (valueDataUserMe) {
+      return valueDataUserMe;
+    } else {
+      return dataUserMeDemo;
+    }
+  };
+  const [dataUserMe, setDataUserMe] = useState(getDataUserMe());
 
   const id = `${new Date().valueOf()}${Math.floor(
     Math.random() * 1000000000000
@@ -157,16 +182,6 @@ function DefaultLayout({ children }) {
   };
 
   // demochatlocal
-  const dataUserMe = {
-    phone_number: "0898999907",
-    gender: "Nam",
-    id_user: "0898999907",
-    name: "Thanh Ân",
-    cover_photo: AvatarTN,
-    avatar: AvatarAnLe,
-    status: "Vừa truy cập",
-    birthday: "23 / 10 / 2025",
-  };
 
   const dataUserFriendsApi = [
     {
@@ -526,7 +541,7 @@ function DefaultLayout({ children }) {
       id_user_receiver: dataUserFriend.id_user,
       other_people: false,
       ghim: false,
-      is_message_url: isValidUrl(valueChatReplace),
+      is_message_url: isValidUrl(valueChatReplace) && valueDeleteLink,
       message_url: valueChatReplace,
       id: id,
       Responsive: ResponsiveInputValue,
@@ -816,6 +831,7 @@ function DefaultLayout({ children }) {
         setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
       }
     }
+    setValueDeleteLink(true);
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -1175,6 +1191,14 @@ function DefaultLayout({ children }) {
   return (
     <>
       {/* Modal */}
+
+      <ModalUpdateInformation
+        dataUserMe={dataUserMe}
+        modalUpdateInformation={modalUpdateInformation}
+        setModalUpdateInformation={setModalUpdateInformation}
+        setDataUserMe={setDataUserMe}
+      />
+
       <IframeFile
         setUrlFile={setUrlFile}
         valueFile={valueFile}
@@ -1184,6 +1208,8 @@ function DefaultLayout({ children }) {
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}
         dataModalInformation={dataModalInformation}
+        dataUserMe={dataUserMe}
+        setModalUpdateInformation={setModalUpdateInformation}
       />
       <ModalShare
         modalShare={modalShare}
@@ -1254,7 +1280,7 @@ function DefaultLayout({ children }) {
 
       <Row id="wrapper">
         {/* Nav1 */}
-        <Nav1 dataUserMe={dataUserMe} />
+        <Nav1 dataUserMe={dataUserMe} handleClickImgChat={handleClickImgChat} />
         {/* Nav1 */}
 
         {/* Nav2 */}
@@ -1616,8 +1642,12 @@ function DefaultLayout({ children }) {
                     size="one"
                   />
                 )}
-                {isValidUrl(valueChat) && (
-                  <LinkPreview url={valueChat} size="four" />
+                {isValidUrl(valueChat) && valueDeleteLink && (
+                  <LinkPreview
+                    url={valueChat}
+                    size="four"
+                    setValueDeleteLink={setValueDeleteLink}
+                  />
                 )}
 
                 {/* Responsive-input */}

@@ -119,6 +119,7 @@
 
 .wrapper-modal-information .box-profile-information {
   padding-left: 20px;
+  padding-right: 20px;
   border-top: 8px solid var(--border);
 }
 
@@ -164,10 +165,39 @@
 /* answer-input */
 
 /* answer-input */
-.wrapper-modal-information .box-profile-action {
+.wrapper-modal-information .box-update-profile {
   padding-left: 20px;
-  border-top: 8px solid var(--border);
+  padding-right: 20px;
+  // border-top: 8px solid var(--border);/
   height: 115px;
+  display: flex;
+  align-items: flex-end;
+  .button-update-profile {
+    padding: 16px 20px;
+    width: 100%;
+    .button-update-profile-children {
+      padding: 0px 16px;
+      height: 40px;
+      font-weight: 600;
+      line-height: 38px;
+      color: var(--primary-text);
+      background-color: var(--N30);
+      white-space: nowrap;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .anticon svg {
+        width: 18px;
+        height: 18px;
+      }
+      span {
+        margin-left: 8px;
+      }
+    }
+  }
 }
 
 /* modalInformation Style */

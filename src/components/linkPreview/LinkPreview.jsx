@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LinkPreview.scss";
 import axios from "axios";
 import { useEffect } from "react";
-import { ExportOutlined } from "@ant-design/icons";
+import { CloseOutlined, ExportOutlined } from "@ant-design/icons";
 
 function LinkPreview(props) {
   const [valueLink, setValueLink] = useState("");
@@ -42,6 +42,11 @@ function LinkPreview(props) {
       return findValueLinkInStoryLink;
     }
   };
+
+  const handleClickDeleteLink = () => {
+    props?.setValueDeleteLink(false);
+  };
+
   useEffect(() => {
     setValueLink("");
     if (ifGetApiLink(storageValueLinks, props.url)) {
@@ -166,6 +171,9 @@ function LinkPreview(props) {
                 <div className="domain">{valueLink?.domain}</div>
               </div>
             </div>
+            <div className="delete" onClick={handleClickDeleteLink}>
+              <CloseOutlined />
+            </div>
           </div>
         </div>
       )}
@@ -216,6 +224,28 @@ function LinkPreview(props) {
               <div className="card-content">
                 <div className="title">{props.name}</div>
                 <div className="domain">{`[Link] ${valueLink?.domain}`}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {props.size === "seven" && (
+        <div className="style-7">
+          <div className="box-link-preview">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <div className="card-link-img">
+                <img
+                  src={
+                    valueLink?.images && valueLink?.images[0]
+                      ? valueLink?.images[0]
+                      : valueLink?.images
+                  }
+                  alt=""
+                />
+              </div>
+              <div className="card-content">
+                <div className="title">{valueLink?.title}</div>
+                <div className="domain">{valueLink?.domain}</div>
               </div>
             </div>
           </div>
