@@ -47,6 +47,7 @@ function ModalShare(props) {
           {
             ...props.valueRightClickMessage,
             ...props.date,
+            ...props.dataUserMe,
             create_date: props.createDateBoxChat(),
             id: props.id + checkedValue.id_user,
           },
@@ -61,6 +62,7 @@ function ModalShare(props) {
           {
             ...props.valueRightClickMessage,
             ...props.date,
+            ...props.dataUserMe,
             create_date: props.createDateBoxChat(),
             id: props.id + checkedValue.id_user,
           },
@@ -75,6 +77,7 @@ function ModalShare(props) {
           {
             ...props.valueRightClickMessage,
             ...props.date,
+            ...props.dataUserMe,
             create_date: props.createDateBoxChat(),
             id: props.id + checkedValue.id_user,
           },

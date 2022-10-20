@@ -51,12 +51,21 @@ function ModalCreateGroup(props) {
         },
         ...props.dataUserFriends,
       ];
+      const valueChatsAddMembersToGroup = {
+        create_date: props.createDateBoxChat(),
+        ...props.date,
+        id: props.id,
+        add_members_to_group: true,
+        members_add: props.dataUserMe,
+        members_added: checkedValues,
+      };
+      console.log(valueChatsAddMembersToGroup);
+      props.setValueChatsInRenderAllMessage(valueChatsAddMembersToGroup);
       props.setDataUserFriendsAll(newDataUserFriends);
       unCheckCancel();
       props.handleCancelModalCreateGroup();
     }
   };
-
   return (
     <>
       <Modal

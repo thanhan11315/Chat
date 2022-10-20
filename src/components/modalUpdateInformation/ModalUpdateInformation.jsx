@@ -24,8 +24,6 @@ function ModalUpdateInformation(props) {
     setValueAvatar(URL.createObjectURL(e.target.files[0]));
   };
 
-  console.log(props.dataUserMe.name);
-
   const ifUpdate = () => {
     return (
       valueName !== props.dataUserMe.name ||
@@ -35,22 +33,71 @@ function ModalUpdateInformation(props) {
     );
   };
 
+  const newDataUserMe = {
+    ...props.dataUserMe,
+    avatar: valueAvatar,
+    name: valueName,
+    gender: valueGender,
+    birthday: valueBirthday,
+  };
+
+  const changeDataUserMe = () => {
+    props.setDataUserMe(newDataUserMe);
+    localStorage.setItem("dataUserMe", JSON.stringify(newDataUserMe));
+  };
+
+  const ChangeValueChatsCurrentBoxChat = (
+    dataUserFriend,
+    dataUserFriendCurrent,
+    newValueChats
+  ) => {
+    if (dataUserFriend.id_user === dataUserFriendCurrent.id_user) {
+      props.setValueChats(newValueChats);
+    }
+  };
+
+  const makeNewValueChats = (oldValueChats, newDataUserMe) => {
+    if (oldValueChats) {
+      const newValueChats = oldValueChats.map((oldValueChat) => {
+        if (oldValueChat.id_user === newDataUserMe.id_user) {
+          const newValueChat = {
+            ...oldValueChat,
+            ...newDataUserMe,
+          };
+          return newValueChat;
+        } else {
+          return oldValueChat;
+        }
+      });
+      return newValueChats;
+    }
+  };
+
+  const changeAllValueChatsUpdateInformation = () => {
+    props.dataUserFriends.forEach((dataUserFriend) => {
+      const oldValueChats = JSON.parse(
+        localStorage.getItem(dataUserFriend.id_user)
+      );
+      console.log(oldValueChats);
+      const newValueChats = makeNewValueChats(oldValueChats, newDataUserMe);
+      console.log(newValueChats);
+      newValueChats &&
+        localStorage.setItem(
+          dataUserFriend.id_user,
+          JSON.stringify(newValueChats)
+        );
+      ChangeValueChatsCurrentBoxChat(
+        dataUserFriend,
+        props.dataUserFriend,
+        newValueChats
+      );
+    });
+  };
+
   const handleClickUpdate = () => {
     if (ifUpdate()) {
-      props.setDataUserMe({
-        ...props.dataUserMe,
-        avatar: valueAvatar,
-        name: valueName,
-        gender: valueGender,
-        birthday: valueBirthday,
-      });
-      localStorage.setItem("dataUserMe", {
-        ...props.dataUserMe,
-        avatar: valueAvatar,
-        name: valueName,
-        gender: valueGender,
-        birthday: valueBirthday,
-      });
+      changeDataUserMe();
+      changeAllValueChatsUpdateInformation();
       cancelBox();
     }
   };

@@ -114,10 +114,12 @@ function DefaultLayout({ children }) {
     avatar: AvatarAnLe,
     status: "Vừa truy cập",
     birthday: "23 / 10 / 2025",
+    notification_system: false,
+    other_people: false,
   };
 
   const getDataUserMe = () => {
-    const valueDataUserMe = localStorage.getItem("dataUserMe");
+    const valueDataUserMe = JSON.parse(localStorage.getItem("dataUserMe"));
     if (valueDataUserMe) {
       return valueDataUserMe;
     } else {
@@ -208,6 +210,7 @@ function DefaultLayout({ children }) {
       birthday: "22 / 11 / 2022",
       gender: "Nữ",
       pin_conversation: false,
+      notification_system: false,
     },
     {
       phone_number: "0898888888",
@@ -221,6 +224,7 @@ function DefaultLayout({ children }) {
       birthday: "21 / 11 / 2011",
       gender: "Nam",
       pin_conversation: false,
+      notification_system: false,
     },
     {
       phone_number: "0998889999",
@@ -233,6 +237,7 @@ function DefaultLayout({ children }) {
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
+      notification_system: false,
     },
     {
       phone_number: "0998889999",
@@ -245,6 +250,7 @@ function DefaultLayout({ children }) {
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
+      notification_system: false,
     },
     {
       phone_number: "0998889999",
@@ -257,30 +263,38 @@ function DefaultLayout({ children }) {
       birthday: "01 / 02 / 2012",
       gender: "Nam",
       pin_conversation: false,
+      notification_system: false,
     },
   ];
 
+  // sender_information: dataUserMe,
+  // recipients_information: ,
+  // const isOtherPeople = (senderIdUser) => {
+  //   return senderIdUser === dataUserMe
+  // }
+
   const valueChatDemo = [
     {
-      ...dataUserMe,
-      id_user_receiver: dataUserFriendsApi[0].id_user,
-      other_people: false,
-      ghim: false,
-      is_message_url: isValidUrl(
-        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
-      ),
-      message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
-      id: id,
-      Responsive: ResponsiveInputValue,
-      text_message: linkify(
-        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
-      ),
-      ...date,
-      create_date: createDateBoxChat(),
+      sender_information: dataUserFriendsApi[0],
+      recipients_information: dataUserMe,
+      message_information: {
+        Responsive: ResponsiveInputValue,
+        other_people: true,
+        ghim: false,
+        is_message_url: isValidUrl(
+          "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+        ),
+        message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
+        id: id,
+        text_message: linkify(
+          "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+        ),
+      }
+      // ...date
+      // create_date: createDateBoxChat(),
     },
     {
-      ...dataUserMe,
-      id_user_receiver: dataUserFriendsApi[0].id_user,
+      ...dataUserFriendsApi[0],
       other_people: true,
       ghim: false,
       is_message_url: isValidUrl(
@@ -297,11 +311,9 @@ function DefaultLayout({ children }) {
       create_date: createDateBoxChat(),
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
-      notification_system: true,
       id: 3213213213213238,
-      ...dataUserMe,
-      other_people: false,
+      ...dataUserFriendsApi[0],
+      other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -317,11 +329,9 @@ function DefaultLayout({ children }) {
       name: "Ghim hội thoại.xlsx",
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
-      notification_system: true,
       id: 3213213213213233213,
-      ...dataUserMe,
-      other_people: false,
+      ...dataUserFriendsApi[0],
+      other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -337,11 +347,11 @@ function DefaultLayout({ children }) {
       name: "HTML.docx",
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
+      ...dataUserFriendsApi[0],
       notification_system: true,
       id: 321321321321323321,
-      ...dataUserMe,
-      other_people: false,
+      ...dataUserFriendsApi[0],
+      other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -357,12 +367,11 @@ function DefaultLayout({ children }) {
       name: "HTML.pdf",
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 32132147332396546,
-      ...dataUserMe,
+      ...dataUserFriendsApi[0],
       date: 24,
-      other_people: false,
+      other_people: true,
       create_date: true,
       hours: 13,
       minutes: 39,
@@ -373,12 +382,11 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 32132143333654211321,
-      ...dataUserMe,
+      ...dataUserFriendsApi[0],
       date: 24,
-      other_people: false,
+      other_people: true,
       hours: 13,
       minutes: 39,
       month: 8,
@@ -388,10 +396,9 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3213213213132131,
-      ...dataUserMe,
+      ...dataUserFriendsApi[0],
       text_message: linkify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
       ),
@@ -401,16 +408,16 @@ function DefaultLayout({ children }) {
       month: 8,
       year: 2022,
       ghim: false,
+      other_people: true,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 3234243546546565,
       text_message: linkify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
       ),
-      ...dataUserMe,
-      other_people: false,
+      ...dataUserFriendsApi[0],
+      other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -419,10 +426,10 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 321321653784387,
-      ...dataUserMe,
+      ...dataUserFriendsApi[0],
+      other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -433,12 +440,11 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
       notification_system: true,
       id: 321321434321321,
-      ...dataUserMe,
+      ...dataUserFriendsApi[0],
       date: 24,
-      other_people: false,
+      other_people: true,
       hours: 13,
       minutes: 39,
       month: 8,
@@ -448,10 +454,8 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
-      notification_system: true,
+      ...dataUserFriendsApi[0],
       id: 3213213132131,
-      ...dataUserMe,
       text_message: "Tin nhắn text",
       date: 24,
       hours: 13,
@@ -459,16 +463,16 @@ function DefaultLayout({ children }) {
       month: 8,
       year: 2022,
       ghim: false,
+      other_people: true,
     },
     {
-      id_user_receiver: dataUserFriendsApi[0].id_user,
+      ...dataUserFriendsApi[0],
       notification_system: true,
       id: 323426546565,
       text_message: linkify(
         "Find me at http://www.example.com and also at http://stackoverflow.com"
       ),
-      ...dataUserMe,
-      other_people: false,
+      other_people: true,
       date: 24,
       hours: 13,
       minutes: 39,
@@ -851,6 +855,7 @@ function DefaultLayout({ children }) {
       ).style.backgroundColor = "#eeeff2";
     }
     getValueChats(dataUserFriend);
+    setResponsiveInputValue("");
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickChooseBoxChat = (value) => {
@@ -1197,6 +1202,10 @@ function DefaultLayout({ children }) {
         modalUpdateInformation={modalUpdateInformation}
         setModalUpdateInformation={setModalUpdateInformation}
         setDataUserMe={setDataUserMe}
+        dataUserFriends={dataUserFriends}
+        valueChats={valueChats}
+        setValueChats={setValueChats}
+        dataUserFriend={dataUserFriend}
       />
 
       <IframeFile
@@ -1212,6 +1221,7 @@ function DefaultLayout({ children }) {
         setModalUpdateInformation={setModalUpdateInformation}
       />
       <ModalShare
+        dataUserMe={dataUserMe}
         modalShare={modalShare}
         handleCancelModalShare={handleCancelModalShare}
         valueRightClickMessage={valueRightClickMessage}
@@ -1234,6 +1244,9 @@ function DefaultLayout({ children }) {
         dataUserFriends={dataUserFriends}
         id={id}
         dataUserMe={dataUserMe}
+        createDateBoxChat={createDateBoxChat}
+        date={date}
+        setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
 
       <ModalAddMembersToGroup
