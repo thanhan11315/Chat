@@ -5,6 +5,7 @@ import { Button, Row } from "antd";
 import "./ModalShare.scss";
 import ShareInput from "../shareInput/ShareInput";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import ImageGroup from "../imageGroup/ImageGroup";
 
 function ModalShare(props) {
   const [checkedValues, setCheckedValues] = useState([]);
@@ -14,7 +15,7 @@ function ModalShare(props) {
     );
     setCheckedValues(
       [...inputElements].map((inputElement) => {
-        return props.dataUserFriendsApi.find(
+        return props.dataUserFriends.find(
           (object) => object.id_user === inputElement.value
         );
       })
@@ -158,50 +159,65 @@ function ModalShare(props) {
               <div className="title-choose-share">Trò chuyện gần đây</div>
               <div className="list-choose-share">
                 <form>
-                  {props.dataUserFriendsApi.map((value) => {
-                    return (
-                      <>
-                        {!value.notification_system && (
-                          <label
-                            htmlFor={value.id_user + 1}
-                            key={value.id_user + 1}
-                          >
-                            <div className="choose-share">
-                              <div className="box-input">
-                                <input
-                                  className="input-checkbox-share"
-                                  onChange={handleClickCheckBox}
-                                  type="checkbox"
-                                  name={value.id_user}
-                                  value={value.id_user}
-                                  id={value.id_user + 1}
-                                />
+                  {props.dataUserFriends &&
+                    props.dataUserFriends.map((value) => {
+                      return (
+                        <>
+                          {!value.notification_system && (
+                            <label
+                              htmlFor={value.id_user + 1}
+                              key={value.id_user + 1}
+                            >
+                              <div className="choose-share">
+                                <div className="box-input">
+                                  <input
+                                    className="input-checkbox-share"
+                                    onChange={handleClickCheckBox}
+                                    type="checkbox"
+                                    name={value.id_user}
+                                    value={value.id_user}
+                                    id={value.id_user + 1}
+                                  />
+                                </div>
+                                {value.avatar && !value.group && (
+                                  <div className="image">
+                                    <img
+                                      src={value.avatar}
+                                      alt="img not load"
+                                    />
+                                  </div>
+                                )}
+                                {value.group && (
+                                  <ImageGroup dataUserFriend={value} />
+                                )}
+                                <div className="name">{value.name}</div>
                               </div>
-                              <div className="image">
-                                <img src={value.avatar} alt="img not load" />
-                              </div>
-                              <div className="name">{value.name}</div>
-                            </div>
-                          </label>
-                        )}
-                      </>
-                    );
-                  })}
+                            </label>
+                          )}
+                        </>
+                      );
+                    })}
                 </form>
               </div>
             </div>
           </Row>
           <div className="history-choose-share">
-            {checkedValues.map((value) => {
-              return (
-                <div className="image" key={value.id_user + 1}>
-                  <img src={value.avatar} alt="img not load" />
-                  <div className="delete" onClick={() => unCheckShare(value)}>
-                    <CloseCircleOutlined />
+            {checkedValues &&
+              checkedValues.map((value) => {
+                return (
+                  <div className="image" key={value.id_user + 1}>
+                    {value.avatar && !value.group && (
+                      <div className="image">
+                        <img src={value.avatar} alt="img not load" />
+                      </div>
+                    )}
+                    {value.group && <ImageGroup dataUserFriend={value} />}
+                    <div className="delete" onClick={() => unCheckShare(value)}>
+                      <CloseCircleOutlined />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <div className="box-content">
             <div className="title-content">Nội dung chia sẻ</div>

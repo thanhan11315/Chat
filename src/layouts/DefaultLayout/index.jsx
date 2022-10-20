@@ -267,34 +267,27 @@ function DefaultLayout({ children }) {
     },
   ];
 
-  // sender_information: dataUserMe,
-  // recipients_information: ,
-  // const isOtherPeople = (senderIdUser) => {
-  //   return senderIdUser === dataUserMe
-  // }
-
   const valueChatDemo = [
     {
-      sender_information: dataUserFriendsApi[0],
-      recipients_information: dataUserMe,
-      message_information: {
-        Responsive: ResponsiveInputValue,
-        other_people: true,
-        ghim: false,
-        is_message_url: isValidUrl(
-          "https://mysupership.vn/register?referral=SPSHOMEPAGE"
-        ),
-        message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
-        id: id,
-        text_message: linkify(
-          "https://mysupership.vn/register?referral=SPSHOMEPAGE"
-        ),
-      }
-      // ...date
-      // create_date: createDateBoxChat(),
+      ...dataUserFriendsApi[0],
+      recipients: dataUserMe,
+      other_people: true,
+      ghim: false,
+      is_message_url: isValidUrl(
+        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+      ),
+      message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
+      id: id,
+      Responsive: ResponsiveInputValue,
+      text_message: linkify(
+        "https://mysupership.vn/register?referral=SPSHOMEPAGE"
+      ),
+      ...date,
+      create_date: createDateBoxChat(),
     },
     {
       ...dataUserFriendsApi[0],
+      recipients: dataUserMe,
       other_people: true,
       ghim: false,
       is_message_url: isValidUrl(
@@ -313,6 +306,7 @@ function DefaultLayout({ children }) {
     {
       id: 3213213213213238,
       ...dataUserFriendsApi[0],
+      recipients: dataUserMe,
       other_people: true,
       date: 24,
       hours: 13,
@@ -331,6 +325,7 @@ function DefaultLayout({ children }) {
     {
       id: 3213213213213233213,
       ...dataUserFriendsApi[0],
+      recipients: dataUserMe,
       other_people: true,
       date: 24,
       hours: 13,
@@ -348,6 +343,7 @@ function DefaultLayout({ children }) {
     },
     {
       ...dataUserFriendsApi[0],
+      recipients: dataUserMe,
       notification_system: true,
       id: 321321321321323321,
       ...dataUserFriendsApi[0],
@@ -368,6 +364,7 @@ function DefaultLayout({ children }) {
     },
     {
       notification_system: true,
+      recipients: dataUserMe,
       id: 32132147332396546,
       ...dataUserFriendsApi[0],
       date: 24,
@@ -383,6 +380,7 @@ function DefaultLayout({ children }) {
     },
     {
       notification_system: true,
+      recipients: dataUserMe,
       id: 32132143333654211321,
       ...dataUserFriendsApi[0],
       date: 24,
@@ -397,6 +395,7 @@ function DefaultLayout({ children }) {
     },
     {
       notification_system: true,
+      recipients: dataUserMe,
       id: 3213213213132131,
       ...dataUserFriendsApi[0],
       text_message: linkify(
@@ -412,6 +411,7 @@ function DefaultLayout({ children }) {
     },
     {
       notification_system: true,
+      recipients: dataUserMe,
       id: 3234243546546565,
       text_message: linkify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
@@ -427,6 +427,7 @@ function DefaultLayout({ children }) {
     },
     {
       notification_system: true,
+      recipients: dataUserMe,
       id: 321321653784387,
       ...dataUserFriendsApi[0],
       other_people: true,
@@ -441,6 +442,7 @@ function DefaultLayout({ children }) {
     },
     {
       notification_system: true,
+      recipients: dataUserMe,
       id: 321321434321321,
       ...dataUserFriendsApi[0],
       date: 24,
@@ -455,6 +457,7 @@ function DefaultLayout({ children }) {
     },
     {
       ...dataUserFriendsApi[0],
+      recipients: dataUserMe,
       id: 3213213132131,
       text_message: "Tin nhắn text",
       date: 24,
@@ -468,6 +471,7 @@ function DefaultLayout({ children }) {
     {
       ...dataUserFriendsApi[0],
       notification_system: true,
+      recipients: dataUserMe,
       id: 323426546565,
       text_message: linkify(
         "Find me at http://www.example.com and also at http://stackoverflow.com"
@@ -508,9 +512,13 @@ function DefaultLayout({ children }) {
   };
 
   const deleteMessage = (value) => {
-    const newValueChats = valueChats.filter(
-      (valueChat) => valueChat.id !== value.id
-    );
+    const newValueChats = valueChats.map((valueChat) => {
+      if (valueChat.id === value.id) {
+        return { ...valueChat, delete: true };
+      } else {
+        return valueChat;
+      }
+    });
     setValueChats(newValueChats);
     localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
   };
@@ -519,7 +527,7 @@ function DefaultLayout({ children }) {
     if (valueChats) {
       const newValueChats = [newValueChat, ...valueChats];
       localStorage.setItem(
-        dataUserFriend.id_user,
+        newValueChat.recipients.id_user,
         JSON.stringify(newValueChats)
       );
       setValueChats(newValueChats);
@@ -529,7 +537,7 @@ function DefaultLayout({ children }) {
     } else {
       const newValueChats = [newValueChat];
       localStorage.setItem(
-        dataUserFriend.id_user,
+        newValueChat.recipients.id_user,
         JSON.stringify(newValueChats)
       );
       setValueChats(newValueChats);
@@ -542,7 +550,7 @@ function DefaultLayout({ children }) {
   const render = (valueChatReplace) => {
     const newValueChat = {
       ...dataUserMe,
-      id_user_receiver: dataUserFriend.id_user,
+      recipients: dataUserFriend,
       other_people: false,
       ghim: false,
       is_message_url: isValidUrl(valueChatReplace) && valueDeleteLink,
@@ -560,7 +568,7 @@ function DefaultLayout({ children }) {
   const onChangeImage = (e) => {
     const newValueChat = {
       ...dataUserMe,
-      id_user_receiver: dataUserFriend.id_user,
+      recipients: dataUserFriend,
       id: id,
       type: e.target.files[0].type?.slice(0, 5),
       url: URL.createObjectURL(e.target.files[0]),
@@ -575,7 +583,7 @@ function DefaultLayout({ children }) {
   const onChangeFile = (e) => {
     const newValueChat = {
       ...dataUserMe,
-      id_user_receiver: dataUserFriend.id_user,
+      recipients: dataUserFriend,
       id: id,
       file: {
         name: e.target.files[0].name,
@@ -595,6 +603,7 @@ function DefaultLayout({ children }) {
   const handleClickLikeIcon = () => {
     const newValueChat = {
       ...dataUserMe,
+      recipients: dataUserFriend,
       id: id,
       other_people: false,
       content: "👍",
@@ -813,14 +822,12 @@ function DefaultLayout({ children }) {
     setDataUserFriends(newDataUserFriends);
     localStorage.setItem("dataUserFriends", JSON.stringify(newDataUserFriends));
   };
-
   useEffect(() => {
     if (dataUserFriends && valueChats) {
       if (
-        valueChats[0]?.id_user_receiver === dataUserFriend?.id_user &&
+        valueChats[0]?.recipients.id_user === dataUserFriend?.id_user &&
         valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id
       ) {
-        console.log(1);
         const newDataUserFriends = dataUserFriends;
         const newDataUserFriend = {
           ...dataUserFriend,
@@ -1219,6 +1226,7 @@ function DefaultLayout({ children }) {
         dataModalInformation={dataModalInformation}
         dataUserMe={dataUserMe}
         setModalUpdateInformation={setModalUpdateInformation}
+        setDataUserFriend={setDataUserFriend}
       />
       <ModalShare
         dataUserMe={dataUserMe}
@@ -1246,7 +1254,6 @@ function DefaultLayout({ children }) {
         dataUserMe={dataUserMe}
         createDateBoxChat={createDateBoxChat}
         date={date}
-        setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
 
       <ModalAddMembersToGroup
@@ -1372,7 +1379,130 @@ function DefaultLayout({ children }) {
                     {(value.url ||
                       value.file ||
                       value.type ||
-                      value.text_message) && (
+                      value.text_message) &&
+                      !value.delete && (
+                        <div
+                          className={
+                            value.other_people ? "box-other-people" : "box-me"
+                          }
+                          onMouseOver={() => onMounseOverBox(key)}
+                          onMouseOut={() => onMouseOutBox(key)}
+                          key={key}
+                        >
+                          <Row
+                            className={`share-response share-response-${key}`}
+                          >
+                            {!value.notification_system && (
+                              <div>
+                                <ExportOutlined
+                                  onClick={() =>
+                                    handleClickResponsiveIcon(value)
+                                  }
+                                />
+                              </div>
+                            )}
+                            <div onClick={() => handleClickShare(value)}>
+                              <ShareAltOutlined />
+                            </div>
+                            <div onClick={() => handleClickGhim(value)}>
+                              <PaperClipOutlined />
+                            </div>
+                          </Row>
+                          <div
+                            className={
+                              value.other_people ? "other-people" : "me"
+                            }
+                            id={`${value.id}`}
+                          >
+                            <div className="img-chat">
+                              <img
+                                src={value.avatar}
+                                alt="img not load"
+                                onClick={() => handleClickImgChat(value)}
+                                style={{
+                                  border: "0.5px solid #fff",
+                                  borderRadius: "50%",
+                                  objectFit: "cover",
+                                  width: "40px",
+                                  height: "40px",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </div>
+                            <div
+                              className="box-content-all-chat"
+                              onContextMenu={(e) => {
+                                handleOnContextMenu(e, value);
+                              }}
+                            >
+                              {value.url && <ImageOrVideo value={value} />}{" "}
+                              {value.file && (
+                                <RenderFile
+                                  renderImageFile={renderImageFile}
+                                  value={value}
+                                  bytesToSize={bytesToSize}
+                                  setUrlFile={setUrlFile}
+                                  urlFile={urlFile}
+                                  setValueFile={setValueFile}
+                                />
+                              )}
+                              {value.type === "likeIcon" && (
+                                <LikeIcon value={value} />
+                              )}
+                              {value.text_message && !value.is_message_url && (
+                                <>
+                                  <div className="content-chat">
+                                    <div className="box-make-hidden-content-chat">
+                                      {value.Responsive && (
+                                        <a href={`#${value.Responsive.id}`}>
+                                          <ResponsiveInput
+                                            ResponsiveInputValue={
+                                              value.Responsive
+                                            }
+                                            clearResponsiveTnputValue={
+                                              clearResponsiveTnputValue
+                                            }
+                                            renderImageFile={renderImageFile}
+                                            size="two"
+                                          />
+                                        </a>
+                                      )}
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: value.text_message,
+                                        }}
+                                      />
+                                      <div className="date">
+                                        {value.hours}:{value.minutes}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              )}
+                              {
+                                <>
+                                  {value.is_message_url && (
+                                    <div className="content-chat">
+                                      <div className="box-make-hidden-content-chat">
+                                        <LinkPreview
+                                          url={value.message_url}
+                                          size={
+                                            value.other_people ? "two" : "one"
+                                          }
+                                        />
+                                        <div className="date">
+                                          {value.hours}:{value.minutes}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  )}
+                                </>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    {value.delete && (
                       <div
                         className={
                           value.other_people ? "box-other-people" : "box-me"
@@ -1381,21 +1511,6 @@ function DefaultLayout({ children }) {
                         onMouseOut={() => onMouseOutBox(key)}
                         key={key}
                       >
-                        <Row className={`share-response share-response-${key}`}>
-                          {!value.notification_system && (
-                            <div>
-                              <ExportOutlined
-                                onClick={() => handleClickResponsiveIcon(value)}
-                              />
-                            </div>
-                          )}
-                          <div onClick={() => handleClickShare(value)}>
-                            <ShareAltOutlined />
-                          </div>
-                          <div onClick={() => handleClickGhim(value)}>
-                            <PaperClipOutlined />
-                          </div>
-                        </Row>
                         <div
                           className={value.other_people ? "other-people" : "me"}
                           id={`${value.id}`}
@@ -1421,66 +1536,16 @@ function DefaultLayout({ children }) {
                               handleOnContextMenu(e, value);
                             }}
                           >
-                            {value.url && <ImageOrVideo value={value} />}{" "}
-                            {value.file && (
-                              <RenderFile
-                                renderImageFile={renderImageFile}
-                                value={value}
-                                bytesToSize={bytesToSize}
-                                setUrlFile={setUrlFile}
-                                urlFile={urlFile}
-                                setValueFile={setValueFile}
-                              />
-                            )}
-                            {value.type === "likeIcon" && (
-                              <LikeIcon value={value} />
-                            )}
-                            {value.text_message && !value.is_message_url && (
-                              <>
-                                <div className="content-chat">
-                                  <div className="box-make-hidden-content-chat">
-                                    {value.Responsive && (
-                                      <a href={`#${value.Responsive.id}`}>
-                                        <ResponsiveInput
-                                          ResponsiveInputValue={
-                                            value.Responsive
-                                          }
-                                          clearResponsiveTnputValue={
-                                            clearResponsiveTnputValue
-                                          }
-                                          renderImageFile={renderImageFile}
-                                          size="two"
-                                        />
-                                      </a>
-                                    )}
-                                    <div
-                                      dangerouslySetInnerHTML={{
-                                        __html: value.text_message,
-                                      }}
-                                    />
-                                  </div>
+                            <div className="content-chat">
+                              <div className="box-make-hidden-content-chat">
+                                <div style={{ color: "var(--BA30)" }}>
+                                  Tin nhắn đã bị xóa
                                 </div>
-                              </>
-                            )}
-                            {
-                              <>
-                                {value.is_message_url && (
-                                  <div className="content-chat">
-                                    <div className="box-make-hidden-content-chat">
-                                      <LinkPreview
-                                        url={value.message_url}
-                                        size={
-                                          value.other_people ? "two" : "one"
-                                        }
-                                      />
-                                      <div className="date">
-                                        {value.hours}:{value.minutes}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </>
-                            }
+                              </div>
+                              <div className="date">
+                                {value.hours}:{value.minutes}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

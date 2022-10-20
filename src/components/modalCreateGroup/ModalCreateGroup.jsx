@@ -38,6 +38,14 @@ function ModalCreateGroup(props) {
     handleClickCheckBox();
   };
 
+  const setValueChatsAddMembersAllMessage = (newValueChat) => {
+    const newValueChats = [newValueChat];
+    localStorage.setItem(
+      newValueChat.recipients.id_user,
+      JSON.stringify(newValueChats)
+    );
+  };
+
   const handleClickCreateGroupButton = () => {
     if (checkedValues.length >= 2) {
       const newDataUserFriends = [
@@ -52,7 +60,8 @@ function ModalCreateGroup(props) {
         ...props.dataUserFriends,
       ];
       const valueChatsAddMembersToGroup = {
-        create_date: props.createDateBoxChat(),
+        recipients: newDataUserFriends[0],
+        create_date: true,
         ...props.date,
         id: props.id,
         add_members_to_group: true,
@@ -60,7 +69,7 @@ function ModalCreateGroup(props) {
         members_added: checkedValues,
       };
       console.log(valueChatsAddMembersToGroup);
-      props.setValueChatsInRenderAllMessage(valueChatsAddMembersToGroup);
+      setValueChatsAddMembersAllMessage(valueChatsAddMembersToGroup);
       props.setDataUserFriendsAll(newDataUserFriends);
       unCheckCancel();
       props.handleCancelModalCreateGroup();

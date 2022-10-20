@@ -9,6 +9,12 @@ function ModalInformation(props) {
     props.setModalUpdateInformation(true);
     props.handleCancelModalInformation();
   };
+
+  const handleClickSentmgs = (dataModalInformation) => {
+    props.setDataUserFriend(dataModalInformation);
+    props.handleCancelModalInformation();
+  };
+
   return (
     <>
       {props.dataModalInformation?.group ? (
@@ -86,7 +92,12 @@ function ModalInformation(props) {
             <div className="box-btn-sentmgs">
               {props.dataModalInformation?.id_user !==
                 props.dataUserMe.id_user && (
-                <div className="btn-sentmgs">Nhắn tin</div>
+                <div
+                  className="btn-sentmgs"
+                  onClick={() => handleClickSentmgs(props.dataModalInformation)}
+                >
+                  Nhắn tin
+                </div>
               )}
             </div>
             <div className="box-profile-information">

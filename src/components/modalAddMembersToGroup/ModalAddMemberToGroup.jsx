@@ -51,6 +51,7 @@ function ModalAddMembersToGroup(props) {
         }
       });
       const valueChatsAddMembersToGroup = {
+        recipients: props.dataUserFriend,
         create_date: props.createDateBoxChat(),
         ...props.date,
         id: props.id,
