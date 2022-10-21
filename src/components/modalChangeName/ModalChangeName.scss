@@ -1,0 +1,113 @@
+/* modalInformation Style */
+
+/* edit-css-libary */
+.ant-image-mask:hover {
+  opacity: 0;
+}
+
+.ant-modal-wrap .ant-modal-content {
+  border-radius: 4px;
+}
+
+.ant-modal-wrap .ant-modal-header {
+  border-radius: 4px 4px 0px 0px;
+  height: 48px;
+}
+
+.ant-modal-wrap .ant-modal-body {
+  padding: 0px;
+}
+
+/* edit-css-libary */
+
+/* modalInformation Style */
+
+.wrapper-modal-change-name {
+  .ant-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/*  */
+
+.wrapper-modal-change-name .profilePhoto .user-profile-preview {
+  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper-modal-change-name .profilePhoto .user-profile-preview .box-img-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.wrapper-modal-change-name .profilePhoto {
+  padding: 14px 16px 0px;
+  .user-profile-preview {
+    margin-top: 0px;
+    margin-bottom: 16px;
+  }
+  .img-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: solid 2px #fff;
+    object-fit: cover;
+  }
+}
+
+.wrapper-modal-change-name {
+  .change-name {
+    padding: 0px 16px 16px;
+    .title {
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--primary-text);
+      margin-bottom: 5px;
+    }
+  }
+  .content {
+    background: var(--WA100);
+    color: var(--primary-text);
+    border-radius: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    cursor: default;
+    margin: 0 auto 12px;
+    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    div {
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+  .input.InPutSearch {
+    .ant-input {
+      background-color: #fff;
+    }
+    .ant-input:hover {
+      border-color: var(--B60);
+    }
+    .ant-input:focus {
+      border-color: var(--B60);
+      box-shadow: 0 0 0 2px rgba(207, 75, 9, 0.2);
+    }
+  }
+}
+
+/*  */
+
+/* answer-input */
+
+/* modalInformation Style */

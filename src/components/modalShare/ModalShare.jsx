@@ -38,6 +38,26 @@ function ModalShare(props) {
     handleClickCheckBox();
   };
 
+  const createDateBoxChat = (oldValueChat) => {
+    if (oldValueChat) {
+      const valueTimeLast = oldValueChat.find(
+        (oldValueChat) => oldValueChat.create_date === true
+      );
+      if (valueTimeLast) {
+        return (
+          props.date.year - valueTimeLast?.year >= 1 ||
+          props.date.month - valueTimeLast?.month >= 1 ||
+          props.date.date - valueTimeLast?.date >= 1 ||
+          props.date.hours - valueTimeLast?.hours >= 2
+        );
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
+  };
+
   const sentValueChatsShare = () => {
     checkedValues.forEach((checkedValue) => {
       let oldValueChat = JSON.parse(
@@ -49,7 +69,7 @@ function ModalShare(props) {
             ...props.valueRightClickMessage,
             ...props.date,
             ...props.dataUserMe,
-            create_date: props.createDateBoxChat(),
+            create_date: createDateBoxChat(oldValueChat),
             id: props.id + checkedValue.id_user,
           },
           ...oldValueChat,
@@ -64,7 +84,7 @@ function ModalShare(props) {
             ...props.valueRightClickMessage,
             ...props.date,
             ...props.dataUserMe,
-            create_date: props.createDateBoxChat(),
+            create_date: createDateBoxChat(oldValueChat),
             id: props.id + checkedValue.id_user,
           },
         ];
@@ -79,7 +99,7 @@ function ModalShare(props) {
             ...props.valueRightClickMessage,
             ...props.date,
             ...props.dataUserMe,
-            create_date: props.createDateBoxChat(),
+            create_date: createDateBoxChat(oldValueChat),
             id: props.id + checkedValue.id_user,
           },
           ...oldValueChat,
@@ -107,7 +127,6 @@ function ModalShare(props) {
             last_value_chat: {
               ...props.valueRightClickMessage,
               ...props.date,
-              create_date: props.createDateBoxChat(),
               id: props.id,
             },
           },

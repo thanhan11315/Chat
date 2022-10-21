@@ -56,6 +56,7 @@ import ModalAddMembersToGroup from "../../components/modalAddMembersToGroup/Moda
 import LinkPreview from "../../components/linkPreview/LinkPreview";
 import ModalUpdateInformation from "../../components/modalUpdateInformation/ModalUpdateInformation";
 import TabTitle from "../../pages/TapTitle";
+import ModalChangeName from "../../components/modalChangeName/ModalChangeName";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -96,6 +97,7 @@ function DefaultLayout({ children }) {
   ] = useState([]);
   const [modalUpdateInformation, setModalUpdateInformation] = useState(false);
   const [valueDeleteLink, setValueDeleteLink] = useState(true);
+  const [modalChangeName, setModalChangeName] = useState(false);
   const d = new Date();
   const date = {
     year: d.getFullYear(),
@@ -1200,10 +1202,20 @@ function DefaultLayout({ children }) {
   };
   // contextMenu Click Right mouse
 
+  console.log(1);
+
   return (
     <>
+      <ModalChangeName
+        setModalChangeName={setModalChangeName}
+        modalChangeName={modalChangeName}
+        dataUserFriend={dataUserFriend}
+        dataUserFriends={dataUserFriends}
+        setDataUserFriend={setDataUserFriend}
+        setDataUserFriendsAll={setDataUserFriendsAll}
+        setValueChats={setValueChats}
+      />
       {/* Modal */}
-
       <ModalUpdateInformation
         dataUserMe={dataUserMe}
         modalUpdateInformation={modalUpdateInformation}
@@ -1213,6 +1225,8 @@ function DefaultLayout({ children }) {
         valueChats={valueChats}
         setValueChats={setValueChats}
         dataUserFriend={dataUserFriend}
+        setDataUserFriend={setDataUserFriend}
+        setDataUserFriendsAll={setDataUserFriendsAll}
       />
 
       <IframeFile
@@ -1237,7 +1251,6 @@ function DefaultLayout({ children }) {
         dataUserFriendsApi={dataUserFriendsApi}
         setValueChats={setValueChats}
         date={date}
-        createDateBoxChat={createDateBoxChat}
         id={id}
         setDataUserFriends={setDataUserFriends}
         dataUserFriends={dataUserFriends}
@@ -1507,8 +1520,6 @@ function DefaultLayout({ children }) {
                         className={
                           value.other_people ? "box-other-people" : "box-me"
                         }
-                        onMouseOver={() => onMounseOverBox(key)}
-                        onMouseOut={() => onMouseOutBox(key)}
                         key={key}
                       >
                         <div
@@ -1808,6 +1819,7 @@ function DefaultLayout({ children }) {
           setUrlFile={setUrlFile}
           urlFile={urlFile}
           setValueFile={setValueFile}
+          setModalChangeName={setModalChangeName}
         />
       </Row>
     </>

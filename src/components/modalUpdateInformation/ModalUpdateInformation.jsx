@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "antd/lib/modal/Modal";
 import { Button, Input, Radio } from "antd";
 import "./ModalUpdateInformation.scss";
@@ -10,6 +10,13 @@ function ModalUpdateInformation(props) {
   const [valueGender, setValueGender] = useState(props.dataUserMe.gender);
   const [valueBirthday, setValueBirthday] = useState(props.dataUserMe.birthday);
   const [valueAvatar, setValueAvatar] = useState(props.dataUserMe.avatar);
+  useEffect(() => {
+    setValueName(props.dataUserMe.name);
+    setValueGender(props.dataUserMe.gender);
+    setValueBirthday(props.dataUserMe.birthday);
+    setValueAvatar(props.dataUserMe.avatar);
+  }, [props.modalUpdateInformation]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const onChangeGender = (e) => {
     setValueGender(e.target.value);
   };
@@ -46,7 +53,7 @@ function ModalUpdateInformation(props) {
     localStorage.setItem("dataUserMe", JSON.stringify(newDataUserMe));
   };
 
-  const ChangeValueChatsCurrentBoxChat = (
+  const changeValueChatsCurrentBoxChat = (
     dataUserFriend,
     dataUserFriendCurrent,
     newValueChats
@@ -73,25 +80,44 @@ function ModalUpdateInformation(props) {
     }
   };
 
+  const changeDataUserFriend = (dataUserFriend, newDataUserMe) => {
+    if (dataUserFriend.group === true) {
+      const newMember = dataUserFriend.members.map((member) => {
+        if (member.id_user === newDataUserMe.id_user) {
+          return { ...member, ...newDataUserMe };
+        } else {
+          return member;
+        }
+      });
+      props.setDataUserFriend({ ...dataUserFriend, members: newMember });
+      return { ...dataUserFriend, members: newMember };
+    } else {
+      return dataUserFriend;
+    }
+  };
+
   const changeAllValueChatsUpdateInformation = () => {
     props.dataUserFriends.forEach((dataUserFriend) => {
       const oldValueChats = JSON.parse(
         localStorage.getItem(dataUserFriend.id_user)
       );
-      console.log(oldValueChats);
       const newValueChats = makeNewValueChats(oldValueChats, newDataUserMe);
-      console.log(newValueChats);
       newValueChats &&
         localStorage.setItem(
           dataUserFriend.id_user,
           JSON.stringify(newValueChats)
         );
-      ChangeValueChatsCurrentBoxChat(
+      changeValueChatsCurrentBoxChat(
         dataUserFriend,
         props.dataUserFriend,
         newValueChats
       );
     });
+    const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
+      return changeDataUserFriend(dataUserFriend, newDataUserMe);
+    });
+    console.log(newDataUserFriends);
+    props.setDataUserFriendsAll(newDataUserFriends);
   };
 
   const handleClickUpdate = () => {
@@ -154,7 +180,7 @@ function ModalUpdateInformation(props) {
               </div>
             </div>
           </div>
-          <div className="Change-name">
+          <div className="change-name">
             <div className="title">Tên hiển thị</div>
             <div className="input InPutSearch">
               <Input

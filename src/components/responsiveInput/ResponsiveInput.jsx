@@ -5,10 +5,27 @@ import LinkPreview from "../linkPreview/LinkPreview";
 import "./ResponsiveInput.scss";
 
 function ResponsiveInput(props) {
+  const hiddenAndShowScrollBottom = () => {
+    document.querySelector(".button-scroll-bottom").classList.remove("hidden");
+    setTimeout(() => {
+      const elementBoxChat = document.querySelector(".box-nav-3 .box-chat");
+      if (elementBoxChat.scrollTop > -500) {
+        document.querySelector(".button-scroll-bottom").classList.add("hidden");
+      }
+    }, 0);
+  };
+
+  const handleClickResponsive = () => {
+    hiddenAndShowScrollBottom();
+  };
+
   return (
     <>
       {props.ResponsiveInputValue.type === "image" && (
-        <Row className="responsive-input-box">
+        <Row
+          className="responsive-input-box"
+          onClick={() => handleClickResponsive()}
+        >
           <div className="border-right" />
           <div className="responsive-image">
             <img alt="img not load" src={props.ResponsiveInputValue.url} />
@@ -38,7 +55,10 @@ function ResponsiveInput(props) {
         </Row>
       )}
       {props.ResponsiveInputValue.type === "video" && (
-        <Row className="responsive-input-box">
+        <Row
+          className="responsive-input-box"
+          onClick={() => handleClickResponsive()}
+        >
           <div className="border-right" />
           <div className="responsive-image">
             <video alt="video not load" src={props.ResponsiveInputValue.url} />
@@ -67,7 +87,10 @@ function ResponsiveInput(props) {
         </Row>
       )}
       {props.ResponsiveInputValue.file && (
-        <Row className="responsive-input-box">
+        <Row
+          className="responsive-input-box"
+          onClick={() => handleClickResponsive()}
+        >
           <div className="border-right" />
           <div className="responsive-image">
             <img
@@ -104,7 +127,10 @@ function ResponsiveInput(props) {
       )}
       {props.ResponsiveInputValue?.text_message &&
         !props.ResponsiveInputValue?.is_message_url && (
-          <Row className="responsive-input-box">
+          <Row
+            className="responsive-input-box"
+            onClick={() => handleClickResponsive()}
+          >
             <div className="border-right" />
             <div className="Responsive-content">
               {props.size === "one" && (
@@ -137,7 +163,10 @@ function ResponsiveInput(props) {
         )}
       {props.ResponsiveInputValue.text_message &&
         props.ResponsiveInputValue.is_message_url && (
-          <Row className="responsive-input-box">
+          <Row
+            className="responsive-input-box"
+            onClick={() => handleClickResponsive()}
+          >
             <LinkPreview
               url={props.ResponsiveInputValue.message_url}
               size="five"

@@ -167,6 +167,10 @@ function Nav4(props) {
     }
   };
 
+  const handleClickEditName = () => {
+    props.setModalChangeName(true);
+  };
+
   return (
     <Col className={`box-nav-4 ${props.hiddenRightNav}`}>
       <div className="title-nav">Thông tin hội thoại</div>
@@ -197,8 +201,8 @@ function Nav4(props) {
           </div>
           <div className="header-info-name">
             <div className="header">{props.dataUserFriend?.name}</div>
-            <div className="icon not-use">
-              <EditOutlined className="not-use" />
+            <div className="icon" onClick={handleClickEditName}>
+              <EditOutlined />
             </div>
           </div>
           <Row className="box-icon-content">
