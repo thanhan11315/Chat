@@ -23,15 +23,34 @@ function ModalChangeName(props) {
     return valueName !== props.dataUserFriend.name;
   };
 
-  const newDataUserFriends =
-    props.dataUserFriends &&
-    props.dataUserFriends.map((dataUserFriend) => {
-      if (dataUserFriend.id_user === props.dataUserFriend.id_user) {
-        return { ...dataUserFriend, name: valueName };
-      } else {
-        return dataUserFriend;
-      }
-    });
+  const newDataMembers = (dataUserFriend) => {
+    const newDataMembers =
+      dataUserFriend.members &&
+      dataUserFriend.members.map((member) => {
+        if (member.id_user === props.dataUserFriend.id_user) {
+          return { ...member, name: valueName };
+        } else {
+          return member;
+        }
+      });
+    console.log(newDataMembers);
+    return newDataMembers;
+  };
+
+  const newDataUserFriends = () => {
+    const newDataUserFriend =
+      props.dataUserFriends &&
+      props.dataUserFriends.map((dataUserFriend) => {
+        if (dataUserFriend.id_user === props.dataUserFriend.id_user) {
+          return { ...dataUserFriend, name: valueName };
+        } else if (dataUserFriend.group) {
+          return { ...dataUserFriend, members: newDataMembers(dataUserFriend) };
+        } else {
+          return dataUserFriend;
+        }
+      });
+    return newDataUserFriend;
+  };
 
   const changeValueChats = () => {
     props.dataUserFriends.forEach((dataUserFriend) => {

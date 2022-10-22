@@ -37,6 +37,15 @@ import ModalShare from "../../components/modalShare/ModalShare";
 import RightmouseChooseBoxChat from "../../components/rightmouseChooseBoxChat/RightmouseChooseBoxChat";
 import ModalCreateGroup from "../../components/modalCreateGroup/ModalCreateGroup";
 import IframeFile from "../../components/iframe_file/IframeFile";
+import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
+import LikeIcon from "../../components/likeIcon/LikeIcon";
+import ButtonScrollBottom from "../../components/buttonScrollEndBottom/ButtonScrollEndBottom";
+import ModalAddMembersToGroup from "../../components/modalAddMembersToGroup/ModalAddMemberToGroup";
+import LinkPreview from "../../components/linkPreview/LinkPreview";
+import ModalUpdateInformation from "../../components/modalUpdateInformation/ModalUpdateInformation";
+import TabTitle from "../../pages/TapTitle";
+import ModalChangeName from "../../components/modalChangeName/ModalChangeName";
+import RightmouseMember from "../../components/rightmouseMember/RightmouseMember";
 //
 import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 import AvatarTN from "../../assets/images/AvatarTN.jpg";
@@ -49,14 +58,6 @@ import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
 import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
-import RightmouseResponsive from "../../components/rightmousResponsive/RightmouseResponsive";
-import LikeIcon from "../../components/likeIcon/LikeIcon";
-import ButtonScrollBottom from "../../components/buttonScrollEndBottom/ButtonScrollEndBottom";
-import ModalAddMembersToGroup from "../../components/modalAddMembersToGroup/ModalAddMemberToGroup";
-import LinkPreview from "../../components/linkPreview/LinkPreview";
-import ModalUpdateInformation from "../../components/modalUpdateInformation/ModalUpdateInformation";
-import TabTitle from "../../pages/TapTitle";
-import ModalChangeName from "../../components/modalChangeName/ModalChangeName";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -827,7 +828,7 @@ function DefaultLayout({ children }) {
   useEffect(() => {
     if (dataUserFriends && valueChats) {
       if (
-        valueChats[0]?.recipients.id_user === dataUserFriend?.id_user &&
+        valueChats[0]?.recipients?.id_user === dataUserFriend?.id_user &&
         valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id
       ) {
         const newDataUserFriends = dataUserFriends;
@@ -1092,6 +1093,9 @@ function DefaultLayout({ children }) {
       document.querySelector(".rightmouse-choose-box-chat ").style.display =
         "none";
     }
+    if (document.querySelector(".rightmouse-member ")) {
+      document.querySelector(".rightmouse-member ").style.display = "none";
+    }
   });
 
   window.addEventListener("wheel", () => {
@@ -1103,6 +1107,9 @@ function DefaultLayout({ children }) {
       document.querySelector(".rightmouse-choose-box-chat ").style.display =
         "none";
     }
+    if (document.querySelector(".rightmouse-member ")) {
+      document.querySelector(".rightmouse-member ").style.display = "none";
+    }
   });
 
   window.addEventListener("contextmenu", () => {
@@ -1113,6 +1120,9 @@ function DefaultLayout({ children }) {
     if (document.querySelector(".rightmouse-choose-box-chat ")) {
       document.querySelector(".rightmouse-choose-box-chat ").style.display =
         "none";
+    }
+    if (document.querySelector(".rightmouse-member")) {
+      document.querySelector(".rightmouse-member").style.display = "none";
     }
   });
 
@@ -1200,9 +1210,32 @@ function DefaultLayout({ children }) {
     e.stopPropagation();
     setValueRightClickChooseBoxChat(value);
   };
-  // contextMenu Click Right mouse
+  // onContextMenu rightMouseMember
+  const [valueRightClickMember, setValueRightClickMember] = useState("");
 
-  console.log(1);
+  const onContextMenuMember = (e, value) => {
+    let leftPos = "";
+    let topPos = "";
+    e.preventDefault();
+    const menu = document.querySelector(".rightmouse-member");
+    if (180 < window.innerWidth - e.clientX) {
+      leftPos = `${e.clientX - 10}px`;
+    } else {
+      leftPos = `${e.pageX - 230}px`;
+    }
+    if (250 < window.innerHeight - e.clientY) {
+      topPos = `${e.clientY - 10}px`;
+    } else {
+      topPos = `${e.pageY - 115}px`;
+    }
+    e.stopPropagation();
+    setValueRightClickMember(value);
+    menu.style.display = "block";
+    menu.style.top = topPos;
+    menu.style.left = leftPos;
+  };
+
+  // onContextMenu rightMouseMember
 
   return (
     <>
@@ -1310,6 +1343,15 @@ function DefaultLayout({ children }) {
         setDataUserFriend={setDataUserFriend}
       />
       {/* RightmouseChooseBoxChat */}
+
+      <RightmouseMember
+        valueRightClickMember={valueRightClickMember}
+        dataUserFriend={dataUserFriend}
+        setDataUserFriend={setDataUserFriend}
+        dataUserFriends={dataUserFriends}
+        setDataUserFriendsAll={setDataUserFriendsAll}
+        dataUserMe={dataUserMe}
+      />
 
       <Row id="wrapper">
         {/* Nav1 */}
@@ -1820,6 +1862,7 @@ function DefaultLayout({ children }) {
           urlFile={urlFile}
           setValueFile={setValueFile}
           setModalChangeName={setModalChangeName}
+          onContextMenuMember={onContextMenuMember}
         />
       </Row>
     </>

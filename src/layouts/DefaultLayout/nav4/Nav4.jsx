@@ -171,6 +171,14 @@ function Nav4(props) {
     props.setModalChangeName(true);
   };
 
+  const orderMember = (leader, deputy) => {
+    if (leader) {
+      return -2;
+    } else if (deputy) {
+      return -1;
+    }
+  };
+
   return (
     <Col className={`box-nav-4 ${props.hiddenRightNav}`}>
       <div className="title-nav">Thông tin hội thoại</div>
@@ -287,31 +295,43 @@ function Nav4(props) {
           <div className="box-element">
             <div className="title">Thành viên nhóm</div>
             <div className="content-member">
-              {props.dataUserFriend?.members.map((member) => {
-                return (
-                  <div
-                    className="box-member"
-                    onClick={() => props.handleClickImgChat(member)}
-                  >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <div className="image-member">
-                        <img src={member.avatar} alt="img not load" />
+              {props.dataUserFriend?.members &&
+                props.dataUserFriend?.members.map((member) => {
+                  return (
+                    <div
+                      className="box-member"
+                      onClick={() => {
+                        props.handleClickImgChat(member);
+                      }}
+                      onContextMenu={(e) => {
+                        props.onContextMenuMember(e, member);
+                      }}
+                      style={{
+                        order: orderMember(member.leader, member.deputy),
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <div className="image-member">
+                          <img src={member.avatar} alt="img not load" />
+                        </div>
+                        <div className="box-information">
+                          <div className="name">{member.name}</div>
+                          {member.leader && (
+                            <div className="position">Trưởng nhóm</div>
+                          )}
+                          {member.deputy && (
+                            <div className="position">Phó nhóm</div>
+                          )}
+                        </div>
                       </div>
-                      <div className="box-information">
-                        <div className="name">{member.name}</div>
-                        {member.leader && (
-                          <div className="position">Trưởng nhóm</div>
-                        )}
-                      </div>
+                      {member.id_user !== props.dataUserMe.id_user && (
+                        <div className="add-friend">
+                          <span>Kết bạn</span>
+                        </div>
+                      )}
                     </div>
-                    {member.id_user !== props.dataUserMe.id_user && (
-                      <div className="add-friend">
-                        <span>Kết bạn</span>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
             {showAllMembers ? (
               <div className="div-button" onClick={hanldeClickHiddenAllMembers}>

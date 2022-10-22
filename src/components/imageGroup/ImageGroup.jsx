@@ -4,7 +4,7 @@ function ImageGroup(props) {
   return (
     <>
       <div className="box-image-group">
-        {props.dataUserFriend?.members.length <= 3 && (
+        {props.dataUserFriend?.members?.length <= 3 && (
           <>
             <div className="box-image image-1-1">
               {props.dataUserFriend?.members[0]?.avatar && (
@@ -32,7 +32,7 @@ function ImageGroup(props) {
             </div>
           </>
         )}
-        {props.dataUserFriend?.members.length >= 4 && (
+        {props.dataUserFriend?.members?.length >= 4 && (
           <>
             <div className="box-image image-2-1">
               <img
@@ -53,7 +53,7 @@ function ImageGroup(props) {
               />
             </div>
             <div className="box-image image-2-4">
-              {props.dataUserFriend?.members.length === 4 ? (
+              {props.dataUserFriend?.members?.length === 4 ? (
                 <img
                   src={props.dataUserFriend?.members[3]?.avatar}
                   alt="img not load"

@@ -1,0 +1,33 @@
+.rightmouse-member {
+  position: absolute;
+  z-index: 9999;
+  display: none;
+  .box-rightmouse-member {
+    background: var(--WA100);
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 var(--BA20);
+    border: 1px solid var(--border);
+    width: 220px;
+    .select-element {
+      height: 32px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--primary-text);
+      position: relative;
+      margin: 0 -8px;
+    }
+    .select-element:hover {
+      background-color: var(--lst-item-hover);
+    }
+    .line {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 8px;
+    }
+  }
+}

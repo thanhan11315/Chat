@@ -89,7 +89,6 @@ function ModalUpdateInformation(props) {
           return member;
         }
       });
-      props.setDataUserFriend({ ...dataUserFriend, members: newMember });
       return { ...dataUserFriend, members: newMember };
     } else {
       return dataUserFriend;
@@ -116,7 +115,13 @@ function ModalUpdateInformation(props) {
     const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
       return changeDataUserFriend(dataUserFriend, newDataUserMe);
     });
-    console.log(newDataUserFriends);
+    const newDataUserFriend = newDataUserFriends.find(
+      (newDataUserFriend) =>
+        newDataUserFriend.id_user === props.dataUserFriend.id_user
+    );
+
+    props.setDataUserFriend(newDataUserFriend);
+
     props.setDataUserFriendsAll(newDataUserFriends);
   };
 
