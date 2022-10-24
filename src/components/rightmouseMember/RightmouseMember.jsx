@@ -18,7 +18,6 @@ function RightmouseMember(props) {
         return member;
       }
     });
-    console.log(newMembers);
     return newMembers;
   };
 
@@ -30,7 +29,6 @@ function RightmouseMember(props) {
         return member;
       }
     });
-    console.log(newMembers);
     return newMembers;
   };
 
@@ -55,7 +53,6 @@ function RightmouseMember(props) {
         return dataUserFriend;
       }
     });
-    console.log(newDataUserFriends);
     return newDataUserFriends;
   };
 

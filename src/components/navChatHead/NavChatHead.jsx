@@ -64,9 +64,9 @@ function NavChatHead(props) {
               </div>
               <div className="status-2">{props.dataUserFriend?.status}</div>
               <div className="brick"></div>
-              <div className="icon">
+              {/* <div className="icon">
                 <TagOutlined />
-              </div>
+              </div> */}
             </Row>
           </div>
         </Row>

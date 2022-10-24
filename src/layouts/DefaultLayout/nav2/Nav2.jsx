@@ -36,11 +36,70 @@ function Nav2(props) {
     }
   };
 
+  const inputSearch = document.querySelector(
+    ".box-nav-2 .search .inputSearch .ant-input"
+  );
+
+  const VIETNAMESE_A = "ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠ";
+  const ARRVIETNAMESE_A = VIETNAMESE_A.split("");
+  const VIETNAMESE_E = "ẾỀỂỄỆÊÉÈẺẼẸ";
+  const ARRVIETNAMESE_E = VIETNAMESE_E.split("");
+  const VIETNAMESE_I = "ÍÌỈĨỊ";
+  const ARRVIETNAMESE_I = VIETNAMESE_I.split("");
+  const VIETNAMESE_O = "ỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌ";
+  const ARRVIETNAMESE_O = VIETNAMESE_O.split("");
+  const VIETNAMESE_U = "ỨỪỬỮỰƯÚÙỦŨỤ";
+  const ARRVIETNAMESE_U = VIETNAMESE_U.split("");
+  const VIETNAMESE_Y = "ÝỲỶỸỴ";
+  const ARRVIETNAMESE_Y = VIETNAMESE_Y.split("");
+
+  const vietNameseOmitMark = (string) => {
+    let newString = string;
+    ARRVIETNAMESE_A.forEach((character) => {
+      newString = newString.replaceAll(character, "A");
+    });
+    newString = newString.replaceAll("Đ", "D");
+    ARRVIETNAMESE_E.forEach((character) => {
+      newString = newString.replaceAll(character, "E");
+    });
+    ARRVIETNAMESE_I.forEach((character) => {
+      newString = newString.replaceAll(character, "I");
+    });
+    ARRVIETNAMESE_O.forEach((character) => {
+      newString = newString.replaceAll(character, "O");
+    });
+    ARRVIETNAMESE_U.forEach((character) => {
+      newString = newString.replaceAll(character, "U");
+    });
+    ARRVIETNAMESE_Y.forEach((character) => {
+      newString = newString.replaceAll(character, "Y");
+    });
+    return newString;
+  };
+  const searchFriend = () => {
+    let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
+    filter = vietNameseOmitMark(inputSearch?.value?.toUpperCase());
+    boxElement = document.querySelector(".box-nav-2 .overflow");
+    elements = boxElement.querySelectorAll(".box-choose-chatbox");
+    lengthElements = elements.length;
+    for (i = 0; i < lengthElements; i++) {
+      elementTitle = elements[i].querySelector(".title");
+      txtValue =
+        vietNameseOmitMark(elementTitle.textContent.toUpperCase()) ||
+        vietNameseOmitMark(elementTitle.innerHTML.toUpperCase());
+      if (txtValue.indexOf(filter.trim()) > -1) {
+        elements[i].style.display = "flex";
+      } else {
+        elements[i].style.display = "none";
+      }
+    }
+  };
+
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
       <Row className="search-add">
         <Col className="search">
-          <InPutSearch />
+          <InPutSearch searchFriend={searchFriend} />
         </Col>
         <Col className="add-friend icon not-use">
           <UserAddOutlined />
@@ -68,17 +127,17 @@ function Nav2(props) {
           </Col>
         </Row>
         <Row className="box-title-nav2-2">
-          <Col className="title classify">
+          {/* <Col className="title classify">
             Phân loại
             <DownOutlined
               style={{
                 marginLeft: "8px",
               }}
             />
-          </Col>
-          <Col className="title dots">
+          </Col> */}
+          {/* <Col className="title dots">
             <EllipsisOutlined />
-          </Col>
+          </Col> */}
         </Row>
       </Row>
       <div className="overflow">
