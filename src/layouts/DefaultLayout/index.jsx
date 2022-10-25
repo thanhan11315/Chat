@@ -1331,6 +1331,7 @@ function DefaultLayout({ children }) {
         setModalShare={setModalShare}
         handleClickUnGhim={handleClickUnGhim}
         deleteMessage={deleteMessage}
+        setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
       {/* RightmouseResponsive */}
 
@@ -1351,6 +1352,10 @@ function DefaultLayout({ children }) {
         dataUserFriends={dataUserFriends}
         setDataUserFriendsAll={setDataUserFriendsAll}
         dataUserMe={dataUserMe}
+        createDateBoxChat={createDateBoxChat}
+        date={date}
+        id={id}
+        setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
 
       <Row id="wrapper">
@@ -1650,6 +1655,52 @@ function DefaultLayout({ children }) {
                           </Row>
                         );
                       })}
+                    {value.invite_out_group && (
+                      <Row
+                        className="box-message"
+                        id="1665217404457888996306170"
+                      >
+                        <Row className="event-message">
+                          <Col className="image-message">
+                            <img
+                              src={value.member_removed.avatar}
+                              onClick={() =>
+                                handleClickImgChat(value.member_removed)
+                              }
+                              alt="img not load"
+                              style={{
+                                border: "0.5px solid #fff",
+                                borderRadius: "50%",
+                                objectFit: "cover",
+                                width: "24px",
+                                height: "24px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </Col>
+                          <Col
+                            className="name-message"
+                            onClick={() =>
+                              handleClickImgChat(value.member_removed)
+                            }
+                          >
+                            {value.member_removed.name}
+                          </Col>
+                          <Col className="content-message">được</Col>
+                          <Col
+                            className="name-message"
+                            onClick={() =>
+                              handleClickImgChat(value.member_remove)
+                            }
+                          >
+                            {value.member_remove.name}
+                          </Col>
+                          <Col className="content-message">
+                            mời ra khỏi nhóm
+                          </Col>
+                        </Row>
+                      </Row>
+                    )}
                     {value.remove_members_to_group && (
                       <Row className="box-message">
                         <Row className="event-message">
@@ -1688,8 +1739,13 @@ function DefaultLayout({ children }) {
                       <div className="box-date">
                         <div className="line" />
                         <span className="overdate">
-                          {value.date}-{value.month + 1}-{value.year}{" "}
-                          {value.hours}:{value.minutes}
+                          {date.date - value.date > 1 ||
+                          date.month - value.month > 1 ||
+                          date.year - value.year
+                            ? `${value.date}-${value.month + 1}-${value.year} ${
+                                value.hours
+                              } : ${value.minutes}`
+                            : `${value.hours}:${value.minutes} Hôm nay`}
                         </span>
                         <div className="line" />
                       </div>

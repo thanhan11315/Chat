@@ -8,10 +8,20 @@ import {
 import "./ListGhim.scss";
 import LinkPreview from "../linkPreview/LinkPreview";
 function Ghim(props) {
+  const hiddenAndShowScrollBottom = () => {
+    document.querySelector(".button-scroll-bottom").classList.remove("hidden");
+    setTimeout(() => {
+      const elementBoxChat = document.querySelector(".box-nav-3 .box-chat");
+      if (elementBoxChat.scrollTop > -500) {
+        document.querySelector(".button-scroll-bottom").classList.add("hidden");
+      }
+    }, 0);
+  };
+
   return (
     <>
       {props.valueListGhim[0]?.type === "image" && (
-        <Row className="box-ghim">
+        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
@@ -56,7 +66,7 @@ function Ghim(props) {
         </Row>
       )}
       {props.valueListGhim[0]?.type === "video" && (
-        <Row className="box-ghim">
+        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
@@ -104,7 +114,7 @@ function Ghim(props) {
         </Row>
       )}
       {props.valueListGhim[0].file && (
-        <Row className="box-ghim">
+        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
@@ -155,7 +165,7 @@ function Ghim(props) {
       )}
       {props.valueListGhim[0]?.text_message &&
         !props.valueListGhim[0]?.is_message_url && (
-          <Row className="box-ghim">
+          <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
             <a
               style={{ width: "calc(100% - 175px)" }}
               href={`#${props.valueListGhim[0].id}`}
@@ -210,7 +220,7 @@ function Ghim(props) {
         )}
       {props.valueListGhim[0]?.text_message &&
         props.valueListGhim[0]?.is_message_url && (
-          <Row className="box-ghim">
+          <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
             <a
               style={{ width: "calc(100% - 175px)" }}
               href={`#${props.valueListGhim[0].id}`}

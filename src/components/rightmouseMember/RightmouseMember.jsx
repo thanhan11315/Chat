@@ -42,7 +42,11 @@ function RightmouseMember(props) {
   };
 
   const newDataUserFriend = (oldDataUserFriend, newMembers) => {
-    return { ...oldDataUserFriend, members: newMembers };
+    return {
+      ...oldDataUserFriend,
+      members: newMembers,
+      status: `${newMembers.length} thành viên`,
+    };
   };
 
   const newDataUserFriends = (dataUserFriends, newDataUserFriend) => {
@@ -57,6 +61,18 @@ function RightmouseMember(props) {
   };
 
   const valueChangeInMemberAppointDeputy = { deputy: true };
+
+  const valueChatkInvitedOutGroup = {
+    invite_out_group: true,
+    recipients: props.dataUserFriend,
+    create_date: props.createDateBoxChat(),
+    ...props.date,
+    id: props.id,
+    member_remove: props.dataUserMe,
+    member_removed: props.valueRightClickMember,
+  };
+
+  // const newValueChats =
 
   const handleClickAppointLeader = () => {
     const newMembersAppointSave = newMembersAppointLeader(
@@ -104,9 +120,12 @@ function RightmouseMember(props) {
       props.dataUserFriends,
       newDataUserFriendSave
     );
+    console.log(props.dataUserFriends);
     props.setDataUserFriend(newDataUserFriendSave);
     props.setDataUserFriendsAll(newDataUserFriendsSave);
+    props.setValueChatsInRenderAllMessage(valueChatkInvitedOutGroup);
   };
+
   return (
     <>
       <div className="rightmouse-member">

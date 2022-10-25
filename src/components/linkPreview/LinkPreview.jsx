@@ -55,6 +55,7 @@ function LinkPreview(props) {
       getApiLink();
     }
   }, [props.url]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <>
       {props.size === "one" && (
@@ -144,7 +145,16 @@ function LinkPreview(props) {
                 </div>
                 <div className="card-content">
                   <div className="title">{valueLink?.title}</div>
-                  <div className="domain">{valueLink?.domain}</div>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div className="domain">{valueLink?.domain} </div>
+                    <div className="date">
+                      {`${props.date}/${props.month + 1}/${props.year} ${
+                        props.hours
+                      }:${props.minutes}`}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -422,7 +422,16 @@ function Nav4(props) {
                   <>
                     {valueChat.is_message_url && (
                       <>
-                        <LinkPreview url={valueChat.message_url} size="three" />
+                        <LinkPreview
+                          url={valueChat.message_url}
+                          size="three"
+                          key={key}
+                          date={valueChat.date}
+                          month={valueChat.month}
+                          year={valueChat.year}
+                          hours={valueChat.hours}
+                          minutes={valueChat.minutes}
+                        />
                       </>
                     )}
                   </>
