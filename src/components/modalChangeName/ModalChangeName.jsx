@@ -4,14 +4,13 @@ import { Button, Input } from "antd";
 import "./ModalChangeName.scss";
 import { useEffect } from "react";
 function ModalChangeName(props) {
-  const [valueName, setValueName] = useState(props.dataUserFriend.name);
+  const [valueName, setValueName] = useState(props.dataUserFriend?.name);
 
   useEffect(() => {
-    setValueName(props.dataUserFriend.name);
+    setValueName(props.dataUserFriend?.name);
   }, [props.modalChangeName]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const cancelBox = () => {
-    console.log(1);
     props.setModalChangeName(false);
   };
 
@@ -20,7 +19,7 @@ function ModalChangeName(props) {
   };
 
   const ifChange = () => {
-    return valueName !== props.dataUserFriend.name;
+    return valueName !== props.dataUserFriend?.name;
   };
 
   const newDataMembers = (dataUserFriend) => {
@@ -108,14 +107,14 @@ function ModalChangeName(props) {
                 <img
                   className="img-avatar"
                   alt=""
-                  src={props.dataUserFriend.avatar}
+                  src={props.dataUserFriend?.avatar}
                 />
               </div>
             </div>
             <div className="content">
               <div>
-                Hãy đặt cho <span>{props.dataUserFriend.name}</span> một cái tên
-                dễ nhớ
+                Hãy đặt cho <span>{props.dataUserFriend?.name}</span> một cái
+                tên dễ nhớ
               </div>
               <div>Lưu ý: Tên gợi nhớ sẽ chỉ hiển thị riêng với bạn</div>
             </div>

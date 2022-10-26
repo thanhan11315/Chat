@@ -190,8 +190,8 @@ function DefaultLayout({ children }) {
 
   const dataUserFriendsApi = [
     {
-      phone_number: "0898999999",
-      id_user: "0898999999",
+      phone_number: "123456789",
+      id_user: "123456789",
       name: "SuperShip Thông Báo",
       notification: false,
       cover_photo: AvatarTN,
@@ -272,8 +272,9 @@ function DefaultLayout({ children }) {
 
   const valueChatDemo = [
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       ...dataUserFriendsApi[0],
-      recipients: dataUserMe,
       other_people: true,
       ghim: false,
       is_message_url: isValidUrl(
@@ -289,8 +290,9 @@ function DefaultLayout({ children }) {
       create_date: createDateBoxChat(),
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       ...dataUserFriendsApi[0],
-      recipients: dataUserMe,
       other_people: true,
       ghim: false,
       is_message_url: isValidUrl(
@@ -307,9 +309,10 @@ function DefaultLayout({ children }) {
       create_date: createDateBoxChat(),
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       id: 3213213213213238,
       ...dataUserFriendsApi[0],
-      recipients: dataUserMe,
       other_people: true,
       date: 24,
       hours: 13,
@@ -326,9 +329,10 @@ function DefaultLayout({ children }) {
       name: "Ghim hội thoại.xlsx",
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       id: 3213213213213233213,
       ...dataUserFriendsApi[0],
-      recipients: dataUserMe,
       other_people: true,
       date: 24,
       hours: 13,
@@ -345,8 +349,9 @@ function DefaultLayout({ children }) {
       name: "HTML.docx",
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       ...dataUserFriendsApi[0],
-      recipients: dataUserMe,
       notification_system: true,
       id: 321321321321323321,
       ...dataUserFriendsApi[0],
@@ -366,8 +371,9 @@ function DefaultLayout({ children }) {
       name: "HTML.pdf",
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       notification_system: true,
-      recipients: dataUserMe,
       id: 32132147332396546,
       ...dataUserFriendsApi[0],
       date: 24,
@@ -382,8 +388,9 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       notification_system: true,
-      recipients: dataUserMe,
       id: 32132143333654211321,
       ...dataUserFriendsApi[0],
       date: 24,
@@ -397,8 +404,9 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       notification_system: true,
-      recipients: dataUserMe,
       id: 3213213213132131,
       ...dataUserFriendsApi[0],
       text_message: linkify(
@@ -413,8 +421,9 @@ function DefaultLayout({ children }) {
       other_people: true,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       notification_system: true,
-      recipients: dataUserMe,
       id: 3234243546546565,
       text_message: linkify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
@@ -429,8 +438,9 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       notification_system: true,
-      recipients: dataUserMe,
       id: 321321653784387,
       ...dataUserFriendsApi[0],
       other_people: true,
@@ -444,8 +454,9 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       notification_system: true,
-      recipients: dataUserMe,
       id: 321321434321321,
       ...dataUserFriendsApi[0],
       date: 24,
@@ -459,8 +470,9 @@ function DefaultLayout({ children }) {
       ghim: false,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       ...dataUserFriendsApi[0],
-      recipients: dataUserMe,
       id: 3213213132131,
       text_message: "Tin nhắn text",
       date: 24,
@@ -472,9 +484,10 @@ function DefaultLayout({ children }) {
       other_people: true,
     },
     {
+      id_user: "123456789",
+      recipients: { id_user: "123456789" },
       ...dataUserFriendsApi[0],
       notification_system: true,
-      recipients: dataUserMe,
       id: 323426546565,
       text_message: linkify(
         "Find me at http://www.example.com and also at http://stackoverflow.com"
@@ -490,7 +503,7 @@ function DefaultLayout({ children }) {
   ];
 
   useEffect(() => {
-    localStorage.setItem("0898999999", JSON.stringify(valueChatDemo));
+    localStorage.setItem("123456789", JSON.stringify(valueChatDemo));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onChangeChat = (e) => {
@@ -843,7 +856,9 @@ function DefaultLayout({ children }) {
         );
         newDataUserFriends.splice(dataUserFriendIndex, 1);
         setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
+        console.log(newDataUserFriends);
       }
+      console.log(dataUserFriends);
     }
     setValueDeleteLink(true);
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -891,7 +906,7 @@ function DefaultLayout({ children }) {
   };
 
   const getValueChats = (value) => {
-    const getValueChats = JSON.parse(localStorage.getItem(value.id_user));
+    const getValueChats = JSON.parse(localStorage.getItem(value?.id_user));
     setValueChats(getValueChats);
     setValueListGhim(
       getValueChats?.filter((value) => {
@@ -1372,6 +1387,7 @@ function DefaultLayout({ children }) {
           onContextMenuChooseBoxChat={onContextMenuChooseBoxChat}
           handleClickCreateGroup={handleClickCreateGroup}
           date={date}
+          dataUserMe={dataUserMe}
         />
         {/* Nav2 */}
 
@@ -1739,12 +1755,12 @@ function DefaultLayout({ children }) {
                       <div className="box-date">
                         <div className="line" />
                         <span className="overdate">
-                          {date.date - value.date > 1 ||
-                          date.month - value.month > 1 ||
-                          date.year - value.year
+                          {date.date - value.date > 0 ||
+                          date.month - value.month > 0 ||
+                          date.year - value.year > 0
                             ? `${value.date}-${value.month + 1}-${value.year} ${
                                 value.hours
-                              } : ${value.minutes}`
+                              }:${value.minutes}`
                             : `${value.hours}:${value.minutes} Hôm nay`}
                         </span>
                         <div className="line" />

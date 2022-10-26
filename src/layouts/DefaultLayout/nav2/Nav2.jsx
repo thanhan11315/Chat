@@ -95,6 +95,23 @@ function Nav2(props) {
     }
   };
 
+  const nameOnLastValueChat = (
+    idUserLastValueChat,
+    idUserBoxChat,
+    idUserMe,
+    nameLastValueChat
+  ) => {
+    if (idUserLastValueChat === idUserBoxChat) {
+      return "";
+    } else if (idUserLastValueChat === idUserMe) {
+      return "Bạn: ";
+    } else {
+      if (nameLastValueChat) {
+        return `${nameLastValueChat}: `;
+      }
+    }
+  };
+
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
       <Row className="search-add">
@@ -184,18 +201,24 @@ function Nav2(props) {
                       style={{ color: value.not_read && "#001a33" }}
                     >
                       <>
-                        {value.last_value_chat?.name}:{" "}
-                        {value.last_value_chat?.type === "image" && (
-                          <>[Hình ảnh]</>
+                        {!value?.last_value_chat && "Chưa có tin nhắn"}
+                        {nameOnLastValueChat(
+                          value?.last_value_chat?.id_user,
+                          value?.id_user,
+                          props?.dataUserMe?.id_user,
+                          value?.last_value_chat?.name
                         )}
-                        {value.last_value_chat?.type === "video" && (
-                          <>[Video]</>
-                        )}
-                        {value.last_value_chat?.file && (
-                          <>{`[File] ${value.last_value_chat?.file.name}`}</>
-                        )}
+                        {value.last_value_chat?.type === "image" &&
+                          !value.last_value_chat?.delete && <>[Hình ảnh]</>}
+                        {value.last_value_chat?.type === "video" &&
+                          !value.last_value_chat?.delete && <>[Video]</>}
+                        {value.last_value_chat?.file &&
+                          !value.last_value_chat?.delete && (
+                            <>{`[File] ${value.last_value_chat?.file.name}`}</>
+                          )}
                         {value.last_value_chat?.text_message &&
-                          !value.last_value_chat?.is_message_url && (
+                          !value.last_value_chat?.is_message_url &&
+                          !value.last_value_chat?.delete && (
                             <>
                               <span
                                 dangerouslySetInnerHTML={{
@@ -205,9 +228,36 @@ function Nav2(props) {
                             </>
                           )}
                         {value.last_value_chat?.text_message &&
-                          value.last_value_chat?.is_message_url && (
+                          value.last_value_chat?.is_message_url &&
+                          !value.last_value_chat?.delete && (
                             <>{`[Link] ${value.last_value_chat?.message_url}`}</>
                           )}
+                        {value.last_value_chat?.delete && (
+                          <>Tin nhắn đã bị xóa</>
+                        )}
+                        {value.last_value_chat?.add_members_to_group && (
+                          <>
+                            {value.last_value_chat?.members_added[0].name}
+                            {value.last_value_chat?.members_added.length > 1 &&
+                              ` và ${
+                                value.last_value_chat?.members_added.length - 1
+                              }
+                            người khác`}
+                            {` được thêm vào nhóm `}
+                          </>
+                        )}
+                        {value.last_value_chat?.remove_members_to_group && (
+                          <>
+                            {value.last_value_chat?.members_removed.name} đã rời
+                            khỏi nhóm
+                          </>
+                        )}
+                        {value.last_value_chat?.invite_out_group && (
+                          <>
+                            {value.last_value_chat?.member_removed.name} được
+                            mời ra khỏi nhóm
+                          </>
+                        )}
                       </>
                     </div>
                   </Col>

@@ -31,6 +31,7 @@ function ModalCreateGroup(props) {
       inputElement.checked = false;
     });
     setCheckedValues([]);
+    setNameGroup("");
   };
 
   const unCheckCreateGroup = (value) => {
@@ -48,14 +49,21 @@ function ModalCreateGroup(props) {
 
   const handleClickCreateGroupButton = () => {
     if (checkedValues.length >= 2) {
+      const ListMembers = [
+        { ...props.dataUserMe, leader: true },
+        ...checkedValues,
+      ];
+      const nameMembers = ListMembers.map((listMember) => {
+        return listMember.name;
+      });
       const newDataUserFriends = [
         {
           avatar: SuperShipLogo,
           id_user: props.id,
-          name: nameGroup,
+          name: nameGroup.trim() ? nameGroup : nameMembers.join(", "),
           group: true,
           status: `${checkedValues.length + 1} thành viên`,
-          members: [{ ...props.dataUserMe, leader: true }, ...checkedValues],
+          members: ListMembers,
         },
         ...props.dataUserFriends,
       ];
@@ -73,6 +81,7 @@ function ModalCreateGroup(props) {
       props.setDataUserFriendsAll(newDataUserFriends);
       unCheckCancel();
       props.handleCancelModalCreateGroup();
+      setNameGroup("");
     }
   };
 

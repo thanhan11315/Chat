@@ -147,6 +147,7 @@ function Nav4(props) {
       ...props.date,
       id: props.id,
       remove_members_to_group: true,
+      recipients: props.dataUserFriend,
       members_removed: dataUserMe,
     };
     if (props.valueChats) {
@@ -351,7 +352,8 @@ function Nav4(props) {
               {props.valueChats &&
                 props.valueChats.map((valueChat, key) => {
                   return (
-                    valueChat.url && (
+                    valueChat.url &&
+                    !valueChat.delete && (
                       <div className="box-image-video" key={key}>
                         {valueChat.type === "video" ? (
                           <video src={valueChat.url} alt="not load" />
@@ -385,7 +387,7 @@ function Nav4(props) {
               props.valueChats.map((valueChat, key) => {
                 return (
                   <>
-                    {valueChat.file && (
+                    {valueChat.file && !valueChat.delete && (
                       <>
                         {console.log(123)}
                         <RenderFile
@@ -420,7 +422,7 @@ function Nav4(props) {
               props.valueChats.map((valueChat, key) => {
                 return (
                   <>
-                    {valueChat.is_message_url && (
+                    {valueChat.is_message_url && !valueChat.delete && (
                       <>
                         <LinkPreview
                           url={valueChat.message_url}
