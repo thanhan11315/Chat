@@ -56,19 +56,16 @@ function ModalCreateGroup(props) {
       const nameMembers = ListMembers.map((listMember) => {
         return listMember.name;
       });
-      const newDataUserFriends = [
-        {
-          avatar: SuperShipLogo,
-          id_user: props.id,
-          name: nameGroup.trim() ? nameGroup : nameMembers.join(", "),
-          group: true,
-          status: `${checkedValues.length + 1} thành viên`,
-          members: ListMembers,
-        },
-        ...props.dataUserFriends,
-      ];
+      const DataUserFriend = {
+        avatar: SuperShipLogo,
+        id_user: props.id,
+        name: nameGroup.trim() ? nameGroup : nameMembers.join(", "),
+        group: true,
+        status: `${checkedValues.length + 1} thành viên`,
+        members: ListMembers,
+      };
       const valueChatsAddMembersToGroup = {
-        recipients: newDataUserFriends[0],
+        recipients: DataUserFriend,
         create_date: true,
         ...props.date,
         id: props.id,
@@ -76,6 +73,11 @@ function ModalCreateGroup(props) {
         members_add: props.dataUserMe,
         members_added: checkedValues,
       };
+      const newDataUserFriend = {
+        ...DataUserFriend,
+        last_value_chat: valueChatsAddMembersToGroup,
+      };
+      const newDataUserFriends = [newDataUserFriend, ...props.dataUserFriends];
       console.log(valueChatsAddMembersToGroup);
       setValueChatsAddMembersAllMessage(valueChatsAddMembersToGroup);
       props.setDataUserFriendsAll(newDataUserFriends);

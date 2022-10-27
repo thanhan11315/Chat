@@ -112,37 +112,67 @@ function Nav2(props) {
     }
   };
 
+  const elementBoxSearch = document.querySelector(
+    ".box-nav-2 .inputSearch .ant-input"
+  );
+  elementBoxSearch &&
+    elementBoxSearch.addEventListener("focus", () => {
+      props.setFocusBoxSearch(true);
+      console.log(props.dataUserFriendsStorage);
+    });
+
+  const handleClickClose = () => {
+    props.setFocusBoxSearch(false);
+  };
+
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
       <Row className="search-add">
         <Col className="search">
           <InPutSearch searchFriend={searchFriend} />
         </Col>
-        <Col className="add-friend icon not-use">
-          <UserAddOutlined />
-        </Col>
-        <Col
-          className="create-group icon"
-          onClick={props.handleClickCreateGroup}
-        >
-          <UsergroupAddOutlined />
-        </Col>
+        {!props.focusBoxSearch && (
+          <>
+            <Col className="add-friend icon not-use">
+              <UserAddOutlined />
+            </Col>
+            <Col
+              className="create-group icon"
+              onClick={props.handleClickCreateGroup}
+            >
+              <UsergroupAddOutlined />
+            </Col>
+          </>
+        )}
+        {props.focusBoxSearch && (
+          <div className="close" onClick={handleClickClose}>
+            Đóng
+          </div>
+        )}
       </Row>
       <Row className="title-nav-2">
-        <Row className="box-title-nav2-1">
-          <Col
-            className="all title selected"
-            onClick={props.handleClickAllTitle}
-          >
-            Tất cả
-          </Col>
-          <Col
-            className="not-read title"
-            onClick={props.handleClickNotReadTitle}
-          >
-            Chưa đọc
-          </Col>
-        </Row>
+        {!props.focusBoxSearch && (
+          <Row className="box-title-nav2-1">
+            <Col
+              className="all title selected"
+              onClick={props.handleClickAllTitle}
+            >
+              Tất cả
+            </Col>
+            <Col
+              className="not-read title"
+              onClick={props.handleClickNotReadTitle}
+            >
+              Chưa đọc
+            </Col>
+          </Row>
+        )}
+        {props.focusBoxSearch && (
+          <div style={{ fontSize: "0.875rem", fontWeight: "600" }}>
+            {" "}
+            Danh sách tìm kiếm{" "}
+          </div>
+        )}
         <Row className="box-title-nav2-2">
           {/* <Col className="title classify">
             Phân loại
@@ -159,6 +189,7 @@ function Nav2(props) {
       </Row>
       <div className="overflow">
         {props.dataUserFriends &&
+          !props.focusBoxSearch &&
           props.dataUserFriends.map((value, key) => {
             return (
               <Row
@@ -284,6 +315,55 @@ function Nav2(props) {
                     <EllipsisOutlined />
                   </div>
                 </Col>
+              </Row>
+            );
+          })}
+        {props.dataUserFriendsStorage &&
+          props.focusBoxSearch &&
+          props.dataUserFriendsStorage.map((dataUserFriendsStorage) => {
+            return (
+              <Row
+                className={`box-choose-chatbox box-choose-chatbox-${dataUserFriendsStorage.id_user}`}
+                onClick={() =>
+                  props.handleClickChooseBoxChat(dataUserFriendsStorage)
+                }
+              >
+                <Row className="box1">
+                  <Col className="image">
+                    {dataUserFriendsStorage?.group ? (
+                      <ImageGroup dataUserFriend={dataUserFriendsStorage} />
+                    ) : (
+                      <img
+                        src={dataUserFriendsStorage?.avatar}
+                        alt="not load img"
+                        style={{
+                          border: "0.5px solid #fff",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          height: "48px",
+                          width: "48px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    )}
+                  </Col>
+                  <Col className="choose-chatbox">
+                    <div
+                      className="title"
+                      style={{
+                        fontWeight: dataUserFriendsStorage?.not_read && "600",
+                      }}
+                    >
+                      {dataUserFriendsStorage?.name}
+                    </div>
+                    <div
+                      className="content"
+                      style={{
+                        color: dataUserFriendsStorage?.not_read && "#001a33",
+                      }}
+                    ></div>
+                  </Col>
+                </Row>
               </Row>
             );
           })}

@@ -99,6 +99,7 @@ function DefaultLayout({ children }) {
   const [modalUpdateInformation, setModalUpdateInformation] = useState(false);
   const [valueDeleteLink, setValueDeleteLink] = useState(true);
   const [modalChangeName, setModalChangeName] = useState(false);
+  const [focusBoxSearch, setFocusBoxSearch] = useState("");
   const d = new Date();
   const date = {
     year: d.getFullYear(),
@@ -269,6 +270,9 @@ function DefaultLayout({ children }) {
       notification_system: false,
     },
   ];
+
+  const [dataUserFriendsStorage, setDataUserFriendsStorage] =
+    useState(dataUserFriendsApi);
 
   const valueChatDemo = [
     {
@@ -516,6 +520,7 @@ function DefaultLayout({ children }) {
       const element = document.querySelector(".box-nav-3 .box-chat");
       element.scrollTo(0, 0);
       document.querySelector(".button-scroll-bottom").classList.add("hidden");
+      setFocusBoxSearch(false);
     }
     const elements = document.querySelectorAll(
       ".box-content-all-chat .content-chat"
@@ -840,9 +845,15 @@ function DefaultLayout({ children }) {
   };
   useEffect(() => {
     if (dataUserFriends && valueChats) {
+      const dataUserFriendInList = dataUserFriends.find(
+        (dataUserFriendInList) =>
+          dataUserFriendInList.id_user === dataUserFriend?.id_user
+      );
+      console.log(dataUserFriendInList);
       if (
         valueChats[0]?.recipients?.id_user === dataUserFriend?.id_user &&
-        valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id
+        valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id &&
+        dataUserFriendInList
       ) {
         const newDataUserFriends = dataUserFriends;
         const newDataUserFriend = {
@@ -858,8 +869,32 @@ function DefaultLayout({ children }) {
         setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
         console.log(newDataUserFriends);
       }
+      if (
+        valueChats[0]?.recipients?.id_user === dataUserFriend?.id_user &&
+        valueChats[0]?.id !== dataUserFriend?.last_value_chat?.id &&
+        !dataUserFriendInList
+      ) {
+        const newDataUserFriends = dataUserFriends;
+        const newDataUserFriend = {
+          ...dataUserFriend,
+          not_read: false,
+          last_value_chat: valueChats[0],
+        };
+        const dataUserFriendIndex = newDataUserFriends.findIndex(
+          (newDataUserFriend) =>
+            newDataUserFriend?.id_user === dataModalInformation?.id_user
+        );
+        console.log(dataUserFriendInList);
+        console.log(dataUserFriendIndex);
+        if (dataUserFriendIndex !== -1 && dataUserFriendIndex) {
+          newDataUserFriends.splice(dataUserFriendIndex, 1);
+        }
+        setDataUserFriendsAll([newDataUserFriend, ...newDataUserFriends]);
+        console.log(newDataUserFriends);
+      }
       console.log(dataUserFriends);
     }
+
     setValueDeleteLink(true);
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -908,16 +943,18 @@ function DefaultLayout({ children }) {
   const getValueChats = (value) => {
     const getValueChats = JSON.parse(localStorage.getItem(value?.id_user));
     setValueChats(getValueChats);
-    setValueListGhim(
-      getValueChats?.filter((value) => {
-        return value.ghim === true;
-      })
-    );
-    setLengthGhim(
-      getValueChats?.filter((value) => {
-        return value.ghim === true;
-      }).length
-    );
+    getValueChats &&
+      setValueListGhim(
+        getValueChats?.filter((value) => {
+          return value?.ghim === true;
+        })
+      );
+    getValueChats &&
+      setLengthGhim(
+        getValueChats?.filter((value) => {
+          return value.ghim === true;
+        }).length
+      );
   };
 
   const onMounseOverBox = (key) => {
@@ -1289,6 +1326,8 @@ function DefaultLayout({ children }) {
         dataUserMe={dataUserMe}
         setModalUpdateInformation={setModalUpdateInformation}
         setDataUserFriend={setDataUserFriend}
+        dataUserFriends={dataUserFriends}
+        dataUserFriendsApi={dataUserFriendsApi}
       />
       <ModalShare
         dataUserMe={dataUserMe}
@@ -1388,6 +1427,10 @@ function DefaultLayout({ children }) {
           handleClickCreateGroup={handleClickCreateGroup}
           date={date}
           dataUserMe={dataUserMe}
+          dataUserFriendsStorage={dataUserFriendsStorage}
+          focusBoxSearch={focusBoxSearch}
+          setFocusBoxSearch={setFocusBoxSearch}
+          setDataUserFriendsStorage={setDataUserFriendsStorage}
         />
         {/* Nav2 */}
 

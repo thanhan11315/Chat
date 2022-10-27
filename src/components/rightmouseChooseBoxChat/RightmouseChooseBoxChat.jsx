@@ -111,7 +111,7 @@ function RightmouseChooseBoxChat(props) {
   };
 
   const deleteConversation = () => {
-    const newDataUserFriends = props.dataUserFriends.filter(
+    const newDataUserFriends = props.dataUserFriends?.filter(
       (dataUserFriend) =>
         dataUserFriend?.id_user !== props.valueRightClickChooseBoxChat?.id_user
     );
@@ -127,6 +127,10 @@ function RightmouseChooseBoxChat(props) {
       }
     }
     props.setDataUserFriendsAll(newDataUserFriends);
+    localStorage.setItem(
+      props.valueRightClickChooseBoxChat.id_user,
+      JSON.stringify("")
+    );
   };
   return (
     <>

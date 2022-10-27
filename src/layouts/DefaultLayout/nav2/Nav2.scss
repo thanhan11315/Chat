@@ -122,3 +122,18 @@
 #wrapper .box-nav-2 .title-nav-2 .box-title-nav2-2 {
   align-items: center;
 }
+
+.box-nav-2 .search-add .close {
+  &:hover {
+    background-color: var(--item-wa-hover);
+  }
+  height: 32px;
+  min-width: 32px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-text);
+  padding: 0 8px;
+  line-height: 30px;
+  cursor: pointer;
+  border-radius: 4px;
+}

@@ -11,7 +11,19 @@ function ModalInformation(props) {
   };
 
   const handleClickSentmgs = (dataModalInformation) => {
-    props.setDataUserFriend(dataModalInformation);
+    const newDataUserFriend = props.dataUserFriends.find(
+      (dataUserFriend) =>
+        dataUserFriend.id_user === dataModalInformation.id_user
+    );
+    if (newDataUserFriend) {
+      props.setDataUserFriend(newDataUserFriend);
+    } else {
+      const newDataUserFriend = props.dataUserFriendsApi.find(
+        (dataUserFriendApi) =>
+          dataUserFriendApi.id_user === dataModalInformation.id_user
+      );
+      props.setDataUserFriend(newDataUserFriend);
+    }
     props.handleCancelModalInformation();
   };
 
