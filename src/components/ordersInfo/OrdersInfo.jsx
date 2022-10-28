@@ -68,15 +68,15 @@ function OrderInfo(props) {
     <>
       <div className="wraper-oders-info">
         <div className="title">
-          Thông tin vận đơn {valueOdersInfo.results.code}
+          Thông tin vận đơn {valueOdersInfo.results?.code}
         </div>
         <div className="box-content">
           <div className="box-1">Người nhận</div>
           <div className="box-2">
-            <div>Họ tên: {valueOdersInfo.results.receiver.name}</div>
-            <div>Số điện thoại: {valueOdersInfo.results.receiver.phone}</div>
+            <div>Họ tên: {valueOdersInfo.results?.receiver?.name}</div>
+            <div>Số điện thoại: {valueOdersInfo.results?.receiver?.phone}</div>
             <div>
-              Địa chỉ: {valueOdersInfo.results.receiver.formatted_address}
+              Địa chỉ: {valueOdersInfo.results?.receiver?.formatted_address}
             </div>
           </div>
         </div>
@@ -95,17 +95,16 @@ function OrderInfo(props) {
           <div className="box-1">Thông tin đơn hàng</div>
           <div className="box-2">
             <div>
-              Tiền thu hộ:{" "}
-              {valueOdersInfo.valueOdersInfo.results.amount}
+              Tiền thu hộ: {valueOdersInfo.valueOdersInfo?.results?.amount}
             </div>
-            <div>{valueOdersInfo.results.config}</div>
+            <div>{valueOdersInfo.results?.config}</div>
           </div>
         </div>
         <div className="box-content">
           <div className="box-1">Trạng thái đơn hàng</div>
           <div className="box-2">
-            <div>Trạng thái: {valueOdersInfo.results.journeys.status}</div>
-            <div>Thời gian: {valueOdersInfo.results.journeys.time}</div>
+            <div>Trạng thái: {valueOdersInfo?.results?.journeys?.status}</div>
+            <div>Thời gian: {valueOdersInfo?.results?.journeys?.time}</div>
           </div>
         </div>
       </div>
