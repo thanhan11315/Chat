@@ -78,6 +78,11 @@ function ModalCreateGroup(props) {
         last_value_chat: valueChatsAddMembersToGroup,
       };
       const newDataUserFriends = [newDataUserFriend, ...props.dataUserFriends];
+      const newDataUserFriendsStorage = [
+        newDataUserFriend,
+        ...props.dataUserFriendsStorage,
+      ];
+      props.setDataUserFriendsStorageAll(newDataUserFriendsStorage);
       console.log(valueChatsAddMembersToGroup);
       setValueChatsAddMembersAllMessage(valueChatsAddMembersToGroup);
       props.setDataUserFriendsAll(newDataUserFriends);

@@ -1,0 +1,22 @@
+.wraper-oders-info {
+  width: 600px;
+  border: 1px solid;
+  border-radius: 5px;
+  .title {
+    padding: 10px;
+    font-weight: 600;
+  }
+  .box-content {
+    display: flex;
+    border-top: 1px solid;
+    .box-1 {
+      border-right: 1px solid;
+      min-width: 100px;
+      max-width: 100px;
+      padding: 10px;
+    }
+    .box-2 {
+      padding: 10px;
+    }
+  }
+}

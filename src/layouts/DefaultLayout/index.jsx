@@ -58,6 +58,7 @@ import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
 import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
 import { useState } from "react";
+import OrderInfo from "../../components/ordersInfo/OrdersInfo";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -187,6 +188,10 @@ function DefaultLayout({ children }) {
     }
   };
 
+  const isOrderInfo = (value) => {
+    return value.trim().includes("SGNS");
+  };
+
   // demochatlocal
 
   const dataUserFriendsApi = [
@@ -271,8 +276,24 @@ function DefaultLayout({ children }) {
     },
   ];
 
-  const [dataUserFriendsStorage, setDataUserFriendsStorage] =
-    useState(dataUserFriendsApi);
+  const setDataUserFriendsStorageAll = (value) => {
+    setDataUserFriendsStorage(value);
+    localStorage.setItem("dataUserFriendsStorage", JSON.stringify(value));
+  };
+  const getDataUserFriendsStorage = () => {
+    const dataUserFriendsStorage = localStorage.getItem(
+      "dataUserFriendsStorage"
+    );
+    if (dataUserFriendsStorage) {
+      return dataUserFriendsStorage;
+    } else {
+      return dataUserFriendsApi;
+    }
+  };
+
+  const [dataUserFriendsStorage, setDataUserFriendsStorage] = useState(
+    getDataUserFriendsStorage()
+  );
 
   const valueChatDemo = [
     {
@@ -576,6 +597,7 @@ function DefaultLayout({ children }) {
       ghim: false,
       is_message_url: isValidUrl(valueChatReplace) && valueDeleteLink,
       message_url: valueChatReplace,
+      is_orders_info: isOrderInfo(valueChatReplace),
       id: id,
       Responsive: ResponsiveInputValue,
       text_message: linkify(valueChatReplace),
@@ -1354,6 +1376,8 @@ function DefaultLayout({ children }) {
         dataUserMe={dataUserMe}
         createDateBoxChat={createDateBoxChat}
         date={date}
+        setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
+        dataUserFriendsStorage={dataUserFriendsStorage}
       />
 
       <ModalAddMembersToGroup
@@ -1427,10 +1451,10 @@ function DefaultLayout({ children }) {
           handleClickCreateGroup={handleClickCreateGroup}
           date={date}
           dataUserMe={dataUserMe}
-          dataUserFriendsStorage={dataUserFriendsStorage}
           focusBoxSearch={focusBoxSearch}
           setFocusBoxSearch={setFocusBoxSearch}
-          setDataUserFriendsStorage={setDataUserFriendsStorage}
+          dataUserFriendsStorage={dataUserFriendsStorage}
+          setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
         />
         {/* Nav2 */}
 
@@ -1568,36 +1592,38 @@ function DefaultLayout({ children }) {
                               {value.type === "likeIcon" && (
                                 <LikeIcon value={value} />
                               )}
-                              {value.text_message && !value.is_message_url && (
-                                <>
-                                  <div className="content-chat">
-                                    <div className="box-make-hidden-content-chat">
-                                      {value.Responsive && (
-                                        <a href={`#${value.Responsive.id}`}>
-                                          <ResponsiveInput
-                                            ResponsiveInputValue={
-                                              value.Responsive
-                                            }
-                                            clearResponsiveTnputValue={
-                                              clearResponsiveTnputValue
-                                            }
-                                            renderImageFile={renderImageFile}
-                                            size="two"
-                                          />
-                                        </a>
-                                      )}
-                                      <div
-                                        dangerouslySetInnerHTML={{
-                                          __html: value.text_message,
-                                        }}
-                                      />
-                                      <div className="date">
-                                        {value.hours}:{value.minutes}
+                              {value.text_message &&
+                                !value.is_message_url &&
+                                !value.is_orders_info && (
+                                  <>
+                                    <div className="content-chat">
+                                      <div className="box-make-hidden-content-chat">
+                                        {value.Responsive && (
+                                          <a href={`#${value.Responsive.id}`}>
+                                            <ResponsiveInput
+                                              ResponsiveInputValue={
+                                                value.Responsive
+                                              }
+                                              clearResponsiveTnputValue={
+                                                clearResponsiveTnputValue
+                                              }
+                                              renderImageFile={renderImageFile}
+                                              size="two"
+                                            />
+                                          </a>
+                                        )}
+                                        <div
+                                          dangerouslySetInnerHTML={{
+                                            __html: value.text_message,
+                                          }}
+                                        />
+                                        <div className="date">
+                                          {value.hours}:{value.minutes}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </>
-                              )}
+                                  </>
+                                )}
                               {
                                 <>
                                   {value.is_message_url && (
@@ -1617,6 +1643,16 @@ function DefaultLayout({ children }) {
                                   )}
                                 </>
                               }
+                              {value.is_orders_info && (
+                                <div className="content-chat">
+                                  <div className="box-make-hidden-content-chat">
+                                    <OrderInfo />
+                                    <div className="date">
+                                      {value.hours}:{value.minutes}
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>

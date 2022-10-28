@@ -115,6 +115,7 @@ function Nav2(props) {
   const elementBoxSearch = document.querySelector(
     ".box-nav-2 .inputSearch .ant-input"
   );
+
   elementBoxSearch &&
     elementBoxSearch.addEventListener("focus", () => {
       props.setFocusBoxSearch(true);
@@ -320,21 +321,19 @@ function Nav2(props) {
           })}
         {props.dataUserFriendsStorage &&
           props.focusBoxSearch &&
-          props.dataUserFriendsStorage.map((dataUserFriendsStorage) => {
+          props?.dataUserFriendsStorage?.map((value) => {
             return (
               <Row
-                className={`box-choose-chatbox box-choose-chatbox-${dataUserFriendsStorage.id_user}`}
-                onClick={() =>
-                  props.handleClickChooseBoxChat(dataUserFriendsStorage)
-                }
+                className={`box-choose-chatbox box-choose-chatbox-${value.id_user}`}
+                onClick={() => props.handleClickChooseBoxChat(value)}
               >
                 <Row className="box1">
                   <Col className="image">
-                    {dataUserFriendsStorage?.group ? (
-                      <ImageGroup dataUserFriend={dataUserFriendsStorage} />
+                    {value?.group ? (
+                      <ImageGroup dataUserFriend={value} />
                     ) : (
                       <img
-                        src={dataUserFriendsStorage?.avatar}
+                        src={value?.avatar}
                         alt="not load img"
                         style={{
                           border: "0.5px solid #fff",
@@ -351,15 +350,15 @@ function Nav2(props) {
                     <div
                       className="title"
                       style={{
-                        fontWeight: dataUserFriendsStorage?.not_read && "600",
+                        fontWeight: value?.not_read && "600",
                       }}
                     >
-                      {dataUserFriendsStorage?.name}
+                      {value?.name}
                     </div>
                     <div
                       className="content"
                       style={{
-                        color: dataUserFriendsStorage?.not_read && "#001a33",
+                        color: value?.not_read && "#001a33",
                       }}
                     ></div>
                   </Col>
