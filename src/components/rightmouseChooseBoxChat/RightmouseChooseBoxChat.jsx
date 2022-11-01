@@ -127,6 +127,7 @@ function RightmouseChooseBoxChat(props) {
       }
     }
     props.setDataUserFriendsAll(newDataUserFriends);
+    console.log(newDataUserFriends);
     localStorage.setItem(
       props.valueRightClickChooseBoxChat.id_user,
       JSON.stringify("")

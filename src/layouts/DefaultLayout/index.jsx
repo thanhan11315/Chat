@@ -57,6 +57,7 @@ import MicrosoftWord from "../../assets/images/MicrosoftWord.png";
 import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
 import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
+import ImageVideo from "../../assets/images/Video.png";
 import { useState } from "react";
 import OrderInfo from "../../components/ordersInfo/OrdersInfo";
 
@@ -177,6 +178,21 @@ function DefaultLayout({ children }) {
     return !!urlPattern.test(urlString.trim());
   };
 
+  // const isCreateHoursMinutes = (valueWantCreate, valueChats) => {
+  //   const valueLastTimeMe = valueChats.find(
+  //     (valueChat) => valueChat.other_people !== true
+  //   );
+  //   if (valueLastTimeMe) {
+  //     if (valueWantCreate.hours - valueLastTimeMe?.minutes >= 2) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } else {
+  //     return true;
+  //   }
+  // };
+
   const handleClickNavRight = (e) => {
     if (hiddenRightNav) {
       setHiddenRightNav("");
@@ -281,8 +297,8 @@ function DefaultLayout({ children }) {
     localStorage.setItem("dataUserFriendsStorage", JSON.stringify(value));
   };
   const getDataUserFriendsStorage = () => {
-    const dataUserFriendsStorage = localStorage.getItem(
-      "dataUserFriendsStorage"
+    const dataUserFriendsStorage = JSON.parse(
+      localStorage.getItem("dataUserFriendsStorage")
     );
     if (dataUserFriendsStorage) {
       return dataUserFriendsStorage;
@@ -632,6 +648,7 @@ function DefaultLayout({ children }) {
         name: e.target.files[0].name,
         size: e.target.files[0].size,
         type: e.target.files[0].type,
+        url_file: URL.createObjectURL(e.target.files[0]),
         file: e.target.files[0],
       },
       content: e.target.files[0].name,
@@ -1006,6 +1023,16 @@ function DefaultLayout({ children }) {
           return ImagePDF;
         case "zip":
           return ImageZIP;
+        case "mp4":
+          return ImageVideo;
+        case "avi":
+          return ImageVideo;
+        case "mov":
+          return ImageVideo;
+        case "flv":
+          return ImageVideo;
+        case "wmv":
+          return ImageVideo;
         default:
           return AvatarAn;
       }
@@ -1578,7 +1605,15 @@ function DefaultLayout({ children }) {
                                 handleOnContextMenu(e, value);
                               }}
                             >
-                              {value.url && <ImageOrVideo value={value} />}{" "}
+                              {value.url && (
+                                <ImageOrVideo
+                                  value={value}
+                                  bytesToSize={bytesToSize}
+                                  setUrlFile={setUrlFile}
+                                  urlFile={urlFile}
+                                  setValueFile={setValueFile}
+                                />
+                              )}{" "}
                               {value.file && (
                                 <RenderFile
                                   renderImageFile={renderImageFile}
@@ -1875,7 +1910,7 @@ function DefaultLayout({ children }) {
                     <input
                       className="uploadImage"
                       type="file"
-                      accept="audio/*,video/*,image/*"
+                      accept="image/*"
                       onChange={(e) => {
                         onChangeImage(e);
                       }}

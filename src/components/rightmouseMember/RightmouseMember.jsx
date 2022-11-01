@@ -139,12 +139,14 @@ function RightmouseMember(props) {
                 >
                   Chuyển quyền trưởng nhóm
                 </div>
-                <div
-                  className="select-element"
-                  onClick={handleClickAppointDeputyGroup}
-                >
-                  Bổ nhiệm làm phó nhóm
-                </div>
+                {!props.valueRightClickMember?.deputy && (
+                  <div
+                    className="select-element"
+                    onClick={handleClickAppointDeputyGroup}
+                  >
+                    Bổ nhiệm làm phó nhóm
+                  </div>
+                )}
                 <div className="line" />
                 <div
                   className="select-element"

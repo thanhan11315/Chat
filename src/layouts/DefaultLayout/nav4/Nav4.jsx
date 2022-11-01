@@ -391,6 +391,7 @@ function Nav4(props) {
                       <>
                         {console.log(123)}
                         <RenderFile
+                          navRight={true}
                           key={key}
                           renderImageFile={props.renderImageFile}
                           value={valueChat}

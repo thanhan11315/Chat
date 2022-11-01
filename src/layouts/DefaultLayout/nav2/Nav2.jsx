@@ -191,7 +191,7 @@ function Nav2(props) {
       <div className="overflow">
         {props.dataUserFriends &&
           !props.focusBoxSearch &&
-          props.dataUserFriends.map((value, key) => {
+          props.dataUserFriends?.map((value, key) => {
             return (
               <Row
                 className={`box-choose-chatbox box-choose-chatbox-${value.id_user}`}

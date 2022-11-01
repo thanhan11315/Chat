@@ -64,6 +64,12 @@ function OrderInfo(props) {
       updated_at: "2021-02-04T08:41:17+07:00",
     },
   };
+
+  const currencyUnitFormat = (value) => {
+    const newValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return newValue;
+  };
+
   return (
     <>
       <div className="wraper-oders-info">
@@ -94,8 +100,10 @@ function OrderInfo(props) {
         <div className="box-content">
           <div className="box-1">Thông tin đơn hàng</div>
           <div className="box-2">
+            <div>Ngày tạo đơn: {valueOdersInfo.results?.created_at}</div>
             <div>
-              Tiền thu hộ: {valueOdersInfo.valueOdersInfo?.results?.amount}
+              Tiền thu hộ:{" "}
+              {currencyUnitFormat(`${valueOdersInfo.results?.amount}`)} vnd
             </div>
             <div>{valueOdersInfo.results?.config}</div>
           </div>
@@ -103,8 +111,36 @@ function OrderInfo(props) {
         <div className="box-content">
           <div className="box-1">Trạng thái đơn hàng</div>
           <div className="box-2">
-            <div>Trạng thái: {valueOdersInfo?.results?.journeys?.status}</div>
-            <div>Thời gian: {valueOdersInfo?.results?.journeys?.time}</div>
+            <div>
+              Trạng thái:{" "}
+              {
+                valueOdersInfo?.results?.journeys[
+                  valueOdersInfo?.results?.journeys?.length - 1
+                ]?.status
+              }
+            </div>
+            <div>
+              Thời gian:{" "}
+              {
+                valueOdersInfo?.results?.journeys[
+                  valueOdersInfo?.results?.journeys?.length - 1
+                ]?.time
+              }
+            </div>
+            <div>
+              Địa chỉ đơn hàng:{" "}
+              {
+                valueOdersInfo?.results?.journeys[
+                  valueOdersInfo?.results?.journeys?.length - 1
+                ]?.province
+              }
+              ,{" "}
+              {
+                valueOdersInfo?.results?.journeys[
+                  valueOdersInfo?.results?.journeys?.length - 1
+                ]?.district
+              }
+            </div>
           </div>
         </div>
       </div>
