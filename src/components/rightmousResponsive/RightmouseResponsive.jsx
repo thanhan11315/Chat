@@ -17,58 +17,74 @@ function RightmouseResponsive(props) {
     navigator.clipboard.writeText(valueResponsiveRightClick.text_message);
   };
   return (
-    <div className="right-mouse-share-responsive">
-      {props.valueResponsiveRightClick.text_message && (
-        <div
-          className="share-responsive"
-          onClick={() => {
-            handleClickCopyMessage(props.valueResponsiveRightClick);
-          }}
-        >
-          <CopyOutlined style={{ marginRight: "5px" }} /> Copy tin nhắn
-        </div>
-      )}
-      {!props.valueResponsiveRightClick.notification_system && (
-        <div
-          className="share-responsive"
-          onClick={() => {
-            props.handleClickResponsiveIcon(props.valueResponsiveRightClick);
-          }}
-        >
-          <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời{" "}
-        </div>
-      )}
-      <div className="share-responsive" onClick={handleClickShareRightMouse}>
-        <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ
-      </div>
-      {props.valueResponsiveRightClick.ghim ? (
-        <div
-          className="share-responsive"
-          onClick={() => {
-            props.handleClickUnGhim(props.valueResponsiveRightClick);
-          }}
-        >
-          <PaperClipOutlined style={{ marginRight: "5px" }} /> Bỏ Ghim tin nhắn{" "}
-        </div>
-      ) : (
-        <div
-          className="share-responsive"
-          onClick={() => {
-            props.handleClickGhim(props.valueResponsiveRightClick);
-          }}
-        >
-          <PaperClipOutlined style={{ marginRight: "5px" }} /> Ghim tin nhắn{" "}
-        </div>
-      )}
+    <>
       <div
-        className="share-responsive delete-message"
-        onClick={() => {
-          props.deleteMessage(props.valueResponsiveRightClick);
+        style={{
+          display: `${
+            props.valueResponsiveRightClick.delete ? "none" : "block"
+          }`,
         }}
       >
-        <DeleteOutlined style={{ marginRight: "5px" }} /> Xóa tin nhắn{" "}
+        <div className="right-mouse-share-responsive">
+          {props.valueResponsiveRightClick.text_message && (
+            <div
+              className="share-responsive"
+              onClick={() => {
+                handleClickCopyMessage(props.valueResponsiveRightClick);
+              }}
+            >
+              <CopyOutlined style={{ marginRight: "5px" }} /> Copy tin nhắn
+            </div>
+          )}
+          {!props.valueResponsiveRightClick.notification_system && (
+            <div
+              className="share-responsive"
+              onClick={() => {
+                props.handleClickResponsiveIcon(
+                  props.valueResponsiveRightClick
+                );
+              }}
+            >
+              <ExportOutlined style={{ marginRight: "5px" }} /> Trả lời{" "}
+            </div>
+          )}
+          <div
+            className="share-responsive"
+            onClick={handleClickShareRightMouse}
+          >
+            <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ
+          </div>
+          {props.valueResponsiveRightClick.ghim ? (
+            <div
+              className="share-responsive"
+              onClick={() => {
+                props.handleClickUnGhim(props.valueResponsiveRightClick);
+              }}
+            >
+              <PaperClipOutlined style={{ marginRight: "5px" }} /> Bỏ Ghim tin
+              nhắn{" "}
+            </div>
+          ) : (
+            <div
+              className="share-responsive"
+              onClick={() => {
+                props.handleClickGhim(props.valueResponsiveRightClick);
+              }}
+            >
+              <PaperClipOutlined style={{ marginRight: "5px" }} /> Ghim tin nhắn{" "}
+            </div>
+          )}
+          <div
+            className="share-responsive delete-message"
+            onClick={() => {
+              props.deleteMessage(props.valueResponsiveRightClick);
+            }}
+          >
+            <DeleteOutlined style={{ marginRight: "5px" }} /> Xóa tin nhắn{" "}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

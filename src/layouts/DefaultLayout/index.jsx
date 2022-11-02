@@ -1,4 +1,4 @@
-import { Col, Input, Row, Tooltip, Popover } from "antd";
+import { Col, Input, Row, Tooltip, Popover, Spin } from "antd";
 import {
   EllipsisOutlined,
   SmileOutlined,
@@ -569,6 +569,23 @@ function DefaultLayout({ children }) {
     }
   };
 
+  const [spinLoadingApiBoxChat, setSpinLoadingApiBoxChat] = useState(false);
+
+  const elementGetLoadScroll = document.querySelector(".box-nav-3 .box-chat");
+  if (elementGetLoadScroll) {
+    elementGetLoadScroll.addEventListener("scroll", () => {
+      const scrollBottom =
+        elementGetLoadScroll.scrollHeight -
+        elementGetLoadScroll.clientHeight +
+        elementGetLoadScroll.scrollTop;
+      if (scrollBottom < 50) {
+        setSpinLoadingApiBoxChat(true);
+      } else {
+        setSpinLoadingApiBoxChat(false);
+      }
+    });
+  }
+
   const deleteMessage = (value) => {
     const newValueChats = valueChats.map((valueChat) => {
       if (valueChat.id === value.id) {
@@ -577,7 +594,18 @@ function DefaultLayout({ children }) {
         return valueChat;
       }
     });
+    console.log(newValueChats);
     setValueChats(newValueChats);
+    const newDataUserFriends = dataUserFriends.map((dataUserFriend) => {
+      if (dataUserFriend.id_user === newValueChats[0].recipients.id_user) {
+        console.log(1);
+        return { ...dataUserFriend, last_value_chat: newValueChats[0] };
+      } else {
+        return dataUserFriend;
+      }
+    });
+    console.log(newDataUserFriends);
+    setDataUserFriendsAll(newDataUserFriends);
     localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
   };
 
@@ -608,7 +636,7 @@ function DefaultLayout({ children }) {
   const render = (valueChatReplace) => {
     const newValueChat = {
       ...dataUserMe,
-      recipients: dataUserFriend,
+      recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
       other_people: false,
       ghim: false,
       is_message_url: isValidUrl(valueChatReplace) && valueDeleteLink,
@@ -617,7 +645,6 @@ function DefaultLayout({ children }) {
       id: id,
       Responsive: ResponsiveInputValue,
       text_message: linkify(valueChatReplace),
-
       ...date,
       create_date: createDateBoxChat(),
     };
@@ -627,7 +654,7 @@ function DefaultLayout({ children }) {
   const onChangeImage = (e) => {
     const newValueChat = {
       ...dataUserMe,
-      recipients: dataUserFriend,
+      recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
       id: id,
       type: e.target.files[0].type?.slice(0, 5),
       url: URL.createObjectURL(e.target.files[0]),
@@ -642,7 +669,7 @@ function DefaultLayout({ children }) {
   const onChangeFile = (e) => {
     const newValueChat = {
       ...dataUserMe,
-      recipients: dataUserFriend,
+      recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
       id: id,
       file: {
         name: e.target.files[0].name,
@@ -663,7 +690,7 @@ function DefaultLayout({ children }) {
   const handleClickLikeIcon = () => {
     const newValueChat = {
       ...dataUserMe,
-      recipients: dataUserFriend,
+      recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
       id: id,
       other_people: false,
       content: "👍",
@@ -955,6 +982,8 @@ function DefaultLayout({ children }) {
     }
     getValueChats(dataUserFriend);
     setResponsiveInputValue("");
+    setSpinLoadingApiBoxChat(false);
+    console.log(spinLoadingApiBoxChat);
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickChooseBoxChat = (value) => {
@@ -1264,9 +1293,11 @@ function DefaultLayout({ children }) {
   // contextMenu Click Right mouse
 
   const handleOnContextMenu = (e, value) => {
+    console.log(1);
     let leftPos = "";
     let topPos = "";
     if (!document.querySelector(".ant-image-preview-mask")) {
+      console.log(1);
       e.preventDefault();
       const menu = document.querySelector(".right-mouse-share-responsive");
       if (180 < window.innerWidth - e.clientX) {
@@ -1279,12 +1310,14 @@ function DefaultLayout({ children }) {
       } else {
         topPos = `${e.pageY - 114}px`;
       }
+      console.log(1);
       menu.style.display = "block";
       menu.style.top = topPos;
       menu.style.left = leftPos;
       setValueRightClickMessage(value);
       e.stopPropagation();
     }
+    console.log(1);
   };
 
   // onContextMenuChooseBoxChat
@@ -1883,6 +1916,7 @@ function DefaultLayout({ children }) {
                   </>
                 );
               })}
+            {spinLoadingApiBoxChat && <Spin />}
           </div>
           {!dataUserFriend?.notification_system && (
             <div className="nav-input-chat">
