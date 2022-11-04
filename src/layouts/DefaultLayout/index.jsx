@@ -104,7 +104,7 @@ function DefaultLayout({ children }) {
   const [modalChangeName, setModalChangeName] = useState(false);
   const [focusBoxSearch, setFocusBoxSearch] = useState("");
   const [chooseSeeAllNavRight, setChooseSeeAllNavRight] = useState("");
-  const [hiddenSeeAllNavRight, setHiddenSeeAllNavRight] = useState(false);
+  const [hiddenSeeAllNavRight, setHiddenSeeAllNavRight] = useState(true);
   const d = new Date();
   const date = {
     year: d.getFullYear(),
