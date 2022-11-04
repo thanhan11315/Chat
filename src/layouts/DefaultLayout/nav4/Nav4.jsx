@@ -14,40 +14,22 @@ import ImageGroup from "../../../components/imageGroup/ImageGroup";
 import { useState } from "react";
 import LinkPreview from "../../../components/linkPreview/LinkPreview";
 function Nav4(props) {
-  const [showAllImage, setShowAllImage] = useState(false);
   const hanldeClickShowAllImage = () => {
-    const element = document.querySelector(".box-element .content-image-video");
-    element.style.maxHeight = "none";
-    setShowAllImage(true);
-  };
-  const hanldeClickHiddenAllImage = () => {
-    const element = document.querySelector(".box-element .content-image-video");
-    element.style.maxHeight = "143px";
-    setShowAllImage(false);
+    props.setHiddenSeeAllNavRight(false);
+    props.setChooseSeeAllNavRight("images");
+    props.setHiddenRightNav(true);
   };
 
-  const [showAllFile, setShowAllFile] = useState(false);
   const hanldeClickShowAllFile = () => {
-    const element = document.querySelector(".box-element .content-file");
-    element.style.maxHeight = "none";
-    setShowAllFile(true);
-  };
-  const hanldeClickHiddenAllFile = () => {
-    const element = document.querySelector(".box-element .content-file");
-    element.style.maxHeight = "217px";
-    setShowAllFile(false);
+    props.setHiddenSeeAllNavRight(false);
+    props.setChooseSeeAllNavRight("files");
+    props.setHiddenRightNav(true);
   };
 
-  const [showAllLink, setShowAllLink] = useState(false);
   const hanldeClickShowAllLink = () => {
-    const element = document.querySelector(".box-element .content-link");
-    element.style.maxHeight = "none";
-    setShowAllLink(true);
-  };
-  const hanldeClickHiddenAllLink = () => {
-    const element = document.querySelector(".box-element .content-link");
-    element.style.maxHeight = "197px";
-    setShowAllLink(false);
+    props.setHiddenSeeAllNavRight(false);
+    props.setChooseSeeAllNavRight("links");
+    props.setHiddenRightNav(true);
   };
 
   const [showAllMembers, setShowAllMembers] = useState(false);
@@ -181,7 +163,7 @@ function Nav4(props) {
   };
 
   return (
-    <Col className={`box-nav-4 ${props.hiddenRightNav}`}>
+    <Col className={`box-nav-4 ${props.hiddenRightNav && "hiddenRightNav"}`}>
       <div className="title-nav">Thông tin hội thoại</div>
       <div className="box-wrapper">
         <div className="box-information">
@@ -346,7 +328,7 @@ function Nav4(props) {
           </div>
         )}
         <div className="box-element">
-          <div className="title">Ảnh/Video</div>
+          <div className="title">Ảnh</div>
           <Image.PreviewGroup>
             <div className="content-image-video">
               {props.valueChats &&
@@ -369,15 +351,9 @@ function Nav4(props) {
                   );
                 })}
             </div>
-            {showAllImage ? (
-              <div className="div-button" onClick={hanldeClickHiddenAllImage}>
-                Thu Gọn
-              </div>
-            ) : (
-              <div className="div-button" onClick={hanldeClickShowAllImage}>
-                Xem tất cả
-              </div>
-            )}
+            <div className="div-button" onClick={hanldeClickShowAllImage}>
+              Xem tất cả
+            </div>
           </Image.PreviewGroup>
         </div>
         <div className="box-element">
@@ -406,15 +382,9 @@ function Nav4(props) {
                 );
               })}
           </div>
-          {showAllFile ? (
-            <div className="div-button" onClick={hanldeClickHiddenAllFile}>
-              Thu Gọn
-            </div>
-          ) : (
-            <div className="div-button" onClick={hanldeClickShowAllFile}>
-              Xem tất cả
-            </div>
-          )}
+          <div className="div-button" onClick={hanldeClickShowAllFile}>
+            Xem tất cả
+          </div>
         </div>
         <div className="box-element">
           <div className="title">Link</div>
@@ -441,15 +411,9 @@ function Nav4(props) {
                 );
               })}
           </div>
-          {showAllLink ? (
-            <div className="div-button" onClick={hanldeClickHiddenAllLink}>
-              Thu Gọn
-            </div>
-          ) : (
-            <div className="div-button" onClick={hanldeClickShowAllLink}>
-              Xem tất cả
-            </div>
-          )}
+          <div className="div-button" onClick={hanldeClickShowAllLink}>
+            Xem tất cả
+          </div>
         </div>
         <div className="box-element">
           <div className="title">Thiểt lập bảo mật</div>

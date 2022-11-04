@@ -46,6 +46,7 @@ import ModalUpdateInformation from "../../components/modalUpdateInformation/Moda
 import TabTitle from "../../pages/TapTitle";
 import ModalChangeName from "../../components/modalChangeName/ModalChangeName";
 import RightmouseMember from "../../components/rightmouseMember/RightmouseMember";
+import SeeAllNavRight from "../../components/seeAllNavRight/SeeAllNavRight";
 //
 import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 import AvatarTN from "../../assets/images/AvatarTN.jpg";
@@ -79,7 +80,7 @@ function DefaultLayout({ children }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [focusInput, SetFocusInput] = useState("");
-  const [hiddenRightNav, setHiddenRightNav] = useState("hiddenRightNav");
+  const [hiddenRightNav, setHiddenRightNav] = useState(true);
   const [urlFile, setUrlFile] = useState("");
   const [valueFile, setValueFile] = useState("");
   const [valueChats, setValueChats] = useState("");
@@ -102,6 +103,8 @@ function DefaultLayout({ children }) {
   const [valueDeleteLink, setValueDeleteLink] = useState(true);
   const [modalChangeName, setModalChangeName] = useState(false);
   const [focusBoxSearch, setFocusBoxSearch] = useState("");
+  const [chooseSeeAllNavRight, setChooseSeeAllNavRight] = useState("");
+  const [hiddenSeeAllNavRight, setHiddenSeeAllNavRight] = useState(false);
   const d = new Date();
   const date = {
     year: d.getFullYear(),
@@ -195,9 +198,11 @@ function DefaultLayout({ children }) {
 
   const handleClickNavRight = (e) => {
     if (hiddenRightNav) {
-      setHiddenRightNav("");
+      setHiddenRightNav(false);
+      setHiddenSeeAllNavRight(true);
     } else {
-      setHiddenRightNav("hiddenRightNav");
+      setHiddenRightNav(true);
+      setHiddenSeeAllNavRight(true);
     }
     if (window.innerWidth < 993) {
       e.stopPropagation();
@@ -570,18 +575,30 @@ function DefaultLayout({ children }) {
   };
 
   const [spinLoadingApiBoxChat, setSpinLoadingApiBoxChat] = useState(false);
-
+  useState("");
   const elementGetLoadScroll = document.querySelector(".box-nav-3 .box-chat");
+  const addValueToBoxChat = () => {
+    console.log(1);
+    setValueChats([...valueChats, ...valueChatDemo]);
+  };
   if (elementGetLoadScroll) {
     elementGetLoadScroll.addEventListener("scroll", () => {
-      const scrollBottom =
-        elementGetLoadScroll.scrollHeight -
-        elementGetLoadScroll.clientHeight +
-        elementGetLoadScroll.scrollTop;
-      if (scrollBottom < 50) {
-        setSpinLoadingApiBoxChat(true);
-      } else {
-        setSpinLoadingApiBoxChat(false);
+      if (elementGetLoadScroll) {
+        const scrollBottom =
+          elementGetLoadScroll.scrollHeight -
+          elementGetLoadScroll.clientHeight +
+          elementGetLoadScroll.scrollTop;
+        if (elementGetLoadScroll) {
+          if (scrollBottom < 1 && !spinLoadingApiBoxChat) {
+            setSpinLoadingApiBoxChat(true);
+            setTimeout(() => {
+              addValueToBoxChat();
+              setSpinLoadingApiBoxChat(false);
+            }, 2000);
+          } else {
+            setSpinLoadingApiBoxChat(false);
+          }
+        }
       }
     });
   }
@@ -879,7 +896,6 @@ function DefaultLayout({ children }) {
     const newLenghtGhim = newValueChats.filter((value) => {
       return value.ghim === true;
     }).length;
-
     setLengthGhim(newLenghtGhim);
     if (newLenghtGhim === 1) {
       document.querySelector(".box-ghim-1").style.display = "block";
@@ -982,10 +998,10 @@ function DefaultLayout({ children }) {
     }
     getValueChats(dataUserFriend);
     setResponsiveInputValue("");
-    setSpinLoadingApiBoxChat(false);
-    console.log(spinLoadingApiBoxChat);
+    setTimeout(() => {
+      setSpinLoadingApiBoxChat(false);
+    }, 100);
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
     hiddenBoxNav2.classList.add("hiddenBoxNav2");
@@ -1201,7 +1217,7 @@ function DefaultLayout({ children }) {
 
   window.addEventListener("click", () => {
     if (window.innerWidth < 993) {
-      setHiddenRightNav("hiddenRightNav");
+      setHiddenRightNav(true);
     }
   });
 
@@ -2062,6 +2078,9 @@ function DefaultLayout({ children }) {
           )}
         </Col>
         <Nav4
+          setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
+          setHiddenRightNav={setHiddenRightNav}
+          setChooseSeeAllNavRight={setChooseSeeAllNavRight}
           renderImageFile={renderImageFile}
           bytesToSize={bytesToSize}
           valueChats={valueChats}
@@ -2083,6 +2102,19 @@ function DefaultLayout({ children }) {
           setValueFile={setValueFile}
           setModalChangeName={setModalChangeName}
           onContextMenuMember={onContextMenuMember}
+        />
+        <SeeAllNavRight
+          hiddenSeeAllNavRight={hiddenSeeAllNavRight}
+          setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
+          chooseSeeAllNavRight={chooseSeeAllNavRight}
+          setChooseSeeAllNavRight={setChooseSeeAllNavRight}
+          valueChats={valueChats}
+          renderImageFile={renderImageFile}
+          bytesToSize={bytesToSize}
+          setUrlFile={setUrlFile}
+          urlFile={urlFile}
+          setValueFile={setValueFile}
+          setHiddenRightNav={setHiddenRightNav}
         />
       </Row>
     </>
