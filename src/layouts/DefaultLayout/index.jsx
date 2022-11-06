@@ -577,10 +577,14 @@ function DefaultLayout({ children }) {
   const [spinLoadingApiBoxChat, setSpinLoadingApiBoxChat] = useState(false);
   useState("");
   const elementGetLoadScroll = document.querySelector(".box-nav-3 .box-chat");
-  const addValueToBoxChat = () => {
-    console.log(1);
-    setValueChats([...valueChats, ...valueChatDemo]);
-  };
+  useEffect(() => {
+    if (spinLoadingApiBoxChat) {
+      setTimeout(() => {
+        console.log(1);
+        setValueChats([...valueChats, ...valueChatDemo]);
+      }, 2000);
+    }
+  }, [spinLoadingApiBoxChat]); // eslint-disable-line react-hooks/exhaustive-deps
   if (elementGetLoadScroll) {
     elementGetLoadScroll.addEventListener("scroll", () => {
       if (elementGetLoadScroll) {
@@ -589,14 +593,12 @@ function DefaultLayout({ children }) {
           elementGetLoadScroll.clientHeight +
           elementGetLoadScroll.scrollTop;
         if (elementGetLoadScroll) {
-          if (scrollBottom < 1 && !spinLoadingApiBoxChat) {
+          if (scrollBottom < 70 && !spinLoadingApiBoxChat) {
             setSpinLoadingApiBoxChat(true);
-            setTimeout(() => {
-              addValueToBoxChat();
-              setSpinLoadingApiBoxChat(false);
-            }, 2000);
           } else {
-            setSpinLoadingApiBoxChat(false);
+            if (scrollBottom > 70 && spinLoadingApiBoxChat) {
+              setSpinLoadingApiBoxChat(false);
+            }
           }
         }
       }
@@ -942,6 +944,7 @@ function DefaultLayout({ children }) {
           ...dataUserFriend,
           not_read: false,
           last_value_chat: valueChats[0],
+          current_value_chat: "",
         };
         const dataUserFriendIndex = newDataUserFriends.findIndex(
           (newDataUserFriend) =>
@@ -961,6 +964,7 @@ function DefaultLayout({ children }) {
           ...dataUserFriend,
           not_read: false,
           last_value_chat: valueChats[0],
+          current_value_chat: "",
         };
         const dataUserFriendIndex = newDataUserFriends.findIndex(
           (newDataUserFriend) =>
@@ -1001,6 +1005,11 @@ function DefaultLayout({ children }) {
     setTimeout(() => {
       setSpinLoadingApiBoxChat(false);
     }, 100);
+    if (dataUserFriend?.current_value_chat) {
+      setValueChat(dataUserFriend?.current_value_chat);
+    } else {
+      setValueChat("");
+    }
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
@@ -1036,7 +1045,7 @@ function DefaultLayout({ children }) {
     getValueChats &&
       setLengthGhim(
         getValueChats?.filter((value) => {
-          return value.ghim === true;
+          return value?.ghim === true;
         }).length
       );
   };
@@ -1385,6 +1394,31 @@ function DefaultLayout({ children }) {
     menu.style.left = leftPos;
   };
 
+  const makeValueChatInDataUserFriends = () => {
+    if (dataUserFriends && valueChat) {
+      const dataUserFriendChangeValueChat = dataUserFriends.find(
+        (value) => value.id_user === dataUserFriend.id_user
+      );
+      console.log(dataUserFriendChangeValueChat);
+      const newDataUserFriendChangeValueChat = {
+        ...dataUserFriendChangeValueChat,
+        current_value_chat: valueChat,
+      };
+      const newDataUserFriends = dataUserFriends.map((value) => {
+        if (dataUserFriend.id_user === value.id_user) {
+          return newDataUserFriendChangeValueChat;
+        } else {
+          return value;
+        }
+      });
+      setDataUserFriendsAll(newDataUserFriends);
+    }
+  };
+
+  useEffect(() => {
+    makeValueChatInDataUserFriends();
+  }, [valueChat]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // onContextMenu rightMouseMember
 
   return (
@@ -1417,6 +1451,7 @@ function DefaultLayout({ children }) {
         valueFile={valueFile}
         bytesToSize={bytesToSize}
       />
+
       <ModalInformation
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}

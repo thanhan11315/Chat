@@ -365,7 +365,6 @@ function Nav4(props) {
                   <>
                     {valueChat.file && !valueChat.delete && (
                       <>
-                        {console.log(123)}
                         <RenderFile
                           navRight={true}
                           key={key}

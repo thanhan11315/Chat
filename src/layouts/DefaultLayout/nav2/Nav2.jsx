@@ -232,84 +232,106 @@ function Nav2(props) {
                       className="content"
                       style={{ color: value.not_read && "#001a33" }}
                     >
-                      <>
-                        {!value?.last_value_chat && "Chưa có tin nhắn"}
-                        {nameOnLastValueChat(
-                          value?.last_value_chat?.id_user,
-                          value?.id_user,
-                          props?.dataUserMe?.id_user,
-                          value?.last_value_chat?.name
-                        )}
-                        {value.last_value_chat?.type === "image" &&
-                          !value.last_value_chat?.delete && <>[Hình ảnh]</>}
-                        {value.last_value_chat?.type === "video" &&
-                          !value.last_value_chat?.delete && <>[Video]</>}
-                        {value.last_value_chat?.file &&
-                          !value.last_value_chat?.delete && (
-                            <>{`[File] ${value.last_value_chat?.file.name}`}</>
+                      {!value.current_value_chat && (
+                        <>
+                          {!value?.last_value_chat && "Chưa có tin nhắn"}
+                          {nameOnLastValueChat(
+                            value?.last_value_chat?.id_user,
+                            value?.id_user,
+                            props?.dataUserMe?.id_user,
+                            value?.last_value_chat?.name
                           )}
-                        {value.last_value_chat?.text_message &&
-                          !value.last_value_chat?.is_message_url &&
-                          !value.last_value_chat?.delete && (
+                          {value.last_value_chat?.type === "image" &&
+                            !value.last_value_chat?.delete && <>[Hình ảnh]</>}
+                          {value.last_value_chat?.type === "video" &&
+                            !value.last_value_chat?.delete && <>[Video]</>}
+                          {value.last_value_chat?.file &&
+                            !value.last_value_chat?.delete && (
+                              <>{`[File] ${value.last_value_chat?.file.name}`}</>
+                            )}
+                          {value.last_value_chat?.text_message &&
+                            !value.last_value_chat?.is_message_url &&
+                            !value.last_value_chat?.delete && (
+                              <>
+                                <span
+                                  dangerouslySetInnerHTML={{
+                                    __html: value.last_value_chat?.text_message,
+                                  }}
+                                />
+                              </>
+                            )}
+                          {value.last_value_chat?.text_message &&
+                            value.last_value_chat?.is_message_url &&
+                            !value.last_value_chat?.delete && (
+                              <>{`[Link] ${value.last_value_chat?.message_url}`}</>
+                            )}
+                          {value.last_value_chat?.delete && (
+                            <>Tin nhắn đã bị xóa</>
+                          )}
+                          {value.last_value_chat?.add_members_to_group && (
                             <>
-                              <span
-                                dangerouslySetInnerHTML={{
-                                  __html: value.last_value_chat?.text_message,
-                                }}
-                              />
+                              {value.last_value_chat?.members_added[0].name}
+                              {value.last_value_chat?.members_added.length >
+                                1 &&
+                                ` và ${
+                                  value.last_value_chat?.members_added.length -
+                                  1
+                                }
+                            người khác`}
+                              {` được thêm vào nhóm `}
                             </>
                           )}
-                        {value.last_value_chat?.text_message &&
-                          value.last_value_chat?.is_message_url &&
-                          !value.last_value_chat?.delete && (
-                            <>{`[Link] ${value.last_value_chat?.message_url}`}</>
+                          {value.last_value_chat?.remove_members_to_group && (
+                            <>
+                              {value.last_value_chat?.members_removed.name} đã
+                              rời khỏi nhóm
+                            </>
                           )}
-                        {value.last_value_chat?.delete && (
-                          <>Tin nhắn đã bị xóa</>
-                        )}
-                        {value.last_value_chat?.add_members_to_group && (
-                          <>
-                            {value.last_value_chat?.members_added[0].name}
-                            {value.last_value_chat?.members_added.length > 1 &&
-                              ` và ${
-                                value.last_value_chat?.members_added.length - 1
-                              }
-                            người khác`}
-                            {` được thêm vào nhóm `}
-                          </>
-                        )}
-                        {value.last_value_chat?.remove_members_to_group && (
-                          <>
-                            {value.last_value_chat?.members_removed.name} đã rời
-                            khỏi nhóm
-                          </>
-                        )}
-                        {value.last_value_chat?.invite_out_group && (
-                          <>
-                            {value.last_value_chat?.member_removed.name} được
-                            mời ra khỏi nhóm
-                          </>
-                        )}
-                      </>
+                          {value.last_value_chat?.invite_out_group && (
+                            <>
+                              {value.last_value_chat?.member_removed.name} được
+                              mời ra khỏi nhóm
+                            </>
+                          )}
+                        </>
+                      )}
+                      {value.current_value_chat && (
+                        <>{value.current_value_chat}</>
+                      )}
                     </div>
                   </Col>
                 </Row>
                 <Col className="box2">
-                  <div className="time-before" onClick={() => {}}>
-                    {value?.notification && <BellOutlined />}
-                    {timepast(value?.last_value_chat)}
-                  </div>
-                  {
-                    <div
-                      className={`number-unread number-unread-${value?.id_user}`}
-                      key={value?.id_user}
-                    >
-                      <div className="time-before">
-                        {value?.pin_conversation && <PushpinOutlined />}
+                  {!value.current_value_chat && (
+                    <>
+                      <div className="time-before" onClick={() => {}}>
+                        {value?.notification && <BellOutlined />}
+                        {timepast(value?.last_value_chat)}
                       </div>
-                      <div>{value?.not_read && <div></div>}</div>
+                      {
+                        <div
+                          className={`number-unread number-unread-${value?.id_user}`}
+                          key={value?.id_user}
+                        >
+                          <div className="time-before">
+                            {value?.pin_conversation && <PushpinOutlined />}
+                          </div>
+                          <div>{value?.not_read && <div></div>}</div>
+                        </div>
+                      }
+                    </>
+                  )}
+                  {value.current_value_chat && (
+                    <div
+                      style={{
+                        color: "var(--R60)",
+                        fontSize: "0.75rem",
+                        fontWeight: "400",
+                      }}
+                    >
+                      Chưa gửi
                     </div>
-                  }
+                  )}
                 </Col>
                 <Col className="box3">
                   <div className="icon">

@@ -105,8 +105,6 @@
     gap: 8px;
     display: flex;
     flex-wrap: wrap !important;
-    overflow: hidden;
-    max-height: 143px;
     .box-image-video {
       width: 67px;
       height: 67px;
@@ -130,8 +128,6 @@
   }
   .content-file {
     margin-top: 16px;
-    overflow: hidden;
-    max-height: 217px;
   }
   .content-link {
     margin-top: 16px;
