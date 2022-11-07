@@ -126,6 +126,18 @@ function Nav2(props) {
     props.setFocusBoxSearch(false);
   };
 
+  const ifUsentMessage = (
+    currentValueChat,
+    valueIdUser,
+    dataUserFriendIdUser
+  ) => {
+    if (currentValueChat && valueIdUser !== dataUserFriendIdUser) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
       <Row className="search-add">
@@ -232,7 +244,11 @@ function Nav2(props) {
                       className="content"
                       style={{ color: value.not_read && "#001a33" }}
                     >
-                      {!value.current_value_chat && (
+                      {!ifUsentMessage(
+                        value.current_value_chat,
+                        value.id_user,
+                        props.dataUserFriend.id_user
+                      ) && (
                         <>
                           {!value?.last_value_chat && "Chưa có tin nhắn"}
                           {nameOnLastValueChat(
@@ -295,33 +311,44 @@ function Nav2(props) {
                           )}
                         </>
                       )}
-                      {value.current_value_chat && (
-                        <>{value.current_value_chat}</>
-                      )}
+                      {ifUsentMessage(
+                        value.current_value_chat,
+                        value.id_user,
+                        props.dataUserFriend.id_user
+                      ) &&
+                        value.id_user !== props.dataUserFriend.id_user && (
+                          <>{value.current_value_chat}</>
+                        )}
                     </div>
                   </Col>
                 </Row>
                 <Col className="box2">
-                  {!value.current_value_chat && (
+                  {!ifUsentMessage(
+                    value.current_value_chat,
+                    value.id_user,
+                    props.dataUserFriend.id_user
+                  ) && (
                     <>
                       <div className="time-before" onClick={() => {}}>
                         {value?.notification && <BellOutlined />}
                         {timepast(value?.last_value_chat)}
                       </div>
-                      {
-                        <div
-                          className={`number-unread number-unread-${value?.id_user}`}
-                          key={value?.id_user}
-                        >
-                          <div className="time-before">
-                            {value?.pin_conversation && <PushpinOutlined />}
-                          </div>
-                          <div>{value?.not_read && <div></div>}</div>
+                      <div
+                        className={`number-unread number-unread-${value?.id_user}`}
+                        key={value?.id_user}
+                      >
+                        <div className="time-before">
+                          {value?.pin_conversation && <PushpinOutlined />}
                         </div>
-                      }
+                        <div>{value?.not_read && <div></div>}</div>
+                      </div>
                     </>
                   )}
-                  {value.current_value_chat && (
+                  {ifUsentMessage(
+                    value.current_value_chat,
+                    value.id_user,
+                    props.dataUserFriend.id_user
+                  ) && (
                     <div
                       style={{
                         color: "var(--R60)",

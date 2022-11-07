@@ -1395,23 +1395,24 @@ function DefaultLayout({ children }) {
   };
 
   const makeValueChatInDataUserFriends = () => {
-    if (dataUserFriends && valueChat) {
+    if (dataUserFriends) {
       const dataUserFriendChangeValueChat = dataUserFriends.find(
         (value) => value.id_user === dataUserFriend.id_user
       );
-      console.log(dataUserFriendChangeValueChat);
-      const newDataUserFriendChangeValueChat = {
-        ...dataUserFriendChangeValueChat,
-        current_value_chat: valueChat,
-      };
-      const newDataUserFriends = dataUserFriends.map((value) => {
-        if (dataUserFriend.id_user === value.id_user) {
-          return newDataUserFriendChangeValueChat;
-        } else {
-          return value;
-        }
-      });
-      setDataUserFriendsAll(newDataUserFriends);
+      if (dataUserFriendChangeValueChat) {
+        const newDataUserFriendChangeValueChat = {
+          ...dataUserFriendChangeValueChat,
+          current_value_chat: valueChat,
+        };
+        const newDataUserFriends = dataUserFriends.map((value) => {
+          if (dataUserFriend.id_user === value.id_user) {
+            return newDataUserFriendChangeValueChat;
+          } else {
+            return value;
+          }
+        });
+        setDataUserFriendsAll(newDataUserFriends);
+      }
     }
   };
 
@@ -1566,6 +1567,7 @@ function DefaultLayout({ children }) {
           setFocusBoxSearch={setFocusBoxSearch}
           dataUserFriendsStorage={dataUserFriendsStorage}
           setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
+          dataUserFriend={dataUserFriend}
         />
         {/* Nav2 */}
 
