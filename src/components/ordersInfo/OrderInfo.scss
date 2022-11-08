@@ -20,3 +20,27 @@
     }
   }
 }
+
+.wraper-oders-info-two {
+  width: 600px;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 12px;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--NG10);
+  }
+  .title {
+    font-weight: 600;
+  }
+  .box-content {
+    display: flex;
+    .box-1 {
+      min-width: 100px;
+      max-width: 100px;
+      padding: 10px;
+    }
+    .box-2 {
+    }
+  }
+}

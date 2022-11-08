@@ -1,6 +1,7 @@
 #wrapper .see-all-right {
   .box-wrapper {
     overflow-y: scroll;
+    overflow-x: hidden;
   }
   .box-title {
     display: flex;
@@ -131,6 +132,8 @@
   }
   .content-link {
     margin-top: 16px;
+  }
+  .content-order-info {
   }
 }
 

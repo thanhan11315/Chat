@@ -4,7 +4,11 @@ import { Col, Image } from "antd";
 import "./SeeAllNavRight.scss";
 import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
+import OrderInfo from "../ordersInfo/OrdersInfo";
 function SeeAllNavRight(props) {
+  const handleClickTitleOdersInfo = () => {
+    props.setChooseSeeAllNavRight("ordersInfo");
+  };
   const handleClickTitleImages = () => {
     props.setChooseSeeAllNavRight("images");
   };
@@ -35,6 +39,14 @@ function SeeAllNavRight(props) {
       <div className="box-title-choose">
         <div
           className={`title ${
+            props.chooseSeeAllNavRight === "ordersInfo" && "choose"
+          }`}
+          onClick={handleClickTitleOdersInfo}
+        >
+          Đơn hàng
+        </div>
+        <div
+          className={`title ${
             props.chooseSeeAllNavRight === "images" && "choose"
           }`}
           onClick={handleClickTitleImages}
@@ -60,6 +72,22 @@ function SeeAllNavRight(props) {
       </div>
       <div className="box-wrapper">
         <div className="box-element">
+          {props.chooseSeeAllNavRight === "ordersInfo" && (
+            <div className="content-order-info">
+              {props.valueChats &&
+                props.valueChats.map((valueChat, key) => {
+                  return (
+                    <>
+                      {valueChat.is_orders_info && !valueChat.delete && (
+                        <>
+                          <OrderInfo key={key} size="two" value={valueChat} />
+                        </>
+                      )}
+                    </>
+                  );
+                })}
+            </div>
+          )}
           {props.chooseSeeAllNavRight === "images" && (
             <Image.PreviewGroup>
               <div className="content-image-video">

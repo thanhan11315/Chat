@@ -5,14 +5,15 @@ import {
   ExportOutlined,
   PaperClipOutlined,
   SettingOutlined,
+  TeamOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
 import { Col, Image, Row } from "antd";
 import "./Nav4.scss";
 import RenderFile from "../../../components/file/RenderFile";
 import ImageGroup from "../../../components/imageGroup/ImageGroup";
-import { useState } from "react";
 import LinkPreview from "../../../components/linkPreview/LinkPreview";
+import OrderInfo from "../../../components/ordersInfo/OrdersInfo";
 function Nav4(props) {
   const hanldeClickShowAllImage = () => {
     props.setHiddenSeeAllNavRight(false);
@@ -32,18 +33,15 @@ function Nav4(props) {
     props.setHiddenRightNav(true);
   };
 
-  const [showAllMembers, setShowAllMembers] = useState(false);
-
-  const hanldeClickShowAllMembers = () => {
-    const element = document.querySelector(".box-element .content-member");
-    element.style.maxHeight = "none";
-    setShowAllMembers(true);
+  const hanldeClickShowAllOrdersInfo = () => {
+    props.setHiddenSeeAllNavRight(false);
+    props.setChooseSeeAllNavRight("ordersInfo");
+    props.setHiddenRightNav(true);
   };
 
-  const hanldeClickHiddenAllMembers = () => {
-    const element = document.querySelector(".box-element .content-member");
-    element.style.maxHeight = "192px";
-    setShowAllMembers(false);
+  const handleClickShowAllMember = () => {
+    props.setHiddenSeeAllMembersNavRight(false);
+    props.setHiddenRightNav(true);
   };
 
   const turnOffNotification = () => {
@@ -152,14 +150,6 @@ function Nav4(props) {
 
   const handleClickEditName = () => {
     props.setModalChangeName(true);
-  };
-
-  const orderMember = (leader, deputy) => {
-    if (leader) {
-      return -2;
-    } else if (deputy) {
-      return -1;
-    }
   };
 
   return (
@@ -278,55 +268,35 @@ function Nav4(props) {
           <div className="box-element">
             <div className="title">Thành viên nhóm</div>
             <div className="content-member">
-              {props.dataUserFriend?.members &&
-                props.dataUserFriend?.members.map((member) => {
-                  return (
-                    <div
-                      className="box-member"
-                      onClick={() => {
-                        props.handleClickImgChat(member);
-                      }}
-                      onContextMenu={(e) => {
-                        props.onContextMenuMember(e, member);
-                      }}
-                      style={{
-                        order: orderMember(member.leader, member.deputy),
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <div className="image-member">
-                          <img src={member.avatar} alt="img not load" />
-                        </div>
-                        <div className="box-information">
-                          <div className="name">{member.name}</div>
-                          {member.leader && (
-                            <div className="position">Trưởng nhóm</div>
-                          )}
-                          {member.deputy && (
-                            <div className="position">Phó nhóm</div>
-                          )}
-                        </div>
-                      </div>
-                      {member.id_user !== props.dataUserMe.id_user && (
-                        <div className="add-friend">
-                          <span>Kết bạn</span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+              <div className="box-member">
+                <div className="icon" onClick={handleClickShowAllMember()}>
+                  <TeamOutlined /> {props.dataUserFriend?.members?.length} thành
+                  viên
+                </div>
+              </div>
             </div>
-            {showAllMembers ? (
-              <div className="div-button" onClick={hanldeClickHiddenAllMembers}>
-                Thu Gọn
-              </div>
-            ) : (
-              <div className="div-button" onClick={hanldeClickShowAllMembers}>
-                Xem tất cả
-              </div>
-            )}
           </div>
         )}
+        <div className="box-element">
+          <div className="title">Đơn hàng</div>
+          <div className="content-order-info">
+            {props.valueChats &&
+              props.valueChats.map((valueChat, key) => {
+                return (
+                  <>
+                    {valueChat.is_orders_info && !valueChat.delete && (
+                      <>
+                        <OrderInfo size="two" value={valueChat} key={key} />
+                      </>
+                    )}
+                  </>
+                );
+              })}
+          </div>
+          <div className="div-button" onClick={hanldeClickShowAllOrdersInfo}>
+            Xem tất cả
+          </div>
+        </div>
         <div className="box-element">
           <div className="title">Ảnh</div>
           <Image.PreviewGroup>

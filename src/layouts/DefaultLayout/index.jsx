@@ -61,6 +61,7 @@ import ImageZIP from "../../assets/images/ImageZIP.png";
 import ImageVideo from "../../assets/images/Video.png";
 import { useState } from "react";
 import OrderInfo from "../../components/ordersInfo/OrdersInfo";
+import SeeAllNavRightMembers from "../../components/seeAllNavRight/SeeAllNavRightMember";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -105,6 +106,8 @@ function DefaultLayout({ children }) {
   const [focusBoxSearch, setFocusBoxSearch] = useState("");
   const [chooseSeeAllNavRight, setChooseSeeAllNavRight] = useState("");
   const [hiddenSeeAllNavRight, setHiddenSeeAllNavRight] = useState(true);
+  const [hiddenSeeAllMembersNavRight, setHiddenSeeAllMembersNavRight] =
+    useState(true);
   const d = new Date();
   const date = {
     year: d.getFullYear(),
@@ -980,7 +983,7 @@ function DefaultLayout({ children }) {
       }
       console.log(dataUserFriends);
     }
-
+    console.log();
     setValueDeleteLink(true);
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -1767,7 +1770,13 @@ function DefaultLayout({ children }) {
                               {value.is_orders_info && (
                                 <div className="content-chat">
                                   <div className="box-make-hidden-content-chat">
-                                    <OrderInfo />
+                                    <OrderInfo
+                                      numberOrder={value.text_message}
+                                      valueChats={valueChats}
+                                      setValueChats={setValueChats}
+                                      value={value}
+                                      size="one"
+                                    />
                                     <div className="date">
                                       {value.hours}:{value.minutes}
                                     </div>
@@ -2122,7 +2131,6 @@ function DefaultLayout({ children }) {
           bytesToSize={bytesToSize}
           valueChats={valueChats}
           hiddenRightNav={hiddenRightNav}
-          handleClickImgChat={handleClickImgChat}
           dataUserFriend={dataUserFriend}
           setDataUserFriend={setDataUserFriend}
           dataUserFriends={dataUserFriends}
@@ -2138,7 +2146,7 @@ function DefaultLayout({ children }) {
           urlFile={urlFile}
           setValueFile={setValueFile}
           setModalChangeName={setModalChangeName}
-          onContextMenuMember={onContextMenuMember}
+          setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
         />
         <SeeAllNavRight
           hiddenSeeAllNavRight={hiddenSeeAllNavRight}
@@ -2152,6 +2160,14 @@ function DefaultLayout({ children }) {
           urlFile={urlFile}
           setValueFile={setValueFile}
           setHiddenRightNav={setHiddenRightNav}
+        />
+        <SeeAllNavRightMembers
+          dataUserFriend={dataUserFriend}
+          setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
+          hiddenSeeAllMembersNavRight={hiddenSeeAllMembersNavRight}
+          setHiddenRightNav={setHiddenRightNav}
+          handleClickImgChat={handleClickImgChat}
+          onContextMenuMember={onContextMenuMember}
         />
       </Row>
     </>
