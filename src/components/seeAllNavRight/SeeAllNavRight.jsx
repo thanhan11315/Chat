@@ -79,7 +79,7 @@ function SeeAllNavRight(props) {
             <DownOutlined />
           </span>
         </div>
-        <div className="box-list-search">
+        {/* <div className="box-list-search">
           <div className="box-search">
             <InPutSearch />
           </div>
@@ -95,7 +95,7 @@ function SeeAllNavRight(props) {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="box-wrapper">
         <div className="box-element">
