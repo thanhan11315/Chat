@@ -5,8 +5,8 @@ import "./SeeAllNavRight.scss";
 import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
 import OrderInfo from "../ordersInfo/OrdersInfo";
-import InPutSearch from "../../components/inPutSearch/InPutSearch";
-import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
+// import InPutSearch from "../../components/inPutSearch/InPutSearch";
+// import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 function SeeAllNavRight(props) {
   const handleClickTitleOdersInfo = () => {
     props.setChooseSeeAllNavRight("ordersInfo");
