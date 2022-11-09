@@ -44,6 +44,11 @@ function Nav4(props) {
     props.setHiddenRightNav(true);
   };
 
+  const handleClickShowAllgeneralGroup = () => {
+    props.setHiddenSeeAllMembersNavRight(false);
+    props.setHiddenRightNav(true);
+  };
+
   const turnOffNotification = () => {
     const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
       if (props.dataUserFriend.id_user === dataUserFriend.id_user) {
@@ -264,12 +269,30 @@ function Nav4(props) {
             )}
           </Row>
         </div>
+        {!props.dataUserFriend?.group && (
+          <div className="box-element">
+            <div className="content-member">
+              <div className="box-member">
+                <div className="icon" onClick={handleClickShowAllMember}>
+                  <TeamOutlined />{" "}
+                  {
+                    props.generalGroup(
+                      props.dataUserFriends,
+                      props.dataUserFriend
+                    ).length
+                  }{" "}
+                  nhóm chung
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {props.dataUserFriend?.group && (
           <div className="box-element">
             <div className="title">Thành viên nhóm</div>
             <div className="content-member">
               <div className="box-member">
-                <div className="icon" onClick={handleClickShowAllMember()}>
+                <div className="icon" onClick={handleClickShowAllgeneralGroup}>
                   <TeamOutlined /> {props.dataUserFriend?.members?.length} thành
                   viên
                 </div>
@@ -389,7 +412,9 @@ function Nav4(props) {
           {props.dataUserFriend?.group && (
             <div
               className="box-element-children"
-              onClick={() => handleClickOutGroup(props.dataUserMe)}
+              onClick={() => {
+                handleClickOutGroup(props.dataUserMe);
+              }}
             >
               <div>
                 <ExportOutlined />

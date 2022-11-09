@@ -1,10 +1,12 @@
 import React from "react";
-import { LeftOutlined } from "@ant-design/icons";
+import { DownOutlined, LeftOutlined } from "@ant-design/icons";
 import { Col, Image } from "antd";
 import "./SeeAllNavRight.scss";
 import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
 import OrderInfo from "../ordersInfo/OrdersInfo";
+import InPutSearch from "../../components/inPutSearch/InPutSearch";
+import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 function SeeAllNavRight(props) {
   const handleClickTitleOdersInfo = () => {
     props.setChooseSeeAllNavRight("ordersInfo");
@@ -68,6 +70,31 @@ function SeeAllNavRight(props) {
           onClick={handleClickTitleLinks}
         >
           Links
+        </div>
+      </div>
+      <div className="box-filter">
+        <div className="box-choose-member-sent">
+          <span>Người gửi</span>
+          <span>
+            <DownOutlined />
+          </span>
+        </div>
+        <div className="box-list-search">
+          <div className="box-search">
+            <InPutSearch />
+          </div>
+          <div className="box-member">
+            <div className="box-member">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <div className="image-member">
+                  <img src={AvatarAnLe} alt="img not load" />
+                </div>
+                <div className="box-information">
+                  <div className="name">"thanhan"</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="box-wrapper">
@@ -168,5 +195,4 @@ function SeeAllNavRight(props) {
     </Col>
   );
 }
-
 export default SeeAllNavRight;

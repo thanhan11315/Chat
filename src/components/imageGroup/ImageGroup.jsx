@@ -3,7 +3,7 @@ import "./ImageGroup.scss";
 function ImageGroup(props) {
   return (
     <>
-      <div className="box-image-group">
+      <div className="box-image-group ">
         {props.dataUserFriend?.members?.length <= 3 && (
           <>
             <div className="box-image image-1-1">

@@ -3,6 +3,7 @@ import Modal from "antd/lib/modal/Modal";
 import { Image } from "antd";
 import "./ModalInformation.scss";
 import { EditOutlined } from "@ant-design/icons";
+import ImageGroup from "../imageGroup/ImageGroup";
 
 function ModalInformation(props) {
   const hanldeClickUpdateProfile = () => {
@@ -29,11 +30,13 @@ function ModalInformation(props) {
 
   return (
     <>
+      {console.log(props.dataModalInformation)}
       {props.dataModalInformation?.group ? (
         <Modal
           open={props.modalInformation}
           title="Thông tin nhóm"
           onCancel={props.handleCancelModalInformation}
+          footer={[]}
         >
           <div className="wrapper-modal-information">
             <div className="profilePhoto">
@@ -46,11 +49,7 @@ function ModalInformation(props) {
               </div>
               <div className="user-profile-preview">
                 <div className="box-img-avatar">
-                  <Image
-                    className="img-avatar"
-                    alt=""
-                    src={props.dataModalInformation?.avatar}
-                  />
+                  <ImageGroup dataUserFriend={props.dataModalInformation} />
                 </div>
                 <div className="preview-content">
                   <div className="name-content">
@@ -59,7 +58,10 @@ function ModalInformation(props) {
                 </div>
               </div>
             </div>
-            <div className="box-btn-sentmgs">
+            <div
+              className="box-btn-sentmgs"
+              onClick={() => handleClickSentmgs(props.dataModalInformation)}
+            >
               <div className="btn-sentmgs">Nhắn tin</div>
             </div>
             <div className="box-profile-information">

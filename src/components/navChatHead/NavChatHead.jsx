@@ -84,7 +84,10 @@ function NavChatHead(props) {
           </div>
           <div
             className="control-nav-right"
-            onClick={(e) => props.handleClickNavRight(e)}
+            onClick={(e) => {
+              props.handleClickNavRight(e);
+              props.setHiddenSeeAllMembersNavRight(true);
+            }}
           >
             {props.hiddenRightNav ? (
               <MenuFoldOutlined />

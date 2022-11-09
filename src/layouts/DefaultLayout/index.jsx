@@ -1423,6 +1423,22 @@ function DefaultLayout({ children }) {
     makeValueChatInDataUserFriends();
   }, [valueChat]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const generalGroup = (dataUserFriends, dataUserFriend) => {
+    let generalGroup = [];
+    dataUserFriends &&
+      dataUserFriends.forEach((element) => {
+        if (element.group) {
+          console.log(1);
+          element.members?.forEach((member) => {
+            if (member.id_user === dataUserFriend.id_user) {
+              generalGroup = [...generalGroup, element];
+            }
+          });
+        }
+      });
+    return generalGroup;
+  };
+
   // onContextMenu rightMouseMember
 
   return (
@@ -1581,6 +1597,7 @@ function DefaultLayout({ children }) {
             handleClickNavRight={handleClickNavRight}
             hiddenRightNav={hiddenRightNav}
             handleClickImgChat={handleClickImgChat}
+            setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
           />
           {/* NavChatHead */}
           {lengthGhim > 0 && (
@@ -2124,6 +2141,7 @@ function DefaultLayout({ children }) {
           )}
         </Col>
         <Nav4
+          generalGroup={generalGroup}
           setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
           setHiddenRightNav={setHiddenRightNav}
           setChooseSeeAllNavRight={setChooseSeeAllNavRight}
@@ -2149,6 +2167,7 @@ function DefaultLayout({ children }) {
           setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
         />
         <SeeAllNavRight
+          SeeAllNavRight={SeeAllNavRight}
           hiddenSeeAllNavRight={hiddenSeeAllNavRight}
           setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
           chooseSeeAllNavRight={chooseSeeAllNavRight}
@@ -2162,6 +2181,8 @@ function DefaultLayout({ children }) {
           setHiddenRightNav={setHiddenRightNav}
         />
         <SeeAllNavRightMembers
+          dataUserFriends={dataUserFriends}
+          generalGroup={generalGroup}
           dataUserFriend={dataUserFriend}
           setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
           hiddenSeeAllMembersNavRight={hiddenSeeAllMembersNavRight}
