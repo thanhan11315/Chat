@@ -583,7 +583,6 @@ function DefaultLayout({ children }) {
   useEffect(() => {
     if (spinLoadingApiBoxChat) {
       setTimeout(() => {
-        console.log(1);
         setValueChats([...valueChats, ...valueChatDemo]);
       }, 2000);
     }
@@ -2167,6 +2166,8 @@ function DefaultLayout({ children }) {
           setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
         />
         <SeeAllNavRight
+          dataUserMe={dataUserMe}
+          dataUserFriend={dataUserFriend}
           SeeAllNavRight={SeeAllNavRight}
           hiddenSeeAllNavRight={hiddenSeeAllNavRight}
           setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
@@ -2180,6 +2181,7 @@ function DefaultLayout({ children }) {
           setValueFile={setValueFile}
           setHiddenRightNav={setHiddenRightNav}
         />
+        {console.log(dataUserMe)}
         <SeeAllNavRightMembers
           dataUserFriends={dataUserFriends}
           generalGroup={generalGroup}

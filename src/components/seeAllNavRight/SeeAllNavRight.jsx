@@ -1,13 +1,23 @@
-import React from "react";
-import { DownOutlined, LeftOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DownOutlined,
+  LeftOutlined,
+} from "@ant-design/icons";
 import { Col, Image } from "antd";
 import "./SeeAllNavRight.scss";
 import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
 import OrderInfo from "../ordersInfo/OrdersInfo";
-// import InPutSearch from "../../components/inPutSearch/InPutSearch";
-// import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
+import InPutSearch from "../../components/inPutSearch/InPutSearch";
 function SeeAllNavRight(props) {
+  const [showListMember, setShowListMember] = useState(false);
+  const [selectedMember, setSelectedMember] = useState("");
+  document &&
+    document.addEventListener("click", () => {
+      setShowListMember(false);
+    });
   const handleClickTitleOdersInfo = () => {
     props.setChooseSeeAllNavRight("ordersInfo");
   };
@@ -19,6 +29,119 @@ function SeeAllNavRight(props) {
   };
   const handleClickTitleLinks = () => {
     props.setChooseSeeAllNavRight("links");
+  };
+  const listMemberSent = () => {
+    if (props.dataUserFriend?.group) {
+      return props.dataUserFriend.members;
+    } else {
+      return [props.dataUserFriend, props.dataUserMe];
+    }
+  };
+  const handleClickMemberFilter = (member) => {
+    setShowListMember(!showListMember);
+    setSelectedMember(member);
+  };
+  const handleClickMemberSent = (e) => {
+    e.stopPropagation();
+    setShowListMember(!showListMember);
+  };
+  const inputSearch = document.querySelector(
+    ".box-filter .InPutSearch .inputSearch .ant-input"
+  );
+
+  const inputSearchOdersInfo = document.querySelector(
+    ".content-order-info .InPutSearch .inputSearch .ant-input"
+  );
+
+  const VIETNAMESE_A = "ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠ";
+  const ARRVIETNAMESE_A = VIETNAMESE_A.split("");
+  const VIETNAMESE_E = "ẾỀỂỄỆÊÉÈẺẼẸ";
+  const ARRVIETNAMESE_E = VIETNAMESE_E.split("");
+  const VIETNAMESE_I = "ÍÌỈĨỊ";
+  const ARRVIETNAMESE_I = VIETNAMESE_I.split("");
+  const VIETNAMESE_O = "ỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌ";
+  const ARRVIETNAMESE_O = VIETNAMESE_O.split("");
+  const VIETNAMESE_U = "ỨỪỬỮỰƯÚÙỦŨỤ";
+  const ARRVIETNAMESE_U = VIETNAMESE_U.split("");
+  const VIETNAMESE_Y = "ÝỲỶỸỴ";
+  const ARRVIETNAMESE_Y = VIETNAMESE_Y.split("");
+
+  const vietNameseOmitMark = (string) => {
+    let newString = string;
+    ARRVIETNAMESE_A.forEach((character) => {
+      newString = newString.replaceAll(character, "A");
+    });
+    newString = newString.replaceAll("Đ", "D");
+    ARRVIETNAMESE_E.forEach((character) => {
+      newString = newString.replaceAll(character, "E");
+    });
+    ARRVIETNAMESE_I.forEach((character) => {
+      newString = newString.replaceAll(character, "I");
+    });
+    ARRVIETNAMESE_O.forEach((character) => {
+      newString = newString.replaceAll(character, "O");
+    });
+    ARRVIETNAMESE_U.forEach((character) => {
+      newString = newString.replaceAll(character, "U");
+    });
+    ARRVIETNAMESE_Y.forEach((character) => {
+      newString = newString.replaceAll(character, "Y");
+    });
+    return newString;
+  };
+  const searchFriend = () => {
+    let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
+    filter = vietNameseOmitMark(inputSearch?.value?.toUpperCase());
+    boxElement = document.querySelector(".box-filter .box-list-member");
+    console.log(boxElement);
+    elements = boxElement.querySelectorAll(".box-member");
+    console.log(elements);
+    lengthElements = elements.length;
+    for (i = 0; i < lengthElements; i++) {
+      elementTitle = elements[i].querySelector(".name");
+      txtValue =
+        vietNameseOmitMark(elementTitle.textContent.toUpperCase()) ||
+        vietNameseOmitMark(elementTitle.innerHTML.toUpperCase());
+      if (txtValue.indexOf(filter.trim()) > -1) {
+        elements[i].style.display = "flex";
+      } else {
+        elements[i].style.display = "none";
+      }
+    }
+  };
+
+  const searchFriendOrderInfo = () => {
+    let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
+    filter = vietNameseOmitMark(inputSearchOdersInfo?.value?.toUpperCase());
+    console.log(inputSearchOdersInfo?.value);
+    boxElement = document.querySelector(".see-all-right .content-order-info");
+    console.log(boxElement);
+    elements = boxElement.querySelectorAll(".wraper-oders-info-two");
+    console.log(elements);
+    lengthElements = elements.length;
+    for (i = 0; i < lengthElements; i++) {
+      elementTitle = elements[i].querySelector(".title");
+      txtValue =
+        vietNameseOmitMark(elementTitle.textContent.toUpperCase()) ||
+        vietNameseOmitMark(elementTitle.innerHTML.toUpperCase());
+      if (txtValue.indexOf(filter.trim()) > -1) {
+        elements[i].style.display = "block";
+      } else {
+        elements[i].style.display = "none";
+      }
+    }
+  };
+
+  const conditionFillterMember = (valueChat) => {
+    if (selectedMember) {
+      if (selectedMember.id_user === valueChat.id_user) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
   };
   return (
     <Col
@@ -73,43 +196,106 @@ function SeeAllNavRight(props) {
         </div>
       </div>
       <div className="box-filter">
-        <div className="box-choose-member-sent">
-          <span>Người gửi</span>
-          <span>
-            <DownOutlined />
-          </span>
-        </div>
-        {/* <div className="box-list-search">
-          <div className="box-search">
-            <InPutSearch />
+        {!selectedMember && (
+          <div
+            className="box-choose-member-sent"
+            onClick={(e) => handleClickMemberSent(e)}
+          >
+            <>
+              <span>Người gửi</span>
+              <span>
+                <DownOutlined />
+              </span>
+            </>
           </div>
-          <div className="box-member">
-            <div className="box-member">
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <div className="image-member">
-                  <img src={AvatarAnLe} alt="img not load" />
+        )}
+        {selectedMember && (
+          <div
+            className="box-choosed-member-sent"
+            onClick={(e) => handleClickMemberSent(e)}
+          >
+            <>
+              <span className="name">{selectedMember.name}</span>
+              <span
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSelectedMember("");
+                }}
+              >
+                <div className="close">
+                  <CloseOutlined />
                 </div>
-                <div className="box-information">
-                  <div className="name">"thanhan"</div>
-                </div>
-              </div>
+              </span>
+            </>
+          </div>
+        )}
+        {showListMember && (
+          <div className="box-list-search" onClick={(e) => e.stopPropagation()}>
+            <div className="box-search">
+              <InPutSearch searchFriend={searchFriend} />
+            </div>
+            <div className="box-list-member">
+              {listMemberSent() &&
+                listMemberSent().map((member) => {
+                  if (selectedMember.id_user !== member.id_user) {
+                    return (
+                      <div
+                        className="box-member"
+                        onClick={() => handleClickMemberFilter(member)}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <div className="image-member">
+                            <img src={member.avatar} alt="img not load" />
+                          </div>
+                          <div className="box-information">
+                            <div className="name">{member.name}</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div
+                        className="box-member choose"
+                        onClick={() => handleClickMemberFilter(member)}
+                      >
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <div className="image-member">
+                            <img src={member.avatar} alt="img not load" />
+                          </div>
+                          <div className="box-information">
+                            <div className="name">{member.name}</div>
+                            <div className="icon">
+                              <CheckOutlined />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
             </div>
           </div>
-        </div> */}
+        )}
       </div>
       <div className="box-wrapper">
         <div className="box-element">
           {props.chooseSeeAllNavRight === "ordersInfo" && (
             <div className="content-order-info">
+              <div className="box-search">
+                <InPutSearch searchFriend={searchFriendOrderInfo} />
+              </div>
               {props.valueChats &&
                 props.valueChats.map((valueChat, key) => {
                   return (
                     <>
-                      {valueChat.is_orders_info && !valueChat.delete && (
-                        <>
-                          <OrderInfo key={key} size="two" value={valueChat} />
-                        </>
-                      )}
+                      {valueChat.is_orders_info &&
+                        !valueChat.delete &&
+                        conditionFillterMember(valueChat) && (
+                          <>
+                            <OrderInfo key={key} size="two" value={valueChat} />
+                          </>
+                        )}
                     </>
                   );
                 })}
@@ -122,7 +308,8 @@ function SeeAllNavRight(props) {
                   props.valueChats.map((valueChat, key) => {
                     return (
                       valueChat.url &&
-                      !valueChat.delete && (
+                      !valueChat.delete &&
+                      conditionFillterMember(valueChat) && (
                         <div className="box-image-video" key={key}>
                           {valueChat.type === "video" ? (
                             <video src={valueChat.url} alt="not load" />
@@ -146,20 +333,22 @@ function SeeAllNavRight(props) {
                 props.valueChats.map((valueChat, key) => {
                   return (
                     <>
-                      {valueChat.file && !valueChat.delete && (
-                        <>
-                          <RenderFile
-                            navRight={true}
-                            key={key}
-                            renderImageFile={props.renderImageFile}
-                            value={valueChat}
-                            bytesToSize={props.bytesToSize}
-                            setUrlFile={props.setUrlFile}
-                            urlFile={props.urlFile}
-                            setValueFile={props.setValueFile}
-                          />
-                        </>
-                      )}
+                      {valueChat.file &&
+                        !valueChat.delete &&
+                        conditionFillterMember(valueChat) && (
+                          <>
+                            <RenderFile
+                              navRight={true}
+                              key={key}
+                              renderImageFile={props.renderImageFile}
+                              value={valueChat}
+                              bytesToSize={props.bytesToSize}
+                              setUrlFile={props.setUrlFile}
+                              urlFile={props.urlFile}
+                              setValueFile={props.setValueFile}
+                            />
+                          </>
+                        )}
                     </>
                   );
                 })}
@@ -171,20 +360,22 @@ function SeeAllNavRight(props) {
                 props.valueChats.map((valueChat, key) => {
                   return (
                     <>
-                      {valueChat.is_message_url && !valueChat.delete && (
-                        <>
-                          <LinkPreview
-                            url={valueChat.message_url}
-                            size="three"
-                            key={key}
-                            date={valueChat.date}
-                            month={valueChat.month}
-                            year={valueChat.year}
-                            hours={valueChat.hours}
-                            minutes={valueChat.minutes}
-                          />
-                        </>
-                      )}
+                      {valueChat.is_message_url &&
+                        !valueChat.delete &&
+                        conditionFillterMember(valueChat) && (
+                          <>
+                            <LinkPreview
+                              url={valueChat.message_url}
+                              size="three"
+                              key={key}
+                              date={valueChat.date}
+                              month={valueChat.month}
+                              year={valueChat.year}
+                              hours={valueChat.hours}
+                              minutes={valueChat.minutes}
+                            />
+                          </>
+                        )}
                     </>
                   );
                 })}

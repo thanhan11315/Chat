@@ -1,9 +1,11 @@
 import React from "react";
 import { Row } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { DownloadOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import "./RenderFile.scss";
+import { useState } from "react";
 
 function RenderFile(props) {
+  const [playVideo, setPlayVideo] = useState(false);
   const renderLinkFile = (value) => {
     if (value?.split(".").pop()) {
       switch (value?.split(".").pop()) {
@@ -36,6 +38,9 @@ function RenderFile(props) {
   };
   const handleClickDownLoadFile = (e) => {
     e.stopPropagation();
+  };
+  const handleClickPlayVideo = () => {
+    setPlayVideo(true);
   };
 
   const isVideoFile = (value) => {
@@ -100,27 +105,38 @@ function RenderFile(props) {
         </a>
       )}
       {isVideoFile(props.value?.file?.name) && (
-        <a
-          href={props.value?.file?.url_file}
-          target="iframe_file"
-          onClick={handleClickFile}
-        >
-          <div className="box-file">
-            {console.log(props.value?.file?.url_file)}
-            {!props.navRight && (
-              <video
-                controls
-                src={props.value?.file?.url_file}
-                alt="video not load"
-                style={{
-                  objectFit: "cover",
-                  maxWidth: "296px",
-                  cursor: "pointer",
-                  marginBottom: "8px",
-                  borderRadius: "10px",
-                }}
-              />
-            )}
+        <div className="box-file">
+          {console.log(props.value?.file?.url_file)}
+          {!props.navRight && (
+            <>
+              {!playVideo && (
+                <div className="box-fake-video" onClick={handleClickPlayVideo}>
+                  <div className="knot">
+                    <PlayCircleOutlined />
+                  </div>
+                </div>
+              )}
+              {playVideo && (
+                <video
+                  controls
+                  src={props.value?.file?.url_file}
+                  alt="video not load"
+                  style={{
+                    objectFit: "cover",
+                    maxWidth: "296px",
+                    cursor: "pointer",
+                    marginBottom: "8px",
+                    borderRadius: "10px",
+                  }}
+                />
+              )}
+            </>
+          )}
+          <a
+            href={props.value?.file?.url_file}
+            target="iframe_file"
+            onClick={handleClickFile}
+          >
             <Row className="box-content-file">
               <div className="img-file">
                 <img
@@ -145,18 +161,18 @@ function RenderFile(props) {
                 </Row>
               </div>
             </Row>
-            <div className="date">
-              <div>
-                <span className="d-m-year">
-                  {props.value.date}-{props.value.month + 1}-{props.value.year}
-                </span>{" "}
-                <span className="m-hours">
-                  {props.value.hours}:{props.value.minutes}
-                </span>
-              </div>
+          </a>
+          <div className="date">
+            <div>
+              <span className="d-m-year">
+                {props.value.date}-{props.value.month + 1}-{props.value.year}
+              </span>{" "}
+              <span className="m-hours">
+                {props.value.hours}:{props.value.minutes}
+              </span>
             </div>
           </div>
-        </a>
+        </div>
       )}
     </>
   );

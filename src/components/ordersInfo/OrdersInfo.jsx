@@ -200,6 +200,12 @@ function OrderInfo(props) {
               </div>
             </div>
           </div>
+          <div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              {props.value?.date}-{props.value?.month + 1}-{props.value?.year}{" "}
+              {props.value?.hours}:{props.value?.minutes}
+            </div>
+          </div>
         </div>
       )}
     </>
