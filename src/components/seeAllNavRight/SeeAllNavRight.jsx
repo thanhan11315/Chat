@@ -110,6 +110,29 @@ function SeeAllNavRight(props) {
     }
   };
 
+  const dayMessage = (date, month, year) => {
+    return {
+      date: date,
+      month: month,
+      year: year,
+    };
+  };
+
+  const dateBefore = "";
+
+  const createDay = (dateMessage) => {
+    if (
+      dateMessage.date - dateBefore.date > 0 ||
+      dateMessage.month - dateBefore.month > 0 ||
+      dateMessage.year - dateBefore.year > 0
+    ) {
+      // const dateBefore = dateMessage;
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const searchFriendOrderInfo = () => {
     let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
     filter = vietNameseOmitMark(inputSearchOdersInfo?.value?.toUpperCase());
@@ -131,7 +154,6 @@ function SeeAllNavRight(props) {
       }
     }
   };
-
   const conditionFillterMember = (valueChat) => {
     if (selectedMember) {
       if (selectedMember.id_user === valueChat.id_user) {
@@ -307,21 +329,34 @@ function SeeAllNavRight(props) {
                 {props.valueChats &&
                   props.valueChats.map((valueChat, key) => {
                     return (
-                      valueChat.url &&
-                      !valueChat.delete &&
-                      conditionFillterMember(valueChat) && (
-                        <div className="box-image-video" key={key}>
-                          {valueChat.type === "video" ? (
-                            <video src={valueChat.url} alt="not load" />
-                          ) : (
-                            <Image
-                              src={valueChat.url}
-                              alt="img not load"
-                              className="image"
-                            />
+                      <>
+                        {valueChat.url &&
+                          !valueChat.delete &&
+                          conditionFillterMember(valueChat) && (
+                            <div className="box-image-video" key={key}>
+                              {valueChat.type === "video" ? (
+                                <video src={valueChat.url} alt="not load" />
+                              ) : (
+                                <>
+                                  <>
+                                    {createDay(
+                                      dayMessage(
+                                        valueChat.date,
+                                        valueChat.month,
+                                        valueChat.year
+                                      )
+                                    ) && <div>create_date</div>}
+                                  </>
+                                  <Image
+                                    src={valueChat.url}
+                                    alt="img not load"
+                                    className="image"
+                                  />
+                                </>
+                              )}
+                            </div>
                           )}
-                        </div>
-                      )
+                      </>
                     );
                   })}
               </div>
