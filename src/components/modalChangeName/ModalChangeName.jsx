@@ -51,6 +51,23 @@ function ModalChangeName(props) {
     return newDataUserFriend;
   };
 
+  const newDataUserFriendsStoryage = () => {
+    console.log(props.dataUserFriendsStorage);
+    const newDataUserFriend =
+      props.dataUserFriendsStorage &&
+      props.dataUserFriendsStorage.map((dataUserFriend) => {
+        if (dataUserFriend.id_user === props.dataUserFriend.id_user) {
+          return { ...dataUserFriend, name: valueName };
+        } else if (dataUserFriend.group) {
+          return { ...dataUserFriend, members: newDataMembers(dataUserFriend) };
+        } else {
+          return dataUserFriend;
+        }
+      });
+    console.log(newDataUserFriend);
+    return newDataUserFriend;
+  };
+
   const changeValueChats = () => {
     props.dataUserFriends.forEach((dataUserFriend) => {
       const oldValueChats = JSON.parse(
@@ -77,7 +94,10 @@ function ModalChangeName(props) {
 
   const handleClickUpdate = () => {
     if (ifChange()) {
-      props.setDataUserFriendsAll(newDataUserFriends);
+      console.log(newDataUserFriends());
+      console.log(newDataUserFriendsStoryage());
+      props.setDataUserFriendsAll(newDataUserFriends());
+      props.setDataUserFriendsStorageAll(newDataUserFriendsStoryage());
       props.setDataUserFriend({ ...props.dataUserFriend, name: valueName });
       changeValueChats();
       cancelBox();

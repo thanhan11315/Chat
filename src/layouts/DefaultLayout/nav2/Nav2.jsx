@@ -112,16 +112,19 @@ function Nav2(props) {
     }
   };
 
-  const elementBoxSearch = document.querySelector(
-    ".box-nav-2 .inputSearch .ant-input"
-  );
+  if (props.focusBoxSearch === false) {
+    const elementBoxSearch = document.querySelector(
+      ".box-nav-2 .inputSearch .ant-input"
+    );
 
-  elementBoxSearch &&
-    elementBoxSearch.addEventListener("focus", () => {
-      props.setFocusBoxSearch(true);
-      console.log(props.dataUserFriendsStorage);
-    });
-
+    elementBoxSearch &&
+      elementBoxSearch.addEventListener("focus", () => {
+        if (props.focusBoxSearch === false) {
+          props.setFocusBoxSearch(true);
+          console.log(props.dataUserFriendsStorage);
+        }
+      });
+  }
   const handleClickClose = () => {
     props.setFocusBoxSearch(false);
   };

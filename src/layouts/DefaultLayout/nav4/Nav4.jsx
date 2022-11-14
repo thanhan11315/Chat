@@ -329,17 +329,19 @@ function Nav4(props) {
                   return (
                     valueChat.url &&
                     !valueChat.delete && (
-                      <div className="box-image-video" key={key}>
-                        {valueChat.type === "video" ? (
-                          <video src={valueChat.url} alt="not load" />
-                        ) : (
-                          <Image
-                            src={valueChat.url}
-                            alt="img not load"
-                            className="image"
-                          />
-                        )}
-                      </div>
+                      <>
+                        <div className="box-image-video" key={key}>
+                          {valueChat.type === "video" ? (
+                            <video src={valueChat.url} alt="not load" />
+                          ) : (
+                            <Image
+                              src={valueChat.url}
+                              alt="img not load"
+                              className="image"
+                            />
+                          )}
+                        </div>
+                      </>
                     )
                   );
                 })}

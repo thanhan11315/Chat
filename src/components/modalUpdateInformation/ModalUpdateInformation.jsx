@@ -112,6 +112,12 @@ function ModalUpdateInformation(props) {
         newValueChats
       );
     });
+    const newDataUserFriendStorage = props.dataUserFriendsStorage.map(
+      (dataUserFriend) => {
+        return changeDataUserFriend(dataUserFriend, newDataUserMe);
+      }
+    );
+
     const newDataUserFriends = props.dataUserFriends.map((dataUserFriend) => {
       return changeDataUserFriend(dataUserFriend, newDataUserMe);
     });
@@ -119,10 +125,9 @@ function ModalUpdateInformation(props) {
       (newDataUserFriend) =>
         newDataUserFriend.id_user === props.dataUserFriend.id_user
     );
-
     props.setDataUserFriend(newDataUserFriend);
-
     props.setDataUserFriendsAll(newDataUserFriends);
+    props.setDataUserFriendsStorageAll(newDataUserFriendStorage);
   };
 
   const handleClickUpdate = () => {

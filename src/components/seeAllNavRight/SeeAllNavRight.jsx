@@ -11,6 +11,7 @@ import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
 import OrderInfo from "../ordersInfo/OrdersInfo";
 import InPutSearch from "../../components/inPutSearch/InPutSearch";
+import { useEffect } from "react";
 function SeeAllNavRight(props) {
   const [showListMember, setShowListMember] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
@@ -110,28 +111,29 @@ function SeeAllNavRight(props) {
     }
   };
 
-  const dayMessage = (date, month, year) => {
-    return {
-      date: date,
-      month: month,
-      year: year,
-    };
-  };
-
-  const dateBefore = "";
-
-  const createDay = (dateMessage) => {
-    if (
-      dateMessage.date - dateBefore.date > 0 ||
-      dateMessage.month - dateBefore.month > 0 ||
-      dateMessage.year - dateBefore.year > 0
-    ) {
-      // const dateBefore = dateMessage;
-      return true;
-    } else {
-      return false;
+  const [valueChatsImage, setValueChatsImage] = useState("");
+  useEffect(() => {
+    if (props.valueChats) {
+      const valueChatsImage = props.valueChats.filter(
+        (valueChat) => valueChat.url
+      );
+      let valueOlDate = "";
+      const newValueChatsImage = valueChatsImage.map((valueChatImage) => {
+        if (
+          valueChatImage.date - valueOlDate.date > 0 ||
+          valueChatImage.month - valueOlDate.month > 0 ||
+          valueChatImage.year - valueOlDate.year > 0 ||
+          !valueOlDate
+        ) {
+          valueOlDate = valueChatImage;
+          return { ...valueChatImage, create_box_date_show_all: true };
+        } else {
+          return valueChatImage;
+        }
+      });
+      setValueChatsImage(newValueChatsImage);
     }
-  };
+  }, [props.valueChats]);// eslint-disable-line react-hooks/exhaustive-deps
 
   const searchFriendOrderInfo = () => {
     let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
@@ -326,35 +328,36 @@ function SeeAllNavRight(props) {
           {props.chooseSeeAllNavRight === "images" && (
             <Image.PreviewGroup>
               <div className="content-image-video">
-                {props.valueChats &&
-                  props.valueChats.map((valueChat, key) => {
+                {valueChatsImage &&
+                  valueChatsImage.map((valueChat, key) => {
                     return (
                       <>
                         {valueChat.url &&
                           !valueChat.delete &&
                           conditionFillterMember(valueChat) && (
-                            <div className="box-image-video" key={key}>
-                              {valueChat.type === "video" ? (
-                                <video src={valueChat.url} alt="not load" />
-                              ) : (
-                                <>
-                                  <>
-                                    {createDay(
-                                      dayMessage(
-                                        valueChat.date,
-                                        valueChat.month,
-                                        valueChat.year
-                                      )
-                                    ) && <div>create_date</div>}
-                                  </>
-                                  <Image
-                                    src={valueChat.url}
-                                    alt="img not load"
-                                    className="image"
-                                  />
-                                </>
+                            <>
+                              {valueChat.create_box_date_show_all && (
+                                <div className="box-date-show-all">
+                                  <div className="date">
+                                    Ngày {valueChat.date} Tháng
+                                    {valueChat.month} Năm {valueChat.year}
+                                  </div>
+                                </div>
                               )}
-                            </div>
+                              <div className="box-image-video" key={key}>
+                                {valueChat.type === "video" ? (
+                                  <video src={valueChat.url} alt="not load" />
+                                ) : (
+                                  <>
+                                    <Image
+                                      src={valueChat.url}
+                                      alt="img not load"
+                                      className="image"
+                                    />
+                                  </>
+                                )}
+                              </div>
+                            </>
                           )}
                       </>
                     );

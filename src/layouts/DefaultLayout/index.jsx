@@ -103,7 +103,7 @@ function DefaultLayout({ children }) {
   const [modalUpdateInformation, setModalUpdateInformation] = useState(false);
   const [valueDeleteLink, setValueDeleteLink] = useState(true);
   const [modalChangeName, setModalChangeName] = useState(false);
-  const [focusBoxSearch, setFocusBoxSearch] = useState("");
+  const [focusBoxSearch, setFocusBoxSearch] = useState(false);
   const [chooseSeeAllNavRight, setChooseSeeAllNavRight] = useState("");
   const [hiddenSeeAllNavRight, setHiddenSeeAllNavRight] = useState(true);
   const [hiddenSeeAllMembersNavRight, setHiddenSeeAllMembersNavRight] =
@@ -301,8 +301,11 @@ function DefaultLayout({ children }) {
   ];
 
   const setDataUserFriendsStorageAll = (value) => {
-    setDataUserFriendsStorage(value);
-    localStorage.setItem("dataUserFriendsStorage", JSON.stringify(value));
+    console.log(value);
+    if (value) {
+      setDataUserFriendsStorage(value);
+      localStorage.setItem("dataUserFriendsStorage", JSON.stringify(value));
+    }
   };
   const getDataUserFriendsStorage = () => {
     const dataUserFriendsStorage = JSON.parse(
@@ -1443,6 +1446,8 @@ function DefaultLayout({ children }) {
   return (
     <>
       <ModalChangeName
+        setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
+        dataUserFriendsStorage={dataUserFriendsStorage}
         setModalChangeName={setModalChangeName}
         modalChangeName={modalChangeName}
         dataUserFriend={dataUserFriend}
@@ -1453,6 +1458,8 @@ function DefaultLayout({ children }) {
       />
       {/* Modal */}
       <ModalUpdateInformation
+        setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
+        dataUserFriendsStorage={dataUserFriendsStorage}
         dataUserMe={dataUserMe}
         modalUpdateInformation={modalUpdateInformation}
         setModalUpdateInformation={setModalUpdateInformation}
@@ -1495,7 +1502,6 @@ function DefaultLayout({ children }) {
         dataUserFriends={dataUserFriends}
         dataUserFriend={dataUserFriend}
       />
-
       <ModalCreateGroup
         modalCreateGroup={modalCreateGroup}
         dataUserFriendsApi={dataUserFriendsApi}
@@ -2140,6 +2146,7 @@ function DefaultLayout({ children }) {
           )}
         </Col>
         <Nav4
+          handleClickImgChat={handleClickImgChat}
           generalGroup={generalGroup}
           setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
           setHiddenRightNav={setHiddenRightNav}
