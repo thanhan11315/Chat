@@ -62,6 +62,7 @@ import ImageVideo from "../../assets/images/Video.png";
 import { useState } from "react";
 import OrderInfo from "../../components/ordersInfo/OrdersInfo";
 import SeeAllNavRightMembers from "../../components/seeAllNavRight/SeeAllNavRightMember";
+import GoogleMapTest from "../../components/googleMap/googleMap";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -1445,6 +1446,7 @@ function DefaultLayout({ children }) {
 
   return (
     <>
+      <GoogleMapTest />
       <ModalChangeName
         setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
         dataUserFriendsStorage={dataUserFriendsStorage}
