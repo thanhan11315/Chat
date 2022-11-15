@@ -214,6 +214,19 @@
 
 #wrapper .see-all-right .box-wrapper .box-element {
   width: 100%;
+  .box-date-show-all {
+    border-top: 8px solid var(--N20);
+    width: 100%;
+    .date {
+      padding-left: 16px;
+      margin-top: 16px;
+      margin-bottom: 10px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--primary-text);
+    }
+  }
   .div-button {
     height: 32px;
     padding-top: 0 8px;
@@ -243,19 +256,6 @@
     gap: 8px;
     display: flex;
     flex-wrap: wrap !important;
-    .box-date-show-all {
-      border-top: 8px solid var(--N20);
-      width: 100%;
-      .date {
-        padding-left: 16px;
-        margin-top: 16px;
-        margin-bottom: 10px;
-        font-size: 0.875rem;
-        font-weight: 600;
-        line-height: 1.5;
-        color: var(--primary-text);
-      }
-    }
     .box-image-video {
       width: 67px;
       height: 67px;

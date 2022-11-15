@@ -112,6 +112,9 @@ function SeeAllNavRight(props) {
   };
 
   const [valueChatsImage, setValueChatsImage] = useState("");
+  const [valueChatsOrderInfo, setValueChatsOrderInfo] = useState("");
+  const [valueChatsFile, setValueChatsFile] = useState("");
+  const [valueChatsLink, setValueChatsLink] = useState("");
   useEffect(() => {
     if (props.valueChats) {
       const valueChatsImage = props.valueChats.filter(
@@ -132,8 +135,71 @@ function SeeAllNavRight(props) {
         }
       });
       setValueChatsImage(newValueChatsImage);
+
+      const valueChatsOrderInfo = props.valueChats.filter(
+        (valueChat) => valueChat.is_orders_info
+      );
+      valueOlDate = "";
+      const newValueChatsOderInfo = valueChatsOrderInfo.map(
+        (valueChatOderInfo) => {
+          if (
+            valueChatOderInfo.date - valueOlDate.date > 0 ||
+            valueChatOderInfo.month - valueOlDate.month > 0 ||
+            valueChatOderInfo.year - valueOlDate.year > 0 ||
+            !valueOlDate
+          ) {
+            valueOlDate = valueChatOderInfo;
+            return { ...valueChatOderInfo, create_box_date_show_all: true };
+          } else {
+            return valueChatOderInfo;
+          }
+        }
+      );
+      setValueChatsOrderInfo(newValueChatsOderInfo);
+
+      const valueChatsFile = props.valueChats.filter(
+        (valueChat) => valueChat.file
+      );
+
+      valueOlDate = "";
+
+      const newValueChatsFile = valueChatsFile.map((valueChatFile) => {
+        if (
+          valueChatFile.date - valueOlDate.date > 0 ||
+          valueChatFile.month - valueOlDate.month > 0 ||
+          valueChatFile.year - valueOlDate.year > 0 ||
+          !valueOlDate
+        ) {
+          valueOlDate = valueChatFile;
+          return { ...valueChatFile, create_box_date_show_all: true };
+        } else {
+          return valueChatFile;
+        }
+      });
+      setValueChatsFile(newValueChatsFile);
+
+      const valueChatsLink = props.valueChats.filter(
+        (valueChat) => valueChat.is_message_url
+      );
+
+      valueOlDate = "";
+
+      const newValueChatsLink = valueChatsLink.map((valueChatLink) => {
+        if (
+          valueChatLink.date - valueOlDate.date > 0 ||
+          valueChatLink.month - valueOlDate.month > 0 ||
+          valueChatLink.year - valueOlDate.year > 0 ||
+          !valueOlDate
+        ) {
+          valueOlDate = valueChatLink;
+          return { ...valueChatLink, create_box_date_show_all: true };
+        } else {
+          return valueChatLink;
+        }
+      });
+      setValueChatsLink(newValueChatsLink);
     }
-  }, [props.valueChats]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [props.valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const searchFriendOrderInfo = () => {
     let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
@@ -309,14 +375,22 @@ function SeeAllNavRight(props) {
               <div className="box-search">
                 <InPutSearch searchFriend={searchFriendOrderInfo} />
               </div>
-              {props.valueChats &&
-                props.valueChats.map((valueChat, key) => {
+              {valueChatsOrderInfo &&
+                valueChatsOrderInfo.map((valueChat, key) => {
                   return (
                     <>
                       {valueChat.is_orders_info &&
                         !valueChat.delete &&
                         conditionFillterMember(valueChat) && (
                           <>
+                            {valueChat.create_box_date_show_all && (
+                              <div className="box-date-show-all">
+                                <div className="date">
+                                  Ngày {valueChat.date} Tháng {valueChat.month}{" "}
+                                  Năm {valueChat.year}
+                                </div>
+                              </div>
+                            )}
                             <OrderInfo key={key} size="two" value={valueChat} />
                           </>
                         )}
@@ -339,7 +413,7 @@ function SeeAllNavRight(props) {
                               {valueChat.create_box_date_show_all && (
                                 <div className="box-date-show-all">
                                   <div className="date">
-                                    Ngày {valueChat.date} Tháng
+                                    Ngày {valueChat.date} Tháng{" "}
                                     {valueChat.month} Năm {valueChat.year}
                                   </div>
                                 </div>
@@ -367,14 +441,22 @@ function SeeAllNavRight(props) {
           )}
           {props.chooseSeeAllNavRight === "files" && (
             <div className="content-file">
-              {props.valueChats &&
-                props.valueChats.map((valueChat, key) => {
+              {valueChatsFile &&
+                valueChatsFile.map((valueChat, key) => {
                   return (
                     <>
                       {valueChat.file &&
                         !valueChat.delete &&
                         conditionFillterMember(valueChat) && (
                           <>
+                            {valueChat.create_box_date_show_all && (
+                              <div className="box-date-show-all">
+                                <div className="date">
+                                  Ngày {valueChat.date} Tháng {valueChat.month}{" "}
+                                  Năm {valueChat.year}
+                                </div>
+                              </div>
+                            )}
                             <RenderFile
                               navRight={true}
                               key={key}
@@ -394,14 +476,22 @@ function SeeAllNavRight(props) {
           )}
           {props.chooseSeeAllNavRight === "links" && (
             <div className="content-link">
-              {props.valueChats &&
-                props.valueChats.map((valueChat, key) => {
+              {valueChatsLink &&
+                valueChatsLink.map((valueChat, key) => {
                   return (
                     <>
                       {valueChat.is_message_url &&
                         !valueChat.delete &&
                         conditionFillterMember(valueChat) && (
                           <>
+                            {valueChat.create_box_date_show_all && (
+                              <div className="box-date-show-all">
+                                <div className="date">
+                                  Ngày {valueChat.date} Tháng {valueChat.month}{" "}
+                                  Năm {valueChat.year}
+                                </div>
+                              </div>
+                            )}
                             <LinkPreview
                               url={valueChat.message_url}
                               size="three"
