@@ -54,9 +54,9 @@ function SeeAllNavRight(props) {
     setShowListMember(false);
     setShowFilterDate(!showFilterDate);
   };
-  const handleClickDateconfirm = (e) => {
-    e.stopPropagation();
-  };
+  // const handleClickDateconfirm = (e) => {
+  //   e.stopPropagation();
+  // };
   const inputSearch = document.querySelector(
     ".box-filter .InPutSearch .inputSearch .ant-input"
   );
