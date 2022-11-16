@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@microlink/react": "^5.5.9",
     "@react-google-maps/api": "^2.17.0",
     "@testing-library/jest-dom": "^5.16.5",

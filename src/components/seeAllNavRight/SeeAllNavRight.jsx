@@ -12,9 +12,11 @@ import LinkPreview from "../../components/linkPreview/LinkPreview";
 import OrderInfo from "../ordersInfo/OrdersInfo";
 import InPutSearch from "../../components/inPutSearch/InPutSearch";
 import { useEffect } from "react";
+import CalendarFilter from "./Calendar";
 function SeeAllNavRight(props) {
   const [showListMember, setShowListMember] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
+  const [showFilterDate, setShowFilterDate] = useState(false);
   document &&
     document.addEventListener("click", () => {
       setShowListMember(false);
@@ -38,13 +40,22 @@ function SeeAllNavRight(props) {
       return [props.dataUserFriend, props.dataUserMe];
     }
   };
+  const handleClickMemberSent = (e) => {
+    e.stopPropagation();
+    setShowFilterDate(false);
+    setShowListMember(!showListMember);
+  };
   const handleClickMemberFilter = (member) => {
     setShowListMember(!showListMember);
     setSelectedMember(member);
   };
-  const handleClickMemberSent = (e) => {
+
+  const handleClickDateFilter = () => {
+    setShowListMember(false);
+    setShowFilterDate(!showFilterDate);
+  };
+  const handleClickDateconfirm = (e) => {
     e.stopPropagation();
-    setShowListMember(!showListMember);
   };
   const inputSearch = document.querySelector(
     ".box-filter .InPutSearch .inputSearch .ant-input"
@@ -319,6 +330,17 @@ function SeeAllNavRight(props) {
             </>
           </div>
         )}
+        <div
+          className="box-choose-member-sent"
+          onClick={(e) => handleClickDateFilter(e)}
+        >
+          <>
+            <span>Ngày gửi</span>
+            <span>
+              <DownOutlined />
+            </span>
+          </>
+        </div>
         {showListMember && (
           <div className="box-list-search" onClick={(e) => e.stopPropagation()}>
             <div className="box-search">
@@ -364,6 +386,21 @@ function SeeAllNavRight(props) {
                     );
                   }
                 })}
+            </div>
+          </div>
+        )}
+        {showFilterDate && (
+          <div className="box-filter-date" onClick={(e) => e.stopPropagation()}>
+            <div className="box-list-choose-date">
+              <div className="time-hint">
+                <span>Gợi Ý thời gian</span>
+                <span>></span>
+              </div>
+              <div className="line"></div>
+              <div className="title-calendar">Chọn khoảng thời gian</div>
+              <div className="calendar">
+                <CalendarFilter />
+              </div>
             </div>
           </div>
         )}

@@ -2,7 +2,6 @@ import { Col, Input, Row, Tooltip, Popover, Spin } from "antd";
 import {
   EllipsisOutlined,
   SmileOutlined,
-  RadiusUpleftOutlined,
   ContactsOutlined,
   PaperClipOutlined,
   ClockCircleOutlined,
@@ -17,12 +16,12 @@ import {
   CaretUpOutlined,
   ShareAltOutlined,
   ExportOutlined,
+  EnvironmentOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import "./index.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// compoment
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.jsx";
 import ModalInformation from "../../components/modal/Modal.jsx";
 import Nav1 from "./nav1/Nav1";
@@ -720,6 +719,19 @@ function DefaultLayout({ children }) {
       other_people: false,
       content: "👍",
       type: "likeIcon",
+      create_date: createDateBoxChat(),
+      ...date,
+    };
+    setValueChatsInRenderAllMessage(newValueChat);
+  };
+
+  const handleClickPlace = () => {
+    const newValueChat = {
+      ...dataUserMe,
+      recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
+      id: id,
+      other_people: false,
+      type: "placeMaps",
       create_date: createDateBoxChat(),
       ...date,
     };
@@ -1446,7 +1458,6 @@ function DefaultLayout({ children }) {
 
   return (
     <>
-      <GoogleMapTest />
       <ModalChangeName
         setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
         dataUserFriendsStorage={dataUserFriendsStorage}
@@ -1490,6 +1501,7 @@ function DefaultLayout({ children }) {
         dataUserFriends={dataUserFriends}
         dataUserFriendsApi={dataUserFriendsApi}
       />
+
       <ModalShare
         dataUserMe={dataUserMe}
         modalShare={modalShare}
@@ -1791,6 +1803,18 @@ function DefaultLayout({ children }) {
                                   )}
                                 </>
                               }
+                              {value.type === "placeMaps" && (
+                                <div className="content-chat">
+                                  <div className="box-google-map">
+                                    <div className="box-make-hidden-content-chat">
+                                      <GoogleMapTest />
+                                    </div>
+                                  </div>
+                                  <div className="date">
+                                    {value.hours}:{value.minutes}
+                                  </div>
+                                </div>
+                              )}
                               {value.is_orders_info && (
                                 <div className="content-chat">
                                   <div className="box-make-hidden-content-chat">
@@ -2047,8 +2071,8 @@ function DefaultLayout({ children }) {
                     </div>
                   </Tooltip>
                 </Popover>
-                <div className="not-use">
-                  <RadiusUpleftOutlined />
+                <div>
+                  <EnvironmentOutlined onClick={handleClickPlace} />
                 </div>
                 <div className="not-use">
                   <ContactsOutlined />
