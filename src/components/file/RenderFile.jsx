@@ -106,7 +106,6 @@ function RenderFile(props) {
       )}
       {isVideoFile(props.value?.file?.name) && (
         <div className="box-file">
-          {console.log(props.value?.file?.url_file)}
           {!props.navRight && (
             <>
               {!playVideo && (

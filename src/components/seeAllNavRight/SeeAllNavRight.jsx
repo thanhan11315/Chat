@@ -17,9 +17,12 @@ function SeeAllNavRight(props) {
   const [showListMember, setShowListMember] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
   const [showFilterDate, setShowFilterDate] = useState(false);
+  const [time1, setTime1] = useState("");
+  const [time2, setTime2] = useState("");
   document &&
     document.addEventListener("click", () => {
       setShowListMember(false);
+      setShowFilterDate(false);
     });
   const handleClickTitleOdersInfo = () => {
     props.setChooseSeeAllNavRight("ordersInfo");
@@ -50,13 +53,12 @@ function SeeAllNavRight(props) {
     setSelectedMember(member);
   };
 
-  const handleClickDateFilter = () => {
+  const handleClickDateFilter = (e) => {
+    e.stopPropagation();
     setShowListMember(false);
     setShowFilterDate(!showFilterDate);
   };
-  // const handleClickDateconfirm = (e) => {
-  //   e.stopPropagation();
-  // };
+
   const inputSearch = document.querySelector(
     ".box-filter .InPutSearch .inputSearch .ant-input"
   );
@@ -244,6 +246,30 @@ function SeeAllNavRight(props) {
       return true;
     }
   };
+
+  const changeValueDate = (value) => {
+    var arrStartDate = value.split("/");
+    var date = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+    return date;
+  };
+
+  const ifFilterDate = (value, timeOne, timeTwo) => {
+    if (time1 && time2) {
+      if (timeOne <= value && value <= timeTwo) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
+
+  const getDateValueChat = (value) => {
+    console.log(`${value.date}/${value.month}/${value.year}`);
+    return `${value.date}/${value.month}/${value.year}`;
+  };
+
   return (
     <Col
       className={`see-all-right ${
@@ -330,17 +356,40 @@ function SeeAllNavRight(props) {
             </>
           </div>
         )}
-        <div
-          className="box-choose-member-sent"
-          onClick={(e) => handleClickDateFilter(e)}
-        >
-          <>
-            <span>Ngày gửi</span>
-            <span>
-              <DownOutlined />
-            </span>
-          </>
-        </div>
+        {!time1 && !time2 && (
+          <div
+            className="box-choose-member-sent"
+            onClick={(e) => handleClickDateFilter(e)}
+          >
+            <>
+              <span>Ngày gửi</span>
+              <span>
+                <DownOutlined />
+              </span>
+            </>
+          </div>
+        )}
+        {time1 && time2 && (
+          <div
+            className="box-choosed-member-sent"
+            onClick={(e) => handleClickDateFilter(e)}
+          >
+            <>
+              <span className="name">{`${time1}-${time2}`}</span>
+              <span
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setTime1("");
+                  setTime2("");
+                }}
+              >
+                <div className="close">
+                  <CloseOutlined />
+                </div>
+              </span>
+            </>
+          </div>
+        )}
         {showListMember && (
           <div className="box-list-search" onClick={(e) => e.stopPropagation()}>
             <div className="box-search">
@@ -392,14 +441,20 @@ function SeeAllNavRight(props) {
         {showFilterDate && (
           <div className="box-filter-date" onClick={(e) => e.stopPropagation()}>
             <div className="box-list-choose-date">
-              <div className="time-hint">
+              {/* <div className="time-hint">
                 <span>Gợi Ý thời gian</span>
                 <span>></span>
-              </div>
-              <div className="line"></div>
+              </div> */}
+              {/* <div className="line"></div> */}
               <div className="title-calendar">Chọn khoảng thời gian</div>
               <div className="calendar">
-                <CalendarFilter />
+                <CalendarFilter
+                  setTime1={setTime1}
+                  setTime2={setTime2}
+                  time1={time1}
+                  time2={time2}
+                  setShowFilterDate={setShowFilterDate}
+                />
               </div>
             </div>
           </div>
@@ -418,6 +473,11 @@ function SeeAllNavRight(props) {
                     <>
                       {valueChat.is_orders_info &&
                         !valueChat.delete &&
+                        ifFilterDate(
+                          changeValueDate(getDateValueChat(valueChat)),
+                          changeValueDate(time1),
+                          changeValueDate(time2)
+                        ) &&
                         conditionFillterMember(valueChat) && (
                           <>
                             {valueChat.create_box_date_show_all && (
@@ -444,6 +504,11 @@ function SeeAllNavRight(props) {
                     return (
                       <>
                         {valueChat.url &&
+                          ifFilterDate(
+                            changeValueDate(getDateValueChat(valueChat)),
+                            changeValueDate(time1),
+                            changeValueDate(time2)
+                          ) &&
                           !valueChat.delete &&
                           conditionFillterMember(valueChat) && (
                             <>
@@ -484,6 +549,11 @@ function SeeAllNavRight(props) {
                     <>
                       {valueChat.file &&
                         !valueChat.delete &&
+                        ifFilterDate(
+                          changeValueDate(getDateValueChat(valueChat)),
+                          changeValueDate(time1),
+                          changeValueDate(time2)
+                        ) &&
                         conditionFillterMember(valueChat) && (
                           <>
                             {valueChat.create_box_date_show_all && (
@@ -519,6 +589,11 @@ function SeeAllNavRight(props) {
                     <>
                       {valueChat.is_message_url &&
                         !valueChat.delete &&
+                        ifFilterDate(
+                          changeValueDate(getDateValueChat(valueChat)),
+                          changeValueDate(time1),
+                          changeValueDate(time2)
+                        ) &&
                         conditionFillterMember(valueChat) && (
                           <>
                             {valueChat.create_box_date_show_all && (
