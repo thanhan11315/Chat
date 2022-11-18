@@ -45,6 +45,10 @@ function OrderInfo(props) {
     }
   };
 
+  const handleClickOderCode = (value) => {
+    navigator.clipboard.writeText(value);
+  };
+
   if (conditionGetApiOrdersInfo(props.value)) {
     getApiOrderInfo();
   }
@@ -52,12 +56,16 @@ function OrderInfo(props) {
     const newValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return newValue;
   };
-
   return (
     <>
       {props.size === "one" && (
         <div className="wraper-oders-info">
-          <div className="title">
+          <div
+            className="title"
+            onClick={handleClickOderCode(
+              props.value.information_order_info?.results?.code
+            )}
+          >
             Thông tin vận đơn{" "}
             {props.value.information_order_info?.results?.code}
           </div>

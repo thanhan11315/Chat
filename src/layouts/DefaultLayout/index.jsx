@@ -211,9 +211,90 @@ function DefaultLayout({ children }) {
       e.stopPropagation();
     }
   };
-
   const isOrderInfo = (value) => {
-    return value.trim().includes("SGNS");
+    const cityCodes = [
+      "SGN",
+      "HYN",
+      "NBH",
+      "HNI",
+      "THA",
+      "SLA",
+      "QNI",
+      "BGG",
+      "QTI",
+      "DLK",
+      "YBI",
+      "VPC",
+      "NAN",
+      "NDH",
+      "AGG",
+      "HNM",
+      "VTU",
+      "KHA",
+      "LCI",
+      "HDG",
+      "TBH",
+      "GLI",
+      "BKN",
+      "DNI",
+      "QNH",
+      "CMU",
+      "BLU",
+      "BDH",
+      "BNH",
+      "HTH",
+      "LDG",
+      "STG",
+      "QNM",
+      "LSN",
+      "CTO",
+      "KGG",
+      "HUE",
+      "BTN",
+      "PYN",
+      "CBG",
+      "TNH",
+      "PTO",
+      "LAN",
+      "DKG",
+      "TNN",
+      "DBN",
+      "HBH",
+      "DTP",
+      "TQG",
+      "HGG",
+      "BDG",
+      "LCU",
+      "QBH",
+      "KTM",
+      "BPC",
+      "NTN",
+      "HUG",
+      "HPG",
+      "VLG",
+      "TGG",
+      "TVH",
+      "DNG",
+      "BTE",
+    ];
+    const areaCodes = ["LV", "NM", "NT", "LM"];
+    let isIncludesCityCode = false;
+    let isIncludesAreaCode = false;
+    cityCodes.forEach((cityCode) => {
+      if (value.trim().toUpperCase().includes(cityCode)) {
+        isIncludesCityCode = true;
+      }
+    });
+    areaCodes.forEach((areaCode) => {
+      if (value.trim().toUpperCase().includes(areaCode)) {
+        isIncludesAreaCode = true;
+      }
+    });
+    if (isIncludesCityCode && isIncludesAreaCode) {
+      isIncludesCityCode = false;
+      isIncludesAreaCode = false;
+      return true;
+    }
   };
 
   // demochatlocal
