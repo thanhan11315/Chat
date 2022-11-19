@@ -66,154 +66,156 @@ function OrderInfo(props) {
               props.value.information_order_info?.results?.code
             )}
           >
-            Thông tin vận đơn{" "}
             {props.value.information_order_info?.results?.code}
           </div>
-          <div className="box-content">
-            <div className="box-1">Người nhận</div>
-            <div className="box-2">
-              <div>
-                Họ tên:{" "}
-                {props.value.information_order_info?.results?.receiver?.name}
-              </div>
-              <div>
-                Số điện thoại:{" "}
-                {props.value.information_order_info?.results?.receiver?.phone}
-              </div>
-              <div>
-                Địa chỉ:{" "}
-                {
-                  props.value.information_order_info?.results?.receiver
-                    ?.formatted_address
-                }
-              </div>
-            </div>
-          </div>
-          <div className="box-content">
-            <div className="box-1">Người gửi</div>
-            <div className="box-2">
-              <div>Họ tên: Lê Thanh Ân</div>
-              <div>Số điện thoại: 0898999907</div>
-              <div>
-                Địa chỉ: Dương Quảng Hàm, Phường 15, Quận Gò Vấp, Thành Phố Hồ
-                Chí Minh
+          <a href="https://supership.vn/" target="blank">
+            <div className="box-content">
+              <div className="box-2">
+                <span>
+                  Họ tên người gửi:{" "}
+                  {props.value.information_order_info?.results?.receiver?.name}
+                </span>{" "}
+                <span>
+                  {props.value.information_order_info?.results?.receiver?.phone}
+                </span>
+                <div>
+                  Địa chỉ:{" "}
+                  {
+                    props.value.information_order_info?.results?.receiver
+                      ?.formatted_address
+                  }
+                </div>
               </div>
             </div>
-          </div>
-          <div className="box-content">
-            <div className="box-1">Thông tin đơn hàng</div>
-            <div className="box-2">
-              <div>
-                Ngày tạo đơn:{" "}
-                {props.value.information_order_info?.results?.created_at}
-              </div>
-              <div>
-                Tiền thu hộ:{" "}
-                {currencyUnitFormat(
-                  `${props.value.information_order_info?.results?.amount}`
-                )}{" "}
-                vnd
-              </div>
-              <div>{props.value.information_order_info?.results?.config}</div>
-            </div>
-          </div>
-          <div className="box-content">
-            <div className="box-1">Trạng thái đơn hàng</div>
-            <div className="box-2">
-              <div>
-                Trạng thái:
-                {
-                  props.value.information_order_info?.results?.journeys[
-                    props.value.information_order_info?.results?.journeys
-                      ?.length - 1
-                  ]?.status
-                }
-              </div>
-              <div>
-                Thời gian:
-                {
-                  props.value.information_order_info?.results?.journeys[
-                    props.value.information_order_info?.results?.journeys
-                      ?.length - 1
-                  ]?.time
-                }
-              </div>
-              <div>
-                Địa chỉ đơn hàng:
-                {
-                  props.value.information_order_info?.results?.journeys[
-                    props.value.information_order_info?.results?.journeys
-                      ?.length - 1
-                  ]?.province
-                }
-                ,
-                {
-                  props.value.information_order_info?.results?.journeys[
-                    props.value.information_order_info?.results?.journeys
-                      ?.length - 1
-                  ]?.district
-                }
+            <div className="box-content">
+              <div className="box-2">
+                <span>Họ tên người nhận: Lê Thanh Ân</span>{" "}
+                <span>0898999907</span>
+                <div>
+                  Địa chỉ: Dương Quảng Hàm, Phường 15, Quận Gò Vấp, Thành Phố Hồ
+                  Chí Minh
+                </div>
               </div>
             </div>
-          </div>
+            <div className="box-content">
+              <div className="box-2">
+                <div>
+                  Ngày tạo đơn:{" "}
+                  {props.value.information_order_info?.results?.created_at}
+                </div>
+                <div>
+                  Tiền thu hộ:{" "}
+                  {currencyUnitFormat(
+                    `${props.value.information_order_info?.results?.amount}`
+                  )}{" "}
+                  vnd
+                </div>
+                <div>{props.value.information_order_info?.results?.config}</div>
+              </div>
+            </div>
+            <div className="box-content">
+              <div className="box-2">
+                <div>
+                  Trạng thái:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.status
+                  }
+                </div>
+                <div>
+                  Thời gian:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.time
+                  }
+                </div>
+                <div>
+                  Địa chỉ đơn hàng:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.province
+                  }
+                  ,
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.district
+                  }
+                </div>
+              </div>
+            </div>
+          </a>
         </div>
       )}
       {props.size === "two" && (
         <div className="wraper-oders-info-two">
-          <div className="title">
+          <div
+            className="title"
+            onClick={handleClickOderCode(
+              props.value.information_order_info?.results?.code
+            )}
+          >
             {props.value.information_order_info?.results?.code}
           </div>
-          <div className="box-content">
-            <div className="box-2">
-              <div>
-                Họ tên:{" "}
-                {props.value.information_order_info?.results?.receiver?.name}
-              </div>
-              <div>
-                Số điện thoại:{" "}
-                {props.value.information_order_info?.results?.receiver?.phone}
-              </div>
-            </div>
-          </div>
-          <div className="box-content">
-            <div className="box-2">
-              <div>
-                Tiền thu hộ:{" "}
-                {currencyUnitFormat(
-                  `${props.value.information_order_info?.results?.amount}`
-                )}{" "}
-                vnd
+          <a href="https://supership.vn/" target="blank">
+            <div className="box-content">
+              <div className="box-2">
+                <span>
+                  Họ tên:{" "}
+                  {props.value.information_order_info?.results?.receiver?.name}
+                </span>{" "}
+                <span>
+                  {props.value.information_order_info?.results?.receiver?.phone}
+                </span>
               </div>
             </div>
-          </div>
-          <div className="box-content">
-            <div className="box-2">
-              <div>
-                Trạng thái:
-                {
-                  props.value.information_order_info?.results?.journeys[
-                    props.value.information_order_info?.results?.journeys
-                      ?.length - 1
-                  ]?.status
-                }
-              </div>
-              <div>
-                Thời gian:
-                {
-                  props.value.information_order_info?.results?.journeys[
-                    props.value.information_order_info?.results?.journeys
-                      ?.length - 1
-                  ]?.time
-                }
+            <div className="box-content">
+              <div className="box-2">
+                <div>
+                  Tiền thu hộ:{" "}
+                  {currencyUnitFormat(
+                    `${props.value.information_order_info?.results?.amount}`
+                  )}{" "}
+                  vnd
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              {props.value?.date}-{props.value?.month + 1}-{props.value?.year}{" "}
-              {props.value?.hours}:{props.value?.minutes}
+            <div className="box-content">
+              <div className="box-2">
+                <div>
+                  Trạng thái:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.status
+                  }
+                </div>
+                <div>
+                  Thời gian:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.time
+                  }
+                </div>
+              </div>
             </div>
-          </div>
+            <div>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                {props.value?.date}-{props.value?.month + 1}-{props.value?.year}{" "}
+                {props.value?.hours}:{props.value?.minutes}
+              </div>
+            </div>
+          </a>
         </div>
       )}
     </>

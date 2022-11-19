@@ -290,7 +290,16 @@ function DefaultLayout({ children }) {
         isIncludesAreaCode = true;
       }
     });
-    if (isIncludesCityCode && isIncludesAreaCode) {
+    const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
+    const isCodeRegex = !!codeFullRegex.test(value.trim());
+    const lengthCode = value.length;
+    console.log(isCodeRegex);
+    if (
+      isIncludesCityCode &&
+      isIncludesAreaCode &&
+      isCodeRegex &&
+      lengthCode === 22
+    ) {
       isIncludesCityCode = false;
       isIncludesAreaCode = false;
       return true;
@@ -1122,6 +1131,7 @@ function DefaultLayout({ children }) {
       document.querySelector(".box-ghim-2").style.display = "none";
     }
     setDataUserFriend(value);
+
     const newDataUserFriends = dataUserFriends.map((valueN) => {
       if (valueN.id_user === value.id_user) {
         return { ...valueN, not_read: false };
@@ -1514,6 +1524,8 @@ function DefaultLayout({ children }) {
       }
     }
   };
+
+  console.log(1);
 
   useEffect(() => {
     makeValueChatInDataUserFriends();
@@ -2153,7 +2165,7 @@ function DefaultLayout({ children }) {
                   </Tooltip>
                 </Popover>
                 <div>
-                  <EnvironmentOutlined onClick={handleClickPlace} />
+                  <EnvironmentOutlined onClick={() => handleClickPlace()} />
                 </div>
                 <div className="not-use">
                   <ContactsOutlined />

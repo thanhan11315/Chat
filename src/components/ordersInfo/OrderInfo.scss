@@ -1,23 +1,20 @@
 .wraper-oders-info {
-  width: 600px;
-  border: 1px solid;
+  width: 330px;
   border-radius: 5px;
+  a {
+    color: var(--primary-text);
+  }
   .title {
     cursor: pointer;
     padding: 10px;
     font-weight: 600;
   }
   .box-content {
-    display: flex;
-    border-top: 1px solid;
+    cursor: pointer;
     .box-1 {
-      border-right: 1px solid;
-      min-width: 100px;
-      max-width: 100px;
-      padding: 10px;
     }
     .box-2 {
-      padding: 10px;
+      padding: 5px 5px 0px 5px;
     }
   }
 }
@@ -28,6 +25,9 @@
   font-size: 14px;
   padding: 12px;
   cursor: pointer;
+  a {
+    color: var(--primary-text);
+  }
   &:hover {
     background-color: var(--NG10);
   }
@@ -35,10 +35,7 @@
     font-weight: 600;
   }
   .box-content {
-    display: flex;
     .box-1 {
-      min-width: 100px;
-      max-width: 100px;
       padding: 10px;
     }
     .box-2 {

@@ -379,8 +379,10 @@ function SeeAllNavRight(props) {
               <span
                 onClick={(event) => {
                   event.stopPropagation();
-                  setTime1("");
-                  setTime2("");
+                  if (setTime1 && setTime2) {
+                    setTime1("");
+                    setTime2("");
+                  }
                 }}
               >
                 <div className="close">
