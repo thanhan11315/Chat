@@ -5,9 +5,16 @@
     color: var(--primary-text);
   }
   .title {
+    color: var(--B60);
     cursor: pointer;
     padding: 10px;
     font-weight: 600;
+  }
+  .see-more {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   .box-content {
     cursor: pointer;

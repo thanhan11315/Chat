@@ -5,6 +5,13 @@ import { useEffect } from "react";
 import { CloseOutlined, ExportOutlined } from "@ant-design/icons";
 
 function LinkPreview(props) {
+  const makeMinutes = (value) => {
+    if (-1 < value && value < 10) {
+      return `0${value}`;
+    } else {
+      return value;
+    }
+  };
   const [valueLink, setValueLink] = useState("");
   const [storageValueLinks, setStorageValueLinks] = useState(
     JSON.parse(localStorage.getItem("valueLink"))
@@ -152,7 +159,7 @@ function LinkPreview(props) {
                     <div className="date">
                       {`${props.date}/${props.month + 1}/${props.year} ${
                         props.hours
-                      }:${props.minutes}`}
+                      }:${makeMinutes(props.minutes)}`}
                     </div>
                   </div>
                 </div>

@@ -109,6 +109,13 @@ function DefaultLayout({ children }) {
   const [hiddenSeeAllMembersNavRight, setHiddenSeeAllMembersNavRight] =
     useState(true);
   const d = new Date();
+  const makeMinutes = (value) => {
+    if (-1 < value && value < 10) {
+      return `0${value}`;
+    } else {
+      return value;
+    }
+  };
   const date = {
     year: d.getFullYear(),
     month: d.getMonth(),
@@ -168,6 +175,14 @@ function DefaultLayout({ children }) {
       /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; //eslint-disable-line
     return text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + url + "</a>";
+    });
+  };
+
+  const orderCodeify = (text) => {
+    var orderCodeRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi; //eslint-disable-line
+    const url = "https://supership.vn/";
+    return text.replace(orderCodeRegex, function (code) {
+      return '<a href="' + url + '" target="_blank">' + code + "</a>";
     });
   };
 
@@ -293,13 +308,100 @@ function DefaultLayout({ children }) {
     const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
     const isCodeRegex = !!codeFullRegex.test(value.trim());
     const lengthCode = value.length;
-    console.log(isCodeRegex);
     if (
       isIncludesCityCode &&
       isIncludesAreaCode &&
       isCodeRegex &&
       lengthCode === 22
     ) {
+      isIncludesCityCode = false;
+      isIncludesAreaCode = false;
+      return true;
+    }
+  };
+
+  const isIncludesOrderInfo = (value) => {
+    const cityCodes = [
+      "SGN",
+      "HYN",
+      "NBH",
+      "HNI",
+      "THA",
+      "SLA",
+      "QNI",
+      "BGG",
+      "QTI",
+      "DLK",
+      "YBI",
+      "VPC",
+      "NAN",
+      "NDH",
+      "AGG",
+      "HNM",
+      "VTU",
+      "KHA",
+      "LCI",
+      "HDG",
+      "TBH",
+      "GLI",
+      "BKN",
+      "DNI",
+      "QNH",
+      "CMU",
+      "BLU",
+      "BDH",
+      "BNH",
+      "HTH",
+      "LDG",
+      "STG",
+      "QNM",
+      "LSN",
+      "CTO",
+      "KGG",
+      "HUE",
+      "BTN",
+      "PYN",
+      "CBG",
+      "TNH",
+      "PTO",
+      "LAN",
+      "DKG",
+      "TNN",
+      "DBN",
+      "HBH",
+      "DTP",
+      "TQG",
+      "HGG",
+      "BDG",
+      "LCU",
+      "QBH",
+      "KTM",
+      "BPC",
+      "NTN",
+      "HUG",
+      "HPG",
+      "VLG",
+      "TGG",
+      "TVH",
+      "DNG",
+      "BTE",
+    ];
+    const areaCodes = ["LV", "NM", "NT", "LM"];
+    let isIncludesCityCode = false;
+    let isIncludesAreaCode = false;
+    cityCodes.forEach((cityCode) => {
+      if (value.trim().toUpperCase().includes(cityCode)) {
+        isIncludesCityCode = true;
+      }
+    });
+    areaCodes.forEach((areaCode) => {
+      if (value.trim().toUpperCase().includes(areaCode)) {
+        isIncludesAreaCode = true;
+      }
+    });
+    const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
+    const isCodeRegex = !!codeFullRegex.test(value.trim());
+    if (isIncludesCityCode && isIncludesAreaCode && isCodeRegex) {
       isIncludesCityCode = false;
       isIncludesAreaCode = false;
       return true;
@@ -712,7 +814,6 @@ function DefaultLayout({ children }) {
     setValueChats(newValueChats);
     const newDataUserFriends = dataUserFriends.map((dataUserFriend) => {
       if (dataUserFriend.id_user === newValueChats[0].recipients.id_user) {
-        console.log(1);
         return { ...dataUserFriend, last_value_chat: newValueChats[0] };
       } else {
         return dataUserFriend;
@@ -752,10 +853,13 @@ function DefaultLayout({ children }) {
       ...dataUserMe,
       recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
       other_people: false,
+      see_more_order_code: false,
       ghim: false,
       is_message_url: isValidUrl(valueChatReplace) && valueDeleteLink,
       message_url: valueChatReplace,
+      is_includes_order_info: isIncludesOrderInfo(valueChatReplace),
       is_orders_info: isOrderInfo(valueChatReplace),
+      order_code_message: orderCodeify(valueChatReplace),
       id: id,
       Responsive: ResponsiveInputValue,
       text_message: linkify(valueChatReplace),
@@ -1088,7 +1192,7 @@ function DefaultLayout({ children }) {
       }
       console.log(dataUserFriends);
     }
-    console.log();
+    console.log("valueChatChange");
     setValueDeleteLink(true);
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -1281,6 +1385,7 @@ function DefaultLayout({ children }) {
         `.box-choose-chatbox-${dataUserFriend?.id_user}`
       ).style.backgroundColor = "#eeeff2";
     }
+    console.log("change data User Friend");
   }, [dataUserFriends]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Modal
@@ -1847,7 +1952,8 @@ function DefaultLayout({ children }) {
                               )}
                               {value.text_message &&
                                 !value.is_message_url &&
-                                !value.is_orders_info && (
+                                !value.is_orders_info &&
+                                !value.is_includes_order_info && (
                                   <>
                                     <div className="content-chat">
                                       <div className="box-make-hidden-content-chat">
@@ -1871,7 +1977,8 @@ function DefaultLayout({ children }) {
                                           }}
                                         />
                                         <div className="date">
-                                          {value.hours}:{value.minutes}
+                                          {value.hours}:
+                                          {makeMinutes(value.minutes)}
                                         </div>
                                       </div>
                                     </div>
@@ -1889,7 +1996,8 @@ function DefaultLayout({ children }) {
                                           }
                                         />
                                         <div className="date">
-                                          {value.hours}:{value.minutes}
+                                          {value.hours}:
+                                          {makeMinutes(value.minutes)}
                                         </div>
                                       </div>
                                     </div>
@@ -1904,7 +2012,7 @@ function DefaultLayout({ children }) {
                                     </div>
                                   </div>
                                   <div className="date">
-                                    {value.hours}:{value.minutes}
+                                    {value.hours}:{makeMinutes(value.minutes)}
                                   </div>
                                 </div>
                               )}
@@ -1919,11 +2027,28 @@ function DefaultLayout({ children }) {
                                       size="one"
                                     />
                                     <div className="date">
-                                      {value.hours}:{value.minutes}
+                                      {value.hours}:{makeMinutes(value.minutes)}
                                     </div>
                                   </div>
                                 </div>
                               )}
+                              {!value.is_orders_info &&
+                                value.is_includes_order_info &&
+                                value.order_code_message && (
+                                  <div className="content-chat">
+                                    <div className="box-make-hidden-content-chat">
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: value.order_code_message,
+                                        }}
+                                      />
+                                      <div className="date">
+                                        {value.hours}:
+                                        {makeMinutes(value.minutes)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
                             </div>
                           </div>
                         </div>
@@ -1967,7 +2092,7 @@ function DefaultLayout({ children }) {
                                 </div>
                               </div>
                               <div className="date">
-                                {value.hours}:{value.minutes}
+                                {value.hours}:{makeMinutes(value.minutes)}
                               </div>
                             </div>
                           </div>
@@ -2110,8 +2235,10 @@ function DefaultLayout({ children }) {
                           date.year - value.year > 0
                             ? `${value.date}-${value.month + 1}-${value.year} ${
                                 value.hours
-                              }:${value.minutes}`
-                            : `${value.hours}:${value.minutes} Hôm nay`}
+                              }:${makeMinutes(value.minutes)}`
+                            : `${value.hours}:${makeMinutes(
+                                value.minutes
+                              )} Hôm nay`}
                         </span>
                         <div className="line" />
                       </div>

@@ -212,6 +212,7 @@ function SeeAllNavRight(props) {
       });
       setValueChatsLink(newValueChatsLink);
     }
+    console.log("changeValueChat");
   }, [props.valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const searchFriendOrderInfo = () => {

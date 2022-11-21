@@ -5,6 +5,13 @@ import "./RenderFile.scss";
 import { useState } from "react";
 
 function RenderFile(props) {
+  const makeMinutes = (value) => {
+    if (-1 < value && value < 10) {
+      return `0${value}`;
+    } else {
+      return value;
+    }
+  };
   const [playVideo, setPlayVideo] = useState(false);
   const renderLinkFile = (value) => {
     if (value?.split(".").pop()) {
@@ -97,7 +104,7 @@ function RenderFile(props) {
                   {props.value.date}-{props.value.month + 1}-{props.value.year}
                 </span>{" "}
                 <span className="m-hours">
-                  {props.value.hours}:{props.value.minutes}
+                  {props.value.hours}:{makeMinutes(props.value.minutes)}
                 </span>
               </div>
             </div>
@@ -167,7 +174,7 @@ function RenderFile(props) {
                 {props.value.date}-{props.value.month + 1}-{props.value.year}
               </span>{" "}
               <span className="m-hours">
-                {props.value.hours}:{props.value.minutes}
+                {props.value.hours}:{makeMinutes(props.value.minutes)}
               </span>
             </div>
           </div>
