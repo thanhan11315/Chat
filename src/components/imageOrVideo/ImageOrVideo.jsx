@@ -2,6 +2,13 @@ import React from "react";
 import { Image } from "antd";
 
 function ImageOrVideo(props) {
+  const makeMinutes = (value) => {
+    if (-1 < value && value < 10) {
+      return `0${value}`;
+    } else {
+      return value;
+    }
+  };
   return (
     <div className="hover-image-chat">
       <>
@@ -19,9 +26,16 @@ function ImageOrVideo(props) {
           />
         )}
       </>
-      <div className="date">
-        {/* {value.date}-{value.month + 1}-{value.year}{" "} */}
-        {props.value.hours}:{props.value.minutes}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <div className="date">
+          {props.value.hours}:{makeMinutes(props.value.minutes)}
+        </div>
+        <div className="date">Đã gửi</div>
       </div>
     </div>
   );

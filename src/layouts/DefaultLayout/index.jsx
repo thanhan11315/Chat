@@ -118,7 +118,7 @@ function DefaultLayout({ children }) {
   };
   const date = {
     year: d.getFullYear(),
-    month: d.getMonth(),
+    month: d.getMonth() + 1,
     date: d.getDate(),
     hours: d.getHours(),
     minutes: d.getMinutes(),
@@ -493,7 +493,6 @@ function DefaultLayout({ children }) {
   ];
 
   const setDataUserFriendsStorageAll = (value) => {
-    console.log(value);
     if (value) {
       setDataUserFriendsStorage(value);
       localStorage.setItem("dataUserFriendsStorage", JSON.stringify(value));
@@ -1222,6 +1221,7 @@ function DefaultLayout({ children }) {
     } else {
       setValueChat("");
     }
+    console.log(1000);
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
@@ -1976,9 +1976,17 @@ function DefaultLayout({ children }) {
                                             __html: value.text_message,
                                           }}
                                         />
-                                        <div className="date">
-                                          {value.hours}:
-                                          {makeMinutes(value.minutes)}
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                          }}
+                                        >
+                                          <div className="date">
+                                            {value.hours}:
+                                            {makeMinutes(value.minutes)}
+                                          </div>
+                                          <div className="date">Đã gửi</div>
                                         </div>
                                       </div>
                                     </div>
@@ -1995,9 +2003,17 @@ function DefaultLayout({ children }) {
                                             value.other_people ? "two" : "one"
                                           }
                                         />
-                                        <div className="date">
-                                          {value.hours}:
-                                          {makeMinutes(value.minutes)}
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                          }}
+                                        >
+                                          <div className="date">
+                                            {value.hours}:
+                                            {makeMinutes(value.minutes)}
+                                          </div>
+                                          <div className="date">Đã gửi</div>
                                         </div>
                                       </div>
                                     </div>
@@ -2011,8 +2027,16 @@ function DefaultLayout({ children }) {
                                       <GoogleMapTest />
                                     </div>
                                   </div>
-                                  <div className="date">
-                                    {value.hours}:{makeMinutes(value.minutes)}
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
+                                    <div className="date">
+                                      {value.hours}:{makeMinutes(value.minutes)}
+                                    </div>
+                                    <div className="date">Đã gửi</div>
                                   </div>
                                 </div>
                               )}
@@ -2026,8 +2050,17 @@ function DefaultLayout({ children }) {
                                       value={value}
                                       size="one"
                                     />
-                                    <div className="date">
-                                      {value.hours}:{makeMinutes(value.minutes)}
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                      }}
+                                    >
+                                      <div className="date">
+                                        {value.hours}:
+                                        {makeMinutes(value.minutes)}
+                                      </div>
+                                      <div className="date">Đã gửi</div>
                                     </div>
                                   </div>
                                 </div>
@@ -2042,9 +2075,17 @@ function DefaultLayout({ children }) {
                                           __html: value.order_code_message,
                                         }}
                                       />
-                                      <div className="date">
-                                        {value.hours}:
-                                        {makeMinutes(value.minutes)}
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                        }}
+                                      >
+                                        <div className="date">
+                                          {value.hours}:
+                                          {makeMinutes(value.minutes)}
+                                        </div>
+                                        <div className="date">Đã gửi</div>
                                       </div>
                                     </div>
                                   </div>
@@ -2091,8 +2132,16 @@ function DefaultLayout({ children }) {
                                   Tin nhắn đã bị xóa
                                 </div>
                               </div>
-                              <div className="date">
-                                {value.hours}:{makeMinutes(value.minutes)}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                }}
+                              >
+                                <div className="date">
+                                  {value.hours}:{makeMinutes(value.minutes)}
+                                </div>
+                                <div className="date">Đã gửi</div>
                               </div>
                             </div>
                           </div>
@@ -2233,7 +2282,7 @@ function DefaultLayout({ children }) {
                           {date.date - value.date > 0 ||
                           date.month - value.month > 0 ||
                           date.year - value.year > 0
-                            ? `${value.date}-${value.month + 1}-${value.year} ${
+                            ? `${value.date}-${value.month}-${value.year} ${
                                 value.hours
                               }:${makeMinutes(value.minutes)}`
                             : `${value.hours}:${makeMinutes(
@@ -2434,7 +2483,6 @@ function DefaultLayout({ children }) {
           setValueFile={setValueFile}
           setHiddenRightNav={setHiddenRightNav}
         />
-        {console.log(dataUserMe)}
         <SeeAllNavRightMembers
           dataUserFriends={dataUserFriends}
           generalGroup={generalGroup}

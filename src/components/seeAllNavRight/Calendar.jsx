@@ -29,7 +29,6 @@ const CalendarFilter = (props) => {
     console.log(props.time1);
     console.log(props.time2);
   };
-
   return (
     <RangePicker
       format={dateFormat}

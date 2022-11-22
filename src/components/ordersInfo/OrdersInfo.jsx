@@ -98,6 +98,7 @@ function OrderInfo(props) {
     console.log(newValueChats[0].see_more_order_code);
     props.setValueChats(newValueChats);
   };
+
   return (
     <>
       {props.size === "one" &&

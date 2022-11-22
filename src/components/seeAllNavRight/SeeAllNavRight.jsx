@@ -5,7 +5,7 @@ import {
   DownOutlined,
   LeftOutlined,
 } from "@ant-design/icons";
-import { Col, Image } from "antd";
+import { Col, Image, Popover } from "antd";
 import "./SeeAllNavRight.scss";
 import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
@@ -13,6 +13,7 @@ import OrderInfo from "../ordersInfo/OrdersInfo";
 import InPutSearch from "../../components/inPutSearch/InPutSearch";
 import { useEffect } from "react";
 import CalendarFilter from "./Calendar";
+import moment from "moment";
 function SeeAllNavRight(props) {
   const [showListMember, setShowListMember] = useState(false);
   const [selectedMember, setSelectedMember] = useState("");
@@ -133,15 +134,15 @@ function SeeAllNavRight(props) {
       const valueChatsImage = props.valueChats.filter(
         (valueChat) => valueChat.url
       );
-      let valueOlDate = "";
+      let valueOldDate = "";
       const newValueChatsImage = valueChatsImage.map((valueChatImage) => {
         if (
-          valueChatImage.date - valueOlDate.date > 0 ||
-          valueChatImage.month - valueOlDate.month > 0 ||
-          valueChatImage.year - valueOlDate.year > 0 ||
-          !valueOlDate
+          valueChatImage.date - valueOldDate.date > 0 ||
+          valueChatImage.month - valueOldDate.month > 0 ||
+          valueChatImage.year - valueOldDate.year > 0 ||
+          !valueOldDate
         ) {
-          valueOlDate = valueChatImage;
+          valueOldDate = valueChatImage;
           return { ...valueChatImage, create_box_date_show_all: true };
         } else {
           return valueChatImage;
@@ -152,16 +153,16 @@ function SeeAllNavRight(props) {
       const valueChatsOrderInfo = props.valueChats.filter(
         (valueChat) => valueChat.is_orders_info
       );
-      valueOlDate = "";
+      valueOldDate = "";
       const newValueChatsOderInfo = valueChatsOrderInfo.map(
         (valueChatOderInfo) => {
           if (
-            valueChatOderInfo.date - valueOlDate.date > 0 ||
-            valueChatOderInfo.month - valueOlDate.month > 0 ||
-            valueChatOderInfo.year - valueOlDate.year > 0 ||
-            !valueOlDate
+            valueChatOderInfo.date - valueOldDate.date > 0 ||
+            valueChatOderInfo.month - valueOldDate.month > 0 ||
+            valueChatOderInfo.year - valueOldDate.year > 0 ||
+            !valueOldDate
           ) {
-            valueOlDate = valueChatOderInfo;
+            valueOldDate = valueChatOderInfo;
             return { ...valueChatOderInfo, create_box_date_show_all: true };
           } else {
             return valueChatOderInfo;
@@ -174,16 +175,16 @@ function SeeAllNavRight(props) {
         (valueChat) => valueChat.file
       );
 
-      valueOlDate = "";
+      valueOldDate = "";
 
       const newValueChatsFile = valueChatsFile.map((valueChatFile) => {
         if (
-          valueChatFile.date - valueOlDate.date > 0 ||
-          valueChatFile.month - valueOlDate.month > 0 ||
-          valueChatFile.year - valueOlDate.year > 0 ||
-          !valueOlDate
+          valueChatFile.date - valueOldDate.date > 0 ||
+          valueChatFile.month - valueOldDate.month > 0 ||
+          valueChatFile.year - valueOldDate.year > 0 ||
+          !valueOldDate
         ) {
-          valueOlDate = valueChatFile;
+          valueOldDate = valueChatFile;
           return { ...valueChatFile, create_box_date_show_all: true };
         } else {
           return valueChatFile;
@@ -195,24 +196,24 @@ function SeeAllNavRight(props) {
         (valueChat) => valueChat.is_message_url
       );
 
-      valueOlDate = "";
+      valueOldDate = "";
 
       const newValueChatsLink = valueChatsLink.map((valueChatLink) => {
         if (
-          valueChatLink.date - valueOlDate.date > 0 ||
-          valueChatLink.month - valueOlDate.month > 0 ||
-          valueChatLink.year - valueOlDate.year > 0 ||
-          !valueOlDate
+          valueChatLink.date - valueOldDate.date > 0 ||
+          valueChatLink.month - valueOldDate.month > 0 ||
+          valueChatLink.year - valueOldDate.year > 0 ||
+          !valueOldDate
         ) {
-          valueOlDate = valueChatLink;
+          valueOldDate = valueChatLink;
           return { ...valueChatLink, create_box_date_show_all: true };
         } else {
           return valueChatLink;
         }
       });
       setValueChatsLink(newValueChatsLink);
+      console.log(1000);
     }
-    console.log("changeValueChat");
   }, [props.valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const searchFriendOrderInfo = () => {
@@ -249,12 +250,16 @@ function SeeAllNavRight(props) {
   };
 
   const changeValueDate = (value) => {
+    console.log("changeValueDate");
     var arrStartDate = value.split("/");
     var date = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
     return date;
   };
 
   const ifFilterDate = (value, timeOne, timeTwo) => {
+    console.log(value);
+    console.log(timeOne);
+    console.log(timeTwo);
     if (time1 && time2) {
       if (timeOne <= value && value <= timeTwo) {
         return true;
@@ -267,9 +272,31 @@ function SeeAllNavRight(props) {
   };
 
   const getDateValueChat = (value) => {
-    console.log(`${value.date}/${value.month}/${value.year}`);
     return `${value.date}/${value.month}/${value.year}`;
   };
+
+  const handleClickSevenDayBefore = () => {
+    setTime2(moment().format("DD/MM/YYYY"));
+    setTime1(moment().subtract(7, "days").format("DD/MM/YYYY"));
+    setShowFilterDate(false);
+  };
+  const handleClickThirtyDayBefore = () => {
+    setTime2(moment().format("DD/MM/YYYY"));
+    setTime1(moment().subtract(30, "days").format("DD/MM/YYYY"));
+    setShowFilterDate(false);
+  };
+  const handleClickThreeMonthBefore = () => {
+    setTime2(moment().format("DD/MM/YYYY"));
+    setTime1(moment().subtract(3, "months").format("DD/MM/YYYY"));
+    setShowFilterDate(false);
+  };
+  const content = (
+    <div className="filter-date-before">
+      <div onClick={() => handleClickSevenDayBefore()}> 7 ngày trước</div>
+      <div onClick={() => handleClickThirtyDayBefore()}> 30 ngày trước</div>
+      <div onClick={() => handleClickThreeMonthBefore()}> 3 tháng trước</div>
+    </div>
+  );
 
   return (
     <Col
@@ -444,11 +471,13 @@ function SeeAllNavRight(props) {
         {showFilterDate && (
           <div className="box-filter-date" onClick={(e) => e.stopPropagation()}>
             <div className="box-list-choose-date">
-              {/* <div className="time-hint">
-                <span>Gợi Ý thời gian</span>
-                <span>></span>
-              </div> */}
-              {/* <div className="line"></div> */}
+              <Popover placement="leftTop" content={content} trigger="hover">
+                <div className="time-hint">
+                  <span>Gợi ý thời gian</span>
+                  <span>></span>
+                </div>
+              </Popover>
+              <div className="line"></div>
               <div className="title-calendar">Chọn khoảng thời gian</div>
               <div className="calendar">
                 <CalendarFilter

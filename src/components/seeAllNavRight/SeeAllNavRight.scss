@@ -1,3 +1,26 @@
+.ant-popover-inner-content {
+  padding: 0px;
+}
+.filter-date-before {
+  padding: 8px 0px;
+  border-radius: 4px;
+  z-index: 9999;
+  // box-shadow: 0 0 10px 0 var(--BA20);
+  // border: 1px solid var(--border);
+  div {
+    height: 32px;
+    padding: 0px 20px;
+    cursor: pointer;
+    color: var(--primary-text);
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    &:hover {
+      background: var(--lst-item-hover);
+    }
+  }
+}
+
 #wrapper .see-all-right {
   .box-wrapper {
     overflow-y: scroll;
@@ -36,6 +59,9 @@
           cursor: pointer;
           color: var(--primary-text);
           position: relative;
+          &:hover {
+            background-color: var(--item-wa-hover);
+          }
         }
         .line {
           height: 1px;

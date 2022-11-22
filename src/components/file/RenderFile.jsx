@@ -98,15 +98,24 @@ function RenderFile(props) {
                 </Row>
               </div>
             </Row>
-            <div className="date">
-              <div>
-                <span className="d-m-year">
-                  {props.value.date}-{props.value.month + 1}-{props.value.year}
-                </span>{" "}
-                <span className="m-hours">
-                  {props.value.hours}:{makeMinutes(props.value.minutes)}
-                </span>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <div className="date">
+                <div>
+                  <span className="d-m-year">
+                    {props.value.date}-{props.value.month + 1}-
+                    {props.value.year}
+                  </span>{" "}
+                  <span className="m-hours">
+                    {props.value.hours}:{makeMinutes(props.value.minutes)}
+                  </span>
+                </div>
               </div>
+              <div className="date sented">Đã gửi</div>
             </div>
           </div>
         </a>
@@ -168,15 +177,29 @@ function RenderFile(props) {
               </div>
             </Row>
           </a>
-          <div className="date">
-            <div>
-              <span className="d-m-year">
-                {props.value.date}-{props.value.month + 1}-{props.value.year}
-              </span>{" "}
-              <span className="m-hours">
-                {props.value.hours}:{makeMinutes(props.value.minutes)}
-              </span>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div className="date">
+              <div>
+                <span className="d-m-year">
+                  {props.value.date}-{props.value.month + 1}-{props.value.year}
+                </span>{" "}
+                <span className="m-hours">
+                  {props.value.hours}:{makeMinutes(props.value.minutes)}
+                </span>
+              </div>
             </div>
+            s
+            <div>
+              {/* {window.URL.revokeObjectURL(
+                URL.createObjectURL(props.value?.file?.file)
+              )} */}
+            </div>
+            <div className="date sented">Đã gửi</div>
           </div>
         </div>
       )}
