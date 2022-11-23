@@ -474,7 +474,7 @@ function SeeAllNavRight(props) {
               <Popover placement="leftTop" content={content} trigger="hover">
                 <div className="time-hint">
                   <span>Gợi ý thời gian</span>
-                  <span>></span>
+                  {/* <span>></span> */}
                 </div>
               </Popover>
               <div className="line"></div>

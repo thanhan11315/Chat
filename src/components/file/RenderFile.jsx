@@ -193,7 +193,6 @@ function RenderFile(props) {
                 </span>
               </div>
             </div>
-            s
             <div>
               {/* {window.URL.revokeObjectURL(
                 URL.createObjectURL(props.value?.file?.file)

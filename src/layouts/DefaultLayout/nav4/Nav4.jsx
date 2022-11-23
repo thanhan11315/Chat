@@ -187,7 +187,7 @@ function Nav4(props) {
           </div>
           <div className="header-info-name">
             <div className="header">{props.dataUserFriend?.name}</div>
-            <div className="icon" onClick={handleClickEditName}>
+            <div className="icon" onClick={() => handleClickEditName()}>
               <EditOutlined />
             </div>
           </div>
@@ -195,7 +195,7 @@ function Nav4(props) {
             {props.dataUserFriend?.notification ? (
               <div className="icon-content">
                 <div className="box-icon">
-                  <div className="icon" onClick={turnOffNotification}>
+                  <div className="icon" onClick={() => turnOffNotification()}>
                     <BellOutlined />
                   </div>
                 </div>
@@ -204,7 +204,7 @@ function Nav4(props) {
             ) : (
               <div className="icon-content">
                 <div className="box-icon">
-                  <div className="icon" onClick={turnOnNotification}>
+                  <div className="icon" onClick={() => turnOnNotification()}>
                     <BellOutlined />
                   </div>
                 </div>
@@ -214,7 +214,7 @@ function Nav4(props) {
             {props.dataUserFriend?.pin_conversation ? (
               <div className="icon-content">
                 <div className="box-icon">
-                  <div className="icon" onClick={UnpinConversation}>
+                  <div className="icon" onClick={() => UnpinConversation()}>
                     <PaperClipOutlined />
                   </div>
                 </div>
@@ -223,7 +223,7 @@ function Nav4(props) {
             ) : (
               <div className="icon-content">
                 <div className="box-icon">
-                  <div className="icon" onClick={Pinconversation}>
+                  <div className="icon" onClick={() => Pinconversation()}>
                     <PaperClipOutlined />
                   </div>
                 </div>
@@ -273,7 +273,10 @@ function Nav4(props) {
           <div className="box-element">
             <div className="content-member">
               <div className="box-member">
-                <div className="icon" onClick={handleClickShowAllMember}>
+                <div
+                  className="icon"
+                  onClick={() => handleClickShowAllMember()}
+                >
                   <TeamOutlined />{" "}
                   {
                     props.generalGroup(
@@ -292,7 +295,10 @@ function Nav4(props) {
             <div className="title">Thành viên nhóm</div>
             <div className="content-member">
               <div className="box-member">
-                <div className="icon" onClick={handleClickShowAllgeneralGroup}>
+                <div
+                  className="icon"
+                  onClick={() => handleClickShowAllgeneralGroup()}
+                >
                   <TeamOutlined /> {props.dataUserFriend?.members?.length} thành
                   viên
                 </div>
@@ -316,7 +322,10 @@ function Nav4(props) {
                 );
               })}
           </div>
-          <div className="div-button" onClick={hanldeClickShowAllOrdersInfo}>
+          <div
+            className="div-button"
+            onClick={() => hanldeClickShowAllOrdersInfo()}
+          >
             Xem tất cả
           </div>
         </div>
@@ -346,7 +355,10 @@ function Nav4(props) {
                   );
                 })}
             </div>
-            <div className="div-button" onClick={hanldeClickShowAllImage}>
+            <div
+              className="div-button"
+              onClick={() => hanldeClickShowAllImage()}
+            >
               Xem tất cả
             </div>
           </Image.PreviewGroup>
@@ -376,7 +388,7 @@ function Nav4(props) {
                 );
               })}
           </div>
-          <div className="div-button" onClick={hanldeClickShowAllFile}>
+          <div className="div-button" onClick={() => hanldeClickShowAllFile()}>
             Xem tất cả
           </div>
         </div>
@@ -405,7 +417,7 @@ function Nav4(props) {
                 );
               })}
           </div>
-          <div className="div-button" onClick={hanldeClickShowAllLink}>
+          <div className="div-button" onClick={() => hanldeClickShowAllLink()}>
             Xem tất cả
           </div>
         </div>

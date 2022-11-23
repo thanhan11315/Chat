@@ -85,7 +85,7 @@ function DefaultLayout({ children }) {
   const [urlFile, setUrlFile] = useState("");
   const [valueFile, setValueFile] = useState("");
   const [valueChats, setValueChats] = useState("");
-  const [valueChat, setValueChat] = useState(``);
+  const [valueChat, setValueChat] = useState("");
   const [dataUserFriendsReaded, setDataUserFriendsReaded] = useState("");
   const [dataUserFriends, setDataUserFriends] = useState("");
   const [dataUserFriend, setDataUserFriend] = useState("");
@@ -198,21 +198,6 @@ function DefaultLayout({ children }) {
     ); // validate fragment locator
     return !!urlPattern.test(urlString.trim());
   };
-
-  // const isCreateHoursMinutes = (valueWantCreate, valueChats) => {
-  //   const valueLastTimeMe = valueChats.find(
-  //     (valueChat) => valueChat.other_people !== true
-  //   );
-  //   if (valueLastTimeMe) {
-  //     if (valueWantCreate.hours - valueLastTimeMe?.minutes >= 2) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } else {
-  //     return true;
-  //   }
-  // };
 
   const handleClickNavRight = (e) => {
     if (hiddenRightNav) {
@@ -1221,7 +1206,6 @@ function DefaultLayout({ children }) {
     } else {
       setValueChat("");
     }
-    console.log(1000);
   }, [dataUserFriend]); // eslint-disable-line react-hooks/exhaustive-deps
   const handleClickChooseBoxChat = (value) => {
     const hiddenBoxNav2 = document.querySelector(".box-nav-2");
@@ -1319,28 +1303,6 @@ function DefaultLayout({ children }) {
       ).style.display = "flex";
     });
   };
-
-  useEffect(() => {
-    if (
-      document.querySelector(
-        "#wrapper .box-nav-2 .title-nav-2 .not-read.selected"
-      )
-    ) {
-      dataUserFriends &&
-        dataUserFriends.forEach((dataUserFriends) => {
-          document.querySelector(
-            `.box-choose-chatbox-${dataUserFriends.id_user}`
-          ).style.display = "flex";
-        });
-      dataUserFriendsReaded &&
-        dataUserFriendsReaded.forEach((dataUserFriendReaded) => {
-          document.querySelector(
-            `.box-choose-chatbox-${dataUserFriendReaded?.id_user}`
-          ).style.display = "none";
-        });
-    }
-  }, [dataUserFriends]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleClickNotReadTitle = () => {
     document
       .querySelector("#wrapper .box-nav-2 .title-nav-2 .all")
@@ -1385,7 +1347,24 @@ function DefaultLayout({ children }) {
         `.box-choose-chatbox-${dataUserFriend?.id_user}`
       ).style.backgroundColor = "#eeeff2";
     }
-    console.log("change data User Friend");
+    if (
+      document.querySelector(
+        "#wrapper .box-nav-2 .title-nav-2 .not-read.selected"
+      )
+    ) {
+      dataUserFriends &&
+        dataUserFriends.forEach((dataUserFriends) => {
+          document.querySelector(
+            `.box-choose-chatbox-${dataUserFriends.id_user}`
+          ).style.display = "flex";
+        });
+      dataUserFriendsReaded &&
+        dataUserFriendsReaded.forEach((dataUserFriendReaded) => {
+          document.querySelector(
+            `.box-choose-chatbox-${dataUserFriendReaded?.id_user}`
+          ).style.display = "none";
+        });
+    }
   }, [dataUserFriends]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Modal
@@ -1629,9 +1608,6 @@ function DefaultLayout({ children }) {
       }
     }
   };
-
-  console.log(1);
-
   useEffect(() => {
     makeValueChatInDataUserFriends();
   }, [valueChat]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -1641,7 +1617,6 @@ function DefaultLayout({ children }) {
     dataUserFriends &&
       dataUserFriends.forEach((element) => {
         if (element.group) {
-          console.log(1);
           element.members?.forEach((member) => {
             if (member.id_user === dataUserFriend.id_user) {
               generalGroup = [...generalGroup, element];
@@ -2364,6 +2339,7 @@ function DefaultLayout({ children }) {
               </Row>
               <div className={`nav-chat ${focusInput}`}>
                 {/* Responsive-input */}
+
                 {ResponsiveInputValue && (
                   <ResponsiveInput
                     ResponsiveInputValue={ResponsiveInputValue}
@@ -2372,6 +2348,7 @@ function DefaultLayout({ children }) {
                     size="one"
                   />
                 )}
+
                 {isValidUrl(valueChat) && valueDeleteLink && (
                   <LinkPreview
                     url={valueChat}
@@ -2385,7 +2362,7 @@ function DefaultLayout({ children }) {
                 <Row>
                   <div className="input-chat">
                     <TextArea
-                      onChange={onChangeChat}
+                      onChange={(e) => onChangeChat(e)}
                       value={valueChat}
                       placeholder="Nhập tin nhắn"
                       autoSize={{
@@ -2428,7 +2405,7 @@ function DefaultLayout({ children }) {
                         <span
                           className="not-use"
                           style={{ fontSize: "24px" }}
-                          onClick={handleClickLikeIcon}
+                          onClick={() => handleClickLikeIcon()}
                         >
                           👍
                         </span>
@@ -2483,6 +2460,7 @@ function DefaultLayout({ children }) {
           setValueFile={setValueFile}
           setHiddenRightNav={setHiddenRightNav}
         />
+        {console.log("err")}
         <SeeAllNavRightMembers
           dataUserFriends={dataUserFriends}
           generalGroup={generalGroup}
