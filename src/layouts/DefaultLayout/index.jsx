@@ -2451,7 +2451,6 @@ function DefaultLayout({ children }) {
         <SeeAllNavRight
           dataUserFriend={dataUserFriend}
           dataUserMe={dataUserMe}
-          dataUserFriend={dataUserFriend}
           SeeAllNavRight={SeeAllNavRight}
           hiddenSeeAllNavRight={hiddenSeeAllNavRight}
           setHiddenSeeAllNavRight={setHiddenSeeAllNavRight}
