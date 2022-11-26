@@ -1181,8 +1181,8 @@ function DefaultLayout({ children }) {
   }, [valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    dataUserFriends &&
-      dataUserFriends.forEach((value) => {
+    dataUserFriendsStorage &&
+      dataUserFriendsStorage.forEach((value) => {
         if (document.querySelector(`.box-choose-chatbox-${value.id_user}`)) {
           document.querySelector(
             `.box-choose-chatbox-${value.id_user}`
@@ -1231,8 +1231,12 @@ function DefaultLayout({ children }) {
   };
 
   const getValueChats = (value) => {
+    console.log("1");
     const getValueChats = JSON.parse(localStorage.getItem(value?.id_user));
     setValueChats(getValueChats);
+    console.log(value?.id_user);
+    console.log(JSON.parse(localStorage.getItem("4")));
+    console.log(getValueChats);
     getValueChats &&
       setValueListGhim(
         getValueChats?.filter((value) => {
@@ -2445,6 +2449,7 @@ function DefaultLayout({ children }) {
           setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
         />
         <SeeAllNavRight
+          dataUserFriend={dataUserFriend}
           dataUserMe={dataUserMe}
           dataUserFriend={dataUserFriend}
           SeeAllNavRight={SeeAllNavRight}

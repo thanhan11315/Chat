@@ -143,6 +143,7 @@ function Nav2(props) {
 
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
+      {console.log("err2")}
       <Row className="search-add">
         <Col className="search">
           <InPutSearch searchFriend={searchFriend} />

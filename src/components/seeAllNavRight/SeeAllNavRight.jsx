@@ -214,7 +214,7 @@ function SeeAllNavRight(props) {
       setValueChatsLink(newValueChatsLink);
       console.log(1000);
     }
-  }, [props.valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [time1, time2]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const searchFriendOrderInfo = () => {
     let filter, boxElement, elements, elementTitle, i, txtValue, lengthElements;
