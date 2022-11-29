@@ -151,6 +151,16 @@ function Nav4(props) {
         JSON.stringify([valueChatsRemoveMembersToGroup])
       );
     }
+    setTimeout(() => {
+      props.setValueChats("");
+      localStorage.setItem(props.dataUserFriend.id_user, JSON.stringify(""));
+      const newDataUserFriends = props.dataUserFriends?.filter(
+        (dataUserFriend) =>
+          dataUserFriend?.id_user !== props.dataUserFriend?.id_user
+      );
+      props.setDataUserFriendsAll(newDataUserFriends);
+      console.log(newDataUserFriends);
+    }, 3000);
   };
 
   const handleClickEditName = () => {

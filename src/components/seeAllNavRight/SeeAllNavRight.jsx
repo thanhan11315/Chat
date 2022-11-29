@@ -154,7 +154,7 @@ function SeeAllNavRight(props) {
         (valueChat) => valueChat.is_orders_info
       );
       valueOldDate = "";
-      const newValueChatsOderInfo = valueChatsOrderInfo.map(
+      const newValueChatsOrderInfo = valueChatsOrderInfo.map(
         (valueChatOderInfo) => {
           if (
             valueChatOderInfo.date - valueOldDate.date > 0 ||
@@ -169,7 +169,7 @@ function SeeAllNavRight(props) {
           }
         }
       );
-      setValueChatsOrderInfo(newValueChatsOderInfo);
+      setValueChatsOrderInfo(newValueChatsOrderInfo);
 
       const valueChatsFile = props.valueChats.filter(
         (valueChat) => valueChat.file
@@ -257,9 +257,6 @@ function SeeAllNavRight(props) {
   };
 
   const ifFilterDate = (value, timeOne, timeTwo) => {
-    console.log(value);
-    console.log(timeOne);
-    console.log(timeTwo);
     if (time1 && time2) {
       if (timeOne <= value && value <= timeTwo) {
         return true;
@@ -298,6 +295,122 @@ function SeeAllNavRight(props) {
     </div>
   );
 
+  // const valueChatsImageDate = () => {
+  //   const valueChatsImage = props.valueChats.filter(
+  //     (valueChat) => valueChat.url
+  //   );
+  //   let valueOldDate = "";
+  //   const newValueChats = valueChatsImage.map((valueChat) => {
+  //     if (
+  //       valueChat.date - valueOldDate.date > 0 ||
+  //       valueChat.month - valueOldDate.month > 0 ||
+  //       valueChat.year - valueOldDate.year > 0 ||
+  //       !valueOldDate
+  //     ) {
+  //       console.log(valueOldDate);
+  //       valueOldDate = valueChat;
+  //       return { ...valueChat, create_box_date_show_all: true };
+  //     } else {
+  //       return valueChat;
+  //     }
+  //   });
+  //   return newValueChats;
+  // };
+
+  // const valueChatsFileDate = () => {
+  //   const valueChatsFile = props.valueChats.filter(
+  //     (valueChat) => valueChat.file
+  //   );
+  //   let valueOldDate = "";
+  //   const newValueChats = valueChatsFile.map((valueChat) => {
+  //     if (
+  //       valueChat.date - valueOldDate.date > 0 ||
+  //       valueChat.month - valueOldDate.month > 0 ||
+  //       valueChat.year - valueOldDate.year > 0 ||
+  //       !valueOldDate
+  //     ) {
+  //       valueOldDate = valueChat;
+  //       return { ...valueChat, create_box_date_show_all: true };
+  //     } else {
+  //       return valueChat;
+  //     }
+  //   });
+  //   return newValueChats;
+  // };
+
+  // const valueChatsOrderInfoDate = () => {
+  //   const valueChatsOrderInfo = props.valueChats.filter(
+  //     (valueChat) => valueChat.is_orders_info
+  //   );
+  //   let valueOldDate = "";
+  //   const newValueChats = valueChatsOrderInfo.map((valueChat) => {
+  //     if (
+  //       valueChat.date - valueOldDate.date > 0 ||
+  //       valueChat.month - valueOldDate.month > 0 ||
+  //       valueChat.year - valueOldDate.year > 0 ||
+  //       !valueOldDate
+  //     ) {
+  //       valueOldDate = valueChat;
+  //       return { ...valueChat, create_box_date_show_all: true };
+  //     } else {
+  //       return valueChat;
+  //     }
+  //   });
+  //   return newValueChats;
+  // };
+
+  // const valueChatsLinkDate = () => {
+  //   const valueChatsLink = props.valueChats.filter(
+  //     (valueChat) => valueChat.is_message_url
+  //   );
+  //   let valueOldDate = "";
+  //   const newValueChats = valueChatsLink.map((valueChat) => {
+  //     if (
+  //       valueChat.date - valueOldDate.date > 0 ||
+  //       valueChat.month - valueOldDate.month > 0 ||
+  //       valueChat.year - valueOldDate.year > 0 ||
+  //       !valueOldDate
+  //     ) {
+  //       valueOldDate = valueChat;
+  //       return { ...valueChat, create_box_date_show_all: true };
+  //     } else {
+  //       return valueChat;
+  //     }
+  //   });
+  //   return newValueChats;
+  // };
+
+  const chooseValueChatOderInfo = () => {
+    if (!time1 || !time2) {
+      return props.valueChats;
+    } else {
+      return valueChatsOrderInfo;
+    }
+  };
+
+  const chooseValueChatsFile = () => {
+    if (!time1 || !time2) {
+      return props.valueChats;
+    } else {
+      return valueChatsFile;
+    }
+  };
+
+  const chooseValueChatsImage = () => {
+    if (!time1 || !time2) {
+      return props.valueChats;
+    } else {
+      return valueChatsImage;
+    }
+  };
+
+  const chooseValueChatsLink = () => {
+    if (!time1 || !time2) {
+      return props.valueChats;
+    } else {
+      return valueChatsLink;
+    }
+  };
   return (
     <Col
       className={`see-all-right ${
@@ -499,8 +612,8 @@ function SeeAllNavRight(props) {
               <div className="box-search">
                 <InPutSearch searchFriend={searchFriendOrderInfo} />
               </div>
-              {valueChatsOrderInfo &&
-                valueChatsOrderInfo.map((valueChat, key) => {
+              {chooseValueChatOderInfo() &&
+                chooseValueChatOderInfo().map((valueChat, key) => {
                   return (
                     <>
                       {valueChat.is_orders_info &&
@@ -531,8 +644,8 @@ function SeeAllNavRight(props) {
           {props.chooseSeeAllNavRight === "images" && (
             <Image.PreviewGroup>
               <div className="content-image-video">
-                {valueChatsImage &&
-                  valueChatsImage.map((valueChat, key) => {
+                {chooseValueChatsImage() &&
+                  chooseValueChatsImage().map((valueChat, key) => {
                     return (
                       <>
                         {valueChat.url &&
@@ -575,8 +688,8 @@ function SeeAllNavRight(props) {
           )}
           {props.chooseSeeAllNavRight === "files" && (
             <div className="content-file">
-              {valueChatsFile &&
-                valueChatsFile.map((valueChat, key) => {
+              {chooseValueChatsFile() &&
+                chooseValueChatsFile().map((valueChat, key) => {
                   return (
                     <>
                       {valueChat.file &&
@@ -615,8 +728,8 @@ function SeeAllNavRight(props) {
           )}
           {props.chooseSeeAllNavRight === "links" && (
             <div className="content-link">
-              {valueChatsLink &&
-                valueChatsLink.map((valueChat, key) => {
+              {chooseValueChatsLink() &&
+                chooseValueChatsLink().map((valueChat, key) => {
                   return (
                     <>
                       {valueChat.is_message_url &&

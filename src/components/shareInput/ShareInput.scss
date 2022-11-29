@@ -4,3 +4,9 @@
 .wrapper-modal-Share .responsive-input-box {
   margin: 0px 12px;
 }
+.wrapper-modal-Share .responsive-input-box .Responsive-content {
+  max-height: 85px;
+  overflow-y: scroll;
+  .content {
+  }
+}

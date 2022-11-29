@@ -262,13 +262,23 @@ function Nav2(props) {
                             value?.last_value_chat?.name
                           )}
                           {value.last_value_chat?.type === "image" &&
-                            !value.last_value_chat?.delete && <>[Hình ảnh]</>}
+                            !value.last_value_chat?.delete &&
+                            !value.last_value_chat?.evict && <>[Hình ảnh]</>}
                           {value.last_value_chat?.type === "video" &&
-                            !value.last_value_chat?.delete && <>[Video]</>}
+                            !value.last_value_chat?.delete &&
+                            !value.last_value_chat?.evict && <>[Video]</>}
+                          {value.last_value_chat?.type === "placeMaps" &&
+                            !value.last_value_chat?.delete &&
+                            !value.last_value_chat?.evict && <>[Bản đồ]</>}
                           {value.last_value_chat?.file &&
-                            !value.last_value_chat?.delete && (
+                            !value.last_value_chat?.delete &&
+                            !value.last_value_chat?.evict && (
                               <>{`[File] ${value.last_value_chat?.file.name}`}</>
                             )}
+                          {value.last_value_chat?.type === "likeIcon" &&
+                            !value.last_value_chat?.evict &&
+                            !value.last_value_chat?.delete &&
+                            value.last_value_chat?.content}
                           {value.last_value_chat?.text_message &&
                             !value.last_value_chat?.is_message_url &&
                             !value.last_value_chat?.delete && (
@@ -282,11 +292,15 @@ function Nav2(props) {
                             )}
                           {value.last_value_chat?.text_message &&
                             value.last_value_chat?.is_message_url &&
-                            !value.last_value_chat?.delete && (
+                            !value.last_value_chat?.delete &&
+                            !value.last_value_chat?.evict && (
                               <>{`[Link] ${value.last_value_chat?.message_url}`}</>
                             )}
                           {value.last_value_chat?.delete && (
                             <>Tin nhắn đã bị xóa</>
+                          )}
+                          {value.last_value_chat?.evict && (
+                            <>Tin nhắn đã thu hồi</>
                           )}
                           {value.last_value_chat?.add_members_to_group && (
                             <>

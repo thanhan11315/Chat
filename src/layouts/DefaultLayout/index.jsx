@@ -786,6 +786,28 @@ function DefaultLayout({ children }) {
     });
   }
 
+  const evictMessage = (value) => {
+    const newValueChats = valueChats.map((valueChat) => {
+      if (valueChat.id === value.id) {
+        return { ...valueChat, evict: true };
+      } else {
+        return valueChat;
+      }
+    });
+    console.log(newValueChats);
+    setValueChats(newValueChats);
+    const newDataUserFriends = dataUserFriends.map((dataUserFriend) => {
+      if (dataUserFriend.id_user === newValueChats[0].recipients.id_user) {
+        return { ...dataUserFriend, last_value_chat: newValueChats[0] };
+      } else {
+        return dataUserFriend;
+      }
+    });
+    console.log(newDataUserFriends);
+    setDataUserFriendsAll(newDataUserFriends);
+    localStorage.setItem(dataUserFriend.id_user, JSON.stringify(newValueChats));
+  };
+
   const deleteMessage = (value) => {
     const newValueChats = valueChats.map((valueChat) => {
       if (valueChat.id === value.id) {
@@ -1730,12 +1752,13 @@ function DefaultLayout({ children }) {
 
       {/* RightmouseResponsive */}
       <RightmouseResponsive
+        deleteMessage={deleteMessage}
         handleClickResponsiveIcon={handleClickResponsiveIcon}
         valueResponsiveRightClick={valueRightClickMessage}
         handleClickGhim={handleClickGhim}
         setModalShare={setModalShare}
         handleClickUnGhim={handleClickUnGhim}
-        deleteMessage={deleteMessage}
+        evictMessage={evictMessage}
         setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
       {/* RightmouseResponsive */}
@@ -1852,6 +1875,7 @@ function DefaultLayout({ children }) {
                       value.file ||
                       value.type ||
                       value.text_message) &&
+                      !value.evict &&
                       !value.delete && (
                         <div
                           className={
@@ -2073,7 +2097,7 @@ function DefaultLayout({ children }) {
                           </div>
                         </div>
                       )}
-                    {value.delete && (
+                    {value.evict && (
                       <div
                         className={
                           value.other_people ? "box-other-people" : "box-me"
@@ -2108,7 +2132,7 @@ function DefaultLayout({ children }) {
                             <div className="content-chat">
                               <div className="box-make-hidden-content-chat">
                                 <div style={{ color: "var(--BA30)" }}>
-                                  Tin nhắn đã bị xóa
+                                  Tin nhắn đã thu hồi
                                 </div>
                               </div>
                               <div

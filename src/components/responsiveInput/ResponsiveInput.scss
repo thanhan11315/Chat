@@ -92,3 +92,30 @@
   margin-bottom: 10px;
   cursor: pointer;
 }
+
+.box-chat .box-content-all-chat {
+  overflow: hidden;
+  .responsive-input-box .Responsive-content {
+    overflow: hidden;
+    .content {
+      div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+.nav-input-chat {
+  .responsive-input-box .Responsive-content {
+    overflow: hidden;
+    .content {
+      div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

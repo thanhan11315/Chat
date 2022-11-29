@@ -29,23 +29,3 @@
     margin: 4px 8px;
   }
 }
-
-.box-chat .box-content-all-chat {
-  overflow: hidden;
-  .responsive-input-box .Responsive-content {
-    overflow: hidden;
-    .content {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  }
-}
-.responsive-input-box .Responsive-content {
-  overflow: hidden;
-  .content {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-}

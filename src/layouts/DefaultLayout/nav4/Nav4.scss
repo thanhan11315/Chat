@@ -34,6 +34,9 @@
   justify-content: center;
   display: flex;
   cursor: pointer;
+  .box-image-group {
+    min-height: 50px;
+  }
 }
 
 #wrapper .box-nav-4 .box-wrapper .box-information .header-info-name {

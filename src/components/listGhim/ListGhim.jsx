@@ -155,6 +155,120 @@ function ListGhim(props) {
           </div>
         </Row>
       )}
+      {props.value?.text_message && !props.value?.is_message_url && (
+        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+          <a
+            style={{ width: "calc(100% - 175px)" }}
+            href={`#${props.value.id}`}
+          >
+            <Row className="box-1">
+              <div className="image-message">
+                <MessageOutlined />
+              </div>
+              <div className="box-1-1">
+                <div className="title">
+                  <div className="content">Tin nhắn</div>
+                </div>
+                <div className="status">
+                  <div className="content">
+                    <>
+                      {props.value?.name}
+                      <span>:</span>{" "}
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: props.value?.text_message,
+                        }}
+                      />
+                    </>
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </a>
+          <div
+            className="delete-ghim"
+            onClick={() => props.handleClickUnGhim(props.value)}
+          >
+            <CloseOutlined />
+          </div>
+        </Row>
+      )}
+      {props.value?.type === "placeMaps" && (
+        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+          <a
+            style={{ width: "calc(100% - 175px)" }}
+            href={`#${props.value.id}`}
+          >
+            <Row className="box-1">
+              <div className="image-message">
+                <MessageOutlined />
+              </div>
+              <div className="box-1-1">
+                <div className="title">
+                  <div className="content">Tin nhắn</div>
+                </div>
+                <div className="status">
+                  <div className="content">
+                    <>
+                      {props.value?.name}
+                      <span>:</span>{" "}
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: "[Bản đồ]",
+                        }}
+                      />
+                    </>
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </a>
+          <div
+            className="delete-ghim"
+            onClick={() => props.handleClickUnGhim(props.value)}
+          >
+            <CloseOutlined />
+          </div>
+        </Row>
+      )}
+      {props.value?.type === "likeIcon" && (
+        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+          <a
+            style={{ width: "calc(100% - 175px)" }}
+            href={`#${props.value.id}`}
+          >
+            <Row className="box-1">
+              <div className="image-message">
+                <MessageOutlined />
+              </div>
+              <div className="box-1-1">
+                <div className="title">
+                  <div className="content">Tin nhắn</div>
+                </div>
+                <div className="status">
+                  <div className="content">
+                    <>
+                      {props.value?.name}
+                      <span>:</span>{" "}
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: props.value?.content,
+                        }}
+                      />
+                    </>
+                  </div>
+                </div>
+              </div>
+            </Row>
+          </a>
+          <div
+            className="delete-ghim"
+            onClick={() => props.handleClickUnGhim(props.value)}
+          >
+            <CloseOutlined />
+          </div>
+        </Row>
+      )}
       {props.value?.text_message && props.value?.is_message_url && (
         <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
           <a

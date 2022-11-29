@@ -1,10 +1,11 @@
 import React from "react";
 import {
   CopyOutlined,
-  DeleteOutlined,
+  UndoOutlined,
   ExportOutlined,
   PaperClipOutlined,
   ShareAltOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import "./RightmousResponsive.scss";
 
@@ -21,7 +22,7 @@ function RightmouseResponsive(props) {
       <div
         style={{
           display: `${
-            props.valueResponsiveRightClick.delete ? "none" : "block"
+            props.valueResponsiveRightClick.evict ? "none" : "block"
           }`,
         }}
       >
@@ -74,6 +75,14 @@ function RightmouseResponsive(props) {
               <PaperClipOutlined style={{ marginRight: "5px" }} /> Ghim tin nhắn{" "}
             </div>
           )}
+          <div
+            className="share-responsive delete-message"
+            onClick={() => {
+              props.evictMessage(props.valueResponsiveRightClick);
+            }}
+          >
+            <UndoOutlined style={{ marginRight: "5px" }} /> Thu hồi tin nhắn{" "}
+          </div>
           <div
             className="share-responsive delete-message"
             onClick={() => {
