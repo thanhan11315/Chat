@@ -281,7 +281,8 @@ function Nav2(props) {
                             value.last_value_chat?.content}
                           {value.last_value_chat?.text_message &&
                             !value.last_value_chat?.is_message_url &&
-                            !value.last_value_chat?.delete && (
+                            !value.last_value_chat?.delete &&
+                            !value.last_value_chat?.evict && (
                               <>
                                 <span
                                   dangerouslySetInnerHTML={{

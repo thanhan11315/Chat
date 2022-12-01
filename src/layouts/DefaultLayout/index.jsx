@@ -2027,7 +2027,7 @@ function DefaultLayout({ children }) {
                                 <div className="content-chat">
                                   <div className="box-google-map">
                                     <div className="box-make-hidden-content-chat">
-                                      <GoogleMapTest />
+                                      <GoogleMapTest dataUserMe={dataUserMe} />
                                     </div>
                                   </div>
                                   <div

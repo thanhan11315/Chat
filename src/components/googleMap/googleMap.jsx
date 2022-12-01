@@ -1,11 +1,11 @@
 import React from "react";
 import "./googleMap.scss";
 
-function GoogleMapTest() {
+function GoogleMapTest(props) {
   return (
     <>
       <a
-        href="https://www.google.com/maps/place/10%C2%B048'13.3%22N+106%C2%B038'33.4%22E/@10.8036924,106.6404279,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x24e40f5963c8cf63!8m2!3d10.8036924!4d106.6426166"
+        href="https://maps.google.com/maps?ll=10.8037021,106.6426073&z=14&output=embed"
         target="blank"
         style={{
           cursor: "pointer",
@@ -15,8 +15,24 @@ function GoogleMapTest() {
         <div
           style={{ height: "150px", width: "300px", position: "absolute" }}
         ></div>
+        <div
+          style={{
+            backgroundImage: props.dataUserMe.avatar,
+            position: "absolute",
+            width: "30px",
+            height: "30px",
+            left: "135px",
+            bottom: "60px",
+          }}
+        >
+          <img
+            src={props.dataUserMe.avatar}
+            alt="img not load"
+            style={{ borderRadius: "50%", width: "100%", height: "100%" }}
+          />
+        </div>
         <iframe
-          src="https://www.google.com/maps/place/10%C2%B048'13.3%22N+106%C2%B038'33.4%22E/@10.8036924,106.6404279,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0x24e40f5963c8cf63!8m2!3d10.8036924!4d106.6426166"
+          src="https://maps.google.com/maps?ll=10.8037021,106.6426073&z=14&output=embed"
           height="150"
           width="300"
           frameborder="0"
