@@ -2,6 +2,7 @@ import React from "react";
 import "./OrderInfo.scss";
 import axios from "axios";
 import { message, Tooltip } from "antd";
+import { LinkOutlined } from "@ant-design/icons";
 
 function OrderInfo(props) {
   const makeMinutes = (value) => {
@@ -70,12 +71,10 @@ function OrderInfo(props) {
     getApiOrderInfo();
   }
   const currencyUnitFormat = (value) => {
-    console.log(value);
     const newValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return newValue;
   };
   const handleClickSeeMore = (value) => {
-    console.log("chạy");
     const newValueChats = props.valueChats.map((valueChat) => {
       if (valueChat.id === value.id) {
         return { ...valueChat, see_more_order_code: true };
@@ -111,18 +110,30 @@ function OrderInfo(props) {
                 alignItems: "center",
               }}
             >
-              <Tooltip placement="top" title="Nhấn vào để sao chép">
-                <div
-                  className="title"
-                  onClick={() =>
-                    handleClickOderCode(
-                      props.value.information_order_info?.results?.code
-                    )
-                  }
-                >
-                  {props.value.information_order_info?.results?.code}
-                </div>
-              </Tooltip>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Tooltip placement="top" title="Nhấn vào để sao chép">
+                  <div
+                    className="title"
+                    onClick={() =>
+                      handleClickOderCode(
+                        props.value.information_order_info?.results?.code
+                      )
+                    }
+                  >
+                    {props.value.information_order_info?.results?.code}
+                  </div>
+                </Tooltip>
+                <a href="https://supership.vn/" target="blank">
+                  <div className="link-target">
+                    Link <LinkOutlined />
+                  </div>
+                </a>
+              </div>
               {!props.value?.see_more_order_code ? (
                 <div
                   className="see-more"
@@ -143,7 +154,7 @@ function OrderInfo(props) {
               )}
             </div>
             {props.value?.see_more_order_code && (
-              <a href="https://supership.vn/" target="blank">
+              <>
                 <div className="box-content">
                   <div className="box-2">
                     <span>
@@ -234,7 +245,7 @@ function OrderInfo(props) {
                     </div>
                   </div>
                 </div>
-              </a>
+              </>
             )}
           </div>
         )}
@@ -331,6 +342,143 @@ function OrderInfo(props) {
               </div>
             </a>
           </div>
+        )}
+      {props.size === "three" &&
+        props.value.information_order_info?.status === "Success" && (
+          <div className="wraper-oders-info">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Tooltip placement="top" title="Nhấn vào để sao chép">
+                  <div
+                    className="title"
+                    onClick={() =>
+                      handleClickOderCode(
+                        props.value.information_order_info?.results?.code
+                      )
+                    }
+                  >
+                    {props.value.information_order_info?.results?.code}
+                  </div>
+                </Tooltip>
+                <a href="https://supership.vn/" target="blank">
+                  <div className="link-target">
+                    Link <LinkOutlined />
+                  </div>
+                </a>
+              </div>
+            </div>
+            <>
+              {/* <div className="box-content">
+                <div className="box-2">
+                  <span>
+                    Họ tên người gửi:{" "}
+                    {
+                      props.value.information_order_info?.results?.receiver
+                        ?.name
+                    }
+                  </span>{" "}
+                  <span>
+                    {
+                      props.value.information_order_info?.results?.receiver
+                        ?.phone
+                    }
+                  </span>
+                  <div>
+                    Địa chỉ:{" "}
+                    {
+                      props.value.information_order_info?.results?.receiver
+                        ?.formatted_address
+                    }
+                  </div>
+                </div>
+              </div> */}
+              <div className="box-content">
+                <div className="box-2">
+                  <div>
+                    Ngày tạo đơn:{" "}
+                    {props.value.information_order_info?.results?.created_at}
+                  </div>
+                  <div>
+                    Tiền thu hộ:{" "}
+                    {currencyUnitFormat(
+                      `${props.value.information_order_info?.results?.amount}`
+                    )}{" "}
+                    vnd
+                  </div>
+                  <div>
+                    {props.value.information_order_info?.results?.config}
+                  </div>
+                </div>
+              </div>
+              <div className="box-content">
+                <div className="box-2">
+                  <div>
+                    Trạng thái:
+                    {
+                      props.value.information_order_info?.results?.journeys[
+                        props.value.information_order_info?.results?.journeys
+                          ?.length - 1
+                      ]?.status
+                    }
+                  </div>
+                  <div>
+                    Thời gian:
+                    {
+                      props.value.information_order_info?.results?.journeys[
+                        props.value.information_order_info?.results?.journeys
+                          ?.length - 1
+                      ]?.time
+                    }
+                  </div>
+                  <div>
+                    Địa chỉ đơn hàng:
+                    {
+                      props.value.information_order_info?.results?.journeys[
+                        props.value.information_order_info?.results?.journeys
+                          ?.length - 1
+                      ]?.province
+                    }
+                    ,
+                    {
+                      props.value.information_order_info?.results?.journeys[
+                        props.value.information_order_info?.results?.journeys
+                          ?.length - 1
+                      ]?.district
+                    }
+                  </div>
+                </div>
+              </div>
+            </>
+          </div>
+        )}
+      {props.size === "three" &&
+        props.value.information_order_info?.status === "Error" && (
+          <>
+            <div className="wraper-oders-info" style={{ width: "fit-content" }}>
+              <Tooltip placement="top" title="Nhấn vào để sao chép">
+                <div
+                  className="title"
+                  onClick={() => handleClickOderCode(props.value.message_url)}
+                >
+                  {props.value.message_url}
+                </div>
+              </Tooltip>
+            </div>
+            <div className="box-content" style={{ paddingLeft: "10px" }}>
+              Không tìm kiếm được đơn hàng
+            </div>
+          </>
         )}
     </>
   );

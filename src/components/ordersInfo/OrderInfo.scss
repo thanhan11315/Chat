@@ -17,12 +17,16 @@
     }
   }
   .box-content {
-    cursor: pointer;
     .box-1 {
     }
     .box-2 {
       padding: 5px 5px 0px 5px;
     }
+  }
+  .link-target {
+    font-weight: 600;
+    font-style: italic;
+    color: blueviolet;
   }
 }
 

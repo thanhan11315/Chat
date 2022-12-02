@@ -170,32 +170,50 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const linkify = (text) => {
-    var urlRegex =
+  const linkPhoneOrdercodeify = (text) => {
+    const urlRegex =
       /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; //eslint-disable-line
-    return text.replace(urlRegex, function (url) {
+    const afterLink = text.replace(urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + url + "</a>";
     });
-  };
 
-  const orderCodeify = (text) => {
-    var orderCodeRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi; //eslint-disable-line
+    const orderCodeRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi; //eslint-disable-line
     const url = "https://supership.vn/";
-    return text.replace(orderCodeRegex, function (code) {
+    const afterOderCode = afterLink.replace(orderCodeRegex, function (code) {
       return '<a href="' + url + '" target="_blank">' + code + "</a>";
+    });
+    const phoneNumberRegex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/; //eslint-disable-line
+    return afterOderCode.replace(phoneNumberRegex, function (phoneNumber) {
+      return '<a href="' + url + '" target="_blank">' + phoneNumber + "</a>";
     });
   };
 
+  // const orderCodeify = (text) => {
+  //   const url = "https://supership.vn/";
+  //   const orderCodeRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi; //eslint-disable-line
+  //   return text.replace(orderCodeRegex, function (code) {
+  //     return '<a href="' + url + '" target="_blank">' + code + "</a>";
+  //   });
+  // };
+  const getUrlFromValueChat = (text) => {
+    const urlRegex =
+      /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; //eslint-disable-line
+    return text.replace(urlRegex, function (url) {
+      return url;
+    });
+  };
   const isValidUrl = (urlString) => {
-    var urlPattern = new RegExp(
-      "^(https?:\\/\\/)?" + // validate protocol
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-        "(\\#[-a-z\\d_]*)?$",
-      "i"
-    ); // validate fragment locator
+    // var urlPattern = new RegExp(
+    //   "^(https?:\\/\\/)?" + // validate protocol
+    //     "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+    //     "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+    //     "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+    //     "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+    //     "(\\#[-a-z\\d_]*)?$",
+    //   "i"
+    // ); // validate fragment locator
+    const urlPattern =
+      /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; //eslint-disable-line
     return !!urlPattern.test(urlString.trim());
   };
 
@@ -305,93 +323,93 @@ function DefaultLayout({ children }) {
     }
   };
 
-  const isIncludesOrderInfo = (value) => {
-    const cityCodes = [
-      "SGN",
-      "HYN",
-      "NBH",
-      "HNI",
-      "THA",
-      "SLA",
-      "QNI",
-      "BGG",
-      "QTI",
-      "DLK",
-      "YBI",
-      "VPC",
-      "NAN",
-      "NDH",
-      "AGG",
-      "HNM",
-      "VTU",
-      "KHA",
-      "LCI",
-      "HDG",
-      "TBH",
-      "GLI",
-      "BKN",
-      "DNI",
-      "QNH",
-      "CMU",
-      "BLU",
-      "BDH",
-      "BNH",
-      "HTH",
-      "LDG",
-      "STG",
-      "QNM",
-      "LSN",
-      "CTO",
-      "KGG",
-      "HUE",
-      "BTN",
-      "PYN",
-      "CBG",
-      "TNH",
-      "PTO",
-      "LAN",
-      "DKG",
-      "TNN",
-      "DBN",
-      "HBH",
-      "DTP",
-      "TQG",
-      "HGG",
-      "BDG",
-      "LCU",
-      "QBH",
-      "KTM",
-      "BPC",
-      "NTN",
-      "HUG",
-      "HPG",
-      "VLG",
-      "TGG",
-      "TVH",
-      "DNG",
-      "BTE",
-    ];
-    const areaCodes = ["LV", "NM", "NT", "LM"];
-    let isIncludesCityCode = false;
-    let isIncludesAreaCode = false;
-    cityCodes.forEach((cityCode) => {
-      if (value.trim().toUpperCase().includes(cityCode)) {
-        isIncludesCityCode = true;
-      }
-    });
-    areaCodes.forEach((areaCode) => {
-      if (value.trim().toUpperCase().includes(areaCode)) {
-        isIncludesAreaCode = true;
-      }
-    });
-    const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
-    const isCodeRegex = !!codeFullRegex.test(value.trim());
-    if (isIncludesCityCode && isIncludesAreaCode && isCodeRegex) {
-      isIncludesCityCode = false;
-      isIncludesAreaCode = false;
-      return true;
-    }
-  };
+  // const isIncludesOrderInfo = (value) => {
+  //   const cityCodes = [
+  //     "SGN",
+  //     "HYN",
+  //     "NBH",
+  //     "HNI",
+  //     "THA",
+  //     "SLA",
+  //     "QNI",
+  //     "BGG",
+  //     "QTI",
+  //     "DLK",
+  //     "YBI",
+  //     "VPC",
+  //     "NAN",
+  //     "NDH",
+  //     "AGG",
+  //     "HNM",
+  //     "VTU",
+  //     "KHA",
+  //     "LCI",
+  //     "HDG",
+  //     "TBH",
+  //     "GLI",
+  //     "BKN",
+  //     "DNI",
+  //     "QNH",
+  //     "CMU",
+  //     "BLU",
+  //     "BDH",
+  //     "BNH",
+  //     "HTH",
+  //     "LDG",
+  //     "STG",
+  //     "QNM",
+  //     "LSN",
+  //     "CTO",
+  //     "KGG",
+  //     "HUE",
+  //     "BTN",
+  //     "PYN",
+  //     "CBG",
+  //     "TNH",
+  //     "PTO",
+  //     "LAN",
+  //     "DKG",
+  //     "TNN",
+  //     "DBN",
+  //     "HBH",
+  //     "DTP",
+  //     "TQG",
+  //     "HGG",
+  //     "BDG",
+  //     "LCU",
+  //     "QBH",
+  //     "KTM",
+  //     "BPC",
+  //     "NTN",
+  //     "HUG",
+  //     "HPG",
+  //     "VLG",
+  //     "TGG",
+  //     "TVH",
+  //     "DNG",
+  //     "BTE",
+  //   ];
+  //   const areaCodes = ["LV", "NM", "NT", "LM"];
+  //   let isIncludesCityCode = false;
+  //   let isIncludesAreaCode = false;
+  //   cityCodes.forEach((cityCode) => {
+  //     if (value.trim().toUpperCase().includes(cityCode)) {
+  //       isIncludesCityCode = true;
+  //     }
+  //   });
+  //   areaCodes.forEach((areaCode) => {
+  //     if (value.trim().toUpperCase().includes(areaCode)) {
+  //       isIncludesAreaCode = true;
+  //     }
+  //   });
+  //   const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
+  //   const isCodeRegex = !!codeFullRegex.test(value.trim());
+  //   if (isIncludesCityCode && isIncludesAreaCode && isCodeRegex) {
+  //     isIncludesCityCode = false;
+  //     isIncludesAreaCode = false;
+  //     return true;
+  //   }
+  // };
 
   // demochatlocal
 
@@ -511,7 +529,7 @@ function DefaultLayout({ children }) {
       message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
       id: id,
       Responsive: ResponsiveInputValue,
-      text_message: linkify(
+      text_message: linkPhoneOrdercodeify(
         "https://mysupership.vn/register?referral=SPSHOMEPAGE"
       ),
       ...date,
@@ -529,10 +547,9 @@ function DefaultLayout({ children }) {
       message_url: "https://mysupership.vn/register?referral=SPSHOMEPAGE",
       id: id,
       Responsive: ResponsiveInputValue,
-      text_message: linkify(
+      text_message: linkPhoneOrdercodeify(
         "https://mysupership.vn/register?referral=SPSHOMEPAGE"
       ),
-
       ...date,
       create_date: createDateBoxChat(),
     },
@@ -637,7 +654,7 @@ function DefaultLayout({ children }) {
       notification_system: true,
       id: 3213213213132131,
       ...dataUserFriendsApi[0],
-      text_message: linkify(
+      text_message: linkPhoneOrdercodeify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
       ),
       date: 24,
@@ -653,7 +670,7 @@ function DefaultLayout({ children }) {
       recipients: { id_user: "123456789" },
       notification_system: true,
       id: 3234243546546565,
-      text_message: linkify(
+      text_message: linkPhoneOrdercodeify(
         "https://www.w3schools.com/jsref/met_storage_setitem.asp"
       ),
       ...dataUserFriendsApi[0],
@@ -717,7 +734,7 @@ function DefaultLayout({ children }) {
       ...dataUserFriendsApi[0],
       notification_system: true,
       id: 323426546565,
-      text_message: linkify(
+      text_message: linkPhoneOrdercodeify(
         "Find me at http://www.example.com and also at http://stackoverflow.com"
       ),
       other_people: true,
@@ -861,14 +878,15 @@ function DefaultLayout({ children }) {
       other_people: false,
       see_more_order_code: false,
       ghim: false,
-      is_message_url: isValidUrl(valueChatReplace) && valueDeleteLink,
-      message_url: valueChatReplace,
-      is_includes_order_info: isIncludesOrderInfo(valueChatReplace),
+      is_message_url:
+        isValidUrl(getUrlFromValueChat(valueChatReplace)) && valueDeleteLink,
+      message_url: getUrlFromValueChat(valueChatReplace),
+      // is_includes_order_info: isIncludesOrderInfo(valueChatReplace),
       is_orders_info: isOrderInfo(valueChatReplace),
-      order_code_message: orderCodeify(valueChatReplace),
+      // order_code_message: orderCodeify(valueChatReplace),
       id: id,
       Responsive: ResponsiveInputValue,
-      text_message: linkify(valueChatReplace),
+      text_message: linkPhoneOrdercodeify(valueChatReplace),
       ...date,
       create_date: createDateBoxChat(),
     };
@@ -2001,6 +2019,7 @@ function DefaultLayout({ children }) {
                                     <div className="content-chat">
                                       <div className="box-make-hidden-content-chat">
                                         <LinkPreview
+                                          textMessage={value.text_message}
                                           url={value.message_url}
                                           size={
                                             value.other_people ? "two" : "one"
@@ -2379,11 +2398,19 @@ function DefaultLayout({ children }) {
 
                 {isValidUrl(valueChat) && valueDeleteLink && (
                   <LinkPreview
-                    url={valueChat}
+                    url={getUrlFromValueChat(valueChat)}
                     size="four"
                     setValueDeleteLink={setValueDeleteLink}
                   />
                 )}
+                {/* {isOrderInfo(valueChat) && (
+                  <OrderInfo
+                    numberOrder={value.text_message}
+                    valueChats={valueChats}
+                    setValueChats={setValueChats}
+                    size="three"
+                  />
+                )} */}
 
                 {/* Responsive-input */}
 

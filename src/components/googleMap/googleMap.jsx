@@ -17,7 +17,6 @@ function GoogleMapTest(props) {
         ></div>
         <div
           style={{
-            backgroundImage: props.dataUserMe.avatar,
             position: "absolute",
             width: "30px",
             height: "30px",
@@ -28,7 +27,12 @@ function GoogleMapTest(props) {
           <img
             src={props.dataUserMe.avatar}
             alt="img not load"
-            style={{ borderRadius: "50%", width: "100%", height: "100%" }}
+            style={{
+              borderRadius: "50%",
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+            }}
           />
         </div>
         <iframe

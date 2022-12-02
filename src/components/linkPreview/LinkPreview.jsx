@@ -13,6 +13,7 @@ function LinkPreview(props) {
     }
   };
   const [valueLink, setValueLink] = useState("");
+
   const [storageValueLinks, setStorageValueLinks] = useState(
     JSON.parse(localStorage.getItem("valueLink"))
   );
@@ -69,9 +70,11 @@ function LinkPreview(props) {
         <div className="style-1">
           <div className="box-link-preview">
             <div className="text-link">
-              <a href={valueLink?.url} target="blank">
-                {valueLink?.url}
-              </a>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: props.textMessage,
+                }}
+              />
             </div>
             <div className="card-link-img">
               <a href={valueLink?.url} target="blank">
