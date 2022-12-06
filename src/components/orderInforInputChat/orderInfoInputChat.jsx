@@ -31,7 +31,7 @@ function OrderInfoInputchat(props) {
 
   useEffect(() => {
     getApiOrderInfo();
-  }, [props.numberOrder]);
+  }, [props.numberOrder]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const currencyUnitFormat = (value) => {
     const newValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
