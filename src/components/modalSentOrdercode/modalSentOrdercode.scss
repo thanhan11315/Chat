@@ -1,17 +1,36 @@
-.wrapper-modal-add-members-to-group {
+.wrapper-modal-sent-order-code {
+  .box-input-sent-order-code {
+    padding: 16px 16px 0px;
+    input {
+      border-left: 0px;
+      border-right: 0px;
+      border-top: 0px;
+      border-color: var(--border);
+    }
+    input:hover {
+      border-color: var(--B60);
+    }
+    input:focus {
+      box-shadow: 0 0 0 0;
+      border-color: var(--B60);
+    }
+  }
+  .content {
+    padding: 16px 16px 0px;
+  }
 }
 
-.wrapper-modal-add-members-to-group .box-choose-add-members-to-group {
+.wrapper-modal-sent-order-code .box-choose-sent-order-code {
   border-top: 1px solid #e1e4ea;
   margin: 0px 16px;
   height: 400px;
   overflow-y: scroll;
 }
 
-.wrapper-modal-add-members-to-group .box-list-choose-add-members-to-group {
+.wrapper-modal-sent-order-code .box-list-choose-sent-order-code {
   width: 100%;
 
-  .title-choose-add-members-to-group {
+  .title-choose-sent-order-code {
     font-weight: 600;
     font-size: 14px;
     height: 30px;
@@ -20,8 +39,8 @@
     width: 100%;
   }
 
-  .list-choose-add-members-to-group {
-    .choose-add-members-to-group {
+  .list-choose-sent-order-code {
+    .choose-sent-order-code {
       margin-top: 8px;
       margin-bottom: 8px;
       display: flex;
@@ -37,7 +56,7 @@
         width: 22px;
         height: 22px;
         overflow: hidden;
-        .input-checkbox-add-members-to-group {
+        .input-checkbox-sent-order-code {
           position: absolute;
           left: -13%;
           top: -5%;
@@ -55,28 +74,34 @@
         }
       }
       .name {
+        color: var(--B60);
         margin-left: 8px;
         line-height: normal;
-        font-weight: 400;
+        font-weight: 600;
         font-size: 14px;
         letter-spacing: normal;
         max-width: calc(100% - 12px);
       }
     }
-    .choose-add-members-to-group:hover {
+    .choose-sent-order-code:hover {
       background-color: var(--lst-item-hover);
     }
   }
 }
+.ant-modal-content {
+  .ant-btn {
+    border-radius: 4px;
+  }
+}
 
-.wrapper-modal-add-members-to-group .history-choose-add-members-to-group {
+.wrapper-modal-sent-order-code .history-choose-sent-order-code {
   display: flex;
   margin: 0px 16px;
   padding: 12px 0px;
   border-top: 1px solid #e1e4ea;
   border-bottom: 1px solid #e1e4ea;
   margin-top: 12px;
-  min-height: 76px;
+  min-height: 66px;
   flex-wrap: wrap !important;
   .image {
     position: relative;
@@ -107,8 +132,8 @@
   }
 }
 
-.wrapper-modal-add-members-to-group .InPutSearch {
-  margin: 16px 16px;
+.wrapper-modal-sent-order-code .InPutSearch {
+  margin: 16px 16px 16px;
 
   .ant-input-affix-wrapper {
     width: 100%;
@@ -118,51 +143,4 @@
 
 .ant-modal-wrap .ant-modal-footer {
   display: block;
-}
-
-.button-confirm-add-friend:hover,
-.button-confirm-add-friend:active,
-.button-confirm-add-friend:focus {
-  background-color: var(--B60);
-}
-
-// .ant-modal-content {
-//   .ant-button {
-//     border-radius: 4px;
-//   }
-// }
-
-.ant-modal-content {
-  // .button-cancel {
-  //   border-radius: 4px;
-  // }
-  .button-confirm {
-    border-radius: 4px;
-    padding: 5px 16px;
-    margin-left: 8px;
-    position: relative;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    outline: 0px;
-    border: 0px;
-    cursor: pointer;
-    text-transform: capitalize;
-    font-family: "Fira Sans", sans-serif;
-    color: rgb(255, 255, 255);
-    background-color: rgb(167, 58, 58);
-    box-shadow: rgb(167 58 58 / 24%) 0px 8px 16px 0px;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-
-  .button-confirm.unconditional {
-    -webkit-tap-highlight-color: transparent;
-    cursor: no-drop;
-    background-color: #f5d8d7cf;
-    box-shadow: rgba(255, 255, 255, 0.24) 0px 8px 16px 0px;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
 }

@@ -147,7 +147,7 @@ function ModalUpdateInformation(props) {
           <Button onClick={cancelBox}>Hủy</Button>,
           <button
             onClick={handleClickUpdate}
-            className={`buton-confirm  ${!ifUpdate() && "unconditional"}`}
+            className={`button-confirm  ${!ifUpdate() && "unconditional"}`}
           >
             Cập nhập
           </button>,

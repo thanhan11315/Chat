@@ -159,7 +159,7 @@ function ModalCreateGroup(props) {
           <Button onClick={unCheckCancel}>Hủy</Button>,
           <button
             onClick={handleClickCreateGroupButton}
-            className={`buton-confirm ${
+            className={`button-confirm ${
               checkedValues.length < 2 && "unconditional"
             }`}
           >

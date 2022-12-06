@@ -1,8 +1,7 @@
 import React from "react";
 import { Row } from "antd";
-import { DownloadOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import { DownloadOutlined } from "@ant-design/icons";
 import "./RenderFile.scss";
-import { useState } from "react";
 
 function RenderFile(props) {
   const makeMinutes = (value) => {
@@ -12,7 +11,7 @@ function RenderFile(props) {
       return value;
     }
   };
-  const [playVideo, setPlayVideo] = useState(false);
+  // const [playVideo, setPlayVideo] = useState(false);
   const renderLinkFile = (value) => {
     if (value?.split(".").pop()) {
       switch (value?.split(".").pop()) {
@@ -46,9 +45,9 @@ function RenderFile(props) {
   const handleClickDownLoadFile = (e) => {
     e.stopPropagation();
   };
-  const handleClickPlayVideo = () => {
-    setPlayVideo(true);
-  };
+  // const handleClickPlayVideo = () => {
+  //   setPlayVideo(true);
+  // };
 
   const isVideoFile = (value) => {
     if (value?.split(".").pop()) {
@@ -122,7 +121,7 @@ function RenderFile(props) {
       )}
       {isVideoFile(props.value?.file?.name) && (
         <div className="box-file">
-          {!props.navRight && (
+          {/* {!props.navRight && (
             <>
               {!playVideo && (
                 <div className="box-fake-video" onClick={handleClickPlayVideo}>
@@ -146,7 +145,7 @@ function RenderFile(props) {
                 />
               )}
             </>
-          )}
+          )} */}
           <a
             href={props.value?.file?.url_file}
             target="iframe_file"

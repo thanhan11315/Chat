@@ -135,10 +135,12 @@ function ModalAddMembersToGroup(props) {
         title="Thêm thành viên"
         onCancel={unCheckCancel}
         footer={[
-          <Button onClick={unCheckCancel}>Hủy</Button>,
+          <Button className="button-cancel" onClick={unCheckCancel}>
+            Hủy
+          </Button>,
           <button
             onClick={handleClickAddMembersToGroupButton}
-            className={`buton-confirm ${
+            className={`button-confirm ${
               checkedValues.length < 1 && "unconditional"
             }`}
           >

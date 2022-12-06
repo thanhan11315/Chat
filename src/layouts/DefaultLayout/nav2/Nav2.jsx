@@ -270,7 +270,7 @@ function Nav2(props) {
                           {value.last_value_chat?.type === "placeMaps" &&
                             !value.last_value_chat?.delete &&
                             !value.last_value_chat?.evict && <>[Bản đồ]</>}
-                          {value.last_value_chat?.file &&
+                          {value.last_value_chat?.type === "file" &&
                             !value.last_value_chat?.delete &&
                             !value.last_value_chat?.evict && (
                               <>{`[File] ${value.last_value_chat?.file.name}`}</>
@@ -380,7 +380,12 @@ function Nav2(props) {
                   )}
                 </Col>
                 <Col className="box3">
-                  <div className="icon">
+                  <div
+                    className="icon"
+                    onClick={(e) => {
+                      props.onContextMenuChooseBoxChat(e, value);
+                    }}
+                  >
                     <EllipsisOutlined />
                   </div>
                 </Col>

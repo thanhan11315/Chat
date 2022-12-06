@@ -114,7 +114,7 @@ function ModalChangeName(props) {
           <Button onClick={cancelBox}>Hủy</Button>,
           <button
             onClick={handleClickUpdate}
-            className={`buton-confirm ${!ifChange() && "unconditional"}`}
+            className={`button-confirm ${!ifChange() && "unconditional"}`}
           >
             Xác Nhận
           </button>,

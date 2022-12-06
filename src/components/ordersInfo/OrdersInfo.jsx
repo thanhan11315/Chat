@@ -43,21 +43,19 @@ function OrderInfo(props) {
       })
       .catch(function (error) {
         console.log(error);
+        newValueChats(error, props.value, props.valueChats);
       });
   };
 
   const conditionGetApiOrdersInfo = (value) => {
-    console.log(1);
     if (value.information_order_info) {
       return false;
     } else {
-      console.log(true);
       return true;
     }
   };
 
   const handleClickOderCode = (value) => {
-    console.log("coppy order code");
     message.success({
       content: "Sao Chép thành công",
       style: {
@@ -103,6 +101,15 @@ function OrderInfo(props) {
       {props.size === "one" &&
         props.value.information_order_info?.status === "Success" && (
           <div className="wraper-oders-info">
+            {!props.value.is_only_one_order_info && (
+              <div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.value.text_message,
+                  }}
+                />
+              </div>
+            )}
             <div
               style={{
                 display: "flex",
@@ -252,13 +259,23 @@ function OrderInfo(props) {
       {props.size === "one" &&
         props.value.information_order_info?.status === "Error" && (
           <>
+            {!props.value.is_only_one_order_info && (
+              <div>
+                {console.log(props.value.text_message)}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.value.text_message,
+                  }}
+                />
+              </div>
+            )}
             <div className="wraper-oders-info" style={{ width: "fit-content" }}>
               <Tooltip placement="top" title="Nhấn vào để sao chép">
                 <div
                   className="title"
-                  onClick={() => handleClickOderCode(props.value.message_url)}
+                  onClick={() => handleClickOderCode(props.value.order_code)}
                 >
-                  {props.value.message_url}
+                  {props.value.order_code}
                 </div>
               </Tooltip>
             </div>
@@ -342,143 +359,6 @@ function OrderInfo(props) {
               </div>
             </a>
           </div>
-        )}
-      {props.size === "three" &&
-        props.value.information_order_info?.status === "Success" && (
-          <div className="wraper-oders-info">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <Tooltip placement="top" title="Nhấn vào để sao chép">
-                  <div
-                    className="title"
-                    onClick={() =>
-                      handleClickOderCode(
-                        props.value.information_order_info?.results?.code
-                      )
-                    }
-                  >
-                    {props.value.information_order_info?.results?.code}
-                  </div>
-                </Tooltip>
-                <a href="https://supership.vn/" target="blank">
-                  <div className="link-target">
-                    Link <LinkOutlined />
-                  </div>
-                </a>
-              </div>
-            </div>
-            <>
-              {/* <div className="box-content">
-                <div className="box-2">
-                  <span>
-                    Họ tên người gửi:{" "}
-                    {
-                      props.value.information_order_info?.results?.receiver
-                        ?.name
-                    }
-                  </span>{" "}
-                  <span>
-                    {
-                      props.value.information_order_info?.results?.receiver
-                        ?.phone
-                    }
-                  </span>
-                  <div>
-                    Địa chỉ:{" "}
-                    {
-                      props.value.information_order_info?.results?.receiver
-                        ?.formatted_address
-                    }
-                  </div>
-                </div>
-              </div> */}
-              <div className="box-content">
-                <div className="box-2">
-                  <div>
-                    Ngày tạo đơn:{" "}
-                    {props.value.information_order_info?.results?.created_at}
-                  </div>
-                  <div>
-                    Tiền thu hộ:{" "}
-                    {currencyUnitFormat(
-                      `${props.value.information_order_info?.results?.amount}`
-                    )}{" "}
-                    vnd
-                  </div>
-                  <div>
-                    {props.value.information_order_info?.results?.config}
-                  </div>
-                </div>
-              </div>
-              <div className="box-content">
-                <div className="box-2">
-                  <div>
-                    Trạng thái:
-                    {
-                      props.value.information_order_info?.results?.journeys[
-                        props.value.information_order_info?.results?.journeys
-                          ?.length - 1
-                      ]?.status
-                    }
-                  </div>
-                  <div>
-                    Thời gian:
-                    {
-                      props.value.information_order_info?.results?.journeys[
-                        props.value.information_order_info?.results?.journeys
-                          ?.length - 1
-                      ]?.time
-                    }
-                  </div>
-                  <div>
-                    Địa chỉ đơn hàng:
-                    {
-                      props.value.information_order_info?.results?.journeys[
-                        props.value.information_order_info?.results?.journeys
-                          ?.length - 1
-                      ]?.province
-                    }
-                    ,
-                    {
-                      props.value.information_order_info?.results?.journeys[
-                        props.value.information_order_info?.results?.journeys
-                          ?.length - 1
-                      ]?.district
-                    }
-                  </div>
-                </div>
-              </div>
-            </>
-          </div>
-        )}
-      {props.size === "three" &&
-        props.value.information_order_info?.status === "Error" && (
-          <>
-            <div className="wraper-oders-info" style={{ width: "fit-content" }}>
-              <Tooltip placement="top" title="Nhấn vào để sao chép">
-                <div
-                  className="title"
-                  onClick={() => handleClickOderCode(props.value.message_url)}
-                >
-                  {props.value.message_url}
-                </div>
-              </Tooltip>
-            </div>
-            <div className="box-content" style={{ paddingLeft: "10px" }}>
-              Không tìm kiếm được đơn hàng
-            </div>
-          </>
         )}
     </>
   );

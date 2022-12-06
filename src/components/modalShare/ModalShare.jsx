@@ -163,7 +163,7 @@ function ModalShare(props) {
           <Button onClick={unCheckCancel}>Hủy</Button>,
           <button
             onClick={handleClickShareButton}
-            className={`buton-confirm ${
+            className={`button-confirm ${
               checkedValues.length < 1 && "unconditional"
             }`}
           >

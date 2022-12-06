@@ -35,6 +35,7 @@ function LinkPreview(props) {
     axios(ApiLink)
       .then(function (response) {
         setValueLink(response.data);
+        console.log(props.url);
         localStorageValueLink(storageValueLinks, response.data);
       })
       .catch(function (error) {

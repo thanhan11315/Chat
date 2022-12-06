@@ -87,6 +87,11 @@
     }
   }
 }
+.ant-modal-content {
+  .ant-btn {
+    border-radius: 4px;
+  }
+}
 
 .wrapper-modal-create-group .history-choose-create-group {
   display: flex;

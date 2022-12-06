@@ -1,0 +1,23 @@
+.wraper-oders-info-input-Chat {
+  margin: 12px 15px 0;
+  background-color: var(--NG10);
+  border-radius: 5px;
+  padding: 12px;
+  .title {
+    color: var(--B60);
+    cursor: pointer;
+    font-weight: 600;
+    padding-right: 10px;
+  }
+  .box-content {
+    .box-1 {
+    }
+    .box-2 {
+    }
+  }
+  .link-target {
+    font-weight: 600;
+    font-style: italic;
+    color: blueviolet;
+  }
+}

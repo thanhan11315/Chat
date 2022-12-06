@@ -22,6 +22,8 @@ import React from "react";
 import "./index.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { faker } from "@faker-js/faker";
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.jsx";
 import ModalInformation from "../../components/modal/Modal.jsx";
 import Nav1 from "./nav1/Nav1";
@@ -46,6 +48,11 @@ import TabTitle from "../../pages/TapTitle";
 import ModalChangeName from "../../components/modalChangeName/ModalChangeName";
 import RightmouseMember from "../../components/rightmouseMember/RightmouseMember";
 import SeeAllNavRight from "../../components/seeAllNavRight/SeeAllNavRight";
+import OrderInfo from "../../components/ordersInfo/OrdersInfo";
+import SeeAllNavRightMembers from "../../components/seeAllNavRight/SeeAllNavRightMember";
+import GoogleMapTest from "../../components/googleMap/googleMap";
+import OrderInfoInputchat from "../../components/orderInforInputChat/orderInfoInputChat";
+
 //
 import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 import AvatarTN from "../../assets/images/AvatarTN.jpg";
@@ -58,10 +65,7 @@ import MicrosoftExcel from "../../assets/images/MicrosoftExcel.png";
 import ImagePDF from "../../assets/images/ImagePDF.png";
 import ImageZIP from "../../assets/images/ImageZIP.png";
 import ImageVideo from "../../assets/images/Video.png";
-import { useState } from "react";
-import OrderInfo from "../../components/ordersInfo/OrdersInfo";
-import SeeAllNavRightMembers from "../../components/seeAllNavRight/SeeAllNavRightMember";
-import GoogleMapTest from "../../components/googleMap/googleMap";
+import ModalSentOrderCode from "../../components/modalSentOrdercode/modalSentOrdercode";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -79,6 +83,10 @@ function DefaultLayout({ children }) {
   useEffect(() => {
     refreshPage();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const randomName = faker.name.fullName(); // Rowan Nikolaus
+  const randomEmail = faker.internet.email();
+
+  console.log(randomName, randomEmail);
 
   const [focusInput, SetFocusInput] = useState("");
   const [hiddenRightNav, setHiddenRightNav] = useState(true);
@@ -198,9 +206,19 @@ function DefaultLayout({ children }) {
   const getUrlFromValueChat = (text) => {
     const urlRegex =
       /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; //eslint-disable-line
-    return text.replace(urlRegex, function (url) {
-      return url;
-    });
+    if (text.match(urlRegex)) {
+      return text.match(urlRegex)[0];
+    } else {
+      return "";
+    }
+  };
+  const getOrderCode = (text) => {
+    const orderCodeRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi; //eslint-disable-line
+    if (text.match(orderCodeRegex)) {
+      return text.match(orderCodeRegex)[0];
+    } else {
+      return "";
+    }
   };
   const isValidUrl = (urlString) => {
     // var urlPattern = new RegExp(
@@ -229,7 +247,7 @@ function DefaultLayout({ children }) {
       e.stopPropagation();
     }
   };
-  const isOrderInfo = (value) => {
+  const isOnlyOneOrderInfo = (value) => {
     const cityCodes = [
       "SGN",
       "HYN",
@@ -320,96 +338,98 @@ function DefaultLayout({ children }) {
       isIncludesCityCode = false;
       isIncludesAreaCode = false;
       return true;
+    } else {
+      return false;
     }
   };
 
-  // const isIncludesOrderInfo = (value) => {
-  //   const cityCodes = [
-  //     "SGN",
-  //     "HYN",
-  //     "NBH",
-  //     "HNI",
-  //     "THA",
-  //     "SLA",
-  //     "QNI",
-  //     "BGG",
-  //     "QTI",
-  //     "DLK",
-  //     "YBI",
-  //     "VPC",
-  //     "NAN",
-  //     "NDH",
-  //     "AGG",
-  //     "HNM",
-  //     "VTU",
-  //     "KHA",
-  //     "LCI",
-  //     "HDG",
-  //     "TBH",
-  //     "GLI",
-  //     "BKN",
-  //     "DNI",
-  //     "QNH",
-  //     "CMU",
-  //     "BLU",
-  //     "BDH",
-  //     "BNH",
-  //     "HTH",
-  //     "LDG",
-  //     "STG",
-  //     "QNM",
-  //     "LSN",
-  //     "CTO",
-  //     "KGG",
-  //     "HUE",
-  //     "BTN",
-  //     "PYN",
-  //     "CBG",
-  //     "TNH",
-  //     "PTO",
-  //     "LAN",
-  //     "DKG",
-  //     "TNN",
-  //     "DBN",
-  //     "HBH",
-  //     "DTP",
-  //     "TQG",
-  //     "HGG",
-  //     "BDG",
-  //     "LCU",
-  //     "QBH",
-  //     "KTM",
-  //     "BPC",
-  //     "NTN",
-  //     "HUG",
-  //     "HPG",
-  //     "VLG",
-  //     "TGG",
-  //     "TVH",
-  //     "DNG",
-  //     "BTE",
-  //   ];
-  //   const areaCodes = ["LV", "NM", "NT", "LM"];
-  //   let isIncludesCityCode = false;
-  //   let isIncludesAreaCode = false;
-  //   cityCodes.forEach((cityCode) => {
-  //     if (value.trim().toUpperCase().includes(cityCode)) {
-  //       isIncludesCityCode = true;
-  //     }
-  //   });
-  //   areaCodes.forEach((areaCode) => {
-  //     if (value.trim().toUpperCase().includes(areaCode)) {
-  //       isIncludesAreaCode = true;
-  //     }
-  //   });
-  //   const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
-  //   const isCodeRegex = !!codeFullRegex.test(value.trim());
-  //   if (isIncludesCityCode && isIncludesAreaCode && isCodeRegex) {
-  //     isIncludesCityCode = false;
-  //     isIncludesAreaCode = false;
-  //     return true;
-  //   }
-  // };
+  const isOrderInfo = (value) => {
+    const cityCodes = [
+      "SGN",
+      "HYN",
+      "NBH",
+      "HNI",
+      "THA",
+      "SLA",
+      "QNI",
+      "BGG",
+      "QTI",
+      "DLK",
+      "YBI",
+      "VPC",
+      "NAN",
+      "NDH",
+      "AGG",
+      "HNM",
+      "VTU",
+      "KHA",
+      "LCI",
+      "HDG",
+      "TBH",
+      "GLI",
+      "BKN",
+      "DNI",
+      "QNH",
+      "CMU",
+      "BLU",
+      "BDH",
+      "BNH",
+      "HTH",
+      "LDG",
+      "STG",
+      "QNM",
+      "LSN",
+      "CTO",
+      "KGG",
+      "HUE",
+      "BTN",
+      "PYN",
+      "CBG",
+      "TNH",
+      "PTO",
+      "LAN",
+      "DKG",
+      "TNN",
+      "DBN",
+      "HBH",
+      "DTP",
+      "TQG",
+      "HGG",
+      "BDG",
+      "LCU",
+      "QBH",
+      "KTM",
+      "BPC",
+      "NTN",
+      "HUG",
+      "HPG",
+      "VLG",
+      "TGG",
+      "TVH",
+      "DNG",
+      "BTE",
+    ];
+    const areaCodes = ["LV", "NM", "NT", "LM"];
+    let isIncludesCityCode = false;
+    let isIncludesAreaCode = false;
+    cityCodes.forEach((cityCode) => {
+      if (value.trim().toUpperCase().includes(cityCode)) {
+        isIncludesCityCode = true;
+      }
+    });
+    areaCodes.forEach((areaCode) => {
+      if (value.trim().toUpperCase().includes(areaCode)) {
+        isIncludesAreaCode = true;
+      }
+    });
+    const codeFullRegex = /([A-Z]{3})S([0-9]{6})([A-Z]{2}).([0-9]{9})/gi;
+    const isCodeRegex = !!codeFullRegex.test(value.trim());
+    if (isIncludesCityCode && isIncludesAreaCode && isCodeRegex) {
+      isIncludesCityCode = false;
+      isIncludesAreaCode = false;
+      return true;
+    }
+  };
 
   // demochatlocal
 
@@ -850,6 +870,7 @@ function DefaultLayout({ children }) {
   const setValueChatsInRenderAllMessage = (newValueChat) => {
     if (valueChats) {
       const newValueChats = [newValueChat, ...valueChats];
+      console.log(newValueChat);
       localStorage.setItem(
         newValueChat.recipients.id_user,
         JSON.stringify(newValueChats)
@@ -871,6 +892,32 @@ function DefaultLayout({ children }) {
     }
   };
 
+  const setValueChatsOderinfo = (newValueChat) => {
+    if (valueChats) {
+      const newValueChats = [...newValueChat, ...valueChats];
+      console.log(newValueChat);
+      console.log(newValueChat[0].recipients.id_user);
+      localStorage.setItem(
+        newValueChat[0].recipients.id_user,
+        JSON.stringify(newValueChats)
+      );
+      setValueChats(newValueChats);
+      setValueChat("");
+      setResponsiveInputValue("");
+      console.log(newValueChats);
+    } else {
+      const newValueChats = [...newValueChat];
+      localStorage.setItem(
+        newValueChat[0].recipients.id_user,
+        JSON.stringify(newValueChats)
+      );
+      setValueChats(newValueChats);
+      setValueChat("");
+      setResponsiveInputValue("");
+      console.log(newValueChats);
+    }
+  };
+
   const render = (valueChatReplace) => {
     const newValueChat = {
       ...dataUserMe,
@@ -883,6 +930,8 @@ function DefaultLayout({ children }) {
       message_url: getUrlFromValueChat(valueChatReplace),
       // is_includes_order_info: isIncludesOrderInfo(valueChatReplace),
       is_orders_info: isOrderInfo(valueChatReplace),
+      is_only_one_order_info: isOnlyOneOrderInfo(valueChatReplace),
+      order_code: getOrderCode(valueChatReplace),
       // order_code_message: orderCodeify(valueChatReplace),
       id: id,
       Responsive: ResponsiveInputValue,
@@ -903,6 +952,13 @@ function DefaultLayout({ children }) {
       content: e.target.files[0].name,
       other_people: false,
       create_date: createDateBoxChat(),
+      file: {
+        name: e.target.files[0].name,
+        size: e.target.files[0].size,
+        type: e.target.files[0].type,
+        url_file: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+      },
       ...date,
     };
     setValueChatsInRenderAllMessage(newValueChat);
@@ -913,6 +969,7 @@ function DefaultLayout({ children }) {
       ...dataUserMe,
       recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
       id: id,
+      type: "file",
       file: {
         name: e.target.files[0].name,
         size: e.target.files[0].size,
@@ -987,8 +1044,8 @@ function DefaultLayout({ children }) {
           }}
         />
       </div>
-      <div className="chooseFolder">
-        <FolderOutlined style={{ marginRight: "5px" }} /> Chọn thư mục
+      <div className="chooseFolder" onClick={() => handleClickSentOrderCode()}>
+        <FolderOutlined style={{ marginRight: "5px" }} /> Chọn mã đơn hàng
       </div>
     </div>
   );
@@ -1274,9 +1331,6 @@ function DefaultLayout({ children }) {
     console.log("1");
     const getValueChats = JSON.parse(localStorage.getItem(value?.id_user));
     setValueChats(getValueChats);
-    console.log(value?.id_user);
-    console.log(JSON.parse(localStorage.getItem("4")));
-    console.log(getValueChats);
     getValueChats &&
       setValueListGhim(
         getValueChats?.filter((value) => {
@@ -1457,6 +1511,13 @@ function DefaultLayout({ children }) {
     createListAddMembersToGroup();
   };
 
+  const [modalSentOrderCode, setModalSentOrderCode] = useState(false);
+  const handleCancelModalSentOrderCode = () => {
+    setModalSentOrderCode(false);
+  };
+  const handleClickSentOrderCode = () => {
+    setModalSentOrderCode(true);
+  };
   // Modal
 
   // Right nav bar media 992px
@@ -1708,6 +1769,22 @@ function DefaultLayout({ children }) {
         bytesToSize={bytesToSize}
       />
 
+      <ModalSentOrderCode
+        modalSentOrderCode={modalSentOrderCode}
+        handleCancelModalSentOrderCode={handleCancelModalSentOrderCode}
+        handleClickSentOrderCode={handleClickSentOrderCode}
+        id={id}
+        getOrderCode={getOrderCode}
+        setValueChatsOderinfo={setValueChatsOderinfo}
+        createDateBoxChat={createDateBoxChat}
+        dataUserMe={dataUserMe}
+        dataUserFriend={dataUserFriend}
+        isOnlyOneOrderInfo={isOnlyOneOrderInfo}
+        isOrderInfo={isOrderInfo}
+        date={date}
+        linkPhoneOrdercodeify={linkPhoneOrdercodeify}
+      />
+
       <ModalInformation
         modalInformation={modalInformation}
         handleCancelModalInformation={handleCancelModalInformation}
@@ -1890,7 +1967,7 @@ function DefaultLayout({ children }) {
                 return (
                   <>
                     {(value.url ||
-                      value.file ||
+                      value.type === "file" ||
                       value.type ||
                       value.text_message) &&
                       !value.evict &&
@@ -1958,7 +2035,7 @@ function DefaultLayout({ children }) {
                                   setValueFile={setValueFile}
                                 />
                               )}{" "}
-                              {value.file && (
+                              {value.type === "file" && (
                                 <RenderFile
                                   renderImageFile={renderImageFile}
                                   value={value}
@@ -2066,7 +2143,9 @@ function DefaultLayout({ children }) {
                                 <div className="content-chat">
                                   <div className="box-make-hidden-content-chat">
                                     <OrderInfo
-                                      numberOrder={value.text_message}
+                                      numberOrder={getOrderCode(
+                                        value.text_message
+                                      )}
                                       valueChats={valueChats}
                                       setValueChats={setValueChats}
                                       value={value}
@@ -2403,14 +2482,9 @@ function DefaultLayout({ children }) {
                     setValueDeleteLink={setValueDeleteLink}
                   />
                 )}
-                {/* {isOrderInfo(valueChat) && (
-                  <OrderInfo
-                    numberOrder={value.text_message}
-                    valueChats={valueChats}
-                    setValueChats={setValueChats}
-                    size="three"
-                  />
-                )} */}
+                {isOrderInfo(valueChat) && (
+                  <OrderInfoInputchat numberOrder={getOrderCode(valueChat)} />
+                )}
 
                 {/* Responsive-input */}
 
