@@ -5,7 +5,11 @@ import { Button, Row } from "antd";
 import "./modalSentOrdercode.scss";
 
 function ModalSentOrderCode(props) {
-  const orderInfoCode = ["BDHS555534LM.449570805", "SGNS555534NT.599381235"];
+  const orderInfoCode = [
+    "BDHS555534LM.449570805",
+    "SGNS555534NT.599381235",
+    "BDHS555534LM.449597657",
+  ];
   const [checkedValues, setCheckedValues] = useState([]);
   const handleClickCheckBox = () => {
     const inputElements = document.querySelectorAll(
@@ -90,7 +94,9 @@ function ModalSentOrderCode(props) {
 
   const handleClickSentOrderCode = () => {
     if (checkedValues.length > 0) {
+      let count = 0;
       const newValueChat = checkedValues.map((value) => {
+        count += 1;
         return {
           ...props.dataUserMe,
           recipients: {
@@ -106,7 +112,7 @@ function ModalSentOrderCode(props) {
           is_only_one_order_info: props.isOnlyOneOrderInfo(value),
           order_code: props.getOrderCode(value),
           // order_code_message: orderCodeify(valueChatReplace),
-          id: props.id,
+          id: props.id + count,
           text_message: props.linkPhoneOrdercodeify(value),
           ...props.date,
           create_date: props.createDateBoxChat(),

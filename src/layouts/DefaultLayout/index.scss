@@ -801,3 +801,34 @@ li {
     width: 0% !important;
   }
 }
+
+.box-nav-begin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .nav-begin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+      margin-bottom: 16px;
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-primary);
+      span {
+        font-weight: 600;
+        color: var(--B60);
+      }
+    }
+    img {
+      background-color: var(--B60);
+      border-radius: 15px;
+      padding: 15px;
+    }
+  }
+}
+
+input[type="checkbox"] {
+  accent-color: var(--B60);
+}

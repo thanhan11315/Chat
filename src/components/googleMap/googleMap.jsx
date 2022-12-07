@@ -5,7 +5,7 @@ function GoogleMapTest(props) {
   return (
     <>
       <a
-        href="https://maps.google.com/maps?ll=10.8037021,106.6426073&z=14&output=embed"
+        href="https://maps.google.com/maps?ll=10.8365,109.6849&z=14&output=embed"
         target="blank"
         style={{
           cursor: "pointer",

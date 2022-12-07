@@ -126,6 +126,9 @@ function RightmouseChooseBoxChat(props) {
         elementBoxChat0.click();
       }
     }
+    if (newDataUserFriends.length < 1) {
+      props.setDataUserFriend("");
+    }
     props.setDataUserFriendsAll(newDataUserFriends);
     console.log(newDataUserFriends);
     localStorage.setItem(
