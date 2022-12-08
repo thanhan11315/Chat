@@ -5,7 +5,7 @@ function GoogleMapTest(props) {
   return (
     <>
       <a
-        href="https://maps.google.com/maps?ll=10.8365,109.6849&z=14&output=embed"
+        href={`https://www.google.com/maps?q=${props.latitude},${props.longitude}&z=14&t=m&mapclient=embed`}
         target="blank"
         style={{
           cursor: "pointer",
@@ -36,7 +36,7 @@ function GoogleMapTest(props) {
           />
         </div>
         <iframe
-          src="https://maps.google.com/maps?ll=10.8037021,106.6426073&z=14&output=embed"
+          src={`https://maps.google.com/maps?ll=${props.latitude},${props.longitude}&z=14&output=embed`}
           height="150"
           width="300"
           frameborder="0"

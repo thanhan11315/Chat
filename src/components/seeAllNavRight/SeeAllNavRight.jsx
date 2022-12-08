@@ -633,7 +633,14 @@ function SeeAllNavRight(props) {
                                 </div>
                               </div>
                             )}
-                            <OrderInfo key={key} size="two" value={valueChat} />
+                            <OrderInfo
+                              valueChats={props.valueChats}
+                              setValueChats={props.setValueChats}
+                              key={key}
+                              size="two"
+                              value={valueChat}
+                              dataUserMe={props.dataUserMe}
+                            />
                           </>
                         )}
                     </>

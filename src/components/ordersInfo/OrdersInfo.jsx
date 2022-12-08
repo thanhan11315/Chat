@@ -96,6 +96,33 @@ function OrderInfo(props) {
     props.setValueChats(newValueChats);
   };
 
+  const hanldClickShowPhoneNumber = (id) => {
+    console.log(true);
+    console.log(id);
+    const newValueChats = props.valueChats.map((valueChat) => {
+      if (valueChat.id === id) {
+        return { ...valueChat, show_phonenumber: true };
+      } else {
+        return valueChat;
+      }
+    });
+    props.setValueChats(newValueChats);
+    console.log(newValueChats);
+  };
+  const hanldClickHiddenPhoneNumber = (id) => {
+    console.log(false);
+    console.log(id);
+    const newValueChats = props.valueChats.map((valueChat) => {
+      if (valueChat.id === id) {
+        return { ...valueChat, show_phonenumber: false };
+      } else {
+        return valueChat;
+      }
+    });
+    props.setValueChats(newValueChats);
+    console.log(newValueChats);
+  };
+
   return (
     <>
       {props.size === "one" &&
@@ -171,22 +198,67 @@ function OrderInfo(props) {
                           ?.name
                       }
                     </span>{" "}
-                    <span>
-                      {
-                        props.value.information_order_info?.results?.receiver
-                          ?.phone
-                      }
-                    </span>
-                    <div>
+                    {/* dsađsa */}
+                    {props.dataUserMe?.see_phonenumber && (
+                      <>
+                        {!props.value.show_phonenumber && (
+                          <span
+                            onClick={() =>
+                              hanldClickShowPhoneNumber(props.value.id)
+                            }
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            {props.value.information_order_info?.results?.receiver?.phone.substring(
+                              0,
+                              3
+                            ) +
+                              "****" +
+                              props.value.information_order_info?.results?.receiver?.phone.substring(
+                                7
+                              )}
+                          </span>
+                        )}
+                        {props.value.show_phonenumber && (
+                          <span
+                            onClick={() =>
+                              hanldClickHiddenPhoneNumber(props.value.id)
+                            }
+                            style={{
+                              cursor: "pointer",
+                            }}
+                          >
+                            {
+                              props.value.information_order_info?.results
+                                ?.receiver?.phone
+                            }
+                          </span>
+                        )}
+                      </>
+                    )}
+                    {!props.dataUserMe?.see_phonenumber && (
+                      <span>
+                        {props.value.information_order_info?.results?.receiver?.phone.substring(
+                          0,
+                          3
+                        ) +
+                          "****" +
+                          props.value.information_order_info?.results?.receiver?.phone.substring(
+                            7
+                          )}
+                      </span>
+                    )}
+                    {/* <div>
                       Địa chỉ:{" "}
                       {
                         props.value.information_order_info?.results?.receiver
                           ?.formatted_address
                       }
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <div className="box-content">
+                {/* <div className="box-content">
                   <div className="box-2">
                     <span>Họ tên người nhận: Lê Thanh Ân</span>{" "}
                     <span>0898999907</span>
@@ -195,20 +267,20 @@ function OrderInfo(props) {
                       Phố Hồ Chí Minh
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="box-content">
                   <div className="box-2">
                     <div>
                       Ngày tạo đơn:{" "}
                       {props.value.information_order_info?.results?.created_at}
                     </div>
-                    <div>
+                    {/* <div>
                       Tiền thu hộ:{" "}
                       {currencyUnitFormat(
                         `${props.value.information_order_info?.results?.amount}`
                       )}{" "}
                       vnd
-                    </div>
+                    </div> */}
                     <div>
                       {props.value.information_order_info?.results?.config}
                     </div>
@@ -225,7 +297,7 @@ function OrderInfo(props) {
                         ]?.status
                       }
                     </div>
-                    <div>
+                    {/* <div>
                       Thời gian:
                       {
                         props.value.information_order_info?.results?.journeys[
@@ -233,8 +305,8 @@ function OrderInfo(props) {
                             ?.length - 1
                         ]?.time
                       }
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       Địa chỉ đơn hàng:
                       {
                         props.value.information_order_info?.results?.journeys[
@@ -249,7 +321,7 @@ function OrderInfo(props) {
                             ?.length - 1
                         ]?.district
                       }
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </>
@@ -287,77 +359,127 @@ function OrderInfo(props) {
       {props.size === "two" &&
         props.value.information_order_info?.status === "Success" && (
           <div className="wraper-oders-info-two">
-            <Tooltip placement="top" title="Nhấn vào để sao chép">
-              <div
-                className="title"
-                onClick={() =>
-                  handleClickOderCode(
-                    props.value.information_order_info?.results?.code
-                  )
-                }
-              >
-                {props.value.information_order_info?.results?.code}
-              </div>
-            </Tooltip>
-            <a href="https://supership.vn/" target="blank">
-              <div className="box-content">
-                <div className="box-2">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Tooltip placement="top" title="Nhấn vào để sao chép">
+                <div
+                  className="title"
+                  onClick={() =>
+                    handleClickOderCode(
+                      props.value.information_order_info?.results?.code
+                    )
+                  }
+                >
+                  {props.value.information_order_info?.results?.code}
+                </div>
+              </Tooltip>
+              <a href="https://supership.vn/" target="blank">
+                <div className="link-target">
+                  Link <LinkOutlined />
+                </div>
+              </a>
+            </div>
+            <div className="box-content">
+              <div className="box-2">
+                <span>
+                  Họ tên:{" "}
+                  {props.value.information_order_info?.results?.receiver?.name}
+                </span>{" "}
+                {props.dataUserMe?.see_phonenumber && (
+                  <>
+                    {!props.value.show_phonenumber && (
+                      <span
+                        onClick={() =>
+                          hanldClickShowPhoneNumber(props.value.id)
+                        }
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {props.value.information_order_info?.results?.receiver?.phone.substring(
+                          0,
+                          3
+                        ) +
+                          "****" +
+                          props.value.information_order_info?.results?.receiver?.phone.substring(
+                            7
+                          )}
+                      </span>
+                    )}
+                    {props.value.show_phonenumber && (
+                      <span
+                        onClick={() =>
+                          hanldClickHiddenPhoneNumber(props.value.id)
+                        }
+                        style={{
+                          cursor: "pointer",
+                        }}
+                      >
+                        {
+                          props.value.information_order_info?.results?.receiver
+                            ?.phone
+                        }
+                      </span>
+                    )}
+                  </>
+                )}
+                {!props.dataUserMe?.see_phonenumber && (
                   <span>
-                    Họ tên:{" "}
-                    {
-                      props.value.information_order_info?.results?.receiver
-                        ?.name
-                    }
-                  </span>{" "}
-                  <span>
-                    {
-                      props.value.information_order_info?.results?.receiver
-                        ?.phone
-                    }
+                    {props.value.information_order_info?.results?.receiver?.phone.substring(
+                      0,
+                      3
+                    ) +
+                      "****" +
+                      props.value.information_order_info?.results?.receiver?.phone.substring(
+                        7
+                      )}
                   </span>
+                )}
+              </div>
+            </div>
+            <div className="box-content">
+              <div className="box-2">
+                <div>
+                  Tiền thu hộ:{" "}
+                  {currencyUnitFormat(
+                    `${props.value.information_order_info?.results?.amount}`
+                  )}{" "}
+                  vnd
                 </div>
               </div>
-              <div className="box-content">
-                <div className="box-2">
-                  <div>
-                    Tiền thu hộ:{" "}
-                    {currencyUnitFormat(
-                      `${props.value.information_order_info?.results?.amount}`
-                    )}{" "}
-                    vnd
-                  </div>
+            </div>
+            <div className="box-content">
+              <div className="box-2">
+                <div>
+                  Trạng thái:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.status
+                  }
+                </div>
+                <div>
+                  Thời gian:
+                  {
+                    props.value.information_order_info?.results?.journeys[
+                      props.value.information_order_info?.results?.journeys
+                        ?.length - 1
+                    ]?.time
+                  }
                 </div>
               </div>
-              <div className="box-content">
-                <div className="box-2">
-                  <div>
-                    Trạng thái:
-                    {
-                      props.value.information_order_info?.results?.journeys[
-                        props.value.information_order_info?.results?.journeys
-                          ?.length - 1
-                      ]?.status
-                    }
-                  </div>
-                  <div>
-                    Thời gian:
-                    {
-                      props.value.information_order_info?.results?.journeys[
-                        props.value.information_order_info?.results?.journeys
-                          ?.length - 1
-                      ]?.time
-                    }
-                  </div>
-                </div>
+            </div>
+            <div>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                {props.value?.date}-{props.value?.month + 1}-{props.value?.year}{" "}
+                {props.value?.hours}:{makeMinutes(props.value?.minutes)}
               </div>
-              <div>
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                  {props.value?.date}-{props.value?.month + 1}-
-                  {props.value?.year} {props.value?.hours}:
-                  {makeMinutes(props.value?.minutes)}
-                </div>
-              </div>
-            </a>
+            </div>
           </div>
         )}
     </>

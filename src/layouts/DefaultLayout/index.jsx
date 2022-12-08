@@ -1,4 +1,4 @@
-import { Col, Input, Row, Tooltip, Popover, Spin } from "antd";
+import { Col, Input, Row, Tooltip, Popover, Spin, message } from "antd";
 import {
   EllipsisOutlined,
   SmileOutlined,
@@ -23,7 +23,6 @@ import "./index.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { faker } from "@faker-js/faker";
 import ResponsiveInput from "../../components/responsiveInput/ResponsiveInput.jsx";
 import ModalInformation from "../../components/modal/Modal.jsx";
 import Nav1 from "./nav1/Nav1";
@@ -83,10 +82,6 @@ function DefaultLayout({ children }) {
   useEffect(() => {
     refreshPage();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const randomName = faker.name.fullName(); // Rowan Nikolaus
-  const randomEmail = faker.internet.email();
-
-  console.log(randomName, randomEmail);
 
   const [focusInput, SetFocusInput] = useState("");
   const [hiddenRightNav, setHiddenRightNav] = useState(true);
@@ -143,6 +138,7 @@ function DefaultLayout({ children }) {
     birthday: "23 / 10 / 2025",
     notification_system: false,
     other_people: false,
+    see_phonenumber: true,
   };
 
   const getDataUserMe = () => {
@@ -1000,18 +996,69 @@ function DefaultLayout({ children }) {
     setValueChatsInRenderAllMessage(newValueChat);
   };
 
-  const handleClickPlace = () => {
-    const newValueChat = {
-      ...dataUserMe,
-      recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
-      id: id,
-      other_people: false,
-      type: "placeMaps",
-      create_date: createDateBoxChat(),
-      ...date,
+  function getLocation() {
+    console.log("getlocal");
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function showPosition(position) {
+    const handleClickPlace = () => {
+      const newValueChat = {
+        ...dataUserMe,
+        recipients: { ...dataUserFriend, recipients: "", last_value_chat: "" },
+        id: id,
+        other_people: false,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        type: "placeMaps",
+        create_date: createDateBoxChat(),
+        ...date,
+      };
+      setValueChatsInRenderAllMessage(newValueChat);
     };
-    setValueChatsInRenderAllMessage(newValueChat);
+    handleClickPlace();
+    console.log(
+      `"Latitude: " +
+        ${position.coords.latitude} +
+        "<br>Longitude: " +
+        ${position.coords.longitude}`
+    );
+  }
+
+  const errorMessageMap = (value) => {
+    message.error({
+      content: value,
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
   };
+
+  function showError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        errorMessageMap("Người dùng đã từ chối yêu cầu Định vị địa lý.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        errorMessageMap("Thông tin vị trí không có sẵn.");
+        break;
+      case error.TIMEOUT:
+        errorMessageMap(
+          "Đã hết thời gian yêu cầu nhận thông tin vị trí của người dùng."
+        );
+        break;
+      case error.UNKNOWN_ERROR:
+        errorMessageMap("Đã xảy ra lỗi không xác định.");
+        break;
+      default:
+        errorMessageMap("Đã xảy ra lỗi không xác định.");
+    }
+  }
 
   const content = (
     <div
@@ -1743,43 +1790,6 @@ function DefaultLayout({ children }) {
 
   // onContextMenu rightMouseMember
 
-  function getLocation() {
-    console.log("getlocal");
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
-
-  function showPosition(position) {
-    console.log(
-      `"Latitude: " +
-        ${position.coords.latitude} +
-        "<br>Longitude: " +
-        ${position.coords.longitude}`
-    );
-  }
-
-  function showError(error) {
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        console.log("User denied the request for Geolocation.");
-        break;
-      case error.POSITION_UNAVAILABLE:
-        console.log("Location information is unavailable.");
-        break;
-      case error.TIMEOUT:
-        console.log("The request to get user location timed out.");
-        break;
-      case error.UNKNOWN_ERROR:
-        console.log("An unknown error occurred.");
-        break;
-      default:
-        console.log("no");
-    }
-  }
-
   return (
     <>
       <ModalChangeName
@@ -2173,6 +2183,8 @@ function DefaultLayout({ children }) {
                                       <div className="box-make-hidden-content-chat">
                                         <GoogleMapTest
                                           dataUserMe={dataUserMe}
+                                          latitude={value.latitude}
+                                          longitude={value.longitude}
                                         />
                                       </div>
                                     </div>
@@ -2201,6 +2213,7 @@ function DefaultLayout({ children }) {
                                         setValueChats={setValueChats}
                                         value={value}
                                         size="one"
+                                        dataUserMe={dataUserMe}
                                       />
                                       <div
                                         style={{
@@ -2502,7 +2515,6 @@ function DefaultLayout({ children }) {
                   </Popover>
                   <div
                     onClick={() => {
-                      handleClickPlace();
                       getLocation();
                     }}
                   >
@@ -2655,6 +2667,8 @@ function DefaultLayout({ children }) {
               urlFile={urlFile}
               setValueFile={setValueFile}
               setHiddenRightNav={setHiddenRightNav}
+              setValueChat={setValueChat}
+              setValueChats={setValueChats}
             />
             {console.log("err")}
             <SeeAllNavRightMembers

@@ -325,7 +325,14 @@ function Nav4(props) {
                   <>
                     {valueChat.is_orders_info && !valueChat.delete && (
                       <>
-                        <OrderInfo size="two" value={valueChat} key={key} />
+                        <OrderInfo
+                          setValueChats={props.setValueChats}
+                          valueChats={props.valueChats}
+                          size="two"
+                          value={valueChat}
+                          key={key}
+                          dataUserMe={props.dataUserMe}
+                        />
                       </>
                     )}
                   </>

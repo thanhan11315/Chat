@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { faker } from "@faker-js/faker";
 import Modal from "antd/lib/modal/Modal";
 import InPutSearch from "../inPutSearch/InPutSearch";
 import { Button, Row } from "antd";
@@ -92,6 +93,9 @@ function ModalSentOrderCode(props) {
     }
   };
 
+  const randomName = faker.name.fullName(); // Rowan Nikolaus
+  const phoneNumber = faker.phone.number("091#######");
+
   const handleClickSentOrderCode = () => {
     if (checkedValues.length > 0) {
       let count = 0;
@@ -116,6 +120,31 @@ function ModalSentOrderCode(props) {
           text_message: props.linkPhoneOrdercodeify(value),
           ...props.date,
           create_date: props.createDateBoxChat(),
+          information_order_info: {
+            message: "Lấy Thông Tin Đơn Hàng thành công.",
+            results: {
+              code: value,
+              config: "Cho Xem Hàng Nhưng Không Cho Thử",
+              created_at: "2022-12-03T09:30:22+07:00",
+              fee: {
+                shipment: 30000,
+              },
+              receiver: {
+                name: randomName,
+                phone: phoneNumber,
+              },
+              journeys: [
+                {
+                  time: "2021-02-04T08:41:17+07:00",
+                  status: "Huỷ",
+                  province: "Thành phố Hồ Chí Minh",
+                  district: "Quận Tân Bình",
+                  note: "Hủy Đơn hàng",
+                },
+              ],
+            },
+            status: "Success",
+          },
         };
       });
       console.log(newValueChat);

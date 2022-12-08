@@ -32,7 +32,6 @@
   border-radius: 5px;
   font-size: 14px;
   padding: 12px;
-  cursor: pointer;
   a {
     color: var(--primary-text);
   }
@@ -40,6 +39,9 @@
     background-color: var(--NG10);
   }
   .title {
+    color: var(--B60);
+    cursor: pointer;
+    padding-right: 10px;
     font-weight: 600;
   }
   .box-content {
@@ -48,5 +50,10 @@
     }
     .box-2 {
     }
+  }
+  .link-target {
+    font-weight: 600;
+    font-style: italic;
+    color: blueviolet;
   }
 }
