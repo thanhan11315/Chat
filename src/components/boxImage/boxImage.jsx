@@ -32,7 +32,7 @@ function BoxImage(props) {
               <div className="image-show-body">
                 <div className="image-show-btn-left"></div>
                 <div className="image-show">
-                  <img src={ImageVideo} alt="image not load" />
+                  <img src={ImageVideo} alt="not load" />
                 </div>
                 <div className="image-show-btn-right"></div>
               </div>
@@ -53,7 +53,7 @@ function BoxImage(props) {
         <div className="box-footer">
           <div className="box-1">
             <div className="image">
-              <img src={props.valueFile.avatar} alt="image not load" />
+              <img src={props.valueFile.avatar} alt="not load" />
             </div>
             <div className="box-1-1">
               <div className="title">{props.valueFile?.file?.name}</div>
