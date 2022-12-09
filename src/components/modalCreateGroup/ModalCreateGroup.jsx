@@ -4,7 +4,7 @@ import InPutSearch from "../inPutSearch/InPutSearch";
 import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 import { Button, Row, Input } from "antd";
 import "./ModalCreateGroup.scss";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 function ModalCreateGroup(props) {
   const [checkedValues, setCheckedValues] = useState([]);
@@ -204,7 +204,13 @@ function ModalCreateGroup(props) {
                                   name={value.id_user}
                                   value={value.id_user}
                                   id={value.id_user}
+                                  style={{ display: "none" }}
                                 />
+                                <div>
+                                  <div>
+                                    <CheckOutlined />
+                                  </div>
+                                </div>
                               </div>
                               <div className="image">
                                 <img src={value.avatar} alt="img not load" />

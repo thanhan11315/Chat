@@ -4,7 +4,7 @@ import InPutSearch from "../inPutSearch/InPutSearch";
 import { Button, Row } from "antd";
 import "./ModalShare.scss";
 import ShareInput from "../shareInput/ShareInput";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import ImageGroup from "../imageGroup/ImageGroup";
 
 function ModalShare(props) {
@@ -196,7 +196,13 @@ function ModalShare(props) {
                                     name={value.id_user}
                                     value={value.id_user}
                                     id={value.id_user + 1}
+                                    style={{ display: "none" }}
                                   />
+                                  <div>
+                                    <div>
+                                      <CheckOutlined />
+                                    </div>
+                                  </div>
                                 </div>
                                 {value.avatar && !value.group && (
                                   <div className="image">

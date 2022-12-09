@@ -3,7 +3,7 @@ import Modal from "antd/lib/modal/Modal";
 import InPutSearch from "../inPutSearch/InPutSearch";
 import { Button, Row } from "antd";
 import "./ModalAddMembersToGroup.scss";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
 function ModalAddMembersToGroup(props) {
   const [checkedValues, setCheckedValues] = useState([]);
@@ -176,7 +176,13 @@ function ModalAddMembersToGroup(props) {
                                   name={value.id_user}
                                   value={value.id_user}
                                   id={value.id_user + 2}
+                                  style={{ display: "none" }}
                                 />
+                                <div>
+                                  <div>
+                                    <CheckOutlined />
+                                  </div>
+                                </div>
                               </div>
                               <div className="image">
                                 <img src={value.avatar} alt="img not load" />

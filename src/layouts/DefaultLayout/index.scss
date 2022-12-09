@@ -829,6 +829,31 @@ li {
   }
 }
 
-input[type="checkbox"] {
-  accent-color: var(--B60);
+.box-input input[type="checkbox"]:checked ~ div {
+  div {
+    background-color: var(--B60);
+    border: 2px solid var(--B60);
+    .anticon {
+      svg {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.box-input input[type="checkbox"] ~ div {
+  div {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--N60);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .anticon {
+      svg {
+        color: transparent;
+      }
+    }
+  }
 }

@@ -50,16 +50,16 @@
       padding: 0px 5px;
       border-radius: 4px;
       .box-input {
-        position: relative;
-        border-radius: 50%;
-        border: solid 1px;
-        width: 22px;
-        height: 22px;
-        overflow: hidden;
+        // position: relative;
+        // border-radius: 50%;
+        // border: solid 1px;
+        // width: 22px;
+        // height: 22px;
+        // overflow: hidden;
         .input-checkbox-create-group {
-          position: absolute;
-          left: -13%;
-          top: -5%;
+          // position: absolute;
+          // left: -13%;
+          // top: -5%;
           width: 24px;
           height: 24px;
         }
@@ -143,3 +143,5 @@
 .ant-modal-wrap .ant-modal-footer {
   display: block;
 }
+
+

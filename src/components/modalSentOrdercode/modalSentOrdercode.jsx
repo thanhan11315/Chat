@@ -4,6 +4,7 @@ import Modal from "antd/lib/modal/Modal";
 import InPutSearch from "../inPutSearch/InPutSearch";
 import { Button, Row } from "antd";
 import "./modalSentOrdercode.scss";
+import { CheckOutlined } from "@ant-design/icons";
 
 function ModalSentOrderCode(props) {
   const orderInfoCode = [
@@ -208,7 +209,13 @@ function ModalSentOrderCode(props) {
                                     name={value}
                                     value={value}
                                     id={value}
+                                    style={{ display: "none" }}
                                   />
+                                  <div>
+                                    <div>
+                                      <CheckOutlined />
+                                    </div>
+                                  </div>
                                 </div>
                                 {/* <div className="image">
                                   <img src={value.avatar} alt="img not load" />

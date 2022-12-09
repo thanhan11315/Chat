@@ -65,6 +65,7 @@ import ImageZIP from "../../assets/images/ImageZIP.png";
 import ImageVideo from "../../assets/images/Video.png";
 import SuperShipLogoNew from "../../assets/images/SuperShipLogoNew.png";
 import ModalSentOrderCode from "../../components/modalSentOrdercode/modalSentOrdercode";
+import BoxImage from "../../components/boxImage/boxImage";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -1825,6 +1826,12 @@ function DefaultLayout({ children }) {
         bytesToSize={bytesToSize}
       />
 
+      <BoxImage
+        setUrlFile={setUrlFile}
+        valueFile={valueFile}
+        bytesToSize={bytesToSize}
+      />
+
       <ModalSentOrderCode
         modalSentOrderCode={modalSentOrderCode}
         handleCancelModalSentOrderCode={handleCancelModalSentOrderCode}
@@ -2670,7 +2677,6 @@ function DefaultLayout({ children }) {
               setValueChat={setValueChat}
               setValueChats={setValueChats}
             />
-            {console.log("err")}
             <SeeAllNavRightMembers
               dataUserFriends={dataUserFriends}
               generalGroup={generalGroup}
