@@ -34,7 +34,6 @@
       height: calc(100% - 30px);
       margin: 5px 12px 0px;
       .image-show-content-layout {
-        border: 2px solid #fff;
         height: 100%;
         width: calc(100% - 160px);
         .image-show-body {
@@ -55,7 +54,6 @@
         }
       }
       .image-history {
-        border: 2px solid #fff;
         width: 160px;
         display: flex;
         padding: 15px 15px 0px 0px;
@@ -68,15 +66,40 @@
           display: flex;
           justify-content: center;
           .line {
-            position: absolute;
+            position: relative;
             height: 100%;
             width: 2px;
             background-color: #fff;
+          }
+          .pivot-top {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            top: 0px;
+            background-color: var(--WA100);
+          }
+          .pivot-bottom {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            bottom: 0px;
+            background-color: var(--WA100);
           }
         }
         .image-show-list {
           width: calc(100% - 23px);
           .image-show-thumb-legend {
+            color: var(--WA100);
+            padding-left: 1px;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            background-color: #3e4041;
+            display: flex;
+            justify-content: center;
+            margin: 10px 8px;
           }
           .img-sh-th {
             img {
@@ -96,6 +119,10 @@
     justify-content: space-between;
     padding: 5px;
     .box-1 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 30%;
       color: #fff;
       margin-left: 20px;
       margin-right: 10px;
@@ -113,7 +140,7 @@
         .title {
           font-weight: 600;
           font-size: 0.875rem;
-          color: var(--primary-text);
+          color: #fff;
           white-space: nowrap;
           text-overflow: ellipsis;
           overflow: hidden;
@@ -131,6 +158,10 @@
       }
     }
     .box-2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30%;
       color: #fff;
       display: flex;
       div {
@@ -151,6 +182,10 @@
       }
     }
     .box-3 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 30%;
       color: #fff;
       div {
         cursor: pointer;

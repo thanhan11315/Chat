@@ -11,6 +11,7 @@ import {
 import React from "react";
 import "./boxImage.scss";
 import ImageVideo from "../../assets/images/Video.png";
+import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 
 function BoxImage(props) {
   const handleClicCloseIframeFile = () => {
@@ -39,9 +40,9 @@ function BoxImage(props) {
             </div>
             <div className="image-history">
               <div className="timeline-slider">
-                <div className="pivot"></div>
+                <div className="pivot-top"></div>
                 <div className="line"></div>
-                <div className="pivot"></div>
+                <div className="pivot-bottom"></div>
               </div>
               <div className="image-show-list">
                 <div className="image-show-thumb-legend">12/6</div>
@@ -67,17 +68,20 @@ function BoxImage(props) {
         <div className="box-footer">
           <div className="box-1">
             <div className="image">
-              <img src={props.valueFile.avatar} alt="not load" />
+              {/* <img src={props.valueFile.avatar} alt="not load" /> */}
+              <img src={AvatarAnLe} alt="not load" />
             </div>
             <div className="box-1-1">
-              <div className="title">{props.valueFile?.file?.name}</div>
+              {/* <div className="title">{props.valueFile?.file?.name}</div>
               <div className="content">
                 {`${props.valueFile?.name} - ${props.valueFile?.date}/${
                   props.valueFile?.month
                 }/${props.valueFile?.year} lúc ${props.valueFile?.hours}:${
                   props.valueFile?.minutes
                 } - ${props.bytesToSize(props.valueFile?.file?.size)}`}
-              </div>
+              </div> */}
+              <div className="title">Lê Thanh Ân</div>
+              <div className="content">15:26 Hôm qua</div>
             </div>
           </div>
           <div className="box-2">
