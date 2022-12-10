@@ -44,8 +44,22 @@ function BoxImage(props) {
                 <div className="pivot"></div>
               </div>
               <div className="image-show-list">
-                <div className="image-show-thumb-legend"></div>
-                <div className="img-sh-th"></div>
+                <div className="image-show-thumb-legend">12/6</div>
+                <div className="img-sh-th">
+                  <img src={ImageVideo} alt="not load" />
+                </div>
+                <div className="image-show-thumb-legend">12/6</div>
+                <div className="img-sh-th">
+                  <img src={ImageVideo} alt="not load" />
+                </div>
+                <div className="image-show-thumb-legend">12/6</div>
+                <div className="img-sh-th">
+                  <img src={ImageVideo} alt="not load" />
+                </div>
+                <div className="image-show-thumb-legend">12/6</div>
+                <div className="img-sh-th">
+                  <img src={ImageVideo} alt="not load" />
+                </div>
               </div>
             </div>
           </div>

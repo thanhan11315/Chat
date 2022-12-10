@@ -75,15 +75,20 @@
           }
         }
         .image-show-list {
+          width: calc(100% - 23px);
           .image-show-thumb-legend {
           }
           .img-sh-th {
+            img {
+              width: 100%;
+            }
           }
         }
       }
     }
   }
   .box-footer {
+    align-items: center;
     border-top: 1px solid var(--BA50);
     background-color: var(--HL_photo-bg);
     display: flex;
