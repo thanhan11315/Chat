@@ -1827,9 +1827,9 @@ function DefaultLayout({ children }) {
       />
 
       <BoxImage
-        // setUrlFile={setUrlFile}
-        // valueFile={valueFile}
-        // bytesToSize={bytesToSize}
+      // setUrlFile={setUrlFile}
+      // valueFile={valueFile}
+      // bytesToSize={bytesToSize}
       />
 
       <ModalSentOrderCode

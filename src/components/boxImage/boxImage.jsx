@@ -31,9 +31,9 @@ function BoxImage() {
     let slides = document.querySelectorAll(".image-show-body .image-show");
     console.log(slides);
     console.log("1");
-    // let dots = document.querySelectorAll(".image-show-list .img-sh-th");
-    // console.log(dots);  && dots.length > 1
-    if (slides.length > 1) {
+    let dots = document.querySelectorAll(".image-show-list .img-sh-th");
+    console.log(dots);
+    if (slides.length > 1 && dots.length > 1) {
       if (n > slides.length) {
         slideIndex = 1;
       }
@@ -43,11 +43,11 @@ function BoxImage() {
       for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
       }
-      // for (i = 0; i < dots.length; i++) {
-      //   dots[i].className = dots[i].className.replace("active", "");
-      // }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace("active", "");
+      }
       slides[slideIndex - 1].style.display = "block";
-      // dots[slideIndex - 1].className += "active";
+      dots[slideIndex - 1].classList.add("active");
     }
   };
 
@@ -62,6 +62,90 @@ function BoxImage() {
     console.log(1);
     showSlides((slideIndex = n));
   };
+
+  const zoomIn = () => {
+    const pics = document.querySelectorAll(".image-show-body .image-show img");
+    pics.forEach((pic) => {
+      const width = pic.width;
+      const height = pic.height;
+      console.log(height);
+      console.log(width);
+      pic.style.width = width + 100 + "px";
+      pic.style.height = height + 100 + "px";
+    });
+  };
+  const zoomOut = () => {
+    const pics = document.querySelectorAll(".image-show-body .image-show img");
+    pics.forEach((pic) => {
+      const width = pic.clientWidth;
+      const height = pic.clientHeight;
+      console.log(width);
+      console.log(height);
+      pic.style.width = width - 100 + "px";
+      pic.style.height = height - 100 + "px";
+    });
+  };
+
+  let crotate = 0;
+
+  const rotatedImage = (deg) => {
+    crotate += deg;
+    const pics = document.querySelectorAll(".image-show-body .image-show img");
+    pics.forEach((pic) => {
+      pic.style.transform = `rotate(${crotate}deg)`;
+    });
+  };
+
+  var scale = 1,
+    panning = false,
+    pointX = 0,
+    pointY = 0,
+    start = { x: 0, y: 0 },
+    zoom = document.querySelector(".image-show-body .image-show");
+
+  function setTransform() {
+    zoom.style.transform =
+      "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+  }
+
+  if (zoom) {
+    zoom.onmousedown = function (e) {
+      e.preventDefault();
+      start = { x: e.clientX - pointX, y: e.clientY - pointY };
+      panning = true;
+    };
+  }
+  if (zoom) {
+    zoom.onmouseup = function (e) {
+      panning = false;
+    };
+  }
+
+  if (zoom) {
+    zoom.onmousemove = function (e) {
+      e.preventDefault();
+      if (!panning) {
+        return;
+      }
+      pointX = e.clientX - start.x;
+      pointY = e.clientY - start.y;
+      setTransform();
+    };
+  }
+
+  if (zoom) {
+    zoom.onwheel = function (e) {
+      e.preventDefault();
+      var xs = (e.clientX - pointX) / scale,
+        ys = (e.clientY - pointY) / scale,
+        delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
+      delta > 0 ? (scale *= 1.2) : (scale /= 1.2);
+      pointX = e.clientX - xs * scale;
+      pointY = e.clientY - ys * scale;
+
+      setTransform();
+    };
+  }
   return (
     <>
       <div className="box-show-image">
@@ -81,11 +165,11 @@ function BoxImage() {
           <div className="box-show-image-content-history">
             <div className="image-show-content-layout">
               <div className="image-show-body">
-                <div className="box-btn">
+                <div className="box-btn-left">
                   <div
                     className="image-show-btn-left"
                     onClick={() => {
-                      plusSlides(-1);
+                      plusSlides(1);
                     }}
                   >
                     <DownOutlined />
@@ -103,11 +187,11 @@ function BoxImage() {
                 <div className="image-show">
                   <img src={SuperShipLogo} alt="not load" />
                 </div>
-                <div className="box-btn">
+                <div className="box-btn-right">
                   <div
                     className="image-show-btn-right"
                     onClick={() => {
-                      plusSlides(1);
+                      plusSlides(-1);
                     }}
                   >
                     <UpOutlined />
@@ -199,16 +283,32 @@ function BoxImage() {
             <div>
               <DownloadOutlined />
             </div>
-            <div>
+            <div
+              onClick={() => {
+                rotatedImage(-90);
+              }}
+            >
               <UndoOutlined />
             </div>
-            <div>
+            <div
+              onClick={() => {
+                rotatedImage(90);
+              }}
+            >
               <RedoOutlined />
             </div>
-            <div>
+            <div
+              onClick={() => {
+                zoomIn();
+              }}
+            >
               <ZoomInOutlined />
             </div>
-            <div>
+            <div
+              onClick={() => {
+                zoomOut();
+              }}
+            >
               <ZoomOutOutlined />
             </div>
           </div>
