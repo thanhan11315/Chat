@@ -10,81 +10,122 @@ import {
   ZoomInOutlined,
   ZoomOutOutlined,
 } from "@ant-design/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./boxImage.scss";
-import ImageVideo from "../../assets/images/Video.png";
-import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
-import AvatarAnhHoai from "../../assets/images/AvatarAnhHoai.jpg";
-import AvatarCTO from "../../assets/images/AvatarCTO.jpg";
-import SuperShipLogo from "../../assets/images/SuperShipLogo.png";
 
-function BoxImage() {
+function BoxImage(props) {
   const handleClicCloseIframeFile = () => {
     const element = document.querySelector(".box-show-image");
     element.style.display = "none";
   };
 
-  let slideIndex = 1;
+  const [valueChatsImage, setValueChatsImage] = useState("");
 
-  const showSlides = (n) => {
-    let i;
-    let slides = document.querySelectorAll(".image-show-body .image-show");
-    console.log(slides);
-    console.log("1");
-    let dots = document.querySelectorAll(".image-show-list .img-sh-th");
-    console.log(dots);
-    if (slides.length > 1 && dots.length > 1) {
-      if (n > slides.length) {
-        slideIndex = 1;
+  useEffect(() => {
+    if (props.valueChats) {
+      setValueChatsImage(
+        props.valueChats?.filter((valueChat) => valueChat.type === "image")
+      );
+    }
+  }, [props.valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // const [slideIndex, setSlideIndex] = useState(1);
+
+  useEffect(() => {
+    console.log(valueChatsImage);
+    const index =
+      valueChatsImage &&
+      valueChatsImage.findIndex((value) => value.id === props.valueImage?.id);
+    const dots = document.querySelectorAll(".image-show-list .img-sh-th");
+    if (dots) {
+      dots.forEach((dot) => {
+        dot?.classList?.remove("active");
+      });
+      dots[index]?.classList?.add("active");
+    }
+    // Change position dots
+    const boxDots = document.querySelectorAll(".image-show-list .box-dots-img");
+    if (valueChatsImage.length - index > 3) {
+      let i = -1;
+      boxDots.forEach((dot) => {
+        dot.style.display = "block";
+      });
+      boxDots.forEach((dot) => {
+        i += 1;
+        if (i < index || i > index + 3) {
+          dot.style.display = "none";
+        }
+      });
+    }
+    const btnRight = document.querySelector(
+      ".box-btn-right .image-show-btn-right"
+    );
+    const btnLeft = document.querySelector(
+      ".box-btn-left .image-show-btn-left"
+    );
+    console.log(btnRight);
+    if (btnRight && btnLeft) {
+      if (index === 0) {
+        btnRight.style.cursor = "not-allowed";
+      } else {
+        btnRight.style.cursor = "pointer";
       }
-      if (n < 1) {
-        slideIndex = slides.length;
+      if (index === valueChatsImage.length - 1) {
+        btnLeft.style.cursor = "not-allowed";
+      } else {
+        btnLeft.style.cursor = "pointer";
       }
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace("active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].classList.add("active");
+    }
+  }, [props.valueImage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // const showSlides = (n) => {
+  //   let i;
+  //   let slides = document.querySelectorAll(".image-show-body .image-show");
+  //   console.log(slides);
+  //   console.log("1");
+  //   let dots = document.querySelectorAll(".image-show-list .img-sh-th");
+  //   console.log(dots);
+  //   if (slides.length > 1 && dots.length > 1) {
+  //     if (n > slides.length) {
+  //       setSlideIndex(1);
+  //     }
+  //     if (n < 1) {
+  //       setSlideIndex(slides.length);
+  //     }
+  //     for (i = 0; i < slides.length; i++) {
+  //       slides[i].style.display = "none";
+  //     }
+  //     for (i = 0; i < dots.length; i++) {
+  //       dots[i].className = dots[i].className.replace("active", "");
+  //     }
+  //     slides[slideIndex - 1].style.display = "block";
+  //     dots[slideIndex - 1].classList.add("active");
+  //   }
+  // };
+
+  const showSlide = (n) => {
+    console.log(valueChatsImage.length);
+    console.log(n);
+    // if (n > valueChatsImage.length - 1) {
+    //   props.setValueImage(valueChatsImage[n - 1]);
+    // }
+    // if (n < 0) {
+    //   props.setValueImage(valueChatsImage[valueChatsImage.length - 1]);
+    // }
+    if (n >= 0 && n <= valueChatsImage.length - 1) {
+      props.setValueImage(valueChatsImage[n]);
     }
   };
 
-  showSlides(slideIndex);
-
-  const plusSlides = (n) => {
-    console.log(1);
-    showSlides((slideIndex += n));
+  const plusSlides = (sizeIndex) => {
+    const index =
+      valueChatsImage &&
+      valueChatsImage.findIndex((value) => value.id === props.valueImage.id);
+    showSlide(sizeIndex + index);
+    console.log(sizeIndex + index);
   };
 
-  const currentSlide = (n) => {
-    console.log(1);
-    showSlides((slideIndex = n));
-  };
-
-  const zoomIn = () => {
-    const pics = document.querySelectorAll(".image-show-body .image-show img");
-    pics.forEach((pic) => {
-      const width = pic.width;
-      const height = pic.height;
-      console.log(height);
-      console.log(width);
-      pic.style.width = width + 100 + "px";
-      pic.style.height = height + 100 + "px";
-    });
-  };
-  const zoomOut = () => {
-    const pics = document.querySelectorAll(".image-show-body .image-show img");
-    pics.forEach((pic) => {
-      const width = pic.clientWidth;
-      const height = pic.clientHeight;
-      console.log(width);
-      console.log(height);
-      pic.style.width = width - 100 + "px";
-      pic.style.height = height - 100 + "px";
-    });
-  };
+  // const currentSlide = (n) => {};
 
   let crotate = 0;
 
@@ -96,7 +137,7 @@ function BoxImage() {
     });
   };
 
-  var scale = 1,
+  let scale = 1,
     panning = false,
     pointX = 0,
     pointY = 0,
@@ -106,6 +147,9 @@ function BoxImage() {
   function setTransform() {
     zoom.style.transform =
       "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
+    console.log(
+      "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")"
+    );
   }
 
   if (zoom) {
@@ -117,6 +161,7 @@ function BoxImage() {
   }
   if (zoom) {
     zoom.onmouseup = function (e) {
+      e.preventDefault();
       panning = false;
     };
   }
@@ -135,6 +180,7 @@ function BoxImage() {
 
   if (zoom) {
     zoom.onwheel = function (e) {
+      console.log(e);
       e.preventDefault();
       var xs = (e.clientX - pointX) / scale,
         ys = (e.clientY - pointY) / scale,
@@ -142,10 +188,27 @@ function BoxImage() {
       delta > 0 ? (scale *= 1.2) : (scale /= 1.2);
       pointX = e.clientX - xs * scale;
       pointY = e.clientY - ys * scale;
-
       setTransform();
     };
   }
+
+  let zoomz = 1;
+  const zoomSpeed = 0.1;
+
+  const zoomIn = () => {
+    const pics = document.querySelectorAll(".image-show-body .image-show");
+    pics.forEach((pic) => {
+      pic.style.transform = `scale(${(zoomz += zoomSpeed)})`;
+    });
+  };
+
+  const zoomOut = () => {
+    const pics = document.querySelectorAll(".image-show-body .image-show");
+    pics.forEach((pic) => {
+      pic.style.transform = `scale(${(zoomz -= zoomSpeed)})`;
+    });
+  };
+
   return (
     <>
       <div className="box-show-image">
@@ -175,18 +238,30 @@ function BoxImage() {
                     <DownOutlined />
                   </div>
                 </div>
-                <div className="image-show">
-                  <img src={ImageVideo} alt="not load" />
-                </div>
-                <div className="image-show">
-                  <img src={AvatarAnhHoai} alt="not load" />
-                </div>
-                <div className="image-show">
-                  <img src={AvatarCTO} alt="not load" />
-                </div>
-                <div className="image-show">
-                  <img src={SuperShipLogo} alt="not load" />
-                </div>
+                {/* {valueChatsImage &&
+                    valueChatsImage.map((valueChat) => {
+                      return ( */}
+                {console.log(props.valueImage)}
+                {props.valueImage && (
+                  <div className="image-show">
+                    <img src={props.valueImage.url} alt="not load" />
+                  </div>
+                )}
+                {/* )
+                      );
+                    })} */}
+                {/* <div className="image-show">
+                      <img src={ImageVideo} alt="not load" />
+                    </div>
+                    <div className="image-show">
+                      <img src={AvatarAnhHoai} alt="not load" />
+                    </div>
+                    <div className="image-show">
+                      <img src={AvatarCTO} alt="not load" />
+                    </div>
+                    <div className="image-show">
+                      <img src={SuperShipLogo} alt="not load" />
+                    </div> */}
                 <div className="box-btn-right">
                   <div
                     className="image-show-btn-right"
@@ -207,77 +282,80 @@ function BoxImage() {
                 <div className="pivot-bottom"></div>
               </div>
               <div className="image-show-list">
-                <div
-                  className="image-show-thumb-legend"
-                  onClick={() => {
-                    console.log(1);
-                  }}
-                >
-                  12/6
-                </div>
-                <div className="img-sh-th">
-                  <img
-                    src={ImageVideo}
-                    alt="not load"
-                    onClick={() => {
-                      console.log(1);
-                      currentSlide(1);
-                    }}
-                  />
-                </div>
-                <div className="image-show-thumb-legend">12/6</div>
-                <div className="img-sh-th">
-                  <img
-                    src={AvatarAnhHoai}
-                    alt="not load"
-                    onClick={() => currentSlide(2)}
-                  />
-                </div>
-                <div className="image-show-thumb-legend">12/6</div>
-                <div className="img-sh-th">
-                  <img
-                    src={AvatarCTO}
-                    alt="not load"
-                    onClick={() => currentSlide(3)}
-                  />
-                </div>
-                <div className="image-show-thumb-legend">12/6</div>
-                <div className="img-sh-th">
-                  <img
-                    src={SuperShipLogo}
-                    alt="not load"
-                    onClick={() => currentSlide(4)}
-                  />
-                </div>
+                {valueChatsImage &&
+                  valueChatsImage.map((valueChat, key) => {
+                    return (
+                      valueChat.type === "image" && (
+                        <>
+                          <div className="box-dots-img">
+                            <div className="image-show-thumb-legend">{`${valueChat.date}/${valueChat.month}`}</div>
+                            <div className="img-sh-th">
+                              <img
+                                src={valueChat.url}
+                                alt="not load"
+                                onClick={() => {
+                                  props.setValueImage(valueChat);
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </>
+                      )
+                    );
+                  })}
+                {/* <div className="image-show-thumb-legend">12/6</div>
+                    <div className="img-sh-th">
+                      <img
+                        src={ImageVideo}
+                        alt="not load"
+                        onClick={() => {
+                          console.log(1);
+                          currentSlide(1);
+                        }}
+                      />
+                    </div>
+                    <div className="image-show-thumb-legend">12/6</div>
+                    <div className="img-sh-th">
+                      <img
+                        src={AvatarAnhHoai}
+                        alt="not load"
+                        onClick={() => currentSlide(2)}
+                      />
+                    </div>
+                    <div className="image-show-thumb-legend">12/6</div>
+                    <div className="img-sh-th">
+                      <img
+                        src={AvatarCTO}
+                        alt="not load"
+                        onClick={() => currentSlide(3)}
+                      />
+                    </div>
+                    <div className="image-show-thumb-legend">12/6</div>
+                    <div className="img-sh-th">
+                      <img
+                        src={SuperShipLogo}
+                        alt="not load"
+                        onClick={() => currentSlide(4)}
+                      />
+                    </div> */}
               </div>
             </div>
           </div>
         </div>
-        <div className="box-footer" onClick={console.log(1)}>
+        <div className="box-footer">
           <div className="box-1">
             <div className="image">
-              {/* <img src={props.valueFile.avatar} alt="not load" /> */}
-              <img src={AvatarAnLe} alt="not load" />
+              <img src={props.valueImage?.avatar} alt="not load" />
             </div>
             <div className="box-1-1">
-              {/* <div className="title">{props.valueFile?.file?.name}</div>
+              <div className="title">{props.valueImage?.name}</div>
               <div className="content">
-                {`${props.valueFile?.name} - ${props.valueFile?.date}/${
-                  props.valueFile?.month
-                }/${props.valueFile?.year} lúc ${props.valueFile?.hours}:${
-                  props.valueFile?.minutes
-                } - ${props.bytesToSize(props.valueFile?.file?.size)}`}
-              </div> */}
-              <div className="title">Lê Thanh Ân</div>
-              <div className="content">15:26 Hôm qua</div>
+                {`${props.valueImage?.date}/${props.valueImage?.month}/${props.valueImage?.year} lúc ${props.valueImage?.hours}:${props.valueImage?.minutes} `}
+              </div>
             </div>
           </div>
           <div className="box-2">
-            <div
-              onClick={() => {
-                console.log(1);
-              }}
-            >
+            <div>
               <ShareAltOutlined />
             </div>
             <div>

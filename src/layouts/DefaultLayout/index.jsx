@@ -112,6 +112,7 @@ function DefaultLayout({ children }) {
   const [hiddenSeeAllNavRight, setHiddenSeeAllNavRight] = useState(true);
   const [hiddenSeeAllMembersNavRight, setHiddenSeeAllMembersNavRight] =
     useState(true);
+  const [valueImage, setValueImage] = useState("");
   const d = new Date();
   const makeMinutes = (value) => {
     if (-1 < value && value < 10) {
@@ -1827,9 +1828,12 @@ function DefaultLayout({ children }) {
       />
 
       <BoxImage
-      // setUrlFile={setUrlFile}
-      // valueFile={valueFile}
-      // bytesToSize={bytesToSize}
+        // setUrlFile={setUrlFile}
+        // valueFile={valueFile}
+        // bytesToSize={bytesToSize}
+        valueChats={valueChats}
+        valueImage={valueImage}
+        setValueImage={setValueImage}
       />
 
       <ModalSentOrderCode
@@ -2029,7 +2033,7 @@ function DefaultLayout({ children }) {
                 valueChats.map((value, key) => {
                   return (
                     <>
-                      {(value.url ||
+                      {(value.type === "image" ||
                         value.type === "file" ||
                         value.type ||
                         value.text_message) &&
@@ -2089,15 +2093,16 @@ function DefaultLayout({ children }) {
                                   handleOnContextMenu(e, value);
                                 }}
                               >
-                                {value.url && (
+                                {value.type === "image" && (
                                   <ImageOrVideo
                                     value={value}
                                     bytesToSize={bytesToSize}
                                     setUrlFile={setUrlFile}
                                     urlFile={urlFile}
                                     setValueFile={setValueFile}
+                                    setValueImage={setValueImage}
                                   />
-                                )}{" "}
+                                )}
                                 {value.type === "file" && (
                                   <RenderFile
                                     renderImageFile={renderImageFile}
