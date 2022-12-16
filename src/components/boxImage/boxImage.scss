@@ -132,7 +132,7 @@
         padding: 15px 15px 0px 0px;
         .timeline-slider {
           height: 100%;
-          margin: 0px 12px 15px 0px;
+          margin: 0px 12px 0px 0px;
           position: relative;
           cursor: pointer;
           width: 23px;
@@ -142,7 +142,7 @@
             position: relative;
             height: 100%;
             width: 2px;
-            background-color: #fff;
+            background-color: var(--NG40);
           }
           .pivot-top {
             position: absolute;
@@ -150,9 +150,10 @@
             height: 12px;
             border-radius: 50%;
             top: 0px;
-            background-color: var(--WA100);
+            background-color: var(--NG40);
           }
           .pivot-handle {
+            z-index: 1000;
             position: absolute;
             width: 12px;
             height: 12px;
@@ -166,10 +167,14 @@
             height: 12px;
             border-radius: 50%;
             bottom: 0px;
-            background-color: var(--WA100);
+            background-color: var(--NG40);
           }
         }
         .image-show-list {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
           overflow: hidden;
           width: calc(100% - 23px);
           .image-show-thumb-legend {

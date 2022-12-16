@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import "./boxImage.scss";
 
 function BoxImage(props) {
+  // const [showListImage, setShowListImage] = useState(true);
   const handleClicCloseIframeFile = () => {
     const element = document.querySelector(".box-show-image");
     element.style.display = "none";
@@ -24,15 +25,35 @@ function BoxImage(props) {
   useEffect(() => {
     if (props.valueChats) {
       setValueChatsImage(
-        props.valueChats?.filter((valueChat) => valueChat.type === "image")
+        props.valueChats?.filter(
+          (valueChat) =>
+            valueChat.type === "image" && !valueChat.delete && !valueChat.evicts
+        )
       );
     }
   }, [props.valueChats]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // const [slideIndex, setSlideIndex] = useState(1);
 
+  const positionPivotHandle = (index) => {
+    console.log(123);
+    const lengthValueImage = valueChatsImage.length;
+    let positionPercentage = (100 * (index + 1)) / lengthValueImage;
+    if (index === 0) {
+      positionPercentage = 0;
+    }
+    const elementPivotHandle = document.querySelector(
+      ".timeline-slider .pivot-handle"
+    );
+
+    if (index !== lengthValueImage - 1) {
+      elementPivotHandle.style.top = `${positionPercentage}%`;
+    } else {
+      elementPivotHandle.style.top = "calc(100% - 12px)";
+    }
+  };
+
   useEffect(() => {
-    console.log(valueChatsImage);
     const index =
       valueChatsImage &&
       valueChatsImage.findIndex((value) => value.id === props.valueImage?.id);
@@ -45,14 +66,23 @@ function BoxImage(props) {
     }
     // Change position dots
     const boxDots = document.querySelectorAll(".image-show-list .box-dots-img");
-    if (valueChatsImage.length - index > 3) {
+
+    const elementImageShowList = document.querySelector(
+      ".image-history .image-show-list"
+    ).offsetHeight;
+
+    const numberImage = elementImageShowList / 145;
+
+    console.log(numberImage);
+
+    if (valueChatsImage.length - index > numberImage - 1) {
       let i = -1;
       boxDots.forEach((dot) => {
         dot.style.display = "block";
       });
       boxDots.forEach((dot) => {
         i += 1;
-        if (i < index || i > index + 3) {
+        if (i < index || i > index + numberImage - 1) {
           dot.style.display = "none";
         }
       });
@@ -76,6 +106,7 @@ function BoxImage(props) {
         btnLeft.style.cursor = "pointer";
       }
     }
+    positionPivotHandle(index);
   }, [props.valueImage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // const showSlides = (n) => {
@@ -239,8 +270,8 @@ function BoxImage(props) {
                   </div>
                 </div>
                 {/* {valueChatsImage &&
-                    valueChatsImage.map((valueChat) => {
-                      return ( */}
+                      valueChatsImage.map((valueChat) => {
+                        return ( */}
                 {console.log(props.valueImage)}
                 {props.valueImage && (
                   <div className="image-show">
@@ -248,20 +279,20 @@ function BoxImage(props) {
                   </div>
                 )}
                 {/* )
-                      );
-                    })} */}
+                        );
+                      })} */}
                 {/* <div className="image-show">
-                      <img src={ImageVideo} alt="not load" />
-                    </div>
-                    <div className="image-show">
-                      <img src={AvatarAnhHoai} alt="not load" />
-                    </div>
-                    <div className="image-show">
-                      <img src={AvatarCTO} alt="not load" />
-                    </div>
-                    <div className="image-show">
-                      <img src={SuperShipLogo} alt="not load" />
-                    </div> */}
+                        <img src={ImageVideo} alt="not load" />
+                      </div>
+                      <div className="image-show">
+                        <img src={AvatarAnhHoai} alt="not load" />
+                      </div>
+                      <div className="image-show">
+                        <img src={AvatarCTO} alt="not load" />
+                      </div>
+                      <div className="image-show">
+                        <img src={SuperShipLogo} alt="not load" />
+                      </div> */}
                 <div className="box-btn-right">
                   <div
                     className="image-show-btn-right"
@@ -287,7 +318,7 @@ function BoxImage(props) {
                     return (
                       valueChat.type === "image" && (
                         <>
-                          <div className="box-dots-img">
+                          <div className="box-dots-img" key={key}>
                             <div className="image-show-thumb-legend">{`${valueChat.date}/${valueChat.month}`}</div>
                             <div className="img-sh-th">
                               <img
@@ -303,41 +334,6 @@ function BoxImage(props) {
                       )
                     );
                   })}
-                {/* <div className="image-show-thumb-legend">12/6</div>
-                    <div className="img-sh-th">
-                      <img
-                        src={ImageVideo}
-                        alt="not load"
-                        onClick={() => {
-                          console.log(1);
-                          currentSlide(1);
-                        }}
-                      />
-                    </div>
-                    <div className="image-show-thumb-legend">12/6</div>
-                    <div className="img-sh-th">
-                      <img
-                        src={AvatarAnhHoai}
-                        alt="not load"
-                        onClick={() => currentSlide(2)}
-                      />
-                    </div>
-                    <div className="image-show-thumb-legend">12/6</div>
-                    <div className="img-sh-th">
-                      <img
-                        src={AvatarCTO}
-                        alt="not load"
-                        onClick={() => currentSlide(3)}
-                      />
-                    </div>
-                    <div className="image-show-thumb-legend">12/6</div>
-                    <div className="img-sh-th">
-                      <img
-                        src={SuperShipLogo}
-                        alt="not load"
-                        onClick={() => currentSlide(4)}
-                      />
-                    </div> */}
               </div>
             </div>
           </div>
@@ -391,7 +387,11 @@ function BoxImage(props) {
             </div>
           </div>
           <div className="box-3">
-            <div>
+            <div
+            // onClick={() => {
+            //   setShowListImage(!showListImage);
+            // }}
+            >
               <LayoutOutlined />
             </div>
           </div>
