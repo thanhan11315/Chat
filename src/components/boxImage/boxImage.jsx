@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import "./boxImage.scss";
 
 function BoxImage(props) {
-  // const [showListImage, setShowListImage] = useState(true);
+  const [showListImage, setShowListImage] = useState(true);
   const handleClicCloseIframeFile = () => {
     const element = document.querySelector(".box-show-image");
     element.style.display = "none";
@@ -27,7 +27,7 @@ function BoxImage(props) {
       setValueChatsImage(
         props.valueChats?.filter(
           (valueChat) =>
-            valueChat.type === "image" && !valueChat.delete && !valueChat.evicts
+            valueChat.type === "image" && !valueChat.delete && !valueChat.evict
         )
       );
     }
@@ -69,12 +69,20 @@ function BoxImage(props) {
 
     const elementImageShowList = document.querySelector(
       ".image-history .image-show-list"
-    ).offsetHeight;
+    );
 
-    const numberImage = elementImageShowList / 145;
+    const heightElementImageShowList = elementImageShowList.offsetHeight;
+
+    const numberImage = heightElementImageShowList / 145;
 
     console.log(numberImage);
-
+    console.log(heightElementImageShowList);
+    if (valueChatsImage.length >= numberImage) {
+      elementImageShowList.style.justifyContent = "space-between";
+    }
+    if (valueChatsImage.length < numberImage) {
+      elementImageShowList.style.justifyContent = "flex-start";
+    }
     if (valueChatsImage.length - index > numberImage - 1) {
       let i = -1;
       boxDots.forEach((dot) => {
@@ -109,40 +117,7 @@ function BoxImage(props) {
     positionPivotHandle(index);
   }, [props.valueImage]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // const showSlides = (n) => {
-  //   let i;
-  //   let slides = document.querySelectorAll(".image-show-body .image-show");
-  //   console.log(slides);
-  //   console.log("1");
-  //   let dots = document.querySelectorAll(".image-show-list .img-sh-th");
-  //   console.log(dots);
-  //   if (slides.length > 1 && dots.length > 1) {
-  //     if (n > slides.length) {
-  //       setSlideIndex(1);
-  //     }
-  //     if (n < 1) {
-  //       setSlideIndex(slides.length);
-  //     }
-  //     for (i = 0; i < slides.length; i++) {
-  //       slides[i].style.display = "none";
-  //     }
-  //     for (i = 0; i < dots.length; i++) {
-  //       dots[i].className = dots[i].className.replace("active", "");
-  //     }
-  //     slides[slideIndex - 1].style.display = "block";
-  //     dots[slideIndex - 1].classList.add("active");
-  //   }
-  // };
-
   const showSlide = (n) => {
-    console.log(valueChatsImage.length);
-    console.log(n);
-    // if (n > valueChatsImage.length - 1) {
-    //   props.setValueImage(valueChatsImage[n - 1]);
-    // }
-    // if (n < 0) {
-    //   props.setValueImage(valueChatsImage[valueChatsImage.length - 1]);
-    // }
     if (n >= 0 && n <= valueChatsImage.length - 1) {
       props.setValueImage(valueChatsImage[n]);
     }
@@ -153,91 +128,134 @@ function BoxImage(props) {
       valueChatsImage &&
       valueChatsImage.findIndex((value) => value.id === props.valueImage.id);
     showSlide(sizeIndex + index);
-    console.log(sizeIndex + index);
-  };
-
-  // const currentSlide = (n) => {};
-
-  let crotate = 0;
-
-  const rotatedImage = (deg) => {
-    crotate += deg;
-    const pics = document.querySelectorAll(".image-show-body .image-show img");
-    pics.forEach((pic) => {
-      pic.style.transform = `rotate(${crotate}deg)`;
-    });
   };
 
   let scale = 1,
+    crotate = 0,
     panning = false,
     pointX = 0,
     pointY = 0,
     start = { x: 0, y: 0 },
     zoom = document.querySelector(".image-show-body .image-show");
 
+  const transformStart = () => {
+    scale = 1;
+    crotate = 0;
+    panning = false;
+    pointX = 0;
+    pointY = 0;
+    start = { x: 0, y: 0 };
+    setTransform();
+  };
+
   function setTransform() {
-    zoom.style.transform =
-      "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-    console.log(
-      "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")"
-    );
-  }
-
-  if (zoom) {
-    zoom.onmousedown = function (e) {
-      e.preventDefault();
-      start = { x: e.clientX - pointX, y: e.clientY - pointY };
-      panning = true;
-    };
-  }
-  if (zoom) {
-    zoom.onmouseup = function (e) {
-      e.preventDefault();
+    if (!zoom) {
+      zoom = document.querySelector(".image-show-body .image-show");
+    }
+    if (zoom && scale > 1) {
+      zoom.style.transform =
+        "translate(" +
+        pointX +
+        "px, " +
+        pointY +
+        "px) scale(" +
+        scale +
+        ") rotate(" +
+        crotate +
+        "deg)";
+    }
+    if (zoom && scale <= 1) {
+      scale = 1;
       panning = false;
-    };
+      pointX = 0;
+      pointY = 0;
+      start = { x: 0, y: 0 };
+      zoom.style.transform =
+        "translate(" +
+        pointX +
+        "px, " +
+        pointY +
+        "px) scale(" +
+        scale +
+        ") rotate(" +
+        crotate +
+        "deg)";
+    }
   }
 
-  if (zoom) {
-    zoom.onmousemove = function (e) {
-      e.preventDefault();
-      if (!panning) {
-        return;
-      }
-      pointX = e.clientX - start.x;
-      pointY = e.clientY - start.y;
-      setTransform();
-    };
-  }
+  useEffect(() => {
+    transformStart();
+  }, [props.valueImage]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (zoom) {
-    zoom.onwheel = function (e) {
-      console.log(e);
-      e.preventDefault();
-      var xs = (e.clientX - pointX) / scale,
-        ys = (e.clientY - pointY) / scale,
-        delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
-      delta > 0 ? (scale *= 1.2) : (scale /= 1.2);
-      pointX = e.clientX - xs * scale;
-      pointY = e.clientY - ys * scale;
-      setTransform();
-    };
-  }
+  const rotatedImage = (deg) => {
+    crotate += deg;
+    setTransform();
+  };
 
-  let zoomz = 1;
-  const zoomSpeed = 0.1;
+  const zoomOnmousedown = (e) => {
+    e.preventDefault();
+    start = { x: e.clientX - pointX, y: e.clientY - pointY };
+    panning = true;
+  };
+  const zoomOnmouseup = (e) => {
+    e.preventDefault();
+    panning = false;
+  };
+
+  const zoomOnmousemove = function (e) {
+    e.preventDefault();
+    if (!panning) {
+      return;
+    }
+    pointX = e.clientX - start.x;
+    pointY = e.clientY - start.y;
+    setTransform();
+  };
+
+  const zoomOnwheel = (e) => {
+    e.preventDefault();
+    var xs = (e.clientX - pointX) / scale,
+      ys = (e.clientY - pointY) / scale,
+      delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
+    delta > 0 ? (scale *= 1.1) : (scale /= 1.1);
+    pointX = e.clientX - xs * scale;
+    pointY = e.clientY - ys * scale;
+    setTransform();
+  };
+
+  const onWheelNavRightImage = (e) => {
+    e.preventDefault();
+    const delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
+    if (delta > 0) {
+      plusSlides(1);
+    } else {
+      plusSlides(-1);
+    }
+  };
 
   const zoomIn = () => {
-    const pics = document.querySelectorAll(".image-show-body .image-show");
-    pics.forEach((pic) => {
-      pic.style.transform = `scale(${(zoomz += zoomSpeed)})`;
-    });
+    if (zoom) {
+      scale *= 1.1;
+      setTransform();
+    }
   };
 
   const zoomOut = () => {
-    const pics = document.querySelectorAll(".image-show-body .image-show");
-    pics.forEach((pic) => {
-      pic.style.transform = `scale(${(zoomz -= zoomSpeed)})`;
-    });
+    if (zoom) {
+      scale /= 1.1;
+      setTransform();
+    }
+  };
+
+  const changeWidthBoxImage = (boolean) => {
+    const element = document.querySelector(
+      ".box-show-image .box-image-1 .box-show-image-content-history .image-show-content-layout"
+    );
+    if (boolean) {
+      element.style.width = "calc(100% - 160px)";
+    } else {
+      element.style.width = "100%";
+    }
   };
 
   return (
@@ -250,7 +268,6 @@ function BoxImage(props) {
               className="box-2"
               onClick={() => {
                 handleClicCloseIframeFile();
-                console.log(1);
               }}
             >
               <CloseOutlined />
@@ -269,30 +286,25 @@ function BoxImage(props) {
                     <DownOutlined />
                   </div>
                 </div>
-                {/* {valueChatsImage &&
-                      valueChatsImage.map((valueChat) => {
-                        return ( */}
-                {console.log(props.valueImage)}
                 {props.valueImage && (
-                  <div className="image-show">
+                  <div
+                    className="image-show"
+                    onMouseDown={(e) => {
+                      zoomOnmousedown(e);
+                    }}
+                    onMouseUp={(e) => {
+                      zoomOnmouseup(e);
+                    }}
+                    onMouseMove={(e) => {
+                      zoomOnmousemove(e);
+                    }}
+                    onWheel={(e) => {
+                      zoomOnwheel(e);
+                    }}
+                  >
                     <img src={props.valueImage.url} alt="not load" />
                   </div>
                 )}
-                {/* )
-                        );
-                      })} */}
-                {/* <div className="image-show">
-                        <img src={ImageVideo} alt="not load" />
-                      </div>
-                      <div className="image-show">
-                        <img src={AvatarAnhHoai} alt="not load" />
-                      </div>
-                      <div className="image-show">
-                        <img src={AvatarCTO} alt="not load" />
-                      </div>
-                      <div className="image-show">
-                        <img src={SuperShipLogo} alt="not load" />
-                      </div> */}
                 <div className="box-btn-right">
                   <div
                     className="image-show-btn-right"
@@ -305,7 +317,14 @@ function BoxImage(props) {
                 </div>
               </div>
             </div>
-            <div className="image-history">
+            <div
+              className={
+                showListImage ? "image-history show" : "image-history hidden"
+              }
+              onWheel={(e) => {
+                onWheelNavRightImage(e);
+              }}
+            >
               <div className="timeline-slider">
                 <div className="pivot-top"></div>
                 <div className="pivot-handle"></div>
@@ -351,7 +370,12 @@ function BoxImage(props) {
             </div>
           </div>
           <div className="box-2">
-            <div>
+            <div
+              onClick={() => {
+                props.handleClickShareInBoxImage(props.valueImage);
+                handleClicCloseIframeFile();
+              }}
+            >
               <ShareAltOutlined />
             </div>
             <div>
@@ -388,9 +412,10 @@ function BoxImage(props) {
           </div>
           <div className="box-3">
             <div
-            // onClick={() => {
-            //   setShowListImage(!showListImage);
-            // }}
+              onClick={() => {
+                setShowListImage(!showListImage);
+                changeWidthBoxImage(!showListImage);
+              }}
             >
               <LayoutOutlined />
             </div>

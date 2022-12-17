@@ -26,7 +26,7 @@ function ShareInput(props) {
           </div>
         </Row>
       )}
-      {props.shareInputValue?.file && (
+      {props.shareInputValue?.type === "file" && (
         <Row className="responsive-input-box">
           <div className="responsive-image">
             <img

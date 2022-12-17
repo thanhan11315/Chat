@@ -1534,6 +1534,11 @@ function DefaultLayout({ children }) {
     setValueRightClickMessage(value);
   };
 
+  const handleClickShareInBoxImage = (value) => {
+    setModalShare(true);
+    setValueRightClickMessage(value);
+  };
+
   const createListAddMembersToGroup = () => {
     let listAddMenbersToGroup = dataUserFriendsApi;
     dataUserFriend.members.forEach((memberDelete) => {
@@ -1831,6 +1836,7 @@ function DefaultLayout({ children }) {
         // setUrlFile={setUrlFile}
         // valueFile={valueFile}
         // bytesToSize={bytesToSize}
+        handleClickShareInBoxImage={handleClickShareInBoxImage}
         valueChats={valueChats}
         valueImage={valueImage}
         setValueImage={setValueImage}
@@ -2663,6 +2669,7 @@ function DefaultLayout({ children }) {
               setValueFile={setValueFile}
               setModalChangeName={setModalChangeName}
               setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
+              setValueImage={setValueImage}
             />
             <SeeAllNavRight
               dataUserFriend={dataUserFriend}
@@ -2681,6 +2688,7 @@ function DefaultLayout({ children }) {
               setHiddenRightNav={setHiddenRightNav}
               setValueChat={setValueChat}
               setValueChats={setValueChats}
+              setValueImage={setValueImage}
             />
             <SeeAllNavRightMembers
               dataUserFriends={dataUserFriends}

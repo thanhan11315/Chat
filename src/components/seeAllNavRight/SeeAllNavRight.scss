@@ -330,6 +330,7 @@
     display: flex;
     flex-wrap: wrap !important;
     .box-image-video {
+      cursor: pointer;
       width: 67px;
       height: 67px;
       .ant-image {

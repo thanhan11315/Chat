@@ -5,7 +5,7 @@ import {
   DownOutlined,
   LeftOutlined,
 } from "@ant-design/icons";
-import { Col, Image, Popover } from "antd";
+import { Col, Popover } from "antd";
 import "./SeeAllNavRight.scss";
 import RenderFile from "../../components/file/RenderFile";
 import LinkPreview from "../../components/linkPreview/LinkPreview";
@@ -411,6 +411,14 @@ function SeeAllNavRight(props) {
       return valueChatsLink;
     }
   };
+
+  const handleClickImage = (value) => {
+    document.querySelector(".box-show-image").style.display = "block";
+    props.setValueImage(value);
+    // props.setUrlFile(
+    //   `${renderLinkFile(props.value?.file?.name)}${props.value?.file?.url_file}`
+    // );
+  };
   return (
     <Col
       className={`see-all-right ${
@@ -618,6 +626,7 @@ function SeeAllNavRight(props) {
                     <>
                       {valueChat.is_orders_info &&
                         !valueChat.delete &&
+                        !valueChat.evict &&
                         ifFilterDate(
                           changeValueDate(getDateValueChat(valueChat)),
                           changeValueDate(time1),
@@ -649,49 +658,54 @@ function SeeAllNavRight(props) {
             </div>
           )}
           {props.chooseSeeAllNavRight === "images" && (
-            <Image.PreviewGroup>
-              <div className="content-image-video">
-                {chooseValueChatsImage() &&
-                  chooseValueChatsImage().map((valueChat, key) => {
-                    return (
-                      <>
-                        {valueChat.url &&
-                          ifFilterDate(
-                            changeValueDate(getDateValueChat(valueChat)),
-                            changeValueDate(time1),
-                            changeValueDate(time2)
-                          ) &&
-                          !valueChat.delete &&
-                          conditionFillterMember(valueChat) && (
-                            <>
-                              {valueChat.create_box_date_show_all && (
-                                <div className="box-date-show-all">
-                                  <div className="date">
-                                    Ngày {valueChat.date} Tháng{" "}
-                                    {valueChat.month} Năm {valueChat.year}
-                                  </div>
+            <div className="content-image-video">
+              {chooseValueChatsImage() &&
+                chooseValueChatsImage().map((valueChat, key) => {
+                  return (
+                    <>
+                      {valueChat.url &&
+                        ifFilterDate(
+                          changeValueDate(getDateValueChat(valueChat)),
+                          changeValueDate(time1),
+                          changeValueDate(time2)
+                        ) &&
+                        !valueChat.delete &&
+                        !valueChat.evict &&
+                        conditionFillterMember(valueChat) && (
+                          <>
+                            {valueChat.create_box_date_show_all && (
+                              <div className="box-date-show-all">
+                                <div className="date">
+                                  Ngày {valueChat.date} Tháng {valueChat.month}{" "}
+                                  Năm {valueChat.year}
                                 </div>
-                              )}
-                              <div className="box-image-video" key={key}>
-                                {valueChat.type === "video" ? (
-                                  <video src={valueChat.url} alt="not load" />
-                                ) : (
-                                  <>
-                                    <Image
-                                      src={valueChat.url}
-                                      alt="img not load"
-                                      className="image"
-                                    />
-                                  </>
-                                )}
                               </div>
-                            </>
-                          )}
-                      </>
-                    );
-                  })}
-              </div>
-            </Image.PreviewGroup>
+                            )}
+                            <div
+                              className="box-image-video"
+                              key={key}
+                              onClick={() => {
+                                handleClickImage(valueChat);
+                              }}
+                            >
+                              {valueChat.type === "video" ? (
+                                <video src={valueChat.url} alt="not load" />
+                              ) : (
+                                <>
+                                  <img
+                                    src={valueChat.url}
+                                    alt="img not load"
+                                    className="image"
+                                  />
+                                </>
+                              )}
+                            </div>
+                          </>
+                        )}
+                    </>
+                  );
+                })}
+            </div>
           )}
           {props.chooseSeeAllNavRight === "files" && (
             <div className="content-file">
@@ -701,6 +715,7 @@ function SeeAllNavRight(props) {
                     <>
                       {valueChat.file &&
                         !valueChat.delete &&
+                        !valueChat.evict &&
                         ifFilterDate(
                           changeValueDate(getDateValueChat(valueChat)),
                           changeValueDate(time1),
@@ -741,6 +756,7 @@ function SeeAllNavRight(props) {
                     <>
                       {valueChat.is_message_url &&
                         !valueChat.delete &&
+                        !valueChat.evict &&
                         ifFilterDate(
                           changeValueDate(getDateValueChat(valueChat)),
                           changeValueDate(time1),

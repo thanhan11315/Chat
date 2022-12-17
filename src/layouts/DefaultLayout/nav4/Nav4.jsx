@@ -8,7 +8,7 @@ import {
   TeamOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import { Col, Image, Row } from "antd";
+import { Col, Row } from "antd";
 import "./Nav4.scss";
 import RenderFile from "../../../components/file/RenderFile";
 import ImageGroup from "../../../components/imageGroup/ImageGroup";
@@ -167,6 +167,14 @@ function Nav4(props) {
     props.setModalChangeName(true);
   };
 
+  const handleClickImage = (value) => {
+    document.querySelector(".box-show-image").style.display = "block";
+    props.setValueImage(value);
+    // props.setUrlFile(
+    //   `${renderLinkFile(props.value?.file?.name)}${props.value?.file?.url_file}`
+    // );
+  };
+
   return (
     <Col className={`box-nav-4 ${props.hiddenRightNav && "hiddenRightNav"}`}>
       <div className="title-nav">Thông tin hội thoại</div>
@@ -323,18 +331,20 @@ function Nav4(props) {
               props.valueChats.map((valueChat, key) => {
                 return (
                   <>
-                    {valueChat.is_orders_info && !valueChat.delete && (
-                      <>
-                        <OrderInfo
-                          setValueChats={props.setValueChats}
-                          valueChats={props.valueChats}
-                          size="two"
-                          value={valueChat}
-                          key={key}
-                          dataUserMe={props.dataUserMe}
-                        />
-                      </>
-                    )}
+                    {valueChat.is_orders_info &&
+                      !valueChat.delete &&
+                      !valueChat.evict && (
+                        <>
+                          <OrderInfo
+                            setValueChats={props.setValueChats}
+                            valueChats={props.valueChats}
+                            size="two"
+                            value={valueChat}
+                            key={key}
+                            dataUserMe={props.dataUserMe}
+                          />
+                        </>
+                      )}
                   </>
                 );
               })}
@@ -348,37 +358,39 @@ function Nav4(props) {
         </div>
         <div className="box-element">
           <div className="title">Ảnh</div>
-          <Image.PreviewGroup>
-            <div className="content-image-video">
-              {props.valueChats &&
-                props.valueChats.map((valueChat, key) => {
-                  return (
-                    valueChat.url &&
-                    !valueChat.delete && (
-                      <>
-                        <div className="box-image-video" key={key}>
-                          {valueChat.type === "video" ? (
-                            <video src={valueChat.url} alt="not load" />
-                          ) : (
-                            <Image
-                              src={valueChat.url}
-                              alt="img not load"
-                              className="image"
-                            />
-                          )}
-                        </div>
-                      </>
-                    )
-                  );
-                })}
-            </div>
-            <div
-              className="div-button"
-              onClick={() => hanldeClickShowAllImage()}
-            >
-              Xem tất cả
-            </div>
-          </Image.PreviewGroup>
+          <div className="content-image-video">
+            {props.valueChats &&
+              props.valueChats.map((valueChat, key) => {
+                return (
+                  valueChat.url &&
+                  !valueChat.delete &&
+                  !valueChat.evict && (
+                    <>
+                      <div
+                        className="box-image-video"
+                        key={key}
+                        onClick={() => {
+                          handleClickImage(valueChat);
+                        }}
+                      >
+                        {valueChat.type === "video" ? (
+                          <video src={valueChat.url} alt="not load" />
+                        ) : (
+                          <img
+                            src={valueChat.url}
+                            alt="img not load"
+                            className="image"
+                          />
+                        )}
+                      </div>
+                    </>
+                  )
+                );
+              })}
+          </div>
+          <div className="div-button" onClick={() => hanldeClickShowAllImage()}>
+            Xem tất cả
+          </div>
         </div>
         <div className="box-element">
           <div className="title">File</div>
@@ -387,20 +399,23 @@ function Nav4(props) {
               props.valueChats.map((valueChat, key) => {
                 return (
                   <>
-                    {valueChat.file && !valueChat.delete && (
-                      <>
-                        <RenderFile
-                          navRight={true}
-                          key={key}
-                          renderImageFile={props.renderImageFile}
-                          value={valueChat}
-                          bytesToSize={props.bytesToSize}
-                          setUrlFile={props.setUrlFile}
-                          urlFile={props.urlFile}
-                          setValueFile={props.setValueFile}
-                        />
-                      </>
-                    )}
+                    {console.log(valueChat.evict)}
+                    {valueChat.file &&
+                      !valueChat.delete &&
+                      !valueChat.evict && (
+                        <>
+                          <RenderFile
+                            navRight={true}
+                            key={key}
+                            renderImageFile={props.renderImageFile}
+                            value={valueChat}
+                            bytesToSize={props.bytesToSize}
+                            setUrlFile={props.setUrlFile}
+                            urlFile={props.urlFile}
+                            setValueFile={props.setValueFile}
+                          />
+                        </>
+                      )}
                   </>
                 );
               })}
@@ -416,20 +431,22 @@ function Nav4(props) {
               props.valueChats.map((valueChat, key) => {
                 return (
                   <>
-                    {valueChat.is_message_url && !valueChat.delete && (
-                      <>
-                        <LinkPreview
-                          url={valueChat.message_url}
-                          size="three"
-                          key={key}
-                          date={valueChat.date}
-                          month={valueChat.month}
-                          year={valueChat.year}
-                          hours={valueChat.hours}
-                          minutes={valueChat.minutes}
-                        />
-                      </>
-                    )}
+                    {valueChat.is_message_url &&
+                      !valueChat.delete &&
+                      !valueChat.evict && (
+                        <>
+                          <LinkPreview
+                            url={valueChat.message_url}
+                            size="three"
+                            key={key}
+                            date={valueChat.date}
+                            month={valueChat.month}
+                            year={valueChat.year}
+                            hours={valueChat.hours}
+                            minutes={valueChat.minutes}
+                          />
+                        </>
+                      )}
                   </>
                 );
               })}
