@@ -217,7 +217,7 @@ function BoxImage(props) {
     var xs = (e.clientX - pointX) / scale,
       ys = (e.clientY - pointY) / scale,
       delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
-    delta > 0 ? (scale *= 1.1) : (scale /= 1.1);
+    delta > 0 ? (scale *= 1.05) : (scale /= 1.05);
     pointX = e.clientX - xs * scale;
     pointY = e.clientY - ys * scale;
     setTransform();
@@ -227,22 +227,22 @@ function BoxImage(props) {
     e.preventDefault();
     const delta = e.wheelDelta ? e.wheelDelta : -e.deltaY;
     if (delta > 0) {
-      plusSlides(1);
-    } else {
       plusSlides(-1);
+    } else {
+      plusSlides(1);
     }
   };
 
-  const zoomIn = () => {
+  const zoomIn = (index) => {
     if (zoom) {
-      scale *= 1.1;
+      scale *= index;
       setTransform();
     }
   };
 
-  const zoomOut = () => {
+  const zoomOut = (index) => {
     if (zoom) {
-      scale /= 1.1;
+      scale /= index;
       setTransform();
     }
   };
@@ -397,14 +397,14 @@ function BoxImage(props) {
             </div>
             <div
               onClick={() => {
-                zoomIn();
+                zoomIn(1.1);
               }}
             >
               <ZoomInOutlined />
             </div>
             <div
               onClick={() => {
-                zoomOut();
+                zoomOut(1.1);
               }}
             >
               <ZoomOutOutlined />

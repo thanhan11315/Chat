@@ -1786,6 +1786,22 @@ function DefaultLayout({ children }) {
       });
     return generalGroup;
   };
+
+  const handleClickResponsiveValue = (value) => {
+    const scale1 = 1.1;
+    const scale2 = 1;
+    const elementId = document.getElementById(value.id);
+    console.log(elementId);
+    const elementBoxAll = elementId.querySelector(".box-content-all-chat");
+    const elementBackGround = elementId.querySelector(".content-chat");
+    elementBoxAll.style.transform = `scale(${scale1})`;
+    elementBackGround.style.backgroundColor = "var(--B60)";
+    setTimeout(() => {
+      elementBoxAll.style.transform = `scale(${scale2})`;
+      elementBackGround.style.backgroundColor = "var(--R40)";
+    }, 300);
+  };
+
   // const getStockQuote = () => {
   //   const response = await fetch("https://localhost:12345/stocks/MSFT");
   //   const stockQuote = await response.json();
@@ -2130,7 +2146,14 @@ function DefaultLayout({ children }) {
                                       <div className="content-chat">
                                         <div className="box-make-hidden-content-chat">
                                           {value.Responsive && (
-                                            <a href={`#${value.Responsive.id}`}>
+                                            <a
+                                              href={`#${value.Responsive.id}`}
+                                              onClick={() => {
+                                                handleClickResponsiveValue(
+                                                  value.Responsive
+                                                );
+                                              }}
+                                            >
                                               <ResponsiveInput
                                                 ResponsiveInputValue={
                                                   value.Responsive

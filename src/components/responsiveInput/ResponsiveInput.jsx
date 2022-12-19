@@ -2,6 +2,7 @@ import React from "react";
 import { Row } from "antd";
 import { ExportOutlined, CloseOutlined } from "@ant-design/icons";
 import LinkPreview from "../linkPreview/LinkPreview";
+import mapImage from "../../assets/images/mapImage.jfif";
 import "./ResponsiveInput.scss";
 
 function ResponsiveInput(props) {
@@ -86,7 +87,7 @@ function ResponsiveInput(props) {
           )}
         </Row>
       )}
-      {props.ResponsiveInputValue.file && (
+      {props.ResponsiveInputValue.type === "file" && (
         <Row
           className="responsive-input-box"
           onClick={() => handleClickResponsive()}
@@ -114,6 +115,41 @@ function ResponsiveInput(props) {
             <div className="content">
               {`[File] ${props.ResponsiveInputValue?.file?.name}`}
             </div>
+          </div>
+          {props.size === "one" && (
+            <div
+              className="delete"
+              onClick={() => props.clearResponsiveTnputValue()}
+            >
+              <CloseOutlined />
+            </div>
+          )}
+        </Row>
+      )}
+      {props.ResponsiveInputValue.type === "placeMaps" && (
+        <Row
+          className="responsive-input-box"
+          onClick={() => handleClickResponsive()}
+        >
+          <div className="border-right" />
+          <div
+            className="responsive-image"
+            style={{ justifyContent: "center" }}
+          >
+            <img alt="img not load" src={mapImage} />
+          </div>
+          <div className="Responsive-content">
+            {props.size === "one" && (
+              <div className="Responsive">
+                <ExportOutlined /> Trả lời
+              </div>
+            )}
+            {props.size === "two" && (
+              <div className="Responsive">
+                {props.ResponsiveInputValue?.name}
+              </div>
+            )}
+            <div className="content">[Bản đồ]</div>
           </div>
           {props.size === "one" && (
             <div

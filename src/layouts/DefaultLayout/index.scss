@@ -493,7 +493,12 @@ li {
   display: flex;
 }
 
+.box-content-all-chat {
+  transition: transform 0.3s;
+}
+
 #wrapper .box-nav-3 .box-chat .other-people .content-chat {
+  transition: transform 0.5s;
   background-color: var(--WA100);
 }
 
