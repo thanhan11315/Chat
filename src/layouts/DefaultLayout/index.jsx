@@ -51,6 +51,7 @@ import OrderInfo from "../../components/ordersInfo/OrdersInfo";
 import SeeAllNavRightMembers from "../../components/seeAllNavRight/SeeAllNavRightMember";
 import GoogleMapTest from "../../components/googleMap/googleMap";
 import OrderInfoInputchat from "../../components/orderInforInputChat/orderInfoInputChat";
+import MenuDotNavright from "../../components/menuDotNavright/MenuDotNavright";
 //
 import AvatarAnLe from "../../assets/images/AvatarAnLe.jpg";
 import AvatarTN from "../../assets/images/AvatarTN.jpg";
@@ -1604,6 +1605,10 @@ function DefaultLayout({ children }) {
     if (document.querySelector(".rightmouse-member ")) {
       document.querySelector(".rightmouse-member ").style.display = "none";
     }
+    if (document.querySelector(".rightmouse-menu-dot-navright")) {
+      document.querySelector(".rightmouse-menu-dot-navright").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("wheel", () => {
@@ -1618,6 +1623,10 @@ function DefaultLayout({ children }) {
     if (document.querySelector(".rightmouse-member ")) {
       document.querySelector(".rightmouse-member ").style.display = "none";
     }
+    if (document.querySelector(".rightmouse-menu-dot-navright")) {
+      document.querySelector(".rightmouse-menu-dot-navright").style.display =
+        "none";
+    }
   });
 
   window.addEventListener("contextmenu", () => {
@@ -1631,6 +1640,10 @@ function DefaultLayout({ children }) {
     }
     if (document.querySelector(".rightmouse-member")) {
       document.querySelector(".rightmouse-member").style.display = "none";
+    }
+    if (document.querySelector("rightmouse-menu-dot-navright")) {
+      document.querySelector("rightmouse-menu-dot-navright").style.display =
+        "none";
     }
   });
 
@@ -1722,6 +1735,39 @@ function DefaultLayout({ children }) {
     e.stopPropagation();
     setValueRightClickChooseBoxChat(value);
   };
+
+  // Menu dot nav right
+  const [valueHandleClickDotNavright, setValueHandleClickDotNavright] =
+    useState("");
+
+  const handleClickShareNavright = (value) => {
+    setModalShare(true);
+    setValueRightClickMessage(value);
+  };
+
+  const handleClickDotsNavright = (e, value) => {
+    console.log(1);
+    let leftPos = "";
+    let topPos = "";
+    e.preventDefault();
+    const menu = document.querySelector(".rightmouse-menu-dot-navright");
+    if (180 < window.innerWidth - e.clientX) {
+      leftPos = `${e.clientX - 10}px`;
+    } else {
+      leftPos = `${e.pageX - 155}px`;
+    }
+    if (250 < window.innerHeight - e.clientY) {
+      topPos = `${e.clientY - 10}px`;
+    } else {
+      topPos = `${e.pageY - 123}px`;
+    }
+    menu.style.display = "block";
+    menu.style.top = topPos;
+    menu.style.left = leftPos;
+    e.stopPropagation();
+    setValueHandleClickDotNavright(value);
+  };
+
   // onContextMenu rightMouseMember
   const [valueRightClickMember, setValueRightClickMember] = useState("");
 
@@ -1793,13 +1839,26 @@ function DefaultLayout({ children }) {
     const elementId = document.getElementById(value.id);
     console.log(elementId);
     const elementBoxAll = elementId.querySelector(".box-content-all-chat");
-    const elementBackGround = elementId.querySelector(".content-chat");
+    const elementBackGroundOrtherPeople = elementId.querySelector(
+      ".other-people .content-chat"
+    );
+    const elementBackGroundMe = elementId.querySelector(".me .content-chat");
     elementBoxAll.style.transform = `scale(${scale1})`;
-    elementBackGround.style.backgroundColor = "var(--B60)";
     setTimeout(() => {
       elementBoxAll.style.transform = `scale(${scale2})`;
-      elementBackGround.style.backgroundColor = "var(--R40)";
-    }, 300);
+    }, 1500);
+    if (elementBackGroundOrtherPeople) {
+      elementBackGroundOrtherPeople.style.backgroundColor = "var(--B60)";
+      setTimeout(() => {
+        elementBackGroundOrtherPeople.style.backgroundColor = "#fff";
+      }, 1500);
+    }
+    if (elementBackGroundMe) {
+      elementBackGroundMe.style.backgroundColor = "var(--B60)";
+      setTimeout(() => {
+        elementBackGroundMe.style.backgroundColor = "var(--R40)";
+      }, 1500);
+    }
   };
 
   // const getStockQuote = () => {
@@ -1947,6 +2006,15 @@ function DefaultLayout({ children }) {
       />
       {/* RightmouseResponsive */}
 
+      {/* menuDotNavRight */}
+      <MenuDotNavright
+        valueHandleClickDotNavright={valueHandleClickDotNavright}
+        handleClickShareNavright={handleClickShareNavright}
+        deleteMessage={deleteMessage}
+        handleClickResponsiveValue={handleClickResponsiveValue}
+      />
+      {/* menuDotNavRight */}
+
       {/* RightmouseChooseBoxChat */}
       <RightmouseChooseBoxChat
         valueRightClickChooseBoxChat={valueRightClickChooseBoxChat}
@@ -2011,6 +2079,7 @@ function DefaultLayout({ children }) {
                     lengthGhim={lengthGhim}
                     renderImageFile={renderImageFile}
                     handleClickUnGhim={handleClickUnGhim}
+                    handleClickResponsiveValue={handleClickResponsiveValue}
                   />
                 </div>
                 {lengthGhim > 1 && (
@@ -2036,6 +2105,9 @@ function DefaultLayout({ children }) {
                           key={key}
                           renderImageFile={renderImageFile}
                           handleClickUnGhim={handleClickUnGhim}
+                          handleClickResponsiveValue={
+                            handleClickResponsiveValue
+                          }
                         />
                       );
                     })}
@@ -2693,6 +2765,8 @@ function DefaultLayout({ children }) {
               setModalChangeName={setModalChangeName}
               setHiddenSeeAllMembersNavRight={setHiddenSeeAllMembersNavRight}
               setValueImage={setValueImage}
+              handleClickShareNavright={handleClickShareNavright}
+              handleClickDotsNavright={handleClickDotsNavright}
             />
             <SeeAllNavRight
               dataUserFriend={dataUserFriend}

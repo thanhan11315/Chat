@@ -688,17 +688,14 @@ function SeeAllNavRight(props) {
                                 handleClickImage(valueChat);
                               }}
                             >
-                              {valueChat.type === "video" ? (
-                                <video src={valueChat.url} alt="not load" />
-                              ) : (
-                                <>
-                                  <img
-                                    src={valueChat.url}
-                                    alt="img not load"
-                                    className="image"
-                                  />
-                                </>
-                              )}
+                              <>
+                                <img
+                                  src={valueChat.url}
+                                  alt="img not load"
+                                  className="image"
+                                />
+                                <div className="hover-share"></div>
+                              </>
                             </div>
                           </>
                         )}

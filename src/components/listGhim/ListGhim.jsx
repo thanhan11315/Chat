@@ -3,6 +3,7 @@ import { Row } from "antd";
 import { MessageOutlined, CloseOutlined } from "@ant-design/icons";
 import "./ListGhim.scss";
 import LinkPreview from "../linkPreview/LinkPreview";
+import mapImage from "../../assets/images/mapImage.jfif";
 function ListGhim(props) {
   const hiddenAndShowScrollBottom = () => {
     document.querySelector(".button-scroll-bottom").classList.remove("hidden");
@@ -16,7 +17,13 @@ function ListGhim(props) {
   return (
     <>
       {props.value?.type === "image" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
@@ -49,7 +56,13 @@ function ListGhim(props) {
         </Row>
       )}
       {props.value?.type === "video" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
@@ -81,8 +94,14 @@ function ListGhim(props) {
           </div>
         </Row>
       )}
-      {props.value?.file && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+      {props.value?.type === "file" && (
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
@@ -118,7 +137,13 @@ function ListGhim(props) {
         </Row>
       )}
       {props.value?.text_message && !props.value?.is_message_url && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
@@ -156,7 +181,13 @@ function ListGhim(props) {
         </Row>
       )}
       {props.value?.text_message && !props.value?.is_message_url && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
@@ -194,14 +225,21 @@ function ListGhim(props) {
         </Row>
       )}
       {props.value?.type === "placeMaps" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
           >
             <Row className="box-1">
-              <div className="image-message">
-                <MessageOutlined />
+              <div className="image-box">
+                <div className="border-right" />
+                <img alt="img not load" src={mapImage} />
               </div>
               <div className="box-1-1">
                 <div className="title">
@@ -232,7 +270,13 @@ function ListGhim(props) {
         </Row>
       )}
       {props.value?.type === "likeIcon" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}
@@ -270,7 +314,13 @@ function ListGhim(props) {
         </Row>
       )}
       {props.value?.text_message && props.value?.is_message_url && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.value);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.value.id}`}

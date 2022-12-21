@@ -2,9 +2,11 @@ import React from "react";
 import {
   BellOutlined,
   EditOutlined,
+  EllipsisOutlined,
   ExportOutlined,
   PaperClipOutlined,
   SettingOutlined,
+  ShareAltOutlined,
   TeamOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
@@ -335,14 +337,37 @@ function Nav4(props) {
                       !valueChat.delete &&
                       !valueChat.evict && (
                         <>
-                          <OrderInfo
-                            setValueChats={props.setValueChats}
-                            valueChats={props.valueChats}
-                            size="two"
-                            value={valueChat}
-                            key={key}
-                            dataUserMe={props.dataUserMe}
-                          />
+                          <div
+                            className="box-wrapper-share"
+                            style={{ position: "relative" }}
+                          >
+                            <OrderInfo
+                              setValueChats={props.setValueChats}
+                              valueChats={props.valueChats}
+                              size="two"
+                              value={valueChat}
+                              key={key}
+                              dataUserMe={props.dataUserMe}
+                            />
+                            <div className="box-share">
+                              <div
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  props.handleClickShareNavright(valueChat);
+                                }}
+                              >
+                                <ShareAltOutlined />
+                              </div>
+                              <div
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  props.handleClickDotsNavright(e, valueChat);
+                                }}
+                              >
+                                <EllipsisOutlined />
+                              </div>
+                            </div>
+                          </div>
                         </>
                       )}
                   </>
@@ -373,15 +398,30 @@ function Nav4(props) {
                           handleClickImage(valueChat);
                         }}
                       >
-                        {valueChat.type === "video" ? (
-                          <video src={valueChat.url} alt="not load" />
-                        ) : (
-                          <img
-                            src={valueChat.url}
-                            alt="img not load"
-                            className="image"
-                          />
-                        )}
+                        <div className="box-background"></div>
+                        <img
+                          src={valueChat.url}
+                          alt="img not load"
+                          className="image"
+                        />
+                        <div className="box-share">
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              props.handleClickShareNavright(valueChat);
+                            }}
+                          >
+                            <ShareAltOutlined />
+                          </div>
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              props.handleClickDotsNavright(e, valueChat);
+                            }}
+                          >
+                            <EllipsisOutlined />
+                          </div>
+                        </div>
                       </div>
                     </>
                   )
@@ -399,11 +439,13 @@ function Nav4(props) {
               props.valueChats.map((valueChat, key) => {
                 return (
                   <>
-                    {console.log(valueChat.evict)}
                     {valueChat.file &&
                       !valueChat.delete &&
                       !valueChat.evict && (
-                        <>
+                        <div
+                          className="box-wrapper-share"
+                          style={{ position: "relative" }}
+                        >
                           <RenderFile
                             navRight={true}
                             key={key}
@@ -414,7 +456,25 @@ function Nav4(props) {
                             urlFile={props.urlFile}
                             setValueFile={props.setValueFile}
                           />
-                        </>
+                          <div className="box-share">
+                            <div
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                props.handleClickShareNavright(valueChat);
+                              }}
+                            >
+                              <ShareAltOutlined />
+                            </div>
+                            <div
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                props.handleClickDotsNavright(e, valueChat);
+                              }}
+                            >
+                              <EllipsisOutlined />
+                            </div>
+                          </div>
+                        </div>
                       )}
                   </>
                 );
@@ -435,16 +495,39 @@ function Nav4(props) {
                       !valueChat.delete &&
                       !valueChat.evict && (
                         <>
-                          <LinkPreview
-                            url={valueChat.message_url}
-                            size="three"
-                            key={key}
-                            date={valueChat.date}
-                            month={valueChat.month}
-                            year={valueChat.year}
-                            hours={valueChat.hours}
-                            minutes={valueChat.minutes}
-                          />
+                          <div
+                            className="box-wrapper-share"
+                            style={{ position: "relative" }}
+                          >
+                            <LinkPreview
+                              url={valueChat.message_url}
+                              size="three"
+                              key={key}
+                              date={valueChat.date}
+                              month={valueChat.month}
+                              year={valueChat.year}
+                              hours={valueChat.hours}
+                              minutes={valueChat.minutes}
+                            />
+                            <div className="box-share">
+                              <div
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  props.handleClickShareNavright(valueChat);
+                                }}
+                              >
+                                <ShareAltOutlined />
+                              </div>
+                              <div
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  props.handleClickDotsNavright(e, valueChat);
+                                }}
+                              >
+                                <EllipsisOutlined />
+                              </div>
+                            </div>
+                          </div>
                         </>
                       )}
                   </>

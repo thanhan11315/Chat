@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import "./ListGhim.scss";
 import LinkPreview from "../linkPreview/LinkPreview";
+import mapImage from "../../assets/images/mapImage.jfif";
 function Ghim(props) {
   const hiddenAndShowScrollBottom = () => {
     document.querySelector(".button-scroll-bottom").classList.remove("hidden");
@@ -21,7 +22,13 @@ function Ghim(props) {
   return (
     <>
       {props.valueListGhim[0]?.type === "image" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.valueListGhim[0]);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
@@ -66,7 +73,13 @@ function Ghim(props) {
         </Row>
       )}
       {props.valueListGhim[0]?.type === "video" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.valueListGhim[0]);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
@@ -113,8 +126,14 @@ function Ghim(props) {
           </div>
         </Row>
       )}
-      {props.valueListGhim[0].file && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+      {props.valueListGhim[0].type === "file" && (
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.valueListGhim[0]);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
@@ -165,7 +184,13 @@ function Ghim(props) {
       )}
       {props.valueListGhim[0]?.text_message &&
         !props.valueListGhim[0]?.is_message_url && (
-          <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+          <Row
+            className="box-ghim"
+            onClick={() => {
+              hiddenAndShowScrollBottom();
+              props.handleClickResponsiveValue(props.valueListGhim[0]);
+            }}
+          >
             <a
               style={{ width: "calc(100% - 175px)" }}
               href={`#${props.valueListGhim[0].id}`}
@@ -220,7 +245,13 @@ function Ghim(props) {
         )}
       {props.valueListGhim[0]?.text_message &&
         props.valueListGhim[0]?.is_message_url && (
-          <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+          <Row
+            className="box-ghim"
+            onClick={() => {
+              hiddenAndShowScrollBottom();
+              props.handleClickResponsiveValue(props.valueListGhim[0]);
+            }}
+          >
             <a
               style={{ width: "calc(100% - 175px)" }}
               href={`#${props.valueListGhim[0].id}`}
@@ -256,15 +287,24 @@ function Ghim(props) {
           </Row>
         )}
       {props.valueListGhim[0]?.type === "placeMaps" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.valueListGhim[0]);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
           >
             <Row className="box-1">
-              <div className="image-message">
-                <MessageOutlined />
-              </div>
+              <>
+                <div className="image-box">
+                  <div className="border-right" />
+                  <img alt="" src={mapImage} />
+                </div>
+              </>
               <div className="box-1-1">
                 <div className="title">
                   <div className="content">Tin nhắn</div>
@@ -306,7 +346,13 @@ function Ghim(props) {
         </Row>
       )}
       {props.valueListGhim[0]?.type === "likeIcon" && (
-        <Row className="box-ghim" onClick={hiddenAndShowScrollBottom}>
+        <Row
+          className="box-ghim"
+          onClick={() => {
+            hiddenAndShowScrollBottom();
+            props.handleClickResponsiveValue(props.valueListGhim[0]);
+          }}
+        >
           <a
             style={{ width: "calc(100% - 175px)" }}
             href={`#${props.valueListGhim[0].id}`}
