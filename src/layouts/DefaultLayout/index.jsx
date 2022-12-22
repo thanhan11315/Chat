@@ -2721,7 +2721,6 @@ function DefaultLayout({ children }) {
                           </span>
                         ) : (
                           <span
-                            className="not-use"
                             style={{ fontSize: "24px" }}
                             onClick={() => handleClickLikeIcon()}
                           >
@@ -2786,6 +2785,8 @@ function DefaultLayout({ children }) {
               setValueChat={setValueChat}
               setValueChats={setValueChats}
               setValueImage={setValueImage}
+              handleClickShareNavright={handleClickShareNavright}
+              handleClickDotsNavright={handleClickDotsNavright}
             />
             <SeeAllNavRightMembers
               dataUserFriends={dataUserFriends}

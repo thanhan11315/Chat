@@ -350,12 +350,141 @@
         border-radius: 4px;
       }
     }
+    .box-image-video {
+      position: relative;
+      cursor: pointer;
+      width: 67px;
+      height: 67px;
+
+      .ant-image {
+        width: 100%;
+        height: 100%;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .box-share {
+        display: none;
+      }
+
+      &:hover {
+        .box-background {
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.45);
+          width: 100%;
+          height: 100%;
+        }
+        .box-share {
+          background-color: #fff;
+          border-radius: 4px;
+          display: flex;
+          position: absolute;
+          border: 1px solid var(--border);
+          top: 4px;
+          right: 4px;
+          padding: 2px;
+          div {
+            border-radius: 2px;
+            .anticon {
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+            &:hover {
+              background-color: rgb(238, 239, 242);
+            }
+          }
+        }
+      }
+    }
   }
   .content-file {
     margin-top: 16px;
+    .box-wrapper-share {
+      .box-share {
+        display: none;
+      }
+      &:hover {
+        background-color: var(--NG10);
+        .box-background {
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.45);
+          width: 100%;
+          height: 100%;
+        }
+        .box-share {
+          background-color: #fff;
+          border-radius: 4px;
+          display: flex;
+          position: absolute;
+          border: 1px solid var(--border);
+          top: 4px;
+          right: 4px;
+          padding: 2px;
+          div {
+            border-radius: 2px;
+            .anticon {
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+            &:hover {
+              background-color: rgb(238, 239, 242);
+            }
+          }
+        }
+      }
+    }
   }
   .content-link {
     margin-top: 16px;
+    .box-wrapper-share {
+      .box-share {
+        display: none;
+      }
+      &:hover {
+        background-color: var(--NG10);
+        .box-background {
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.45);
+          width: 100%;
+          height: 100%;
+        }
+        .box-share {
+          background-color: #fff;
+          border-radius: 4px;
+          display: flex;
+          position: absolute;
+          border: 1px solid var(--border);
+          top: 4px;
+          right: 4px;
+          padding: 2px;
+          div {
+            border-radius: 2px;
+            .anticon {
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+            &:hover {
+              background-color: rgb(238, 239, 242);
+            }
+          }
+        }
+      }
+    }
   }
   .content-order-info {
     .box-search {
@@ -365,6 +494,42 @@
           border-radius: 20px;
           height: 28px;
           width: 100%;
+        }
+      }
+    }
+    .box-wrapper-share {
+      .box-share {
+        display: none;
+      }
+      &:hover {
+        background-color: var(--NG10);
+        .box-background {
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.45);
+          width: 100%;
+          height: 100%;
+        }
+        .box-share {
+          background-color: #fff;
+          border-radius: 4px;
+          display: flex;
+          position: absolute;
+          border: 1px solid var(--border);
+          top: 4px;
+          right: 4px;
+          padding: 2px;
+          div {
+            border-radius: 2px;
+            .anticon {
+              svg {
+                width: 16px;
+                height: 16px;
+              }
+            }
+            &:hover {
+              background-color: rgb(238, 239, 242);
+            }
+          }
         }
       }
     }

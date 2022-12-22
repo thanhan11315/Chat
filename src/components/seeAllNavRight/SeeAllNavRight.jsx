@@ -3,7 +3,9 @@ import {
   CheckOutlined,
   CloseOutlined,
   DownOutlined,
+  EllipsisOutlined,
   LeftOutlined,
+  ShareAltOutlined,
 } from "@ant-design/icons";
 import { Col, Popover } from "antd";
 import "./SeeAllNavRight.scss";
@@ -642,14 +644,37 @@ function SeeAllNavRight(props) {
                                 </div>
                               </div>
                             )}
-                            <OrderInfo
-                              valueChats={props.valueChats}
-                              setValueChats={props.setValueChats}
-                              key={key}
-                              size="two"
-                              value={valueChat}
-                              dataUserMe={props.dataUserMe}
-                            />
+                            <div
+                              className="box-wrapper-share"
+                              style={{ position: "relative" }}
+                            >
+                              <OrderInfo
+                                valueChats={props.valueChats}
+                                setValueChats={props.setValueChats}
+                                key={key}
+                                size="two"
+                                value={valueChat}
+                                dataUserMe={props.dataUserMe}
+                              />
+                              <div className="box-share">
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    props.handleClickShareNavright(valueChat);
+                                  }}
+                                >
+                                  <ShareAltOutlined />
+                                </div>
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    props.handleClickDotsNavright(e, valueChat);
+                                  }}
+                                >
+                                  <EllipsisOutlined />
+                                </div>
+                              </div>
+                            </div>
                           </>
                         )}
                     </>
@@ -689,12 +714,33 @@ function SeeAllNavRight(props) {
                               }}
                             >
                               <>
+                                <div className="box-background"></div>
                                 <img
                                   src={valueChat.url}
                                   alt="img not load"
                                   className="image"
                                 />
-                                <div className="hover-share"></div>
+                                <div className="box-share">
+                                  <div
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      props.handleClickShareNavright(valueChat);
+                                    }}
+                                  >
+                                    <ShareAltOutlined />
+                                  </div>
+                                  <div
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      props.handleClickDotsNavright(
+                                        e,
+                                        valueChat
+                                      );
+                                    }}
+                                  >
+                                    <EllipsisOutlined />
+                                  </div>
+                                </div>{" "}
                               </>
                             </div>
                           </>
@@ -728,16 +774,40 @@ function SeeAllNavRight(props) {
                                 </div>
                               </div>
                             )}
-                            <RenderFile
-                              navRight={true}
-                              key={key}
-                              renderImageFile={props.renderImageFile}
-                              value={valueChat}
-                              bytesToSize={props.bytesToSize}
-                              setUrlFile={props.setUrlFile}
-                              urlFile={props.urlFile}
-                              setValueFile={props.setValueFile}
-                            />
+
+                            <div
+                              className="box-wrapper-share"
+                              style={{ position: "relative" }}
+                            >
+                              <RenderFile
+                                navRight={true}
+                                key={key}
+                                renderImageFile={props.renderImageFile}
+                                value={valueChat}
+                                bytesToSize={props.bytesToSize}
+                                setUrlFile={props.setUrlFile}
+                                urlFile={props.urlFile}
+                                setValueFile={props.setValueFile}
+                              />
+                              <div className="box-share">
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    props.handleClickShareNavright(valueChat);
+                                  }}
+                                >
+                                  <ShareAltOutlined />
+                                </div>
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    props.handleClickDotsNavright(e, valueChat);
+                                  }}
+                                >
+                                  <EllipsisOutlined />
+                                </div>
+                              </div>
+                            </div>
                           </>
                         )}
                     </>
@@ -769,16 +839,39 @@ function SeeAllNavRight(props) {
                                 </div>
                               </div>
                             )}
-                            <LinkPreview
-                              url={valueChat.message_url}
-                              size="three"
-                              key={key}
-                              date={valueChat.date}
-                              month={valueChat.month}
-                              year={valueChat.year}
-                              hours={valueChat.hours}
-                              minutes={valueChat.minutes}
-                            />
+                            <div
+                              className="box-wrapper-share"
+                              style={{ position: "relative" }}
+                            >
+                              <LinkPreview
+                                url={valueChat.message_url}
+                                size="three"
+                                key={key}
+                                date={valueChat.date}
+                                month={valueChat.month}
+                                year={valueChat.year}
+                                hours={valueChat.hours}
+                                minutes={valueChat.minutes}
+                              />
+                              <div className="box-share">
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    props.handleClickShareNavright(valueChat);
+                                  }}
+                                >
+                                  <ShareAltOutlined />
+                                </div>
+                                <div
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    props.handleClickDotsNavright(e, valueChat);
+                                  }}
+                                >
+                                  <EllipsisOutlined />
+                                </div>
+                              </div>
+                            </div>
                           </>
                         )}
                     </>
