@@ -45,12 +45,12 @@ function RenderFile(props) {
   };
   const handleClickDownLoadFile = (e) => {
     e.stopPropagation();
-    setTimeout(() => {
-      props.setshowBoxIframe(false);
-    }, 1000);
-    setTimeout(() => {
-      props.setshowBoxIframe(true);
-    }, 100);
+    // setTimeout(() => {
+    //   props.setshowBoxIframe(false);
+    // }, 1000);
+    // setTimeout(() => {
+    //   props.setshowBoxIframe(true);
+    // }, 100);
   };
   // const handleClickPlayVideo = () => {
   //   setPlayVideo(true);
