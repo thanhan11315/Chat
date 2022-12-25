@@ -49,7 +49,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -88,7 +91,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -130,7 +136,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -174,7 +183,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -218,7 +230,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -263,7 +278,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -307,7 +325,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>
@@ -333,7 +354,10 @@ function ListGhim(props) {
           </a>
           <div
             className="delete-ghim"
-            onClick={() => props.handleClickUnGhim(props.value)}
+            onClick={(e) => {
+              e.stopPropagation(e);
+              props.handleClickUnGhim(props.value);
+            }}
           >
             <CloseOutlined />
           </div>

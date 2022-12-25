@@ -55,7 +55,10 @@ function Ghim(props) {
           <div className="box-2">
             <div className="delete-ghim">
               <CloseOutlined
-                onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.handleClickUnGhim(props.valueListGhim[0]);
+                }}
               />
             </div>
             {props.lengthGhim > 1 && (
@@ -109,13 +112,17 @@ function Ghim(props) {
           <div className="box-2">
             <div className="delete-ghim">
               <CloseOutlined
-                onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.handleClickUnGhim(props.valueListGhim[0]);
+                }}
               />
             </div>
             {props.lengthGhim > 1 && (
               <div
                 className="ghim"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation(e);
                   document.querySelector(".box-ghim-1").style.display = "none";
                   document.querySelector(".box-ghim-2").style.display = "block";
                 }}
@@ -165,7 +172,10 @@ function Ghim(props) {
           <div className="box-2">
             <div className="delete-ghim">
               <CloseOutlined
-                onClick={() => props.handleClickUnGhim(props.valueListGhim[0])}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  props.handleClickUnGhim(props.valueListGhim[0]);
+                }}
               />
             </div>
             {props.lengthGhim > 1 && (
@@ -222,15 +232,17 @@ function Ghim(props) {
             <div className="box-2">
               <div className="delete-ghim">
                 <CloseOutlined
-                  onClick={() =>
-                    props.handleClickUnGhim(props.valueListGhim[0])
-                  }
+                  onClick={(e) => {
+                    e.stopPropagation(e);
+                    props.handleClickUnGhim(props.valueListGhim[0]);
+                  }}
                 />
               </div>
               {props.lengthGhim > 1 && (
                 <div
                   className="ghim"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     document.querySelector(".box-ghim-1").style.display =
                       "none";
                     document.querySelector(".box-ghim-2").style.display =
@@ -265,9 +277,10 @@ function Ghim(props) {
             <div className="box-2">
               <div className="delete-ghim">
                 <CloseOutlined
-                  onClick={() =>
-                    props.handleClickUnGhim(props.valueListGhim[0])
-                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    props.handleClickUnGhim(props.valueListGhim[0]);
+                  }}
                 />
               </div>
               {props.lengthGhim > 1 && (

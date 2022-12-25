@@ -1,23 +1,20 @@
 import React from "react";
 import "./IframeFile.scss";
 import { CloseOutlined, DownloadOutlined } from "@ant-design/icons";
-import { useState } from "react";
 function IframeFile(props) {
-  const [showBoxIframe, setshowBoxIframe] = useState(true);
   const handleClicCloseIframeFile = () => {
     const element = document.querySelector(".box_iframe_footer");
     element.style.display = "none";
     props.setUrlFile("");
-    setshowBoxIframe(false);
+    props.setshowBoxIframe(false);
     setTimeout(() => {
-      setshowBoxIframe(true);
+      props.setshowBoxIframe(true);
     }, 100);
-    console.log(1);
   };
   return (
     <>
       <div className="box_iframe_footer">
-        {showBoxIframe && (
+        {props.showBoxIframe && (
           <div className="box-iframe">
             <iframe name="iframe_file" className="iframe-file" title="file" />
           </div>

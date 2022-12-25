@@ -41,9 +41,16 @@ function RenderFile(props) {
       `${renderLinkFile(props.value?.file?.name)}${props.value?.file?.url_file}`
     );
     props.setValueFile(props.value);
+    console.log("err");
   };
   const handleClickDownLoadFile = (e) => {
     e.stopPropagation();
+    setTimeout(() => {
+      props.setshowBoxIframe(false);
+    }, 1000);
+    setTimeout(() => {
+      props.setshowBoxIframe(true);
+    }, 100);
   };
   // const handleClickPlayVideo = () => {
   //   setPlayVideo(true);
@@ -90,7 +97,9 @@ function RenderFile(props) {
                   </div>
                   <div
                     className="icon-download"
-                    onClick={(e) => handleClickDownLoadFile(e)}
+                    onClick={(e) => {
+                      handleClickDownLoadFile(e);
+                    }}
                   >
                     <DownloadOutlined />
                   </div>
@@ -168,7 +177,9 @@ function RenderFile(props) {
                   </div>
                   <div
                     className="icon-download"
-                    onClick={(e) => handleClickDownLoadFile(e)}
+                    onClick={(e) => {
+                      handleClickDownLoadFile(e);
+                    }}
                   >
                     <DownloadOutlined />
                   </div>

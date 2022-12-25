@@ -114,6 +114,7 @@ function DefaultLayout({ children }) {
   const [hiddenSeeAllMembersNavRight, setHiddenSeeAllMembersNavRight] =
     useState(true);
   const [valueImage, setValueImage] = useState("");
+  const [showBoxIframe, setshowBoxIframe] = useState(true);
   const d = new Date();
   const makeMinutes = (value) => {
     if (-1 < value && value < 10) {
@@ -1905,6 +1906,8 @@ function DefaultLayout({ children }) {
         setUrlFile={setUrlFile}
         valueFile={valueFile}
         bytesToSize={bytesToSize}
+        showBoxIframe={showBoxIframe}
+        setshowBoxIframe={setshowBoxIframe}
       />
 
       <BoxImage
@@ -2144,15 +2147,16 @@ function DefaultLayout({ children }) {
                             <Row
                               className={`share-response share-response-${key}`}
                             >
-                              {!value.notification_system && (
-                                <div>
-                                  <ExportOutlined
-                                    onClick={() =>
-                                      handleClickResponsiveIcon(value)
-                                    }
-                                  />
-                                </div>
-                              )}
+                              {!value.notification_system &&
+                                !dataUserFriend.notification_system && (
+                                  <div>
+                                    <ExportOutlined
+                                      onClick={() =>
+                                        handleClickResponsiveIcon(value)
+                                      }
+                                    />
+                                  </div>
+                                )}
                               <div onClick={() => handleClickShare(value)}>
                                 <ShareAltOutlined />
                               </div>
@@ -2205,6 +2209,8 @@ function DefaultLayout({ children }) {
                                     setUrlFile={setUrlFile}
                                     urlFile={urlFile}
                                     setValueFile={setValueFile}
+                                    showBoxIframe={showBoxIframe}
+                                    setshowBoxIframe={setshowBoxIframe}
                                   />
                                 )}
                                 {value.type === "likeIcon" && (
