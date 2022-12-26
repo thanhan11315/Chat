@@ -67,6 +67,7 @@ import ImageVideo from "../../assets/images/Video.png";
 import SuperShipLogoNew from "../../assets/images/SuperShipLogoNew.png";
 import ModalSentOrderCode from "../../components/modalSentOrdercode/modalSentOrdercode";
 import BoxImage from "../../components/boxImage/boxImage";
+import DropIcon from "../../components/dropIcon/dropIcon";
 
 const { TextArea } = Input;
 function DefaultLayout({ children }) {
@@ -2374,6 +2375,7 @@ function DefaultLayout({ children }) {
                                       </div>
                                     </div>
                                   )}
+                                <DropIcon />
                               </div>
                             </div>
                           </div>
