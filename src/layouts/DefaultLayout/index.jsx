@@ -2375,7 +2375,13 @@ function DefaultLayout({ children }) {
                                       </div>
                                     </div>
                                   )}
-                                <DropIcon />
+                                <DropIcon
+                                  setValueChats={setValueChats}
+                                  valueChats={valueChats}
+                                  value={value}
+                                  dataUserMe={dataUserMe}
+                                  dataUserFriend={dataUserFriend}
+                                />
                               </div>
                             </div>
                           </div>
