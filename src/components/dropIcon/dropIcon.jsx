@@ -1,8 +1,63 @@
 import React from "react";
 import "./dropIcon.scss";
 import { LikeOutlined } from "@ant-design/icons";
+import ModalDropIcon from "../modalDropicon/modalDropicon";
+import { useState } from "react";
 
 function DropIcon(props) {
+  // const value = {
+  //   drop_icon: [
+  //     {
+  //       ...props.dataUserMe,
+  //       like_icon: 1,
+  //       heart_icon: 1,
+  //       smile_icon: 1,
+  //       icon_new: 1,
+  //     },
+  //   ],
+  // };
+  // const newValueChat1 = (icon) => {
+  //   const newDropIcon = () => {
+  //     if (
+  //       props.value?.drop_icon &&
+  //       props.value.drop_icon?.like_icon &&
+  //       icon === "👍"
+  //     ) {
+  //       const newDropIcon = props.value?.drop_icon.map((value) => {
+  //         if (value.id === props.dataUserMe.id) {
+  //           return { ...value, like_icon: value.like_icon + 1 };
+  //         } else {
+  //           return value;
+  //         }
+  //       });
+  //       return newDropIcon;
+  //     }
+  //     if (
+  //       props.value?.drop_icon &&
+  //       !props.value.drop_icon?.like_icon &&
+  //       icon === "👍"
+  //     ) {
+  //       const newDropIcon = props.value?.drop_icon.map((value) => {
+  //         if (value.id === props.dataUserMe.id) {
+  //           return { ...value, like_icon: 1 };
+  //         } else {
+  //           return value;
+  //         }
+  //       });
+  //       return newDropIcon;
+  //     }
+  //     if (!props.value?.drop_icon && icon === "👍") {
+  //       const newDropIcon = [{ ...props.dataUserMe, like_icon: 1 }];
+  //       return newDropIcon;
+  //     }
+  //   };
+  //   const newValue = {
+  //     ...props.value,
+  //     drop_icon: newDropIcon(),
+  //   };
+  //   return newValue;
+  // };
+
   const newValueChat = (icon) => {
     const newDropIcon = () => {
       // 👍
@@ -14,8 +69,9 @@ function DropIcon(props) {
       ) {
         return {
           drop_icon: {
-            ...props.value.drop_icon,
+            ...props.dataUserMe,
             like_icon: [...props.value.drop_icon?.like_icon, props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -28,6 +84,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             like_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -35,6 +92,7 @@ function DropIcon(props) {
         return {
           drop_icon: {
             like_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -53,6 +111,7 @@ function DropIcon(props) {
               ...props.value.drop_icon?.heart_icon,
               props.dataUserMe,
             ],
+            icon_new: icon,
           },
         };
       }
@@ -65,6 +124,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             heart_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -72,6 +132,7 @@ function DropIcon(props) {
         return {
           drop_icon: {
             heart_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -90,6 +151,7 @@ function DropIcon(props) {
               ...props.value.drop_icon?.smile_icon,
               props.dataUserMe,
             ],
+            icon_new: icon,
           },
         };
       }
@@ -102,6 +164,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             smile_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -109,6 +172,7 @@ function DropIcon(props) {
         return {
           drop_icon: {
             smile_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -126,6 +190,7 @@ function DropIcon(props) {
               ...props.value.drop_icon?.surprise_icon,
               props.dataUserMe,
             ],
+            icon_new: icon,
           },
         };
       }
@@ -138,6 +203,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             surprise_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -145,6 +211,7 @@ function DropIcon(props) {
         return {
           drop_icon: {
             surprise_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -160,6 +227,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             cry_icon: [...props.value.drop_icon?.cry_icon, props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -172,6 +240,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             cry_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -179,6 +248,7 @@ function DropIcon(props) {
         return {
           drop_icon: {
             cry_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -197,6 +267,7 @@ function DropIcon(props) {
               ...props.value.drop_icon?.angry_icon,
               props.dataUserMe,
             ],
+            icon_new: icon,
           },
         };
       }
@@ -209,6 +280,7 @@ function DropIcon(props) {
           drop_icon: {
             ...props.value.drop_icon,
             angry_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -216,6 +288,7 @@ function DropIcon(props) {
         return {
           drop_icon: {
             angry_icon: [props.dataUserMe],
+            icon_new: icon,
           },
         };
       }
@@ -267,8 +340,20 @@ function DropIcon(props) {
     return total;
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    console.log(1);
+    setIsModalOpen(true);
+  };
+
   return (
     <>
+      <ModalDropIcon
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        quantityIcon={props.value.drop_icon}
+        value={props.value}
+      />
       {!props.value.drop_icon && (
         <div className="box-drop-icon">
           <div className="box-list-icon">
@@ -338,7 +423,7 @@ function DropIcon(props) {
       {props.value.drop_icon && (
         <div className="box-dropped-icon">
           <div className="box-choose-icon-new">
-            <div className="icon-new">👍</div>
+            <div className="icon-new"> {props.value.drop_icon?.icon_new}</div>
             <div className="box-list-icon">
               <div className="list-icon">
                 <div
@@ -392,7 +477,7 @@ function DropIcon(props) {
               </div>
             </div>
           </div>
-          <div className="list-icon-show">
+          <div className="list-icon-show" onClick={showModal}>
             <div className="quantity">
               {quantityIcon(
                 props.value.drop_icon?.like_icon?.length,

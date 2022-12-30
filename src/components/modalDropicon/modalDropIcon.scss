@@ -1,0 +1,113 @@
+.box-menu-icon-dropped {
+  padding: 0px 16px;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  .menu-icon-dropped {
+    height: 100%;
+    display: flex;
+    .all {
+      height: 100%;
+      color: var(--tab-txt);
+      cursor: pointer;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: -1px;
+      transition: border-color 0.2s;
+      min-width: fit-content;
+      //   border-bottom: 2px solid transparent;
+    }
+    .box-icon.active {
+      border-bottom: 2px solid var(--B60);
+    }
+    .box-icon {
+      height: 100%;
+      margin-left: 16px;
+      border-bottom: 2px solid transparent;
+      color: var(--tab-txt);
+      cursor: pointer;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: -1px;
+      transition: border-color 0.2s;
+      min-width: fit-content;
+    }
+    .icon {
+      width: 22px;
+      height: 22px;
+    }
+    .number {
+      position: relative;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-left: 4px;
+      top: 0;
+      cursor: pointer;
+    }
+  }
+}
+.wrapper-member-drop {
+  min-height: 200px;
+  max-height: 250px;
+  margin: 10px 5px 10px 20px;
+  .box-member-drop {
+    margin: 10px 15px 10px 0;
+    .member-drop {
+      align-items: center;
+      justify-content: space-between;
+      display: flex;
+      .member {
+        display: flex;
+        .image {
+          width: 48px;
+          height: 48px;
+          cursor: pointer;
+          img {
+            border: 0.5px solid rgb(255, 255, 255);
+            border-radius: 50%;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .name {
+          display: flex;
+          margin: auto 10px;
+          flex-grow: 2;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          word-wrap: break-word;
+        }
+      }
+    }
+    .icon-drop {
+      height: 34px;
+      display: flex;
+      margin: auto 0;
+      .icon {
+        width: 22px;
+        height: 22px;
+        margin: auto 4px;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        span {
+        }
+      }
+      .number {
+        margin: auto 0;
+        span {
+        }
+      }
+    }
+  }
+}
