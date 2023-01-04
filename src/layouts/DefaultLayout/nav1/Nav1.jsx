@@ -87,8 +87,8 @@ function Nav1(props) {
         <li className="not-use">
           <CloudOutlined className="not-use" />
         </li>
-        <li className="not-use">
-          <ToolOutlined className="not-use" />
+        <li>
+          <ToolOutlined />
         </li>
         <li className="not-use">
           <SettingOutlined className="not-use" />

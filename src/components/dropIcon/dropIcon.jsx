@@ -16,287 +16,268 @@ function DropIcon(props) {
   //     },
   //   ],
   // };
-  // const newValueChat1 = (icon) => {
-  //   const newDropIcon = () => {
-  //     if (
-  //       props.value?.drop_icon &&
-  //       props.value.drop_icon?.like_icon &&
-  //       icon === "👍"
-  //     ) {
-  //       const newDropIcon = props.value?.drop_icon.map((value) => {
-  //         if (value.id === props.dataUserMe.id) {
-  //           return { ...value, like_icon: value.like_icon + 1 };
-  //         } else {
-  //           return value;
-  //         }
-  //       });
-  //       return newDropIcon;
-  //     }
-  //     if (
-  //       props.value?.drop_icon &&
-  //       !props.value.drop_icon?.like_icon &&
-  //       icon === "👍"
-  //     ) {
-  //       const newDropIcon = props.value?.drop_icon.map((value) => {
-  //         if (value.id === props.dataUserMe.id) {
-  //           return { ...value, like_icon: 1 };
-  //         } else {
-  //           return value;
-  //         }
-  //       });
-  //       return newDropIcon;
-  //     }
-  //     if (!props.value?.drop_icon && icon === "👍") {
-  //       const newDropIcon = [{ ...props.dataUserMe, like_icon: 1 }];
-  //       return newDropIcon;
-  //     }
-  //   };
-  //   const newValue = {
-  //     ...props.value,
-  //     drop_icon: newDropIcon(),
-  //   };
-  //   return newValue;
-  // };
-
   const newValueChat = (icon) => {
     const newDropIcon = () => {
-      // 👍
-      console.log(props.value.drop_icon?.like_icon);
-      if (
-        props.value?.drop_icon &&
-        props.value.drop_icon?.like_icon &&
-        icon === "👍"
-      ) {
-        return {
-          drop_icon: {
-            ...props.dataUserMe,
-            like_icon: [...props.value.drop_icon?.like_icon, props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
-      if (
-        props.value?.drop_icon &&
-        !props.value.drop_icon?.like_icon &&
-        icon === "👍"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            like_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
+      // like icon
       if (!props.value?.drop_icon && icon === "👍") {
-        return {
-          drop_icon: {
-            like_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
+        const newDropIcon = [
+          { ...props.dataUserMe, like_icon: 1, icon_new: "👍" },
+        ];
+        return newDropIcon;
+      }
+      if (props.value?.drop_icon) {
+        const isIncludeMeDropIcon = props.value?.drop_icon.some(
+          (value) => value.id === props.dataUserMe.id
+        );
+        if (!isIncludeMeDropIcon) {
+          if (icon === "👍") {
+            const newDropIcon = [
+              { ...props.dataUserMe, like_icon: 1, icon_new: "👍" },
+              ...props.value.drop_icon,
+            ];
+            return newDropIcon;
+          }
+        }
+        if (isIncludeMeDropIcon) {
+          if (icon === "👍") {
+            const newDropIcon = props.value?.drop_icon.map((value) => {
+              if (value.id === props.dataUserMe.id) {
+                if (value.like_icon) {
+                  return {
+                    ...value,
+                    like_icon: value.like_icon + 1,
+                    icon_new: "👍",
+                  };
+                } else {
+                  return { ...value, like_icon: 1, icon_new: "👍" };
+                }
+              } else {
+                return value;
+              }
+            });
+            return newDropIcon;
+          }
+        }
       }
 
-      // ❤️
+      // heart icon
 
-      if (
-        props.value?.drop_icon &&
-        props.value.drop_icon?.heart_icon &&
-        icon === "❤️"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            heart_icon: [
-              ...props.value.drop_icon?.heart_icon,
-              props.dataUserMe,
-            ],
-            icon_new: icon,
-          },
-        };
-      }
-      if (
-        props.value?.drop_icon &&
-        !props.value.drop_icon?.heart_icon &&
-        icon === "❤️"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            heart_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
       if (!props.value?.drop_icon && icon === "❤️") {
-        return {
-          drop_icon: {
-            heart_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
+        const newDropIcon = [
+          { ...props.dataUserMe, heart_icon: 1, icon_new: "❤️" },
+        ];
+        return newDropIcon;
+      }
+      if (props.value?.drop_icon) {
+        const isIncludeMeDropIcon = props.value?.drop_icon.some(
+          (value) => value.id === props.dataUserMe.id
+        );
+        if (!isIncludeMeDropIcon) {
+          if (icon === "❤️") {
+            const newDropIcon = [
+              { ...props.dataUserMe, heart_icon: 1, icon_new: "❤️" },
+              ...props.value.drop_icon,
+            ];
+            return newDropIcon;
+          }
+        }
+        if (isIncludeMeDropIcon) {
+          if (icon === "❤️") {
+            const newDropIcon = props.value?.drop_icon.map((value) => {
+              if (value.id === props.dataUserMe.id) {
+                if (value.heart_icon) {
+                  return {
+                    ...value,
+                    heart_icon: value.heart_icon + 1,
+                    icon_new: "❤️",
+                  };
+                } else {
+                  return { ...value, heart_icon: 1, icon_new: "❤️" };
+                }
+              } else {
+                return value;
+              }
+            });
+            return newDropIcon;
+          }
+        }
       }
 
-      // 😄
+      // smile_icon
 
-      if (
-        props.value?.drop_icon &&
-        props.value.drop_icon?.smile_icon &&
-        icon === "😄"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            smile_icon: [
-              ...props.value.drop_icon?.smile_icon,
-              props.dataUserMe,
-            ],
-            icon_new: icon,
-          },
-        };
-      }
-      if (
-        props.value?.drop_icon &&
-        !props.value.drop_icon?.smile_icon &&
-        icon === "😄"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            smile_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
       if (!props.value?.drop_icon && icon === "😄") {
-        return {
-          drop_icon: {
-            smile_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
+        const newDropIcon = [
+          { ...props.dataUserMe, smile_icon: 1, icon_new: "😄" },
+        ];
+        return newDropIcon;
+      }
+      if (props.value?.drop_icon) {
+        const isIncludeMeDropIcon = props.value?.drop_icon.some(
+          (value) => value.id === props.dataUserMe.id
+        );
+        if (!isIncludeMeDropIcon) {
+          if (icon === "😄") {
+            const newDropIcon = [
+              { ...props.dataUserMe, smile_icon: 1, icon_new: "😄" },
+              ...props.value.drop_icon,
+            ];
+            return newDropIcon;
+          }
+        }
+        if (isIncludeMeDropIcon) {
+          if (icon === "😄") {
+            const newDropIcon = props.value?.drop_icon.map((value) => {
+              if (value.id === props.dataUserMe.id) {
+                if (value.smile_icon) {
+                  return {
+                    ...value,
+                    smile_icon: value.smile_icon + 1,
+                    icon_new: "😄",
+                  };
+                } else {
+                  return { ...value, smile_icon: 1, icon_new: "😄" };
+                }
+              } else {
+                return value;
+              }
+            });
+            return newDropIcon;
+          }
+        }
       }
 
-      // 😱
-      if (
-        props.value?.drop_icon &&
-        props.value?.drop_icon?.surprise_icon &&
-        icon === "😱"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            surprise_icon: [
-              ...props.value.drop_icon?.surprise_icon,
-              props.dataUserMe,
-            ],
-            icon_new: icon,
-          },
-        };
-      }
-      if (
-        props.value?.drop_icon &&
-        !props.value.drop_icon?.cry_icon &&
-        icon === "😱"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            surprise_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
+      // surprise_icon 😱
+
       if (!props.value?.drop_icon && icon === "😱") {
-        return {
-          drop_icon: {
-            surprise_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
+        const newDropIcon = [
+          { ...props.dataUserMe, surprise_icon: 1, icon_new: "😱" },
+        ];
+        return newDropIcon;
+      }
+      if (props.value?.drop_icon) {
+        const isIncludeMeDropIcon = props.value?.drop_icon.some(
+          (value) => value.id === props.dataUserMe.id
+        );
+        if (!isIncludeMeDropIcon) {
+          if (icon === "😱") {
+            const newDropIcon = [
+              { ...props.dataUserMe, surprise_icon: 1, icon_new: "😱" },
+              ...props.value.drop_icon,
+            ];
+            return newDropIcon;
+          }
+        }
+        if (isIncludeMeDropIcon) {
+          if (icon === "😱") {
+            const newDropIcon = props.value?.drop_icon.map((value) => {
+              if (value.id === props.dataUserMe.id) {
+                if (value.surprise_icon) {
+                  return {
+                    ...value,
+                    surprise_icon: value.surprise_icon + 1,
+                    icon_new: "😱",
+                  };
+                } else {
+                  return { ...value, surprise_icon: 1, icon_new: "😱" };
+                }
+              } else {
+                return value;
+              }
+            });
+            return newDropIcon;
+          }
+        }
       }
 
-      // 😭
-
-      if (
-        props.value?.drop_icon &&
-        props.value.drop_icon?.cry_icon &&
-        icon === "😭"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            cry_icon: [...props.value.drop_icon?.cry_icon, props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
-      if (
-        props.value?.drop_icon &&
-        !props.value.drop_icon?.cry_icon &&
-        icon === "😭"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            cry_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
+      // cry_icon 😭
       if (!props.value?.drop_icon && icon === "😭") {
-        return {
-          drop_icon: {
-            cry_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
+        const newDropIcon = [
+          { ...props.dataUserMe, cry_icon: 1, icon_new: "😭" },
+        ];
+        return newDropIcon;
+      }
+      if (props.value?.drop_icon) {
+        const isIncludeMeDropIcon = props.value?.drop_icon.some(
+          (value) => value.id === props.dataUserMe.id
+        );
+        if (!isIncludeMeDropIcon) {
+          if (icon === "😭") {
+            const newDropIcon = [
+              { ...props.dataUserMe, cry_icon: 1, icon_new: "😭" },
+              ...props.value.drop_icon,
+            ];
+            return newDropIcon;
+          }
+        }
+        if (isIncludeMeDropIcon) {
+          if (icon === "😭") {
+            const newDropIcon = props.value?.drop_icon.map((value) => {
+              if (value.id === props.dataUserMe.id) {
+                if (value.cry_icon) {
+                  return {
+                    ...value,
+                    cry_icon: value.cry_icon + 1,
+                    icon_new: "😭",
+                  };
+                } else {
+                  return { ...value, cry_icon: 1, icon_new: "😭" };
+                }
+              } else {
+                return value;
+              }
+            });
+            return newDropIcon;
+          }
+        }
       }
 
-      // 😡
-
-      if (
-        props.value?.drop_icon &&
-        props.value.drop_icon?.angry_icon &&
-        icon === "😡"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            angry_icon: [
-              ...props.value.drop_icon?.angry_icon,
-              props.dataUserMe,
-            ],
-            icon_new: icon,
-          },
-        };
-      }
-      if (
-        props.value?.drop_icon &&
-        !props.value.drop_icon?.angry_icon &&
-        icon === "😡"
-      ) {
-        return {
-          drop_icon: {
-            ...props.value.drop_icon,
-            angry_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
-      }
+      // angry_icon 😡
       if (!props.value?.drop_icon && icon === "😡") {
-        return {
-          drop_icon: {
-            angry_icon: [props.dataUserMe],
-            icon_new: icon,
-          },
-        };
+        const newDropIcon = [
+          { ...props.dataUserMe, angry_icon: 1, icon_new: "😡" },
+        ];
+        return newDropIcon;
+      }
+      if (props.value?.drop_icon) {
+        const isIncludeMeDropIcon = props.value?.drop_icon.some(
+          (value) => value.id === props.dataUserMe.id
+        );
+        if (!isIncludeMeDropIcon) {
+          if (icon === "😡") {
+            const newDropIcon = [
+              { ...props.dataUserMe, angry_icon: 1, icon_new: "😡" },
+              ...props.value.drop_icon,
+            ];
+            return newDropIcon;
+          }
+        }
+        if (isIncludeMeDropIcon) {
+          if (icon === "😡") {
+            const newDropIcon = props.value?.drop_icon.map((value) => {
+              if (value.id === props.dataUserMe.id) {
+                if (value.angry_icon) {
+                  return {
+                    ...value,
+                    angry_icon: value.angry_icon + 1,
+                    icon_new: "😡",
+                  };
+                } else {
+                  return { ...value, angry_icon: 1, icon_new: "😡" };
+                }
+              } else {
+                return value;
+              }
+            });
+            return newDropIcon;
+          }
+        }
       }
     };
     const newValue = {
       ...props.value,
-      ...newDropIcon(),
+      drop_icon: newDropIcon(),
     };
+    console.log(newValue);
     return newValue;
   };
 
@@ -317,27 +298,31 @@ function DropIcon(props) {
     console.log(newValueChats);
   };
 
-  const quantityIcon = (like, heart, smile, surprise, cry, angry) => {
+  const quantityIcon = (values) => {
     let total = 0;
-    if (like > 0) {
-      total += like;
+    if (values) {
+      values.forEach((value) => {
+        if (value.like_icon) {
+          total += value.like_icon;
+        }
+        if (value.heart_icon) {
+          total += value.heart_icon;
+        }
+        if (value.smile_icon) {
+          total += value.smile_icon;
+        }
+        if (value.surprise_icon) {
+          total += value.surprise_icon;
+        }
+        if (value.cry_icon) {
+          total += value.cry_icon;
+        }
+        if (value.angry_icon) {
+          total += value.angry_icon;
+        }
+      });
+      return total;
     }
-    if (heart > 0) {
-      total += heart;
-    }
-    if (smile > 0) {
-      total += smile;
-    }
-    if (surprise > 0) {
-      total += surprise;
-    }
-    if (cry > 0) {
-      total += cry;
-    }
-    if (angry > 0) {
-      total += angry;
-    }
-    return total;
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -345,14 +330,68 @@ function DropIcon(props) {
     console.log(1);
     setIsModalOpen(true);
   };
+  const incluleIcon = (values, name) => {
+    let icon = false;
+    if (values) {
+      if (name === "like_icon") {
+        values.forEach((value) => {
+          if (value.like_icon > 0) {
+            icon = true;
+          }
+        });
+        return icon;
+      }
+      if (name === "heart_icon") {
+        values.forEach((value) => {
+          if (value.heart_icon > 0) {
+            icon = true;
+          }
+        });
+        return icon;
+      }
+      if (name === "smile_icon") {
+        values.forEach((value) => {
+          if (value.smile_icon > 0) {
+            icon = true;
+          }
+        });
+        return icon;
+      }
+      if (name === "surprise_icon") {
+        values.forEach((value) => {
+          if (value.surprise_icon > 0) {
+            icon = true;
+          }
+        });
+        return icon;
+      }
+      if (name === "cry_icon") {
+        values.forEach((value) => {
+          if (value.cry_icon > 0) {
+            icon = true;
+          }
+        });
+        return icon;
+      }
+      if (name === "angry_icon") {
+        values.forEach((value) => {
+          if (value.angry_icon > 0) {
+            icon = true;
+          }
+        });
+        return icon;
+      }
+    }
+  };
 
   return (
     <>
       <ModalDropIcon
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-        quantityIcon={props.value.drop_icon}
+        quantityIcon={quantityIcon(props.value.drop_icon)}
         value={props.value}
+        incluleIcon={incluleIcon}
       />
       {!props.value.drop_icon && (
         <div className="box-drop-icon">
@@ -423,7 +462,10 @@ function DropIcon(props) {
       {props.value.drop_icon && (
         <div className="box-dropped-icon">
           <div className="box-choose-icon-new">
-            <div className="icon-new"> {props.value.drop_icon?.icon_new}</div>
+            <div className="icon-new">
+              {" "}
+              {props.value?.drop_icon[0]?.icon_new}
+            </div>
             <div className="box-list-icon">
               <div className="list-icon">
                 <div
@@ -479,23 +521,26 @@ function DropIcon(props) {
           </div>
           <div className="list-icon-show" onClick={showModal}>
             <div className="quantity">
-              {quantityIcon(
-                props.value.drop_icon?.like_icon?.length,
-                props.value.drop_icon?.heart_icon?.length,
-                props.value.drop_icon?.smile_icon?.length,
-                props.value.drop_icon?.surprise_icon?.length,
-                props.value.drop_icon?.cry_icon?.length,
-                props.value.drop_icon?.angry_icon?.length
-              )}
+              {quantityIcon(props.value.drop_icon)}
             </div>
-            {props.value.drop_icon.like_icon && <div className="icon">👍</div>}
-            {props.value.drop_icon.heart_icon && <div className="icon">❤️</div>}
-            {props.value.drop_icon.smile_icon && <div className="icon">😄</div>}
-            {props.value.drop_icon.surprise_icon && (
+            {incluleIcon(props.value.drop_icon, "like_icon") && (
+              <div className="icon">👍</div>
+            )}
+            {incluleIcon(props.value.drop_icon, "heart_icon") && (
+              <div className="icon">❤️</div>
+            )}
+            {incluleIcon(props.value.drop_icon, "smile_icon") && (
+              <div className="icon">😄</div>
+            )}
+            {incluleIcon(props.value.drop_icon, "surprise_icon") && (
               <div className="icon">😱</div>
             )}
-            {props.value.drop_icon.cry_icon && <div className="icon">😭</div>}
-            {props.value.drop_icon.angry_icon && <div className="icon">😡</div>}
+            {incluleIcon(props.value.drop_icon, "cry_icon") && (
+              <div className="icon">😭</div>
+            )}
+            {incluleIcon(props.value.drop_icon, "angry_icon") && (
+              <div className="icon">😡</div>
+            )}
           </div>
         </div>
       )}

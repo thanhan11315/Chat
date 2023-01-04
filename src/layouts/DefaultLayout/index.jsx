@@ -116,6 +116,7 @@ function DefaultLayout({ children }) {
     useState(true);
   const [valueImage, setValueImage] = useState("");
   const [showBoxIframe, setshowBoxIframe] = useState(true);
+  const [tickMessage, setTickMessage] = useState([]);
   const d = new Date();
   const makeMinutes = (value) => {
     if (-1 < value && value < 10) {
@@ -1863,17 +1864,6 @@ function DefaultLayout({ children }) {
     }
   };
 
-  // const getStockQuote = () => {
-  //   const response = await fetch("https://localhost:12345/stocks/MSFT");
-  //   const stockQuote = await response.json();
-
-  //   const output = `<p>${stockQuote.symbol} is at ${stockQuote.price} as of ${stockQuote.asOf}</p>`;
-  //   const stockQuoteElement = document.querySelector(".stockQuote");
-  //   stockQuoteElement.innerHTML = output;
-  // }
-
-  // onContextMenu rightMouseMember
-
   return (
     <>
       <ModalChangeName
@@ -2006,6 +1996,8 @@ function DefaultLayout({ children }) {
         setModalShare={setModalShare}
         handleClickUnGhim={handleClickUnGhim}
         evictMessage={evictMessage}
+        setTickMessage={setTickMessage}
+        tickMessage={tickMessage}
         setValueChatsInRenderAllMessage={setValueChatsInRenderAllMessage}
       />
       {/* RightmouseResponsive */}
@@ -2193,26 +2185,44 @@ function DefaultLayout({ children }) {
                                 }}
                               >
                                 {value.type === "image" && (
-                                  <ImageOrVideo
-                                    value={value}
-                                    bytesToSize={bytesToSize}
-                                    setUrlFile={setUrlFile}
-                                    urlFile={urlFile}
-                                    setValueFile={setValueFile}
-                                    setValueImage={setValueImage}
-                                  />
+                                  <div>
+                                    <ImageOrVideo
+                                      value={value}
+                                      bytesToSize={bytesToSize}
+                                      setUrlFile={setUrlFile}
+                                      urlFile={urlFile}
+                                      setValueFile={setValueFile}
+                                      setValueImage={setValueImage}
+                                    />
+                                    <DropIcon
+                                      setValueChats={setValueChats}
+                                      valueChats={valueChats}
+                                      value={value}
+                                      dataUserMe={dataUserMe}
+                                      dataUserFriend={dataUserFriend}
+                                    />
+                                  </div>
                                 )}
                                 {value.type === "file" && (
-                                  <RenderFile
-                                    renderImageFile={renderImageFile}
-                                    value={value}
-                                    bytesToSize={bytesToSize}
-                                    setUrlFile={setUrlFile}
-                                    urlFile={urlFile}
-                                    setValueFile={setValueFile}
-                                    showBoxIframe={showBoxIframe}
-                                    setshowBoxIframe={setshowBoxIframe}
-                                  />
+                                  <div>
+                                    <RenderFile
+                                      renderImageFile={renderImageFile}
+                                      value={value}
+                                      bytesToSize={bytesToSize}
+                                      setUrlFile={setUrlFile}
+                                      urlFile={urlFile}
+                                      setValueFile={setValueFile}
+                                      showBoxIframe={showBoxIframe}
+                                      setshowBoxIframe={setshowBoxIframe}
+                                    />
+                                    <DropIcon
+                                      setValueChats={setValueChats}
+                                      valueChats={valueChats}
+                                      value={value}
+                                      dataUserMe={dataUserMe}
+                                      dataUserFriend={dataUserFriend}
+                                    />
+                                  </div>
                                 )}
                                 {value.type === "likeIcon" && (
                                   <LikeIcon value={value} />
@@ -2265,6 +2275,13 @@ function DefaultLayout({ children }) {
                                             <div className="date">Đã gửi</div>
                                           </div>
                                         </div>
+                                        <DropIcon
+                                          setValueChats={setValueChats}
+                                          valueChats={valueChats}
+                                          value={value}
+                                          dataUserMe={dataUserMe}
+                                          dataUserFriend={dataUserFriend}
+                                        />
                                       </div>
                                     </>
                                   )}
@@ -2293,6 +2310,13 @@ function DefaultLayout({ children }) {
                                             <div className="date">Đã gửi</div>
                                           </div>
                                         </div>
+                                        <DropIcon
+                                          setValueChats={setValueChats}
+                                          valueChats={valueChats}
+                                          value={value}
+                                          dataUserMe={dataUserMe}
+                                          dataUserFriend={dataUserFriend}
+                                        />
                                       </div>
                                     )}
                                   </>
@@ -2320,6 +2344,13 @@ function DefaultLayout({ children }) {
                                       </div>
                                       <div className="date">Đã gửi</div>
                                     </div>
+                                    <DropIcon
+                                      setValueChats={setValueChats}
+                                      valueChats={valueChats}
+                                      value={value}
+                                      dataUserMe={dataUserMe}
+                                      dataUserFriend={dataUserFriend}
+                                    />
                                   </div>
                                 )}
                                 {value.is_orders_info && (
@@ -2348,6 +2379,13 @@ function DefaultLayout({ children }) {
                                         <div className="date">Đã gửi</div>
                                       </div>
                                     </div>
+                                    <DropIcon
+                                      setValueChats={setValueChats}
+                                      valueChats={valueChats}
+                                      value={value}
+                                      dataUserMe={dataUserMe}
+                                      dataUserFriend={dataUserFriend}
+                                    />
                                   </div>
                                 )}
                                 {!value.is_orders_info &&
@@ -2373,15 +2411,15 @@ function DefaultLayout({ children }) {
                                           <div className="date">Đã gửi</div>
                                         </div>
                                       </div>
+                                      <DropIcon
+                                        setValueChats={setValueChats}
+                                        valueChats={valueChats}
+                                        value={value}
+                                        dataUserMe={dataUserMe}
+                                        dataUserFriend={dataUserFriend}
+                                      />
                                     </div>
                                   )}
-                                <DropIcon
-                                  setValueChats={setValueChats}
-                                  valueChats={valueChats}
-                                  value={value}
-                                  dataUserMe={dataUserMe}
-                                  dataUserFriend={dataUserFriend}
-                                />
                               </div>
                             </div>
                           </div>

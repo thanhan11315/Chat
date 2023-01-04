@@ -6,6 +6,7 @@ import {
   PaperClipOutlined,
   ShareAltOutlined,
   DeleteOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import "./RightmousResponsive.scss";
 
@@ -16,6 +17,29 @@ function RightmouseResponsive(props) {
   };
   const handleClickCopyMessage = (valueResponsiveRightClick) => {
     navigator.clipboard.writeText(valueResponsiveRightClick.text_message);
+  };
+  const handleClickTickMessage = () => {
+    if (props.tickMessage) {
+      const isAddedTickMessage = props.tickMessage.some(
+        (value) => value.id === props.valueResponsiveRightClick.id
+      );
+      if (!isAddedTickMessage) {
+        const newTickMessage = [
+          ...props.tickMessage,
+          props.valueResponsiveRightClick,
+        ];
+        console.log(newTickMessage);
+        props.setTickMessage(newTickMessage);
+      }
+    } else {
+      const newTickMessage = [
+        {
+          ...props.valueResponsiveRightClick,
+        },
+      ];
+      console.log(newTickMessage);
+      props.setTickMessage(newTickMessage);
+    }
   };
   return (
     <>
@@ -54,6 +78,9 @@ function RightmouseResponsive(props) {
             onClick={handleClickShareRightMouse}
           >
             <ShareAltOutlined style={{ marginRight: "5px" }} /> Chia sẻ
+          </div>
+          <div className="share-responsive" onClick={handleClickTickMessage}>
+            <StarOutlined style={{ marginRight: "5px" }} /> Đánh dấu tin nhắn
           </div>
           {props.valueResponsiveRightClick.ghim ? (
             <div

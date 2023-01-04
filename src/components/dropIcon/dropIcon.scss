@@ -1,8 +1,24 @@
+.box-me .box-drop-icon .box-list-icon {
+  right: -50px;
+}
+
+.box-other-people .box-drop-icon .box-list-icon {
+  right: -160px;
+}
+
+.box-me .box-dropped-icon .box-choose-icon-new .box-list-icon {
+  left: -152px;
+}
+
+.box-other-people .box-dropped-icon .box-choose-icon-new .box-list-icon {
+  left: -50px;
+}
+
 .box-drop-icon {
   display: none;
   position: absolute;
   right: 15px;
-  bottom: 5px;
+  bottom: -14px;
   &:hover {
     .list-icon {
       display: flex;
@@ -18,7 +34,6 @@
     position: absolute;
     width: 236px;
     padding-top: 30px;
-    right: -36px;
     top: -10px;
     &:hover {
       .list-icon {
@@ -125,7 +140,6 @@
       position: absolute;
       width: 236px;
       padding-top: 30px;
-      left: -20px;
       bottom: 10px;
       .list-icon {
         padding-bottom: 18px;
