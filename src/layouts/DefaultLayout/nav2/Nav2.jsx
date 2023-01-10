@@ -2,6 +2,11 @@ import React from "react";
 import { Col, Row } from "antd";
 import InPutSearch from "../../../components/inPutSearch/InPutSearch";
 import ImageGroup from "../../../components/imageGroup/ImageGroup";
+import LinkPreview from "../../../components/linkPreview/LinkPreview";
+import GoogleMapTest from "../../../components/googleMap/googleMap";
+import OrderInfo from "../../../components/ordersInfo/OrdersInfo";
+import ImageOrVideo from "../../../components/imageOrVideo/ImageOrVideo";
+import RenderFile from "../../../components/file/RenderFile";
 import {
   UserAddOutlined,
   UsergroupAddOutlined,
@@ -141,9 +146,25 @@ function Nav2(props) {
     }
   };
 
+  const handleClickStar = (e, value) => {
+    e.stopPropagation();
+    const newTickMessage = props.tickMessage.filter(
+      (tickMessage) => tickMessage.id !== value.id
+    );
+    props.setTickMessage(newTickMessage);
+  };
+  const handleClickTickMessage = (e, value) => {
+    props.setDataUserFriend(value.recipients);
+    const element = document.getElementById(`click${value.id}`);
+    setTimeout(() => {
+      element.click();
+      props.handleClickResponsiveValue(value);
+      props.setShowTickMessage(false);
+    }, 1500);
+  };
+
   return (
     <Col className="box-nav-2 box-nav-2-mobile">
-      {console.log("err2")}
       <Row className="search-add">
         <Col className="search">
           <InPutSearch searchFriend={searchFriend} />
@@ -168,7 +189,7 @@ function Nav2(props) {
         )}
       </Row>
       <Row className="title-nav-2">
-        {!props.focusBoxSearch && (
+        {!props.focusBoxSearch && !props.showTickMessage && (
           <Row className="box-title-nav2-1">
             <Col
               className="all title selected"
@@ -186,8 +207,12 @@ function Nav2(props) {
         )}
         {props.focusBoxSearch && (
           <div style={{ fontSize: "0.875rem", fontWeight: "600" }}>
-            {" "}
             Danh sách tìm kiếm{" "}
+          </div>
+        )}
+        {props.showTickMessage && !props.focusBoxSearch && (
+          <div style={{ fontSize: "0.875rem", fontWeight: "600" }}>
+            Tin đánh dấu
           </div>
         )}
         <Row className="box-title-nav2-2">
@@ -206,6 +231,7 @@ function Nav2(props) {
       </Row>
       <div className="overflow">
         {props.dataUserFriends &&
+          !props.showTickMessage &&
           !props.focusBoxSearch &&
           props.dataUserFriends?.map((value, key) => {
             return (
@@ -439,6 +465,118 @@ function Nav2(props) {
               </Row>
             );
           })}
+        <>
+          {props.showTickMessage &&
+            !props.focusBoxSearch &&
+            props.tickMessage.map((value) => {
+              return (
+                <>
+                  <a
+                    href={`#${value.id}`}
+                    id={`click${value.id}`}
+                    style={{ display: "none" }}
+                  >
+                    .
+                  </a>
+                  <div
+                    className="box-tick-message"
+                    onClick={(e) => {
+                      handleClickTickMessage(e, value);
+                    }}
+                  >
+                    <div className="box-image">
+                      <div className="image">
+                        <img src={value.avatar} alt="not load" />
+                      </div>
+                    </div>
+
+                    <div className="box-content">
+                      <div className="box-name-time-icon">
+                        <div className="name-time">
+                          <span className="name">{value.name}</span> -{" "}
+                          <span className="time">{`${value.hours}:${value.minutes} - ${value.date}/${value.month}/${value.year}`}</span>
+                        </div>
+                        <div
+                          className="box-icon-start"
+                          onClick={(e) => handleClickStar(e, value)}
+                        >
+                          <div className="icon-start">⭐</div>
+                        </div>
+                      </div>
+                      <div className="message">
+                        {value.type === "image" && (
+                          <ImageOrVideo
+                            value={value}
+                            bytesToSize={props.bytesToSize}
+                            setUrlFile={props.setUrlFile}
+                            urlFile={props.urlFile}
+                            setValueFile={props.setValueFile}
+                            setValueImage={props.setValueImage}
+                            size="tickMessage"
+                          />
+                        )}
+                        {value.type === "file" && (
+                          <RenderFile
+                            renderImageFile={props.renderImageFile}
+                            value={value}
+                            bytesToSize={props.bytesToSize}
+                            setUrlFile={props.setUrlFile}
+                            urlFile={props.urlFile}
+                            setValueFile={props.setValueFile}
+                            showBoxIframe={props.showBoxIframe}
+                            setshowBoxIframe={props.setshowBoxIframe}
+                            size="tickMessage"
+                          />
+                        )}
+                        {value.is_message_url && (
+                          <LinkPreview
+                            textMessage={value.text_message}
+                            url={value.message_url}
+                            size="tickMessage"
+                          />
+                        )}
+                        {value.type === "placeMaps" && (
+                          <GoogleMapTest
+                            dataUserMe={props.dataUserMe}
+                            latitude={value.latitude}
+                            longitude={value.longitude}
+                            size="tickMessage"
+                          />
+                        )}
+                        {value.is_orders_info && (
+                          <OrderInfo
+                            numberOrder={props.getOrderCode(value.text_message)}
+                            valueChats={props.valueChats}
+                            setValueChats={props.setValueChats}
+                            value={value}
+                            size="tickMessage"
+                            dataUserMe={props.dataUserMe}
+                          />
+                        )}
+                        {value.text_message &&
+                          !value.is_message_url &&
+                          !value.is_orders_info &&
+                          !value.is_includes_order_info && (
+                            <div className="content-chat">
+                              <div className="box-make-hidden-content-chat">
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: value.text_message,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                      </div>
+                      <div className="name-friend">
+                        Chat {value.recipients.name}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+        </>
       </div>
       <div />
     </Col>

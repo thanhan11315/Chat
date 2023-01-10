@@ -6,6 +6,7 @@ import {
   CloudOutlined,
   ToolOutlined,
   SettingOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 import React from "react";
 import { Popover } from "antd";
@@ -31,6 +32,21 @@ function Nav1(props) {
         <p>Đăng Xuất</p>
       </div>
     </>
+  );
+  const content1 = (
+    <div className="box-list-tools">
+      <div
+        className="box-tool"
+        onClick={() => {
+          props.setShowTickMessage(true);
+        }}
+      >
+        <div className="icon">
+          <StarOutlined />
+        </div>
+        <div className="content">Tin đánh dấu</div>
+      </div>
+    </div>
   );
   return (
     <Col className="box-nav-1">
@@ -71,6 +87,7 @@ function Nav1(props) {
           onClick={() => {
             const hiddenBoxNav2 = document.querySelector(".box-nav-2");
             hiddenBoxNav2.classList.remove("hiddenBoxNav2");
+            props.setShowTickMessage(false);
           }}
           className="active"
         >
@@ -87,9 +104,11 @@ function Nav1(props) {
         <li className="not-use">
           <CloudOutlined className="not-use" />
         </li>
-        <li>
-          <ToolOutlined />
-        </li>
+        <Popover placement="right" content={content1} trigger="click">
+          <li>
+            <ToolOutlined />
+          </li>
+        </Popover>
         <li className="not-use">
           <SettingOutlined className="not-use" />
         </li>

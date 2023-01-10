@@ -107,9 +107,11 @@ function LinkPreview(props) {
         <div className="style-2">
           <div className="box-link-preview">
             <div className="text-link">
-              <a href={valueLink?.url} target="blank">
-                {valueLink?.url}
-              </a>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: props.textMessage,
+                }}
+              />
             </div>
             <div style={{ display: "flex" }}>
               <div className="card-link-img">
@@ -267,6 +269,42 @@ function LinkPreview(props) {
               <div className="card-content">
                 <div className="title">{valueLink?.title}</div>
                 <div className="domain">{valueLink?.domain}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {props.size === "tickMessage" && (
+        <div className="style-2">
+          <div className="box-link-preview">
+            <div className="text-link">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: props.textMessage,
+                }}
+              />
+            </div>
+            <div style={{ display: "flex" }}>
+              <div className="card-link-img">
+                <img
+                  src={
+                    valueLink?.images && valueLink?.images[0]
+                      ? valueLink?.images[0]
+                      : valueLink?.images
+                  }
+                  alt=""
+                />
+              </div>
+              <div className="card-content">
+                <div target="blank">
+                  <div className="title">{valueLink?.title}</div>
+                </div>
+                <div target="blank">
+                  <div className="description">{valueLink?.description}</div>
+                </div>
+                <div target="blank">
+                  <div className="domain">{valueLink?.domain}</div>
+                </div>
               </div>
             </div>
           </div>

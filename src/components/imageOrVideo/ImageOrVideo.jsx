@@ -17,37 +17,69 @@ function ImageOrVideo(props) {
     // );
   };
   return (
-    <div className="hover-image-chat">
-      <>
-        {props.value.type === "image" && (
-          <img
-            src={props.value.url}
-            alt="img not load"
-            onClick={() => {
-              handleClickImage(props.value);
-            }}
+    <>
+      {props.size === "one" && (
+        <div className="hover-image-chat">
+          <>
+            {props.value.type === "image" && (
+              <img
+                src={props.value.url}
+                alt="img not load"
+                onClick={() => {
+                  handleClickImage(props.value);
+                }}
+                style={{
+                  objectFit: "cover",
+                  cursor: "pointer",
+                  marginBottom: "8px",
+                  borderRadius: "10px",
+                }}
+              />
+            )}
+          </>
+          <div
             style={{
-              objectFit: "cover",
-              maxHeight: "390px",
-              cursor: "pointer",
-              marginBottom: "8px",
-              borderRadius: "10px",
+              display: "flex",
+              justifyContent: "space-between",
             }}
-          />
-        )}
-      </>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div className="date">
-          {props.value.hours}:{makeMinutes(props.value.minutes)}
+          >
+            <div className="date">
+              {props.value.hours}:{makeMinutes(props.value.minutes)}
+            </div>
+            <div className="date">Đã gửi</div>
+          </div>
         </div>
-        <div className="date">Đã gửi</div>
-      </div>
-    </div>
+      )}
+      {props.size === "tickMessage" && (
+        <div className="hover-image-chat">
+          <>
+            {props.value.type === "image" && (
+              <img
+                src={props.value.url}
+                alt="img not load"
+                style={{
+                  objectFit: "cover",
+                  cursor: "pointer",
+                  marginBottom: "8px",
+                  borderRadius: "10px",
+                }}
+              />
+            )}
+          </>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div className="date">
+              {props.value.hours}:{makeMinutes(props.value.minutes)}
+            </div>
+            <div className="date">Đã gửi</div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

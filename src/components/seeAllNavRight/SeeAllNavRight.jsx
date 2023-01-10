@@ -788,6 +788,7 @@ function SeeAllNavRight(props) {
                                 setUrlFile={props.setUrlFile}
                                 urlFile={props.urlFile}
                                 setValueFile={props.setValueFile}
+                                size="one"
                               />
                               <div className="box-share">
                                 <div

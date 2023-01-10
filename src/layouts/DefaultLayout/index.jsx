@@ -117,6 +117,7 @@ function DefaultLayout({ children }) {
   const [valueImage, setValueImage] = useState("");
   const [showBoxIframe, setshowBoxIframe] = useState(true);
   const [tickMessage, setTickMessage] = useState([]);
+  const [showTickMessage, setShowTickMessage] = useState(false);
   const d = new Date();
   const makeMinutes = (value) => {
     if (-1 < value && value < 10) {
@@ -1840,7 +1841,6 @@ function DefaultLayout({ children }) {
     const scale1 = 1.1;
     const scale2 = 1;
     const elementId = document.getElementById(value.id);
-    console.log(elementId);
     const elementBoxAll = elementId.querySelector(".box-content-all-chat");
     const elementBackGroundOrtherPeople = elementId.querySelector(
       ".other-people .content-chat"
@@ -2036,7 +2036,11 @@ function DefaultLayout({ children }) {
 
       <Row id="wrapper">
         {/* Nav1 */}
-        <Nav1 dataUserMe={dataUserMe} handleClickImgChat={handleClickImgChat} />
+        <Nav1
+          dataUserMe={dataUserMe}
+          handleClickImgChat={handleClickImgChat}
+          setShowTickMessage={setShowTickMessage}
+        />
         {/* Nav1 */}
 
         {/* Nav2 */}
@@ -2049,11 +2053,28 @@ function DefaultLayout({ children }) {
           handleClickCreateGroup={handleClickCreateGroup}
           date={date}
           dataUserMe={dataUserMe}
+          getOrderCode={getOrderCode}
+          valueChats={valueChats}
+          setValueChats={setValueChats}
           focusBoxSearch={focusBoxSearch}
           setFocusBoxSearch={setFocusBoxSearch}
           dataUserFriendsStorage={dataUserFriendsStorage}
           setDataUserFriendsStorageAll={setDataUserFriendsStorageAll}
           dataUserFriend={dataUserFriend}
+          tickMessage={tickMessage}
+          setTickMessage={setTickMessage}
+          bytesToSize={bytesToSize}
+          setUrlFile={setUrlFile}
+          urlFile={urlFile}
+          setValueFile={setValueFile}
+          setValueImage={setValueImage}
+          renderImageFile={renderImageFile}
+          showBoxIframe={showBoxIframe}
+          setshowBoxIframe={setshowBoxIframe}
+          setShowTickMessage={setShowTickMessage}
+          showTickMessage={showTickMessage}
+          setDataUserFriend={setDataUserFriend}
+          handleClickResponsiveValue={handleClickResponsiveValue}
         />
         {/* Nav2 */}
         {dataUserFriend && (
@@ -2193,6 +2214,7 @@ function DefaultLayout({ children }) {
                                       urlFile={urlFile}
                                       setValueFile={setValueFile}
                                       setValueImage={setValueImage}
+                                      size="one"
                                     />
                                     <DropIcon
                                       setValueChats={setValueChats}
@@ -2214,6 +2236,7 @@ function DefaultLayout({ children }) {
                                       setValueFile={setValueFile}
                                       showBoxIframe={showBoxIframe}
                                       setshowBoxIframe={setshowBoxIframe}
+                                      size="one"
                                     />
                                     <DropIcon
                                       setValueChats={setValueChats}
@@ -2329,6 +2352,7 @@ function DefaultLayout({ children }) {
                                           dataUserMe={dataUserMe}
                                           latitude={value.latitude}
                                           longitude={value.longitude}
+                                          size="one"
                                         />
                                       </div>
                                     </div>
@@ -2706,7 +2730,6 @@ function DefaultLayout({ children }) {
                 </Row>
                 <div className={`nav-chat ${focusInput}`}>
                   {/* Responsive-input */}
-
                   {ResponsiveInputValue && (
                     <ResponsiveInput
                       ResponsiveInputValue={ResponsiveInputValue}
@@ -2715,7 +2738,6 @@ function DefaultLayout({ children }) {
                       size="one"
                     />
                   )}
-
                   {isValidUrl(valueChat) && valueDeleteLink && (
                     <LinkPreview
                       url={getUrlFromValueChat(valueChat)}

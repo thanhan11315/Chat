@@ -81,3 +81,49 @@
     display: none;
   }
 }
+
+.ant-popover-content .ant-popover-title {
+  min-width: 10px;
+}
+.box-list-tools {
+  padding: 12px;
+  .box-tool {
+    cursor: pointer;
+    width: 88px;
+    height: 90px;
+    margin: 4px;
+    background-color: var(--button-tertiary-neutral-normal);
+    border-radius: 4px;
+    padding: 16px 8px 0;
+    box-sizing: border-box;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: pre-line;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &:hover {
+      background-color: #f3f5f6;
+    }
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .anticon {
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    .content {
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      white-space: pre-line;
+    }
+  }
+}

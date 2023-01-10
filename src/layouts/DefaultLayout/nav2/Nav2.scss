@@ -137,3 +137,97 @@
   cursor: pointer;
   border-radius: 4px;
 }
+#wrapper .box-nav-2 .box-tick-message {
+  cursor: pointer;
+  padding: 10px 14px;
+  display: flex;
+  .box-image {
+    .image {
+      img {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid var(--WA100);
+      }
+    }
+  }
+  .box-content {
+    max-width: calc(100% - 40px);
+    min-width: calc(100% - 40px);
+    margin-left: 8px;
+    .box-name-time-icon {
+      display: flex;
+      justify-content: space-between;
+      .name-time {
+        .name {
+          color: var(--text-primary);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          word-wrap: break-word;
+          font-size: 0.875rem;
+          font-weight: 600;
+          line-height: 1.5;
+          word-break: break-all;
+        }
+        .time {
+          font-size: 0.875rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: var(--text-primary);
+        }
+      }
+      .box-icon-start {
+        display: none;
+        height: fit-content;
+        background-color: #fff;
+        border-radius: 2px;
+        .icon-start {
+          margin: 0 5px;
+        }
+      }
+    }
+    .message {
+    }
+    .name-friend {
+      color: #7589a3;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  }
+  &:hover {
+    background-color: #f3f5f6;
+    .box-content .box-name-time-icon .box-icon-start {
+      display: block;
+    }
+  }
+  border-bottom: 1px solid var(--border);
+}
+
+.box-tick-message .box-link-preview {
+  margin-bottom: 5px;
+  .card-content .description {
+    display: none;
+  }
+}
+
+.box-tick-message .box-content .message .hover-image-chat {
+  div {
+    display: none;
+  }
+  img {
+    max-height: 87px;
+  }
+}
+
+.box-tick-message .box-content .message .box-file {
+  background-color: inherit;
+  max-width: 100%;
+  .boxcontent-file .box-content-file-title .box-information .icon-download {
+    display: none;
+  }
+}
